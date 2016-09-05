@@ -1,0 +1,12 @@
+{"file":"hallPool.png","frames":{
+"0":{"x":20,"y":0,"w":17,"h":24,"offX":1,"offY":0,"sourceW":18,"sourceH":24},
+"1":{"x":36,"y":52,"w":16,"h":24,"offX":1,"offY":0,"sourceW":18,"sourceH":24},
+"2":{"x":0,"y":52,"w":16,"h":24,"offX":1,"offY":0,"sourceW":18,"sourceH":24},
+"3":{"x":18,"y":52,"w":16,"h":24,"offX":1,"offY":0,"sourceW":18,"sourceH":24},
+"4":{"x":0,"y":0,"w":18,"h":24,"offX":0,"offY":0,"sourceW":18,"sourceH":24},
+"5":{"x":0,"y":78,"w":15,"h":24,"offX":2,"offY":0,"sourceW":18,"sourceH":24},
+"6":{"x":19,"y":26,"w":17,"h":24,"offX":1,"offY":0,"sourceW":18,"sourceH":24},
+"7":{"x":38,"y":26,"w":17,"h":24,"offX":1,"offY":0,"sourceW":18,"sourceH":24},
+"8":{"x":39,"y":0,"w":17,"h":24,"offX":1,"offY":0,"sourceW":18,"sourceH":24},
+"9":{"x":0,"y":26,"w":17,"h":24,"offX":1,"offY":0,"sourceW":18,"sourceH":24},
+",":{"x":17,"y":78,"w":10,"h":12,"offX":0,"offY":12,"sourceW":10,"sourceH":24}}}

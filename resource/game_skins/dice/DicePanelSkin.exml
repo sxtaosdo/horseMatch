@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DicePanelSkin" width="953" height="549" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="1567c8cc8e3" />
+	<e:Image source="DiceCharBg_png" x="11" y="117" />
+	<e:RadioButton label="" x="9" y="108" id="diceDoingBtn">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="diceDoingBtn1_png" source.down="diceDoingBtn2_png" />
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+			</e:Skin>
+		</e:skinName>
+	</e:RadioButton>
+	<e:RadioButton label="" x="70" y="109" id="diceCompleteBtn">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="diceCompleteBtn1_png" source.down="diceCompleteBtn2_png" />
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+			</e:Skin>
+		</e:skinName>
+	</e:RadioButton>
+	<e:Image source="diceBg_png" x="132" y="48" />
+	<e:Image source="diceImage1_png" x="0" y="20" touchEnabled="flase" />
+	<e:Image source="diceImage2_png" x="104" y="335" touchEnabled="flase" />
+	<e:Image source="diceImage3_png" x="664" y="0" touchEnabled="flase" />
+	<e:Button id="closeBtn" label="" x="899" y="20">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="diceCloseBtn1_png" source.down="diceCloseBtn2_png" />
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label text="version 0.0.0.1" x="29" y="529" size="12" />
+	<e:Label text="" x="327" y="62" width="386" height="73" size="14" />
+	<e:Image source="diceTimePanel_png" x="0" y="0" />
+	<e:Button id="singeBtn" label="" x="858" y="169">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="diceSingeBtn_png" source.down="diceSingeBtn_png" />
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="getBtn" label="" x="848" y="251">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="diceGetBtn_png" source.down="diceGetBtn_png" />
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="infoBtn" label="" x="851" y="333">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="diceInfoBtn_png" source.down="diceInfoBtn_png" />
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Scroller id="contentScroller" width="745" height="354" x="146" y="156" viewport="{contentGroup}" bounces="false">
+		<e:Group id="contentGroup" />
+	</e:Scroller>
+</e:Skin>

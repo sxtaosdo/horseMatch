@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>高频赛马</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <style>
+        html, body {
+            -ms-touch-action: none;
+            background: #ffffff;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+
+    <!--这个标签为通过egret提供的第三方库的方式生成的 javascript 文件。删除 modules_files 标签后，库文件加载列表将不会变化，请谨慎操作！-->
+    <!--modules_files_start-->
+	<script egret="lib" src="libs/modules/egret/egret.js" src-release="libs/modules/egret/egret.min.js"></script>
+	<script egret="lib" src="libs/modules/egret/egret.web.js" src-release="libs/modules/egret/egret.web.min.js"></script>
+	<script egret="lib" src="libs/modules/eui/eui.js" src-release="libs/modules/eui/eui.min.js"></script>
+	<script egret="lib" src="libs/modules/res/res.js" src-release="libs/modules/res/res.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.js" src-release="libs/modules/game/game.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.web.js" src-release="libs/modules/game/game.web.min.js"></script>
+	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
+	<script egret="lib" src="libs/modules/socket/socket.js" src-release="libs/modules/socket/socket.min.js"></script>
+	<script egret="lib" src="libs/modules/dragonBones/dragonBones.js" src-release="libs/modules/dragonBones/dragonBones.min.js"></script>
+	<!--modules_files_end-->
+
+    <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
+    <!--other_libs_files_start-->
+    <script egret="lib" src="libs/greensock/greensock.min.js" src-release="libs/greensock/greensock.min.js"></script>
+	<script egret="lib" src="libs/protobuf/Long.min.js" src-release="libs/protobuf/Long.min.js"></script>
+	<script egret="lib" src="libs/protobuf/ByteBufferAB.min.js" src-release="libs/protobuf/ByteBufferAB.min.js"></script>
+	<script egret="lib" src="libs/protobuf/ProtoBuf.min.js" src-release="libs/protobuf/ProtoBuf.min.js"></script>
+    <!--other_libs_files_end-->
+
+    <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
+    <!--game_files_start-->
+	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/ai/entity/BaseGameEntity.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/ai/entity/EntityManager.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/ai/entity/MovingEntity.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/ai/fsm/IState.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/ai/fsm/StateMachine.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/ai/messaging/MessageDispatcher.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/ai/messaging/MessageType.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/ai/messaging/Telegram.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/ai/utils/TreeSet.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/ai/v2d/Vector2Ds.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/interface/IBase.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/interface/IBaseGameEntity.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/interface/ICompositor.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/base/interface/IMovingEneity.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/data/ClientModel.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/data/ConfigModel.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/data/def/EntityType.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/data/def/GameStateDef.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/data/def/StateDef.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/data/LanguageConfig.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/data/UserModel.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/data/vo/HorseVo.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/data/vo/MatchPlayerVo.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/event/BaseEvent.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/event/GameDispatcher.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/event/GameEvent.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/GameMain.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/BaseComponent.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/game/BetView.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/game/DeabedPanel.js"></script>
+	<script egret="game" src="bin-debug/Main.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/game/GameWorld.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/game/JpBarPanel.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/game/PlayerList.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/game/ResultView.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/loading/LoadingUI.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/login/LoginView.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/renderer/HorseBetInfoRenderer.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/renderer/HorseEntity.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/renderer/RoomBtnItemRenderer.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/top/TopView.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/Alert.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/BindPanel.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/DiceAlert.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/HelpPanel.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/HitInfoPanel.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/IWindow.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/MailPanel.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/OperationPanel.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/RankPanel.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/window/WindowManager.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/native/AndroidInterface.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/native/INative.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/native/InterfaceManager.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/native/IosInterface.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/native/WebInterface.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/native/WxInterface.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/net/ConnectionManager.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/net/handler/SocketIoHandler.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/net/handler/WebSocketHandler.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/net/ISocket.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/net/message/BaseMessage.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/net/message/MsgLoginReq.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/net/MsgReceiveHelper.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/net/MsgSendHelper.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/net/MsgType.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/net/service/LocalService.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/utils/BitMapUtil.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/utils/ButtonUtils.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/utils/HitTestUtils.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/utils/MatrixUtils.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/utils/PcHelper.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/utils/RandomUtil.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/utils/RollNumber.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/utils/StringUtils.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/utils/TimerManager.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/utils/TimeUtils.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/test/TestEvent.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/test/TestWindow.js"></script>
+	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
+	<script egret="game" src="bin-debug/com/ourgame/horseRace/model/hall/HallView.js"></script>
+	<!--game_files_end-->
+</head>
+<body>
+
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+         data-entry-class="Main"
+         data-orientation="landscape"
+         data-scale-mode="showAll"
+         data-frame-rate="30"
+         data-content-width="1270"
+         data-content-height="720"
+         data-show-paint-rect="false"
+         data-multi-fingered="2"
+         data-show-fps="true" data-show-log="false"
+         data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.3">
+    </div>
+    <script>
+        //默认使用 WebGL 渲染模式
+        egret.runEgret({renderMode:"webgl"});
+    </script>
+</body>
+</html>

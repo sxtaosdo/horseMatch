@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HallViewSkin" width="800" height="600" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="100%" height="100%" x="0" y="0"/>
+	<e:Label text="赛马大厅" y="87" size="60" horizontalCenter="0"/>
+	<e:Button id="btn1" label="固定" x="140" y="248"/>
+	<e:Button id="btn2" label="随机" x="560" y="248"/>
+	<e:Label text="每匹马的胜率一样，竞猜简单，中奖容易" x="68" y="336" width="253" height="129"/>
+	<e:Label text="每只狗的获胜概率不一样，竞猜更刺激，奖金更高！" x="464" y="332" width="276" height="96"/>
+</e:Skin>

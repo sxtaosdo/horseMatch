@@ -1,0 +1,19 @@
+﻿{
+"mc": {
+	"starEffct": {
+		"frameRate":24,
+		"labels": [
+		],
+		"frames": [
+			{"res":"starEffct0000","x":4.6,"y":23.8,"duration":3},
+			{"res":"starEffct0003","x":-2.4,"y":48.8,"duration":3},
+			{"res":"starEffct0006","x":-2.4,"y":24.8,"duration":3}
+		]
+	}
+},
+"res": {
+	"starEffct0000":{"x":0,"y":0,"w":126,"h":52},
+	"starEffct0003":{"x":0,"y":52,"w":133,"h":28},
+	"starEffct0006":{"x":133,"y":52,"w":123,"h":51}
+}
+}
