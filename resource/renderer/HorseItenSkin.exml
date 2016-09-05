@@ -7,5 +7,7 @@
 	<e:Label text="奖励" x="0" y="154" size="20"/>
 	<e:Label id="stateText" text="良好" x="70" y="130" width="80" textAlign="left" size="20"/>
 	<e:Label id="numText" text="x5.25" x="70" y="153" width="80" textAlign="left" size="20"/>
+	<e:Label id="betText" text="0" x="70" y="175" width="80" textAlign="left" size="20"/>
 	<e:Image id="image" width="95" height="82" horizontalCenter="2.5" verticalCenter="-32"/>
+	<e:Label text="标签" x="0" y="176" size="20"/>
 </e:Skin>

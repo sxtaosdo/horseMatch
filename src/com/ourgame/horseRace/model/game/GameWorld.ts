@@ -115,7 +115,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 element.displayObject.x += this.tempSpeed;
             });
             this.tempSpeed += 0.02;
-            console.log("this.tempSpeed:" + this.tempSpeed);
+            // console.log("this.tempSpeed:" + this.tempSpeed);
         }
     }
 

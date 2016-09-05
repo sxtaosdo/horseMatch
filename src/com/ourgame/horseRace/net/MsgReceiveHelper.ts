@@ -36,31 +36,6 @@ class MsgReceiveHelper {
                 var tick = cls.decode(body.buffer);
                 var temp: number = parseInt(tick.time);
                 break;
-            // case MsgType.ACK_LOGIN:
-            // cls = msg.build("AckLogin");
-            // var login = cls.decode(body.buffer);
-            // if (login.result == 0) {
-            //     UserModel.instance.money = parseInt(login.userMoney);
-            //     UserModel.instance.userName = login.username;
-            //     // ClientModel.instance.setLoginState(login.result);
-            //     // ClientModel.instance.setFree(login.freeInfo);
-            // } else {//登陆失败
-            //     // login.reason
-            //     console.warn("登陆服务器失败");
-            //     InterfaceManager.instance.closeApp();
-            //     switch (login.reason) {
-            //         case 0://成功
-            //             break;
-            //         case 1://游戏维护中
-            //             InterfaceManager.instance.closeApp();
-            //             break;
-            //         case 2://解析证书失败
-            //             InterfaceManager.instance.closeApp();
-            //             break;
-            //     }
-            //     // ClientModel.instance.openAlert();
-            // }
-            // break;
             case MsgType.GLFS_PeriodChangeACK:
                 // HallClientModel.instance.onGoResult(body);
                 break;
@@ -68,10 +43,10 @@ class MsgReceiveHelper {
                 // HallClientModel.instance.onDiceInfo(body);
                 break;
             case MsgType.A_LOGIN:
-                // GameDispatcher.send(BaseEvent.LOGIN_RESULT_EVENT);
+                GameDispatcher.send(BaseEvent.LOGIN_RESULT_EVENT);
                 break;
             case MsgType.A_GAME_POOL:
-                // HallClientModel.instance.onPool(body.value);
+            // HallClientModel.instance.onPool(body.value);
         }
     }
 }

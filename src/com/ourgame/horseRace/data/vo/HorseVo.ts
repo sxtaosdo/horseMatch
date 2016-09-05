@@ -23,7 +23,7 @@ class HorseVo {
 	/**纹理 */
 	public mcName: string;
 	/**本局信息 */
-	public math:MatchPlayerVo
+	public math: MatchPlayerVo;
 
 	public constructor() {
 

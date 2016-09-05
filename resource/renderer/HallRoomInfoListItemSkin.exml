@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="HallRoomInfoListItemSkin" width="212" height="84" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="lobbyRoonListItemBg_png" x="00" y="3"/>
-	<e:Label id="infoText" text="" x="7" y="9" width="198" height="66" textAlign="center" verticalAlign="top" size="14" textColor="0x00f914"/>
-</e:Skin>

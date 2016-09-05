@@ -23,3 +23,4 @@ class RoomBtnItemRenderer extends eui.ItemRenderer {
 		this.addChildAt(this.mc, 0);
 	}
 }
+

@@ -94,13 +94,7 @@ declare class RankPanelSkin extends eui.Skin{
 }
 declare class SettingPanelSkin extends eui.Skin{
 }
-declare class HallRoomInfoListItemSkin extends eui.Skin{
-}
 declare class HorseItenSkin extends eui.Skin{
-}
-declare class PlayerGun extends eui.Skin{
-}
-declare class RoomItenSkin extends eui.Skin{
 }
 declare class BetViweSkin extends eui.Skin{
 }

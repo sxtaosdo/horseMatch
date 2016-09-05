@@ -79,18 +79,6 @@ class LocalHandler implements ISocket {
     }
 
     private login(type: number, body: any): void {
-        // LocalHandler.that.tempCls = LocalHandler.that.message.build("ReqLogin");
-        // var login = LocalHandler.that.tempCls.decode(body);
-
-        // var reqCls: any = LocalHandler.that.message.build("AckLogin");
-        // var req = new reqCls({
-        //     "result": 0,
-        //     "reason": 0,
-        //     "userMoney": LocalHandler.that.userMoney,
-        //     "username": login.userName,
-        //     "rolename": login.userName,
-        //     "freeInfo": LocalHandler.that.getFreeHit()
-        // });
         this.name = body.name;
         this.returnMsg2(MsgType.A_LOGIN, { success: 0 });
         this.jpPool();

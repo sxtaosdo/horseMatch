@@ -51,6 +51,7 @@ var game_file_list = [
 	"bin-debug/com/ourgame/horseRace/model/game/JpBarPanel.js",
 	"bin-debug/com/ourgame/horseRace/model/game/PlayerList.js",
 	"bin-debug/com/ourgame/horseRace/model/game/ResultView.js",
+	"bin-debug/com/ourgame/horseRace/model/hall/HallView.js",
 	"bin-debug/com/ourgame/horseRace/model/loading/LoadingUI.js",
 	"bin-debug/com/ourgame/horseRace/model/login/LoginView.js",
 	"bin-debug/com/ourgame/horseRace/model/renderer/HorseBetInfoRenderer.js",
@@ -96,7 +97,6 @@ var game_file_list = [
 	"bin-debug/com/ourgame/test/TestEvent.js",
 	"bin-debug/com/ourgame/test/TestWindow.js",
 	"bin-debug/ThemeAdapter.js",
-	"bin-debug/com/ourgame/horseRace/model/hall/HallView.js",
 	//----auto game_file_list end----
 ];
 

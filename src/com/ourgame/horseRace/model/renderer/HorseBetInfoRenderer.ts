@@ -5,6 +5,7 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 	public stateText: eui.Label;
 	public numText: eui.Label;
 	public image: eui.Image;
+	public betText: eui.Label;
 
 	public constructor() {
 		super();
@@ -18,7 +19,12 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 
 	public dataChanged(): void {
 		var vo: HorseVo = this.data;
-		this.nameText.text=vo.name;
-		this.indexText.text=vo.id.toString();
+		this.nameText.text = vo.name;
+		this.indexText.text = vo.id.toString();
+		if (vo.math) {
+			this.numText.text = "X" + vo.math.rate;
+			this.stateText.text = "" + vo.math.state;
+			this.betText.text = "" + vo.math.bet;
+		}
 	}
 }
