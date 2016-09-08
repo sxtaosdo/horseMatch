@@ -61,8 +61,7 @@ class BetView extends BaseComponent implements IBase {
 	}
 
 	private onItemTap(evt: eui.ItemTapEvent): void {
-		console.log(this.horseList.selectedItem);
-		// var money: number =
+		// console.log(this.horseList.selectedItem);
 		this.horseData.source[this.horseList.selectedIndex].math.bet += this.selectMoney;
 		this.horseData.refresh();
 	}

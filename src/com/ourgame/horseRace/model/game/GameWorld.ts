@@ -17,6 +17,8 @@ class GameWorld extends egret.Sprite implements IBase {
     /**游戏场景的宽高 */
     public static GAME_WIDTH: number = Main.STAGE_WIDTH;
     public static GAME_HEIGHT: number = Main.STAGE_HEIGHT;
+    /**跑到长度 */
+    public static TOTAL_LENGTH: number = 10000;
     /**左侧 */
     public static LEFT_LINE: number = GameWorld.GAME_WIDTH / 4 * 1;
     /**右侧 */
@@ -39,8 +41,14 @@ class GameWorld extends egret.Sprite implements IBase {
     private betView: BetView;
     /**比赛结果 */
     private resultBiew: ResultView;
+    /**背景 */
+    private bg: BackgroundPanel;
+    /**进度 */
+    private progress: ProgressPanel;
     /**当前游戏状态 */
     private _gameState: number = GameState.BET_STAGE;
+    /**当前进度 */
+    private _currentProgress: number = 0;
 
     public constructor() {
         super();
@@ -64,26 +72,29 @@ class GameWorld extends egret.Sprite implements IBase {
         this.topBar = new TopView(this.onTimerComplete, this);
         this.betView = new BetView();
 
+        this.bg = new BackgroundPanel();
+        this.addChildAt(this.bg, 0);
+
+        this.progress = new ProgressPanel();
+
         this.resultBiew = new ResultView();
     }
 
     public enter(data?: any): void {
-
+        this.bg.enter();
         for (var i: number = 1; i < 6; i++) {
             var horse: HorseEntity = EntityManager.instance.getAvailableEntity<HorseEntity>(HorseEntity);
             horse.setData(ConfigModel.instance.horseList[i - 1]);
-            horse.displayObject.y = i * 80;
+            horse.getDisplayObject().y = i * 80 + 200;
 
             this.horseList.push(horse);
-            this.addChild(horse.displayObject);
+            this.addChild(horse.getDisplayObject());
         }
 
         if (this.shutter == null) {
             this.shutter = MovieclipUtils.createMc("shutter_png", "shutter_json");
             this.shutter.stop();
             this.shutter.scaleX = this.shutter.scaleY = GameWorld.GAME_WIDTH / this.shutter.width;
-            // this.shutter.x = (GameWorld.GAME_WIDTH - this.shutter.width) >> 1;
-            // this.shutter.y = (GameWorld.GAME_HEIGHT - this.shutter.height) >> 1;
             this.shutter.x = -50;
             this.shutter.y = -120;
         }
@@ -96,26 +107,37 @@ class GameWorld extends egret.Sprite implements IBase {
         if (this.parent != null) {
             this.parent.removeChild(this);
         }
+        this.bg.exit();
         TimerManager.instance.clearTimer(this.execute);
     }
 
     public execute(): void {
+        var max: number = 0;
         if (this.isBulletTime == false) {
             this.horseList.forEach(element => {
-                element.displayObject.x += RandomUtil.randNumber(1, 10);
-                if ((element.displayObject.x + element.displayObject.width) >= GameWorld.RIGHT_LINE) {    //触碰重点
+                var speed: number = RandomUtil.randNumber(1, 10);
+                if (max < speed) {
+                    max = speed;
+                }
+                this._currentProgress += max;
+                element.getDisplayObject().x += speed
+                if ((element.getDisplayObject().x + element.getDisplayObject().width) >= GameWorld.RIGHT_LINE) {    //触碰重点
                     if (this.isBulletTime == false) {
                         this.isBulletTime = true;
                         this.onBullertTme();
                     }
                 }
             });
+            this.bg.execute(max);
         } else {
             this.horseList.forEach(element => {
-                element.displayObject.x += this.tempSpeed;
+                element.getDisplayObject().x += this.tempSpeed;
             });
             this.tempSpeed += 0.02;
-            // console.log("this.tempSpeed:" + this.tempSpeed);
+            this.bg.execute(this.tempSpeed);
+        }
+        if (this.progress.parent) {
+            this.progress.execute(this._currentProgress);
         }
     }
 
@@ -169,18 +191,39 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.addChildAt(this.betView, this.numChildren - 1);
                 this.betView.enter();
                 this.horseList.forEach(element => {
-                    element.displayObject.x = 0;
+                    element.getDisplayObject().x = 0;
                 });
+                this._currentProgress = 0;
+                break;
+
+            case GameState.PREPARE_STAGE:
+                this.addChild(this.progress);
+                this.progress.enter();
                 break;
             case GameState.RESULT_STAGE:
                 // this.changeState(GameState.BET_STAGE);
                 this.addChild(this.resultBiew);
+                if (this.progress.parent) {
+                    this.progress.parent.removeChild(this.progress);
+                    this.progress.exit();
+                }
                 TimerManager.instance.clearTimer(this.execute);
                 break;
             case GameState.RUN_STAGE:
                 this.isBulletTime = false;
                 this.tempSpeed = 0;
                 this.run();
+                var that: GameWorld = this;
+                ConfigModel.instance.horseList.forEach(element => {
+                    if (element.id && (that.horseList[element.id - 1])) {
+                        if (element.math.bet > 0) {
+                            that.horseList[element.id - 1].showSelect(true);
+                        } else {
+                            that.horseList[element.id - 1].showSelect(false);
+                        }
+                    }
+                });
+
                 break;
         }
     }

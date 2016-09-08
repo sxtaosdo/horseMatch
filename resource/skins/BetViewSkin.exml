@@ -25,7 +25,7 @@
 				</e:Skin>
 			</e:skinName>
 		</e:RadioButton>
-		<e:RadioButton id="btn10000" label="10000" x="275" y="10">
+		<e:RadioButton id="btn10000" label="10000" x="285" y="10">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="chip10000Btn1_png" source.down="chip10000Btn2_png"/>

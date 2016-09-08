@@ -13,7 +13,7 @@
 			"name":"config"
 		},
 		{
-			"keys":"shutter_json,shutter_png",
+			"keys":"shutter_json,shutter_png,bg_png,arrow_png,arrow_json,gameProgress_png,flag_png",
 			"name":"main"
 		},
 		{
@@ -21,7 +21,7 @@
 			"name":"player"
 		},
 		{
-			"keys":"bg2_png,bg3_png,bg4_png,bg6_png,bg7_png,bg8_png,BattleBackground1_png,bg_png,bg1_png,wave_png,wave1_json,wave1_png,bg5_png",
+			"keys":"bg2_png,bg3_png,bg4_png,bg6_png,bg7_png,bg8_png,BattleBackground1_png,bg1_png,wave_png,wave1_json,wave1_png,bg5_png",
 			"name":"bg"
 		},
 		{
@@ -29,7 +29,7 @@
 			"name":"loading"
 		},
 		{
-			"keys":"lobbyBg_png,lobbyJpBg_png,lobbyRankBg_png,pageBtn1_png,pageBtn2_png,pageBtn3_png,lobbyRoomListBg_png,lobbyRoomListCloseBtn1_png,lobbyRoomListCloseBtn2_png,lobbyTeammateBg_png,lobbyRoonListItemBg_png,lightMc_json,lightMc_png,qiPaoMc_json,qiPaoMc_png,paopao_json,paopao_png,diceBtn2_png,diceBtn1_png,lobbyRoomBtnbg1_png,lobbyRoomBtnbg2_png,lobbyRoomBtnbg3_png,lobbyRoomBtnbg4_png,lobbyWareMc_png,lobbyWareMc_json,lobbyStartBtn2_png,lobbyStartBtn1_png",
+			"keys":"suiji_png,duding_png,lobbyBg_png",
 			"name":"labby"
 		},
 		{
@@ -463,11 +463,6 @@
 			"url":"assets/bg/BattleBackground1.png"
 		},
 		{
-			"name":"bg_png",
-			"type":"image",
-			"url":"assets/bg/bg.png"
-		},
-		{
 			"name":"bg1_png",
 			"type":"image",
 			"url":"assets/bg/bg1.png"
@@ -486,56 +481,6 @@
 			"name":"loadingBg_png",
 			"type":"image",
 			"url":"assets/loading/loadingBg.png"
-		},
-		{
-			"name":"lobbyBg_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyBg.png"
-		},
-		{
-			"name":"lobbyJpBg_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyJpBg.png"
-		},
-		{
-			"name":"lobbyRankBg_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyRankBg.png"
-		},
-		{
-			"name":"pageBtn1_png",
-			"type":"image",
-			"url":"assets/lobby/pageBtn1.png"
-		},
-		{
-			"name":"pageBtn2_png",
-			"type":"image",
-			"url":"assets/lobby/pageBtn2.png"
-		},
-		{
-			"name":"pageBtn3_png",
-			"type":"image",
-			"url":"assets/lobby/pageBtn3.png"
-		},
-		{
-			"name":"lobbyRoomListBg_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyRoomListBg.png"
-		},
-		{
-			"name":"lobbyRoomListCloseBtn1_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyRoomListCloseBtn1.png"
-		},
-		{
-			"name":"lobbyRoomListCloseBtn2_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyRoomListCloseBtn2.png"
-		},
-		{
-			"name":"lobbyTeammateBg_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyTeammateBg.png"
 		},
 		{
 			"name":"alertBg_png",
@@ -563,11 +508,6 @@
 			"url":"assets/alert/alertOkBtn2.png"
 		},
 		{
-			"name":"lobbyRoonListItemBg_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyRoonListItemBg.png"
-		},
-		{
 			"name":"loadingRoomBar_png",
 			"type":"image",
 			"url":"assets/loading/loadingRoomBar.png"
@@ -581,26 +521,6 @@
 			"name":"loadingRoomBg_png",
 			"type":"image",
 			"url":"assets/loading/loadingRoomBg.png"
-		},
-		{
-			"name":"lightMc_json",
-			"type":"json",
-			"url":"assets/lobby/mc/lightMc.json"
-		},
-		{
-			"name":"lightMc_png",
-			"type":"image",
-			"url":"assets/lobby/mc/lightMc.png"
-		},
-		{
-			"name":"qiPaoMc_json",
-			"type":"json",
-			"url":"assets/lobby/mc/qiPaoMc.json"
-		},
-		{
-			"name":"qiPaoMc_png",
-			"type":"image",
-			"url":"assets/lobby/mc/qiPaoMc.png"
 		},
 		{
 			"name":"fish1_json",
@@ -791,16 +711,6 @@
 			"name":"fishd6_json",
 			"type":"json",
 			"url":"assets/fish1/fishd6.json"
-		},
-		{
-			"name":"paopao_json",
-			"type":"json",
-			"url":"assets/lobby/mc/paopao.json"
-		},
-		{
-			"name":"paopao_png",
-			"type":"image",
-			"url":"assets/lobby/mc/paopao.png"
 		},
 		{
 			"name":"SettingBar1_png",
@@ -1096,16 +1006,6 @@
 			"name":"diceDoingBtn2_png",
 			"type":"image",
 			"url":"assets/dice/diceDoingBtn2.png"
-		},
-		{
-			"name":"diceBtn2_png",
-			"type":"image",
-			"url":"assets/lobby/diceBtn2.png"
-		},
-		{
-			"name":"diceBtn1_png",
-			"type":"image",
-			"url":"assets/lobby/diceBtn1.png"
 		},
 		{
 			"name":"diceGetBtn_png",
@@ -1481,46 +1381,6 @@
 			"name":"rankText2_png",
 			"type":"image",
 			"url":"assets/window/rank/rankText2.png"
-		},
-		{
-			"name":"lobbyRoomBtnbg1_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyRoomBtnbg1.png"
-		},
-		{
-			"name":"lobbyRoomBtnbg2_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyRoomBtnbg2.png"
-		},
-		{
-			"name":"lobbyRoomBtnbg3_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyRoomBtnbg3.png"
-		},
-		{
-			"name":"lobbyRoomBtnbg4_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyRoomBtnbg4.png"
-		},
-		{
-			"name":"lobbyWareMc_png",
-			"type":"image",
-			"url":"assets/lobby/mc/lobbyWareMc.png"
-		},
-		{
-			"name":"lobbyWareMc_json",
-			"type":"json",
-			"url":"assets/lobby/mc/lobbyWareMc.json"
-		},
-		{
-			"name":"lobbyStartBtn2_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyStartBtn2.png"
-		},
-		{
-			"name":"lobbyStartBtn1_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyStartBtn1.png"
 		},
 		{
 			"name":"dice2_png",
@@ -2381,6 +2241,47 @@
 			"name":"addBtn1_png",
 			"type":"image",
 			"url":"assets/top/addBtn1.png"
+		},
+		{
+			"name":"bg_png",
+			"type":"image",
+			"url":"assets/game/bg.png"
+		},
+		{
+			"name":"suiji_png",
+			"type":"image",
+			"url":"assets/lobby/suiji.png"
+		},
+		{
+			"name":"duding_png",
+			"type":"image",
+			"url":"assets/lobby/duding.png"
+		},
+		{
+			"name":"lobbyBg_png",
+			"type":"image",
+			"url":"assets/lobby/lobbyBg.png"
+		},
+		{
+			"name":"arrow_png",
+			"type":"image",
+			"url":"assets/game/arrow.png"
+		},
+		{
+			"name":"arrow_json",
+			"type":"json",
+			"url":"assets/game/arrow.json"
+		},
+		{
+			"name":"gameProgress_png",
+			"scale9grid":"21,1,13,28",
+			"type":"image",
+			"url":"assets/game/gameProgress.png"
+		},
+		{
+			"name":"flag_png",
+			"type":"image",
+			"url":"assets/game/flag.png"
 		}
 	]
 }
