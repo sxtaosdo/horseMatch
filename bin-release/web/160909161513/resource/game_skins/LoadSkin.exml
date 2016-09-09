@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="LoadSkin" width="960" height="560" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image x="0" y="0" source="loadingBg_png" />
-	<e:Label id="tempText" height="120" width="350" textAlign="left" verticalAlign="middle" x="0" y="440" />
-	<e:Label id="versionText" text="V a_1_0_15122_1424" x="480" y="518" width="244" size="14"  textColor="0x000000" bold="true"/>
-	<e:Label id="tipText" x="0" y="9" width="100%" textAlign="center" height="50" size="12" />
-	<e:ProgressBar id="bar" x="281" y="313" skinName="LoadingProgressBarSkin" width="399" height="36"/>
-</e:Skin>
