@@ -30,6 +30,7 @@ class BetView extends BaseComponent implements IBase {
 		super.onSkinComplete(e);
 		this.horseList.itemRenderer = HorseBetInfoRenderer;
 		var lay: eui.HorizontalLayout = new eui.HorizontalLayout();
+		lay.gap = 3
 		this.horseList.layout = lay;
 		this.btn100.selected = true;
 	}

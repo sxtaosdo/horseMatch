@@ -45,11 +45,11 @@
 			"name":"bgPlant"
 		},
 		{
-			"keys":"fish1_json,fish1_png,fishd1_json,fishd1_png,fishd2_json,fishd2_png,fish2_json,fish2_png,fishd4_png,fish3_json,fish3_png,fish4_json,fish4_png,fishd3_json,fishd3_png,fishd4_json,fish6_png,fish5_json,fish5_png,fish6_json,fishd6_png,fishd5_json,fishd5_png,fishd6_json,fishd12_json,fishd12_png,fishd13_json,fishd13_png,fish7_json,fish7_png,fish8_json,fish8_png,fish9_json,fish9_png,fish10_json,fish10_png,fish11_json,fish11_png,fish12_json,fish12_png,fish13_json,fish13_png,fishd7_json,fishd7_png,fishd8_json,fishd8_png,fishd9_json,fishd9_png,fishd10_json,fishd10_png,fishd11_json,fishd11_png,fishd22_png,fishd23_json,fishd23_png,fish14_json,fish14_png,fish15_json,fish15_png,fish16_json,fish16_png,fish17_json,fish17_png,fish18_json,fish18_png,fish19_json,fish19_png,fish20_json,fish20_png,fish21_json,fish21_png,fish22_json,fish22_png,fish23_json,fish23_png,fishd14_json,fishd14_png,fishd15_json,fishd15_png,fishd16_json,fishd16_png,fishd17_json,fishd17_png,fishd18_json,fishd18_png,fishd19_json,fishd19_png,fishd20_json,fishd20_png,fishd21_json,fishd21_png,fishd22_json",
+			"keys":"fish1_json,fish1_png,fishd1_json,fishd1_png,fish2_json,fish2_png,fish3_json,fish3_png,fish4_json,fish4_png,fish6_png,fish5_json,fish5_png,fish6_json",
 			"name":"fish1"
 		},
 		{
-			"keys":"sy1_fnt,dice1_fnt,hallPool_fnt",
+			"keys":"",
 			"name":"font"
 		},
 		{
@@ -558,11 +558,6 @@
 			"url":"assets/bg/wave.png"
 		},
 		{
-			"name":"sy1_fnt",
-			"type":"font",
-			"url":"assets/font/sy1.fnt"
-		},
-		{
 			"name":"plant_4_png",
 			"type":"image",
 			"url":"assets/plant/plant_4.png"
@@ -613,16 +608,6 @@
 			"url":"assets/bg/mc/wave1.png"
 		},
 		{
-			"name":"fishd2_json",
-			"type":"json",
-			"url":"assets/fish1/fishd2.json"
-		},
-		{
-			"name":"fishd2_png",
-			"type":"image",
-			"url":"assets/fish1/fishd2.png"
-		},
-		{
 			"name":"fish2_json",
 			"type":"json",
 			"url":"assets/fish1/fish2.json"
@@ -631,11 +616,6 @@
 			"name":"fish2_png",
 			"type":"image",
 			"url":"assets/fish1/fish2.png"
-		},
-		{
-			"name":"fishd4_png",
-			"type":"image",
-			"url":"assets/fish1/fishd4.png"
 		},
 		{
 			"name":"fish3_json",
@@ -658,21 +638,6 @@
 			"url":"assets/fish1/fish4.png"
 		},
 		{
-			"name":"fishd3_json",
-			"type":"json",
-			"url":"assets/fish1/fishd3.json"
-		},
-		{
-			"name":"fishd3_png",
-			"type":"image",
-			"url":"assets/fish1/fishd3.png"
-		},
-		{
-			"name":"fishd4_json",
-			"type":"json",
-			"url":"assets/fish1/fishd4.json"
-		},
-		{
 			"name":"fish6_png",
 			"type":"image",
 			"url":"assets/fish1/fish6.png"
@@ -691,26 +656,6 @@
 			"name":"fish6_json",
 			"type":"json",
 			"url":"assets/fish1/fish6.json"
-		},
-		{
-			"name":"fishd6_png",
-			"type":"image",
-			"url":"assets/fish1/fishd6.png"
-		},
-		{
-			"name":"fishd5_json",
-			"type":"json",
-			"url":"assets/fish1/fishd5.json"
-		},
-		{
-			"name":"fishd5_png",
-			"type":"image",
-			"url":"assets/fish1/fishd5.png"
-		},
-		{
-			"name":"fishd6_json",
-			"type":"json",
-			"url":"assets/fish1/fishd6.json"
 		},
 		{
 			"name":"SettingBar1_png",
@@ -1208,146 +1153,6 @@
 			"url":"assets/dice/award/diceAward10.png"
 		},
 		{
-			"name":"fishd12_json",
-			"type":"json",
-			"url":"assets/fish1/fishd12.json"
-		},
-		{
-			"name":"fishd12_png",
-			"type":"image",
-			"url":"assets/fish1/fishd12.png"
-		},
-		{
-			"name":"fishd13_json",
-			"type":"json",
-			"url":"assets/fish1/fishd13.json"
-		},
-		{
-			"name":"fishd13_png",
-			"type":"image",
-			"url":"assets/fish1/fishd13.png"
-		},
-		{
-			"name":"fish7_json",
-			"type":"json",
-			"url":"assets/fish1/fish7.json"
-		},
-		{
-			"name":"fish7_png",
-			"type":"image",
-			"url":"assets/fish1/fish7.png"
-		},
-		{
-			"name":"fish8_json",
-			"type":"json",
-			"url":"assets/fish1/fish8.json"
-		},
-		{
-			"name":"fish8_png",
-			"type":"image",
-			"url":"assets/fish1/fish8.png"
-		},
-		{
-			"name":"fish9_json",
-			"type":"json",
-			"url":"assets/fish1/fish9.json"
-		},
-		{
-			"name":"fish9_png",
-			"type":"image",
-			"url":"assets/fish1/fish9.png"
-		},
-		{
-			"name":"fish10_json",
-			"type":"json",
-			"url":"assets/fish1/fish10.json"
-		},
-		{
-			"name":"fish10_png",
-			"type":"image",
-			"url":"assets/fish1/fish10.png"
-		},
-		{
-			"name":"fish11_json",
-			"type":"json",
-			"url":"assets/fish1/fish11.json"
-		},
-		{
-			"name":"fish11_png",
-			"type":"image",
-			"url":"assets/fish1/fish11.png"
-		},
-		{
-			"name":"fish12_json",
-			"type":"json",
-			"url":"assets/fish1/fish12.json"
-		},
-		{
-			"name":"fish12_png",
-			"type":"image",
-			"url":"assets/fish1/fish12.png"
-		},
-		{
-			"name":"fish13_json",
-			"type":"json",
-			"url":"assets/fish1/fish13.json"
-		},
-		{
-			"name":"fish13_png",
-			"type":"image",
-			"url":"assets/fish1/fish13.png"
-		},
-		{
-			"name":"fishd7_json",
-			"type":"json",
-			"url":"assets/fish1/fishd7.json"
-		},
-		{
-			"name":"fishd7_png",
-			"type":"image",
-			"url":"assets/fish1/fishd7.png"
-		},
-		{
-			"name":"fishd8_json",
-			"type":"json",
-			"url":"assets/fish1/fishd8.json"
-		},
-		{
-			"name":"fishd8_png",
-			"type":"image",
-			"url":"assets/fish1/fishd8.png"
-		},
-		{
-			"name":"fishd9_json",
-			"type":"json",
-			"url":"assets/fish1/fishd9.json"
-		},
-		{
-			"name":"fishd9_png",
-			"type":"image",
-			"url":"assets/fish1/fishd9.png"
-		},
-		{
-			"name":"fishd10_json",
-			"type":"json",
-			"url":"assets/fish1/fishd10.json"
-		},
-		{
-			"name":"fishd10_png",
-			"type":"image",
-			"url":"assets/fish1/fishd10.png"
-		},
-		{
-			"name":"fishd11_json",
-			"type":"json",
-			"url":"assets/fish1/fishd11.json"
-		},
-		{
-			"name":"fishd11_png",
-			"type":"image",
-			"url":"assets/fish1/fishd11.png"
-		},
-		{
 			"name":"rank1kBtn1_png",
 			"type":"image",
 			"url":"assets/window/rank/rank1kBtn1.png"
@@ -1418,11 +1223,6 @@
 			"url":"assets/dice/mc/DiceBoxMc.json"
 		},
 		{
-			"name":"dice1_fnt",
-			"type":"font",
-			"url":"assets/font/dice1.fnt"
-		},
-		{
 			"name":"dice1_png",
 			"type":"image",
 			"url":"assets/dice/dice1.png"
@@ -1486,11 +1286,6 @@
 			"name":"DicePaoPao_png",
 			"type":"image",
 			"url":"assets/dice/mc/DicePaoPao.png"
-		},
-		{
-			"name":"hallPool_fnt",
-			"type":"font",
-			"url":"assets/font/hallPool.fnt"
 		},
 		{
 			"name":"shell0_json",
@@ -1901,206 +1696,6 @@
 			"name":"A_parallel2[6]_track",
 			"type":"bin",
 			"url":"config/path/A_parallel2[6].track"
-		},
-		{
-			"name":"fishd22_png",
-			"type":"image",
-			"url":"assets/fish1/fishd22.png"
-		},
-		{
-			"name":"fishd23_json",
-			"type":"json",
-			"url":"assets/fish1/fishd23.json"
-		},
-		{
-			"name":"fishd23_png",
-			"type":"image",
-			"url":"assets/fish1/fishd23.png"
-		},
-		{
-			"name":"fish14_json",
-			"type":"json",
-			"url":"assets/fish1/fish14.json"
-		},
-		{
-			"name":"fish14_png",
-			"type":"image",
-			"url":"assets/fish1/fish14.png"
-		},
-		{
-			"name":"fish15_json",
-			"type":"json",
-			"url":"assets/fish1/fish15.json"
-		},
-		{
-			"name":"fish15_png",
-			"type":"image",
-			"url":"assets/fish1/fish15.png"
-		},
-		{
-			"name":"fish16_json",
-			"type":"json",
-			"url":"assets/fish1/fish16.json"
-		},
-		{
-			"name":"fish16_png",
-			"type":"image",
-			"url":"assets/fish1/fish16.png"
-		},
-		{
-			"name":"fish17_json",
-			"type":"json",
-			"url":"assets/fish1/fish17.json"
-		},
-		{
-			"name":"fish17_png",
-			"type":"image",
-			"url":"assets/fish1/fish17.png"
-		},
-		{
-			"name":"fish18_json",
-			"type":"json",
-			"url":"assets/fish1/fish18.json"
-		},
-		{
-			"name":"fish18_png",
-			"type":"image",
-			"url":"assets/fish1/fish18.png"
-		},
-		{
-			"name":"fish19_json",
-			"type":"json",
-			"url":"assets/fish1/fish19.json"
-		},
-		{
-			"name":"fish19_png",
-			"type":"image",
-			"url":"assets/fish1/fish19.png"
-		},
-		{
-			"name":"fish20_json",
-			"type":"json",
-			"url":"assets/fish1/fish20.json"
-		},
-		{
-			"name":"fish20_png",
-			"type":"image",
-			"url":"assets/fish1/fish20.png"
-		},
-		{
-			"name":"fish21_json",
-			"type":"json",
-			"url":"assets/fish1/fish21.json"
-		},
-		{
-			"name":"fish21_png",
-			"type":"image",
-			"url":"assets/fish1/fish21.png"
-		},
-		{
-			"name":"fish22_json",
-			"type":"json",
-			"url":"assets/fish1/fish22.json"
-		},
-		{
-			"name":"fish22_png",
-			"type":"image",
-			"url":"assets/fish1/fish22.png"
-		},
-		{
-			"name":"fish23_json",
-			"type":"json",
-			"url":"assets/fish1/fish23.json"
-		},
-		{
-			"name":"fish23_png",
-			"type":"image",
-			"url":"assets/fish1/fish23.png"
-		},
-		{
-			"name":"fishd14_json",
-			"type":"json",
-			"url":"assets/fish1/fishd14.json"
-		},
-		{
-			"name":"fishd14_png",
-			"type":"image",
-			"url":"assets/fish1/fishd14.png"
-		},
-		{
-			"name":"fishd15_json",
-			"type":"json",
-			"url":"assets/fish1/fishd15.json"
-		},
-		{
-			"name":"fishd15_png",
-			"type":"image",
-			"url":"assets/fish1/fishd15.png"
-		},
-		{
-			"name":"fishd16_json",
-			"type":"json",
-			"url":"assets/fish1/fishd16.json"
-		},
-		{
-			"name":"fishd16_png",
-			"type":"image",
-			"url":"assets/fish1/fishd16.png"
-		},
-		{
-			"name":"fishd17_json",
-			"type":"json",
-			"url":"assets/fish1/fishd17.json"
-		},
-		{
-			"name":"fishd17_png",
-			"type":"image",
-			"url":"assets/fish1/fishd17.png"
-		},
-		{
-			"name":"fishd18_json",
-			"type":"json",
-			"url":"assets/fish1/fishd18.json"
-		},
-		{
-			"name":"fishd18_png",
-			"type":"image",
-			"url":"assets/fish1/fishd18.png"
-		},
-		{
-			"name":"fishd19_json",
-			"type":"json",
-			"url":"assets/fish1/fishd19.json"
-		},
-		{
-			"name":"fishd19_png",
-			"type":"image",
-			"url":"assets/fish1/fishd19.png"
-		},
-		{
-			"name":"fishd20_json",
-			"type":"json",
-			"url":"assets/fish1/fishd20.json"
-		},
-		{
-			"name":"fishd20_png",
-			"type":"image",
-			"url":"assets/fish1/fishd20.png"
-		},
-		{
-			"name":"fishd21_json",
-			"type":"json",
-			"url":"assets/fish1/fishd21.json"
-		},
-		{
-			"name":"fishd21_png",
-			"type":"image",
-			"url":"assets/fish1/fishd21.png"
-		},
-		{
-			"name":"fishd22_json",
-			"type":"json",
-			"url":"assets/fish1/fishd22.json"
 		},
 		{
 			"name":"horse_json",
