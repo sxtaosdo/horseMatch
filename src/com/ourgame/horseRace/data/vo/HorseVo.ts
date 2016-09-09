@@ -25,6 +25,7 @@ class HorseVo {
 	/**本局信息 */
 	public math: MatchPlayerVo;
 
+
 	public constructor() {
 
 	}
@@ -41,5 +42,9 @@ class HorseVo {
 		this.endurance = data.endurance;
 		this.recovery = data.recovery;
 		this.mcName = data.mcName;
+
+		// var temp: any = new md5().hex_md5(this.mcName)
+		// console.log("this.mcName md5:" + temp);
+
 	}
 }

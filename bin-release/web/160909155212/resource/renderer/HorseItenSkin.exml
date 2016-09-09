@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HorseItenSkin" width="150" height="200" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="100%" height="100%" x="0" y="0" fillAlpha="0.2"/>
+	<e:Label id="nameText" text="闪电" x="0" y="0" width="151" textAlign="center" size="26"/>
+	<e:Label id="indexText" text="1" x="0" y="98" width="151" textAlign="center"/>
+	<e:Label text="状态" y="131" x="0" size="20"/>
+	<e:Label text="奖励" x="0" y="154" size="20"/>
+	<e:Label id="stateText" text="良好" x="70" y="130" width="80" textAlign="left" size="20"/>
+	<e:Label id="numText" text="x5.25" x="70" y="153" width="80" textAlign="left" size="20"/>
+	<e:Label id="betText" text="0" x="70" y="175" width="80" textAlign="left" size="20"/>
+	<e:Image id="image" width="95" height="82" horizontalCenter="2.5" verticalCenter="-32"/>
+	<e:Label text="标签" x="0" y="176" size="20"/>
+</e:Skin>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HelpPanelSkin" width="557" height="375" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Image source="helpBg_png" x="0" y="0" />
+    <e:Button id="closeBtn" label="" x="518" y="17" width="16" height="16">
+        <e:skinName>
+            <e:Skin states="up,down,disabled">
+                <e:Image width="100%" height="100%" source="xbtn1_png" source.down="xbtn2_png" />
+                <e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+            </e:Skin>
+        </e:skinName>
+    </e:Button>
+    <e:TabBar dataProvider="{viewStack}" width="517" height="28" x="21" y="42">
+        <e:itemRendererSkinName>
+            <e:Skin states="up,down" height="26">
+                <e:Image width="100%" height="100%" source="helpMBtn1_png" source.down="helpMBtn2_png" />
+                <e:Label text="{data}" textColor.down="0xFFFFFF" textColor.up="0x1111aa" horizontalCenter="0"
+                         verticalCenter="0" size="12" />
+            </e:Skin>
+        </e:itemRendererSkinName>
+    </e:TabBar>
+    <e:ViewStack id="viewStack" width="517" height="287" x="21" y="70" selectedIndex="0">
+        <e:Group width="100%" height="100%" name="操作说明">
+            <e:Image source="page1_png" x="48" y="15" />
+        </e:Group>
+        <e:Group width="100%" height="100%" name="大炮说明">
+            <e:Image source="page2_png" x="53" y="5" />
+        </e:Group>
+        <e:Group width="100%" height="100%" name="鱼的价值" />
+        <e:Group width="100%" height="100%" name="游戏说明">
+            <e:Image source="page4_png" x="43" y="15" />
+        </e:Group>
+        <e:Group width="100%" height="100%" name="炸弹鱼">
+            <e:Image source="page5_png" x="43" y="3" />
+        </e:Group>
+        <e:Group width="100%" height="100%" name="锁定说明">
+            <e:Image source="page6_png" x="69" y="18" />
+        </e:Group>
+        <e:Group width="100%" height="100%" name="任务">
+            <e:Image source="page7_png" x="49" y="28" />
+        </e:Group>
+    </e:ViewStack>
+    <e:ToggleSwitch label="游戏开始时显示帮助" x="31" y="339">
+        <e:skinName>
+            <e:Skin states="up,down,disabled">
+                <e:Image width="15" height="14" source="SettingSelectBox1_png" source.down="SettingSelectBox2_png" />
+                <e:Label id="labelDisplay" horizontalCenter="10" verticalCenter="0" size="14" textColor="0xF3FF00" />
+            </e:Skin>
+        </e:skinName>
+    </e:ToggleSwitch>
+</e:Skin>

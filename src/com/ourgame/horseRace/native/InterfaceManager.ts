@@ -14,20 +14,20 @@ class InterfaceManager {
         switch (egret.Capabilities.os) {
             case "iOS":
                 this.currentNative = new IosInterface();
-                ClientModel.instance.clientType = 1;
+                // ClientModel.instance.clientType = 1;
                 break;
             case "Android":
                 this.currentNative = new AndroidInterface();
-                ClientModel.instance.clientType = 2;
+                // ClientModel.instance.clientType = 2;
                 break;
             case "Windows PC":
             case "Mac OS":
                 this.currentNative = new WebInterface();
-                ClientModel.instance.clientType = 0;
+                // ClientModel.instance.clientType = 0;
                 break;
             case "Windows Phone":
                 this.currentNative = new WebInterface();
-                ClientModel.instance.clientType = 3;
+                // ClientModel.instance.clientType = 3;
                 break;
             default:
                 if (this.isWeiXin) {

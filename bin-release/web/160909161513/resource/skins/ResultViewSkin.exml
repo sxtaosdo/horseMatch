@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ResultViewSkin" width="800" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="100%" height="100%" x="0" y="0" fillAlpha="0.3"/>
+	<e:List id="infoList" width="200" height="187" x="398" y="31"/>
+	<e:Label text="赢得货币" x="395" y="227" size="20"/>
+	<e:Label id="moneyText" text="999,999.999" x="395" y="255" width="204" textAlign="center"/>
+	<e:Label text="名次" x="402" y="8" size="16"/>
+	<e:Label text="赛马" x="455" y="9" size="16"/>
+	<e:Label text="赔率" x="508" y="9" size="16"/>
+	<e:Label text="投注" x="561" y="10" size="16"/>
+	<e:Image width="140" height="140" x="185" y="47"/>
+	<e:Label text="冠军" x="185" y="198" width="141" textAlign="center"/>
+</e:Skin>

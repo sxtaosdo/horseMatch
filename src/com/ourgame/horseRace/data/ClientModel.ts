@@ -25,17 +25,20 @@ class ClientModel {
      */
     private _currentWin: any;
     /**
-     * 用户渠道
+     * 客户端模拟的比赛过程的数据
      */
-    private _channel: string;
+    private _phaseList: Array<any>;
     /**
-     * 客户端类型(0:web,1:phone)
+     * 马
      */
-    private _clientType: number;
+    private _horseList: Array<HorseEntity>;
+
 
     public constructor() {
         this.user = UserModel.instance;
         this.moneyType = "0";
+        this._phaseList = new Array<any>();
+        this._horseList = new Array<HorseEntity>();
     }
 
     /**
@@ -73,7 +76,6 @@ class ClientModel {
             UserModel.instance.roleName = decodeURI(egret.getOption("roleName"));
             UserModel.instance.nickName = decodeURI(egret.getOption("nickName"));
             UserModel.instance.ticket = (egret.getOption("ticket"));
-            this.channel = egret.getOption("channel");
         }
         if (egret.Capabilities.runtimeType == egret.RuntimeType.NATIVE) {//native
 
@@ -111,28 +113,12 @@ class ClientModel {
         this._moneyType = value;
     }
 
-    public get channel(): string {
-        return this._channel;
-    }
-
-    public set channel(value: string) {
-        this._channel = value;
-    }
-
     public get language(): string {
         return this._language;
     }
 
     public set language(value: string) {
         this._language = value;
-    }
-
-    public get clientType(): number {
-        return this._clientType;
-    }
-
-    public set clientType(value: number) {
-        this._clientType = value;
     }
 
     public get window(): any {
@@ -203,6 +189,28 @@ class ClientModel {
 
     public onLiveTick(time: number): void {
         // console.log("消息延迟：" + (TimeUtils.timestampDate() - time));
+    }
+
+    public initGameSprite(id: number): Array<any> {
+        for (var i: number = 0; i < 5; i++) {
+            var list: Array<PhaseVo> = new Array<PhaseVo>();
+            for (var j: number = 0; j < 10; j++) {
+                var tempMd5: string = new md5().hex_md5(id + i + j + "");
+                var vo: PhaseVo = new PhaseVo();
+                vo.initData(tempMd5);
+                list.push(vo);
+            }
+            this._phaseList.push(list);
+        }
+        return this._phaseList;
+    }
+
+    public phaseList(): Array<any> {
+        return this._phaseList;
+    }
+
+    public get horseList(): Array<HorseEntity> {
+        return this._horseList;
     }
 
 }

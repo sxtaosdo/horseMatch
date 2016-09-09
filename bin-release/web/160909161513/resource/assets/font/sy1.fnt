@@ -1,0 +1,13 @@
+{"file":"sy1.png","frames":{
+"单发获得":{"x":0,"y":0,"w":78,"h":23,"offX":0,"offY":0,"sourceW":78,"sourceH":23},
+"0":{"x":80,"y":0,"w":13,"h":18,"offX":0,"offY":0,"sourceW":13,"sourceH":18},
+"1":{"x":42,"y":25,"w":10,"h":17,"offX":0,"offY":1,"sourceW":13,"sourceH":18},
+"2":{"x":14,"y":25,"w":12,"h":17,"offX":0,"offY":1,"sourceW":13,"sourceH":18},
+"3":{"x":28,"y":25,"w":12,"h":17,"offX":0,"offY":1,"sourceW":13,"sourceH":18},
+"4":{"x":95,"y":19,"w":13,"h":17,"offX":0,"offY":1,"sourceW":13,"sourceH":18},
+"5":{"x":110,"y":0,"w":13,"h":17,"offX":0,"offY":1,"sourceW":13,"sourceH":18},
+"6":{"x":95,"y":0,"w":13,"h":17,"offX":0,"offY":1,"sourceW":13,"sourceH":18},
+"7":{"x":0,"y":25,"w":12,"h":17,"offX":0,"offY":1,"sourceW":13,"sourceH":18},
+"8":{"x":80,"y":20,"w":12,"h":18,"offX":0,"offY":0,"sourceW":13,"sourceH":18},
+"9":{"x":110,"y":19,"w":12,"h":18,"offX":0,"offY":0,"sourceW":13,"sourceH":18},
+"x":{"x":54,"y":25,"w":10,"h":11,"offX":1,"offY":4,"sourceW":13,"sourceH":18}}}

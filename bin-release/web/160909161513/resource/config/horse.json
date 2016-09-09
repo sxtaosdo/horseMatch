@@ -1,0 +1,67 @@
+[
+    {
+        "id": 1,
+        "name": "角爷",
+        "habitat": "非洲中部和东南部",
+        "age": 7,
+        "breed": "角马",
+        "acceleration": 1.5,
+        "maximumSpeed": 4,
+        "speed": 3.5,
+        "endurance": 3,
+        "recovery": 8,
+        "mcName": 1
+    },
+    {
+        "id": 2,
+        "name": "大嘴",
+        "habitat": "非洲热带水草丰盛地区",
+        "age": 10,
+        "breed": "河马",
+        "acceleration": 1.5,
+        "maximumSpeed": 4,
+        "speed": 3.5,
+        "endurance": 3,
+        "recovery": 8,
+        "mcName": 1
+    },
+    {
+        "id": 3,
+        "name": "闪电",
+        "habitat": "英国",
+        "age": 4,
+        "breed": "马",
+        "acceleration": 1.5,
+        "maximumSpeed": 4,
+        "speed": 3.5,
+        "endurance": 3,
+        "recovery": 8,
+        "mcName": 1
+    },
+    {
+        "id": 4,
+        "name": "斑斑",
+        "habitat": "非洲东部、中部和南部",
+        "age": 6,
+        "breed": "斑马 ",
+        "acceleration": 1.5,
+        "maximumSpeed": 4,
+        "speed": 3.5,
+        "endurance": 3,
+        "recovery": 8,
+        "mcName": 1
+    },
+    {
+        "id": 5,
+        "name": "小白",
+        "habitat": "南美洲的秘鲁及智利高原",
+        "age": 8,
+        "breed": "草泥马 ",
+        "acceleration": 1.5,
+        "maximumSpeed": 4,
+        "speed": 3.5,
+        "endurance": 3,
+        "recovery": 8,
+        "mcName": 1
+    }
+]
