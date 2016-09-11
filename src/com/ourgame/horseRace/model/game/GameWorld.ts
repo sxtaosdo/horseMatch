@@ -28,12 +28,15 @@ class GameWorld extends egret.Sprite implements IBase {
     /**游戏场景的宽高 */
     public static GAME_WIDTH: number = Main.STAGE_WIDTH;
     public static GAME_HEIGHT: number = Main.STAGE_HEIGHT;
-    /**跑到长度 */
-    public static TOTAL_LENGTH: number = 10000;
+    /**终点长度（包含初始左侧长度） */
+    public static DEADLINE_LENGTH: number = 1500;
     /**左侧 */
     public static LEFT_LINE: number = GameWorld.GAME_WIDTH / 4 * 1;
     /**右侧 */
     public static RIGHT_LINE: number = GameWorld.GAME_WIDTH / 4 * 3;
+    /**已经在舞台之后的跑道 */
+    private _pastlength: number = 0;
+
 
     private static that: GameWorld;
     private client: ClientModel;
@@ -59,7 +62,7 @@ class GameWorld extends egret.Sprite implements IBase {
     /**当前游戏状态 */
     private _gameState: number = GameState.BET_STAGE;
     /**当前进度 */
-    private _currentProgress: number = 0;
+    // private _currentProgress: number = 0;
     /**当前赛跑中的状态 */
     private _runState: any = RunState.GEGIN;
 
@@ -91,6 +94,14 @@ class GameWorld extends egret.Sprite implements IBase {
         this.resultBiew = new ResultView();
     }
 
+    private set pastlength(value: number) {
+        this._pastlength = value;
+    }
+
+    private get pastlength(): number {
+        return this._pastlength;
+    }
+
     public enter(data?: any): void {
         this.bg.enter();
         for (var i: number = 1; i < 6; i++) {
@@ -112,6 +123,8 @@ class GameWorld extends egret.Sprite implements IBase {
 
         this.addChild(this.topBar);
         this.changeState(GameState.BET_STAGE);
+
+        GameDispatcher.addEventListener(BaseEvent.REACH_END_LINE, this.onReachEndLine, this);
     }
 
     public exit(data?: any): void {
@@ -123,54 +136,29 @@ class GameWorld extends egret.Sprite implements IBase {
     }
 
     public execute(): void {
-        var max: number = 0;
         var that: GameWorld = this;
-        if (this.isBulletTime == false) {
-            this.client.horseList.forEach(element => {
-                var speed: number = RandomUtil.randNumber(1, 10);
-                if (max < speed) {
-                    max = speed;
-                }
-                this._currentProgress += max;
-                element.getDisplayObject().x += speed
-                if ((element.getDisplayObject().x + element.getDisplayObject().width - 155) >= GameWorld.RIGHT_LINE) {    //触碰重点
-                    if (this.isBulletTime == false) {
-                        this.isBulletTime = true;
-                        this.onBullertTme();
-                    }
-                }
-                element.currentX = element.getDisplayObject().x;    //temp
-            });
-            this.bg.execute(max);
-        } else {
-            this.client.horseList.forEach(element => {
-                element.getDisplayObject().x += this.tempSpeed;
-            });
-            this.tempSpeed += 0.02;
-            this.bg.execute(this.tempSpeed);
-        }
+        this.client.horseList.forEach(element => {  //移动
+            element.getFSM().Update();//
+        });
+        this.bg.execute(ClientModel.instance.maxSpeed);
         if (this.progress.parent) {
-            this.progress.execute(this._currentProgress);
+            this.progress.execute(ClientModel.instance.roadPastLength);
         }
     }
 
+    /**子弹时间的快门动画 */
     private onBullertTme(): void {
         if (this.isBulletTime) {
             this.addChild(this.shutter);
             this.shutter.gotoAndPlay(1, 1);
 
             egret.Tween.get(this).wait(1000 / 30 * 10).call(() => {
-                if (this.shutter && this.shutter.parent) {
+                if (this.shutter.parent) {
                     this.shutter.parent.removeChild(this.shutter);
                 }
-                this.client.horseList.forEach(element => {
-                    element.displayObject["frameRate"] = 0;
-                    egret.Tween.get(element.displayObject).wait(200).to({
-                        frameRate: 24
-                    }, 5000);
-                });
-            }, this).wait(2000).call(() => {
+            }).wait(2000).call(() => {
                 this.changeState(GameState.RESULT_STAGE);
+
             });
         }
     }
@@ -204,12 +192,12 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.addChildAt(this.betView, this.numChildren - 1);
                 this.betView.enter();
                 this.client.horseList.forEach(element => {
-                    element.getDisplayObject().x = 0;
+                    // element.getDisplayObject().x = GameWorld.LEFT_LINE;
+                    element.getFSM().ChangeState(HorseEnityStateIdel.instance);
                 });
-                this._currentProgress = 0;
+                ClientModel.instance.roadPastLength = 0;
                 this._runState = RunState.GEGIN;
                 break;
-
             case GameState.PREPARE_STAGE:
                 ClientModel.instance.initGameSprite(201609081122);
                 this.addChild(this.progress);
@@ -242,6 +230,9 @@ class GameWorld extends egret.Sprite implements IBase {
                         }
                     }
                 });
+                this.client.horseList.forEach(element => {
+                    element.getFSM().ChangeState(HorseEnityStateSeek.instance);
+                });
 
                 break;
         }
@@ -249,6 +240,15 @@ class GameWorld extends egret.Sprite implements IBase {
 
     private run(): void {
         TimerManager.instance.doFrameLoop(1, this.execute, this);
+    }
+
+    /**已经有马触碰终点线了 */
+    private onReachEndLine(): void {
+        this.isBulletTime = true;
+        this.onBullertTme();
+        this.client.horseList.forEach(element => {
+            element.getFSM().ChangeState(HorseEnityStateEnd.instance);
+        });
     }
 
 }

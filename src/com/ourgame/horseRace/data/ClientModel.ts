@@ -33,6 +33,15 @@ class ClientModel {
      */
     private _horseList: Array<HorseEntity>;
 
+    /** 
+     * 已经经过跑道长度 
+     */
+    private _roadPastLength: number;
+    /**
+     * 最快速度
+     */
+    public  maxSpeed: number = 0;
+
 
     public constructor() {
         this.user = UserModel.instance;
@@ -211,6 +220,18 @@ class ClientModel {
 
     public get horseList(): Array<HorseEntity> {
         return this._horseList;
+    }
+
+    public set roadPastLength(value: number) {
+        if (this._roadPastLength == value) {
+            return;
+        }
+        this._roadPastLength = value;
+        // egret.log("此处需进行跑道画面移动的处理");
+    }
+
+    public get roadPastLength(): number {
+        return this._roadPastLength;
     }
 
 }

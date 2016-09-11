@@ -69,7 +69,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
         mc = new egret.MovieClip(data.generateMovieClipData());
 		mc.stop();
         // mc.rotation = 180;
-		// mc.anchorOffsetX = mc.width >> 1;
+		mc.anchorOffsetX = mc.width;
 		// mc.anchorOffsetY = mc.height >> 1;
         mc.play(-1);
         mc.touchEnabled = false;
@@ -80,9 +80,9 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 
 	public getDataVo<T>(clazz: any) {
 		var vo: T;
-		if (clazz == HorseVo) {
+		// if (clazz == HorseVo) {
 			return <any>this._vo;
-		}
+		// }
 	}
 
 	public showSelect(key: boolean): void {
@@ -91,6 +91,6 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 
 	public set speed(value: number) {
 		this._vo.speed = value;
-		this._text.text = value.toString();
+		// this._text.text = value.toString();
 	}
 }

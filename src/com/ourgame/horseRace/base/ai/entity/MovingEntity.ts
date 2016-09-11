@@ -60,7 +60,7 @@ class BaseMovingEntity extends BaseGameEntity {
 
 	public set speed(value: number) {
 		this._speed = value;
-		this.setSpeedXY();
+		// this.setSpeedXY();
 	}
 
 	public get speed(): number {

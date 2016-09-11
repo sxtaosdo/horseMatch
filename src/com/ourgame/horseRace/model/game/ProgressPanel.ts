@@ -54,9 +54,12 @@ class ProgressPanel extends egret.Sprite implements IBase {
 	public execute(data?: any): void {
 		var that: ProgressPanel = this;
 		this.client.horseList.forEach(element => {
-			var temp: egret.Bitmap = that.arrowList[element.getDataVo<HorseVo>(HorseVo).id-1]
+			var temp: egret.Bitmap = that.arrowList[element.getDataVo<HorseVo>(HorseVo).id - 1]
 			if (temp) {
-				temp.x = ProgressPanel.STAR_X + ProgressPanel.PORGRESS_WIDTH * (element.currentX / GameWorld.TOTAL_LENGTH);
+				temp.x = ProgressPanel.STAR_X + ProgressPanel.PORGRESS_WIDTH * (element.currentX / (GameWorld.DEADLINE_LENGTH - GameWorld.LEFT_LINE*2));
+			}
+			if (temp.x > ProgressPanel.PORGRESS_WIDTH) {
+				temp.x = ProgressPanel.PORGRESS_WIDTH + ProgressPanel.STAR_X;
 			}
 		});
 	}
