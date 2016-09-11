@@ -100,6 +100,7 @@ class HorseEnityStateEnd implements IState {
 	private self: HorseEntity;
 
 	public constructor() {
+		this.client = ClientModel.instance;
 	}
 
 	public static get instance(): HorseEnityStateEnd {
@@ -125,13 +126,19 @@ class HorseEnityStateEnd implements IState {
 
     public execute(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
-		if (this.self.speed < 1) {
-			this.self.getFSM().ChangeState(HorseEnityStateIdel.instance);
-		} else {
-			this.self.speed--;
-		}
+		// if (this.self.speed < 1) {
+		// 	this.self.getFSM().ChangeState(HorseEnityStateIdel.instance);
+		// } else {
+		// 	this.self.speed--;
+		// }
 		// entity.getDisplayObject().x += this.self.speed;
-		ClientModel.instance.roadPastLength = GameWorld.DEADLINE_LENGTH - GameWorld.RIGHT_LINE;
+		// ClientModel.instance.roadPastLength = GameWorld.DEADLINE_LENGTH - GameWorld.RIGHT_LINE;
+		var speed: number = RandomUtil.randNumber(1, 10);
+		this.self.speed = speed;
+		if (speed > this.client.maxSpeed) {
+			this.client.maxSpeed = speed;
+		}
+		this.self.currentX += speed;
 		entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 
 	}

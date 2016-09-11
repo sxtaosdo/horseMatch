@@ -142,7 +142,7 @@ class GameWorld extends egret.Sprite implements IBase {
         });
         this.bg.execute(ClientModel.instance.maxSpeed);
         if (this.progress.parent) {
-            this.progress.execute(ClientModel.instance.roadPastLength);
+            this.progress.execute();
         }
     }
 
@@ -244,11 +244,14 @@ class GameWorld extends egret.Sprite implements IBase {
 
     /**已经有马触碰终点线了 */
     private onReachEndLine(): void {
-        this.isBulletTime = true;
+        if(!this.isBulletTime){
+            this.isBulletTime = true;
         this.onBullertTme();
-        this.client.horseList.forEach(element => {
-            element.getFSM().ChangeState(HorseEnityStateEnd.instance);
-        });
+        }
+        
+        // this.client.horseList.forEach(element => {
+        //     element.getFSM().ChangeState(HorseEnityStateEnd.instance);
+        // });
     }
 
 }
