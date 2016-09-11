@@ -149,7 +149,7 @@ class GameWorld extends egret.Sprite implements IBase {
             element.getFSM().Update();//
         });
         this.bg.execute(ClientModel.instance.maxSpeed);
-        this.racetrack.execute(ClientModel.instance.maxSpeed);
+        this.racetrack.execute(ClientModel.instance.roadPastLength);
         if (this.progress.parent) {
             this.progress.execute();
         }
