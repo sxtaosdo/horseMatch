@@ -214,7 +214,7 @@ class ClientModel {
         return this._phaseList;
     }
 
-    public phaseList(): Array<any> {
+    public get phaseList(): Array<any> {
         return this._phaseList;
     }
 

@@ -81,7 +81,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 	public getDataVo<T>(clazz: any) {
 		var vo: T;
 		// if (clazz == HorseVo) {
-			return <any>this._vo;
+		return <any>this._vo;
 		// }
 	}
 
@@ -91,6 +91,9 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 
 	public set speed(value: number) {
 		this._vo.speed = value;
-		// this._text.text = value.toString();
+	}
+
+	public phaseSprite(): Array<PhaseVo> {
+		return this._phaseSprite;
 	}
 }

@@ -27,22 +27,33 @@ class PhaseVo {
 		var index: number = 0;
 		var step: number = 4;
 		var temp: number = 0;
-		temp = (parseInt(data.substring(index, index + step), 16) +60000) /2;
-		this.acceleration = temp;
+		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
+		this.acceleration = temp / 10000;
 		index += step;
-		this.maxSpeed = (parseInt(data.substring(index, index + step), 16) +60000) /2;
+		this.maxSpeed = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
 		index += step;
-		this.obstacleType = (parseInt(data.substring(index, index + step), 16) +60000) /2;
+		temp = ((parseInt(data.substring(index, index + step), 16) + 60000) / 2) / 10000;
+		if (temp < 4) {
+			this.obstacleType = 0
+		} else if (temp < 6) {
+			this.obstacleType = 1
+		} else {
+			this.obstacleType = 2
+		}
+		// this.obstacleType = temp < 3 ? 1 : 2;
 		index += step;
-		this.obstaclePosition = (parseInt(data.substring(index, index + step), 16) +60000) /2;
+		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
+		this.obstaclePosition = temp / 1000;
 		index += step;
-		this.pass = parseInt(data.substring(index, index + step), 16) > 32767 ? true : false;
+		this.pass = parseInt(data.substring(index, index + step), 16) > 50000 ? true : false;
 		index += step;
-		this.obstacleStay = (parseInt(data.substring(index, index + step), 16) +60000) /2;
+		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
+		this.obstacleStay = temp / 10000;
 		index += step;
-		this.obstacleAcc = (parseInt(data.substring(index, index + step), 16) +60000) /2;
+		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
+		this.obstacleAcc = temp / 10000;
 		index += step;
-		this.obstacleMaxSpeed = (parseInt(data.substring(index, index + step), 16) +60000) /2;
+		this.obstacleMaxSpeed = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
 		console.log(this);
 
 	}

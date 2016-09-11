@@ -59,6 +59,10 @@ class GameWorld extends egret.Sprite implements IBase {
     private bg: BackgroundPanel;
     /**进度 */
     private progress: ProgressPanel;
+    /**跑道 */
+    private racetrack: RacetrackPanel;
+
+
     /**当前游戏状态 */
     private _gameState: number = GameState.BET_STAGE;
     /**当前进度 */
@@ -85,6 +89,9 @@ class GameWorld extends egret.Sprite implements IBase {
 
         this.topBar = new TopView(this.onTimerComplete, this);
         this.betView = new BetView();
+
+        this.racetrack = new RacetrackPanel();
+        this.addChildAt(this.racetrack, 0);
 
         this.bg = new BackgroundPanel();
         this.addChildAt(this.bg, 0);
@@ -121,6 +128,7 @@ class GameWorld extends egret.Sprite implements IBase {
             this.shutter.y = -120;
         }
 
+        this.addChildAt(this.racetrack, 0);
         this.addChild(this.topBar);
         this.changeState(GameState.BET_STAGE);
 
@@ -141,6 +149,7 @@ class GameWorld extends egret.Sprite implements IBase {
             element.getFSM().Update();//
         });
         this.bg.execute(ClientModel.instance.maxSpeed);
+        this.racetrack.execute(ClientModel.instance.maxSpeed);
         if (this.progress.parent) {
             this.progress.execute();
         }
@@ -188,11 +197,9 @@ class GameWorld extends egret.Sprite implements IBase {
                 if (this.resultBiew.parent) {
                     this.resultBiew.parent.removeChild(this.resultBiew);
                 }
-                // this.topBar.enter(this._gameState);
                 this.addChildAt(this.betView, this.numChildren - 1);
                 this.betView.enter();
                 this.client.horseList.forEach(element => {
-                    // element.getDisplayObject().x = GameWorld.LEFT_LINE;
                     element.getFSM().ChangeState(HorseEnityStateIdel.instance);
                 });
                 ClientModel.instance.roadPastLength = 0;
@@ -205,15 +212,16 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.client.horseList.forEach(element => {
                     element.setData(ClientModel.instance.phaseList[index++])
                 });
+                this.racetrack.enter();
                 this.progress.enter();
                 break;
             case GameState.RESULT_STAGE:
-                // this.changeState(GameState.BET_STAGE);
                 this.addChild(this.resultBiew);
                 if (this.progress.parent) {
                     this.progress.parent.removeChild(this.progress);
                     this.progress.exit();
                 }
+                this.racetrack.exit();
                 TimerManager.instance.clearTimer(this.execute);
                 break;
             case GameState.RUN_STAGE:
@@ -244,11 +252,11 @@ class GameWorld extends egret.Sprite implements IBase {
 
     /**已经有马触碰终点线了 */
     private onReachEndLine(): void {
-        if(!this.isBulletTime){
+        if (!this.isBulletTime) {
             this.isBulletTime = true;
-        this.onBullertTme();
+            this.onBullertTme();
         }
-        
+
         // this.client.horseList.forEach(element => {
         //     element.getFSM().ChangeState(HorseEnityStateEnd.instance);
         // });
