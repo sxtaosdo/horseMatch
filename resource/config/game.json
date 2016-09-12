@@ -5,7 +5,7 @@
   "version": "20160831:1626",
   "showTestBox": true,
   "showPathPoint": false,
-  "betTime": 32,
+  "betTime": 33,
   "resultTime": 3,
   "prepareTime": 3,
   "nextTime": 3

@@ -27,7 +27,7 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 	public dataChanged(): void {
 		var vo: HorseVo = this.data;
 		if (this.icon == null) {
-			this.icon = BitMapUtil.createBitmapByName("betHead" + vo.id + "_png");
+			this.icon = BitMapUtil.createBitmapByName("betHead" + vo.mcName + "_png");
 			this.addChildAt(this.icon, this.numChildren - 1);
 		}
 		this.nameText.text = vo.name;
@@ -37,6 +37,8 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 			this.stateText.text = "" + vo.math.state;
 			if (vo.math.bet > 0) {
 				this.onTap(vo.math.bet - parseInt(this.betText.text));
+			} else if (vo.math.bet == 0) {
+				this.onRemove();
 			}
 			this.betText.text = "" + vo.math.bet;
 		}
@@ -58,11 +60,11 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 		bmp.y = this.point.y;
 		bmp.x = this.point.x;
 		this.addChild(bmp);
-		egret.Tween.get(bmp).to({ x: 5, y: 300+this.coinList.length * -10 }, 500);
+		egret.Tween.get(bmp).to({ x: this.coinList.length % 2 == 0 ? 50 : 110, y: 270 + Math.floor(this.coinList.length / 2) * -10 }, 200);
 		this.coinList.push(bmp);
 	}
 
-	private onRemove(evt: egret.Event): void {
+	private onRemove(evt?: egret.Event): void {
 		while (this.coinList.length > 0) {
 			var bmp: egret.Bitmap = this.coinList.pop();
 			if (bmp.parent) {

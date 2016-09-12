@@ -116,7 +116,7 @@ class HorseEnityStateEnd implements IState {
 
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
-		egret.Tween.get(this).wait(1000 / 30 * 20).call(() => {
+		egret.Tween.get(this).wait(1000 / 30 * 100).call(() => {
 			this.self.displayObject["frameRate"] = 0;
 			egret.Tween.get(this.self.displayObject).wait(200).to({
 				frameRate: 30
