@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="HorseItenSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image x="0" y="0" source="betHeadBg_png"/>
-	<e:Label id="nameText" text="闪电" x="59" y="254" width="151" textAlign="center" size="26" bold="true" textColor="0x0c0b0c"/>
-	<e:Label id="indexText" text="1" x="60" y="252" width="40" textAlign="center" textColor="0x000000"/>
-	<e:Label text="状态" y="315" x="50" size="20"/>
-	<e:Label text="奖励" x="60" y="346.25" size="20"/>
-	<e:Label id="stateText" text="良好" x="120" y="314" width="80" textAlign="left" size="20"/>
-	<e:Label id="numText" text="x5.25" x="101" y="346.25" width="80" textAlign="center" size="20"/>
-	<e:Label id="betText" text="0" x="59" y="288" width="142" textAlign="center" size="30"/>
+	<e:Label text="状态" y="315" x="50" size="20" visible="false"/>
+	<e:Label text="奖励" x="58" y="343" size="26"/>
+	<e:Label id="stateText" text="良好" x="120" y="314" width="80" textAlign="left" size="20" visible="false"/>
+	<e:Label id="numText" text="x5.25" x="109" y="343" width="86" textAlign="center" size="26"/>
+	<e:Label id="betText" text="0" x="57" y="308" width="142" textAlign="center" size="30" textColor="0xae9d3c"/>
+	<e:Group y="229" x="32">
+		<e:Image x="25" source="betNameBg_png" y="10"/>
+		<e:Image x="-17" y="-4" source="betIndexBg_png"/>
+		<e:Label id="nameText" text="闪电" x="34" y="20" width="128" textAlign="center" size="26" bold="true" textColor="0x01a1f8"/>
+		<e:Label id="indexText" text="1" x="-6" y="12" width="40" textAlign="center" textColor="0xfafafa"/>
+	</e:Group>
 </e:Skin>

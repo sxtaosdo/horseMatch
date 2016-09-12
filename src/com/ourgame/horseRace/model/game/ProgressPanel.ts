@@ -25,10 +25,10 @@ class ProgressPanel extends egret.Sprite implements IBase {
 		this.propressBg.x = (GameWorld.GAME_WIDTH - this.propressBg.width) >> 1;
 		this.addChild(this.propressBg);
 
-		this.flag = BitMapUtil.createBitmapByName("flag_png");
-		this.flag.x = this.propressBg.x + this.propressBg.width - this.flag.width / 2;
-		this.flag.y = this.propressBg.y - this.propressBg.height - this.flag.height / 2;
-		this.addChild(this.flag);
+		// this.flag = BitMapUtil.createBitmapByName("flag_png");
+		// this.flag.x = this.propressBg.x + this.propressBg.width - this.flag.width / 2;
+		// this.flag.y = this.propressBg.y - this.propressBg.height - this.flag.height / 2;
+		// this.addChild(this.flag);
 
 		this.y = GameWorld.GAME_HEIGHT - 61;
 

@@ -36,11 +36,10 @@ class PhaseVo {
 		if (temp < 4) {
 			this.obstacleType = 0
 		} else if (temp < 6) {
-			this.obstacleType = 1
+			this.obstacleType = temp < 5.5 ? 1 : 0;
 		} else {
-			this.obstacleType = 2
+			this.obstacleType = 2;
 		}
-		// this.obstacleType = temp < 3 ? 1 : 2;
 		index += step;
 		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
 		this.obstaclePosition = temp / 1000;

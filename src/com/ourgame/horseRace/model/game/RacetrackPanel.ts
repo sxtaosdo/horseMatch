@@ -35,7 +35,7 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 				if (element.obstacleType > 0) {
 					var thing: egret.Bitmap = BitMapUtil.createBitmapByName("obstacle" + element.obstacleType + "_png");
 					thing.x = GameWorld.LEFT_LINE + element.obstaclePosition + indexB * (GameWorld.DEADLINE_LENGTH / 10);
-					sp.addChild(thing)
+					sp.addChild(thing);
 				}
 				indexB++;
 			});
@@ -62,4 +62,6 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 			}
 		});
 	}
+
+	public 
 }
