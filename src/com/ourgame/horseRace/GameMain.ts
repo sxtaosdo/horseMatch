@@ -10,7 +10,7 @@ class GameMain extends egret.Sprite implements IBase {
 
 	private currentState: IBase;
 	private previousState: IBase;
-	
+
 	private popup: WindowManager;
 
 	public constructor() {
@@ -29,7 +29,7 @@ class GameMain extends egret.Sprite implements IBase {
 	}
 
 	private onAssetsComplete(): void {
-		
+
 		// if (ConfigModel.instance.showTest) {
         //     var test: TestWindow = new TestWindow();
         //     this.addChild(test);
@@ -56,7 +56,15 @@ class GameMain extends egret.Sprite implements IBase {
 	 * 进入游戏后默认的设置
 	 */
 	private setDefoult(): void {
-		ClientModel.instance.changeGameState(new LoginView());
+		// if (ConfigModel.instance.debug) {
+		// 	ClientModel.instance.changeGameState(new LoginView());
+		// } else {
+			ClientModel.instance.parseParams();
+			ClientModel.instance.changeGameState(LoadingUI.instance);
+			LoadingUI.instance.loadAssets(() => {
+				ClientModel.instance.changeGameState(new HallView());
+			}, LoadingUI.assets1);
+		// }
 	}
 
 	public exit(): void {

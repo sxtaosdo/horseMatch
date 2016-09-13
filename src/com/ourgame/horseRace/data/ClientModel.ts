@@ -75,6 +75,7 @@ class ClientModel {
         console.log("移动设备：" + egret.Capabilities.isMobile);
         console.log("系统语言：" + egret.Capabilities.language);
         console.log("运行环境：" + egret.Capabilities.runtimeType);
+        
         if (egret.Capabilities.isMobile) {
             console.log("native support版本：" + egret.Capabilities.supportVersion);
         }

@@ -140,6 +140,8 @@ class GameWorld extends egret.Sprite implements IBase {
             this.parent.removeChild(this);
         }
         this.bg.exit();
+        this.betView.exit();
+        this.racetrack.exit();
         TimerManager.instance.clearTimer(this.execute);
     }
 
@@ -212,6 +214,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.client.horseList.forEach(element => {
                     element.setData(ClientModel.instance.phaseList[index++])
                 });
+                this.betView.exit();
                 this.racetrack.enter();
                 this.progress.enter();
                 break;

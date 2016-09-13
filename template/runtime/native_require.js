@@ -76,6 +76,7 @@ var game_file_list = [
 	"bin-debug/com/ourgame/horseRace/native/WebInterface.js",
 	"bin-debug/com/ourgame/horseRace/native/WxInterface.js",
 	"bin-debug/com/ourgame/horseRace/net/ConnectionManager.js",
+	"bin-debug/com/ourgame/horseRace/net/handler/HttpHandler.js",
 	"bin-debug/com/ourgame/horseRace/net/handler/SocketIoHandler.js",
 	"bin-debug/com/ourgame/horseRace/net/handler/WebSocketHandler.js",
 	"bin-debug/com/ourgame/horseRace/net/ISocket.js",

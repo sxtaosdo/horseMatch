@@ -18,6 +18,8 @@ class ConfigModel {
     private _prepareTime: number;
     /**距下一场比赛 */
     private _nextTime: number;
+    /**url */
+    private _url: string;
 
     private _horseList: Array<HorseVo>;
 
@@ -35,6 +37,7 @@ class ConfigModel {
     public parse(data: any): void {
         var value: any;
         this._version = data.version;
+        this._url = data.url;
         this._prepareTime = data.prepareTime;
         this._showTest = data.showTest;
         this._betTime = data.betTime;
@@ -63,6 +66,9 @@ class ConfigModel {
 
     public get version(): string {
         return this._version;
+    }
+    public get url(): string {
+        return this._url;
     }
 
     public get debug(): boolean {

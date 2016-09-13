@@ -1,12 +1,12 @@
 {
   "ip": "",
   "showTest": true,
-  "showLoading": true,
+  "debug": true,
   "version": "20160831:1626",
-  "showTestBox": true,
   "showPathPoint": false,
   "betTime": 33,
   "resultTime": 3,
   "prepareTime": 3,
-  "nextTime": 3
+  "nextTime": 3,
+  "url": "172.28.26.28"
 }

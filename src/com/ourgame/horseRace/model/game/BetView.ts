@@ -14,11 +14,13 @@ class BetView extends BaseComponent implements IBase {
 	public revokeBtn: eui.Button;
 	/**选中的筹码 */
 	public selectMoney: number = 100;
+	private coinList: Array<any>;
 
 
 	public constructor() {
 		super();
 
+		this.coinList = new Array<any>();
 		this.horseData = new eui.ArrayCollection();
 		ConfigModel.instance.horseList.forEach(element => {
 			this.horseData.addItem(element);
@@ -54,7 +56,7 @@ class BetView extends BaseComponent implements IBase {
 	}
 
 	public exit(): void {
-
+		this.onRemove();
 	}
 
 	public execute(data?: any): void {
@@ -65,6 +67,28 @@ class BetView extends BaseComponent implements IBase {
 		var data = this.horseData.source[this.horseList.selectedIndex];
 		data.math.bet += this.selectMoney;
 		this.horseData.itemUpdated(data);
+
+		var bmp: egret.Bitmap = BitMapUtil.createBitmapByName("coin_png");
+		switch (this.selectMoney) {
+			case 100:
+				bmp.x = 750;
+				bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.red)];
+				break;
+			case 1000:
+				bmp.x = 900;
+				break;
+			case 10000:
+				bmp.x = 1050;
+				bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.blue)];
+				break;
+		}
+		bmp.y = 570;
+		this.addChild(bmp);
+		if (this.coinList[this.horseList.selectedIndex] == null) {
+			this.coinList[this.horseList.selectedIndex] = new Array<egret.Bitmap>();
+		}
+		egret.Tween.get(bmp).to({ x: (this.coinList[this.horseList.selectedIndex].length % 2 == 0 ? 60 : 130) + RandomUtil.randNumber(0, 5) + (this.horseList.selectedIndex * 250), y: 390 + Math.floor(this.coinList[this.horseList.selectedIndex].length / 2) * -10 }, 200);
+		this.coinList[this.horseList.selectedIndex].push(bmp);
 	}
 
 	private randomInfo(id: number): MatchPlayerVo {
@@ -84,5 +108,18 @@ class BetView extends BaseComponent implements IBase {
 			element.math.bet = 0;
 		});
 		this.horseData.refresh();
+		this.onRemove();
+	}
+
+
+	private onRemove(evt?: egret.Event): void {
+		this.coinList.forEach(element => {
+			while (element.length > 0) {
+				var bmp: egret.Bitmap = element.pop();
+				if (bmp.parent) {
+					bmp.parent.removeChild(bmp);
+				}
+			}
+		});
 	}
 }
