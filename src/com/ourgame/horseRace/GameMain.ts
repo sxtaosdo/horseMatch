@@ -26,6 +26,8 @@ class GameMain extends egret.Sprite implements IBase {
 	public enter(data?: any): void {
 		GameDispatcher.addEventListener(GameEvent.GAME_STATE_EVENT, this.onStateChange, this);
 		this.setDefoult();
+		// var temp: any = new window["lib"].无标题1();
+		// this.stage.addChild(temp);
 	}
 
 	private onAssetsComplete(): void {
@@ -59,11 +61,12 @@ class GameMain extends egret.Sprite implements IBase {
 		// if (ConfigModel.instance.debug) {
 		// 	ClientModel.instance.changeGameState(new LoginView());
 		// } else {
-			ClientModel.instance.parseParams();
-			ClientModel.instance.changeGameState(LoadingUI.instance);
-			LoadingUI.instance.loadAssets(() => {
-				ClientModel.instance.changeGameState(new HallView());
-			}, LoadingUI.assets1);
+		ClientModel.instance.parseParams();
+		ClientModel.instance.changeGameState(LoadingUI.instance);
+		LoadingUI.instance.loadAssets(() => {
+			ClientModel.instance.changeGameState(new HallView());
+			ConnectionManager.instance.conn();
+		}, LoadingUI.assets1);
 		// }
 	}
 

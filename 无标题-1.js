@@ -1,18 +1,27 @@
 (function (lib, img, cjs, ss) {
 
 var p; // shortcut to reference prototypes
+lib.webFontTxtFilters = {}; 
 
 // library properties:
 lib.properties = {
-	width: 550,
-	height: 400,
+	width: 658,
+	height: 500,
 	fps: 24,
 	color: "#333333",
+	webfonts: {},
 	manifest: []
 };
 
 
 
+lib.webfontAvailable = function(family) { 
+	lib.properties.webfonts[family] = true;
+	var txtFilters = lib.webFontTxtFilters && lib.webFontTxtFilters[family] || [];
+	for(var f = 0; f < txtFilters.length; ++f) {
+		txtFilters[f].updateCache();
+	}
+};
 // symbols:
 
 
@@ -41,7 +50,7 @@ lib.properties = {
 
 	// 图层 2
 	this.shape_4 = new cjs.Shape();
-	this.shape_4.graphics.f("#FE9100").s().p("Egi9Ab0QA3k/CQkjQCIkWCckIQCskjCakrQCJkLA4krQBClmj+j3QhFhChfgPQleg/kCEQQBJiEAqg3QBMhiBChLQA/hJBnhqQBohrBIhCQCQiED/h7IANgHQA2gYBegUQBegUAuAAQAoAAAKAEIAEAAQgIAAgPAJQgOAIgHgCQgDAbAaAGQAJACAsAAQAyAABeggQA/gWArgHQAPAAARgDIAFAAQASAAAYAFQAeAGAnAQQBEAbAtAAQAtAAAqgUIADgCIgOARQgqAxgJAJIgCADQghAig3AkQg+AngoAWIgbAPQgbAOgNAEQjPA6AABuIABALQAAAUgFAtQAAAiAMAQQAMATAhAEQgGAMg1BEQgiArAAA0IAAAiIgEAMQgHAYAAAZQgCAZADAUQAAAzAFAaQAEAYAAAjQAAA8guBAQguBAAAAxQAAAVAIAVQAGAPACALQgHAQAAAPIAAADQAAALACAJIADAIIAvAAQgHAYg1BjQgxBaAAAaQAAAeAfAhQAfAiAAA7QAAAzgfA4QgfA4AAAiQAAAkADAEQAGALAlABQgEAOgDAUQgDAWAAAJQAACLCHBZQCFBYDMAAIC/gDQCzgFBWgTQAsgIAggXIAugmQAQgOAMgHQBWhOAOgQIAegjQAggkAIgHQAPgNAnhPIAUgjQAUgjASgMIADgEIAMgOQAsgpAkifQAkibAogsQgGAUAOAYQASAeAiABQgZAMgKAPQgIAOAAAXQAAAbAOAHQAHAEAaAAQAXAAACgKQACgPAZgKQAJgEAlAAIAUAAQgoAHgTAOQgOAKgJATQgLAZgIAKQgOARhAAWQgUAGgGAZQgDAMAAAdQAAARAGAUQAFAVAAAKQAAAaglAUQgOAIgIAIQgPAPAAARIAEATIADAVQAAAagaAmQgMAQgGAOIADAEQAJARAPAOQBuAbA4ARQA5AQA0AAQAbAAAvgNQAvgNAMAAQAdAAAtANQAuANAmAAQBNAABAgPQBOgTCNgIQChgJA4gMQAogJBggqQArgTBzgbQCfglAkgLQAfgIAygTIhEAsQg2AkgeAKQgxASgQAJQgoAVAAAZQAAAiBLACIAeAAIhIAZQlQB5h3BLQh2BKjcAxQjdAwiFAgQlxBah0BiIgEAGQgqA/AAAeQAACAC9AhQA0AJBJACQiQAGkvAvQlWA0jUAbIgxAAIijgCQjnAAi+AiQpZBrooHqIigDcQAHiLAXiHgALorhIgBgoQABgVAGgeQABgGAQgYIARgdQAJgfAdgbQAegdAdAAIAqAFQAYAAASgQQASgRAUgDQAegDA4gPQg9AggfASQg7AhAAAfQAAARAJAIQAIAGASAAQAGAAAVgEQAUgFAKAAQAdAAAQADQgWgBgYANQgbAOgKAXQgHAQgjAMQgjAMgcgEQhIgLgmAhQgbAWgGAkIAAgSgAQ603QAAhBAsgZIAfgRQANgLAAgRQAAgNgbgQQgLgHgHgIQgBALACAMQgDgNAAgNQgBgjAPgcIAGgJQAcgqgEgiQgGgmAAgRQAAglAfgUQAhgVADgdIgCghQAAgTASgHQAmgPAdABQAsACAwgKQA2gMAlgWQAIgFBEgLIA5gJIAFgBQASgFAxgMQAggJARgLIgXAcQggAoAAAHQAAAQALAEIARAAQAxAAAZgiQAZghAxAAIAfADIAVACQg1ABgrAwQggAjgMAKQgdAYglAKIh2AdQhBAVgaAmIAAAbQAFAAAPADQAOADAIAAQATAAAWgLIAFAAQgzAegZANQgqAVg0ACQiCAEgpBDQgNAXgGA+QgGA7gZAhQgNASgaAOIgqAUQguAZAMA3QgGgLAAgkg");
+	this.shape_4.graphics.f("#FE9100").s().p("Egi9Ab0QA3k/CQkjQCIkWCckIQCskjCakrQCJkLA4krQBClmj+j3QhFhChfgPQleg/kCEQQBJiEAqg3QBMhiBChLQA/hJBnhqQBohrBIhCQCQiED/h7IANgHQA2gYBegUQBegUAuAAQAoAAAKAEIAEAAQgIAAgPAJQgOAIgHgCQgDAbAaAGQAJACAsAAQAyAABeggQA/gWArgHQAPAAARgDIAFAAQASAAAYAFQAeAGAnAQQBEAbAtAAQAtAAAqgUIADgCIgOARQgqAxgJAJIgCADQghAig3AkQg+AngoAWIgbAPQgbAOgNAEQjPA6AABuIABALQAAAUgFAtQAAAiAMAQQAMATAhAEQgGAMg1BEQgiArAAA0IAAAiIgEAMQgHAYAAAZQgCAZADAUQAAAzAFAaQAEAYAAAjQAAA8guBAQguBAAAAxQAAAVAIAVQAGAPACALQgHAQAAAPIAAADQAAALACAJIADAIIAvAAQgHAYg1BjQgxBaAAAaQAAAeAfAhQAfAiAAA7QAAAzgfA4QgfA4AAAiQAAAkADAEQAGALAlABQgEAOgDAUQgDAWAAAJQAACLCHBZQCFBYDMAAICHgCIAOAAIAqgBQCzgFBWgTQAsgIAggXIAugmQAQgOAMgHQBWhOAOgQIAegjQAggkAIgHQAPgNAnhPIAUgjQAUgjASgMIADgEIAMgOQAVgUATgvIAFgNQATgwAQhIQAkibAogsQgGAUAOAYQASAeAiABQgZAMgKAPQgIAOAAAXQAAAbAOAHQAHAEAaAAQAXAAACgKQACgPAZgKQAJgEAlAAQABAAg6ApIgFAJQgLAZgIAKQgOARhAAWQgUAGgGAZQgDAMAAAdQAAARAGAUQAFAVAAAKQAAAaglAUQgOAIgIAIQgPAPAAARIAEATIADAVQAAAagaAmQgMAQgGAOIADAEQAJARAPAOQBuAbA4ARQA5AQA0AAQAbAAAvgNQAvgNAMAAQAdAAAtANQAuANAmAAQBNAABAgPQBOgTCNgIQChgJA4gMQAogJBggqQArgTBzgbQCfglAkgLQAfgIAygTIhEAsQg2AkgeAKQgxASgQAJQgoAVAAAZQAAAiBLACIAeAAIhIAZQlQB5h3BLQh2BKjcAxQjdAwiFAgQlxBah0BiIgEAGQgqA/AAAeQAACAC9AhQA0AJBJACQiQAGkvAvQlWA0jUAbIgxAAIijgCQjnAAi+AiQpZBrooHqIigDcQAHiLAXiHgALorhIgBgoQABgVAGgeQABgGAQgYIARgdQAJgfAdgbQAegdAdAAIAqAFQAYAAASgQQASgRAUgDQAegDA4gPQg9AggfASQg7AhAAAfQAAARAJAIQAIAGASAAQAGAAAVgEQAUgFAKAAQAdAAAQADQgWgBgYANQgbAOgKAXQgHAQgjAMQgjAMgcgEQhIgLgmAhQgbAWgGAkIAAgSgAQ603QAAhBAsgZIAfgRQANgLAAgRQAAgNgbgQQgLgHgHgIQgBALACAMQgDgNAAgNQgBgjAPgcIAGgJQAcgqgEgiQgGgmAAgRQAAglAfgUQAhgVADgdIgCghQAAgTASgHQAmgPAdABQAsACAwgKQA2gMAlgWQAIgFBEgLIA5gJIAFgBQASgFAxgMQAggJARgLIgXAcQggAoAAAHQAAAQALAEIARAAQAxAAAZgiQAZghAxAAIAfADIAVACQg1ABgrAwQggAjgMAKQgdAYglAKIh2AdQhBAVgaAmIAAAbQAFAAAPADQAOADAIAAQATAAAWgLIAFAAQgzAegZANQgqAVg0ACQiCAEgpBDQgNAXgGA+QgGA7gZAhQgNASgaAOIgqAUQguAZAMA3QgGgLAAgkg");
 	this.shape_4.setTransform(320.7,484.1);
 
 	this.shape_5 = new cjs.Shape();
@@ -109,7 +118,7 @@ lib.properties = {
 p.nominalBounds = new cjs.Rectangle(82.1,237.3,647,488.7);
 
 
-(lib._21点logo = function(mode,startPosition,loop) {
+(lib._21point = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// 图层 5
@@ -146,7 +155,7 @@ p.nominalBounds = new cjs.Rectangle(78.1,233.3,659,500);
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer 1
-	this.instance = new lib._21点logo();
+	this.instance = new lib._21point();
 	this.instance.setTransform(27.8,19.9,0.087,0.087,0,0,0,400,400);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
@@ -160,13 +169,13 @@ p.nominalBounds = new cjs.Rectangle(-4,1.7,68,55);
 	this.initialize(mode,startPosition,loop,{});
 
 	// 图层 1
-	this.instance = new lib.iconui21d();
-	this.instance.setTransform(245.1,239,1,1,0,0,0,24.8,11.5);
+	this.instance = new lib._21point();
+	this.instance.setTransform(295.2,137.4,1,1,0,0,0,366.2,369);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(491.3,429.2,68,54);
+p.nominalBounds = new cjs.Rectangle(336.1,251.7,659,501);
 
 })(lib = lib||{}, images = images||{}, createjs = createjs||{}, ss = ss||{});
 var lib, images, createjs, ss;

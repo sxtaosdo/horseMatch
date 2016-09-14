@@ -8,7 +8,7 @@ class ConnectionManager {
     /**
      * 连接类型
      */
-    public static CONN_TYPE: number = 1;
+    public static CONN_TYPE: number = 4;
     /**
      * 重连间隔
      */
@@ -51,6 +51,9 @@ class ConnectionManager {
                 break;
             case 3://socket.io  发布移动端的时候屏蔽掉，native环境暂时不支持socket.io
                 this.socket = new SocketIoHandler(this._receiveHelper.onMessage, this);
+                break;
+            case 4://Http
+                this.socket = new HttpHandler(this._receiveHelper.onMessage, this);
                 break;
         }
     }
@@ -98,7 +101,7 @@ class ConnectionManager {
         return this._receiveHelper;
     }
 
-    public onConnSuccess():void{
+    public onConnSuccess(): void {
         ConnectionManager.instance.sendHelper.login();
     }
 

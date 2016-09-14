@@ -60,9 +60,9 @@ class Main extends eui.UILayer {
     }
     private createScene() {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
-            // LoadingUI.instance.loadAssets(this.onAssetsComplete, this);
             this.addChild(this.game);
         }
+        
     }
 
     private onAssetsComplete(): void {

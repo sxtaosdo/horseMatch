@@ -26,7 +26,7 @@ class MsgReceiveHelper {
     /**
      * 数据处理，反序列化
      */
-    public onMessage(type: number, body?: any): void {
+    public onMessage(type: any, body?: any): void {
         var msg: any = MsgReceiveHelper.instance.msg;
         var cls: any;
         switch (type) {
@@ -42,8 +42,13 @@ class MsgReceiveHelper {
             case MsgType.A_DICE_INFO:
                 // HallClientModel.instance.onDiceInfo(body);
                 break;
-            case MsgType.A_LOGIN:
-                GameDispatcher.send(BaseEvent.LOGIN_RESULT_EVENT);
+            case "login":
+                if (body.rtnCode == 0) {
+                    GameDispatcher.send(BaseEvent.LOGIN_RESULT_EVENT);
+                    ConnectionManager.instance.sendHelper.gameInfo();
+                } else {
+                    ClientModel.instance.openAlert("登陆失败，请重试");
+                }
                 break;
             case MsgType.A_GAME_POOL:
             // HallClientModel.instance.onPool(body.value);

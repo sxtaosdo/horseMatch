@@ -2,8 +2,8 @@
 <e:Skin class="TopViewSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="1270">
 	<e:Group y="2" left="30">
 		<e:Image source="betMoneyBg_png" x="0" y="6"/>
-		<e:Label text="999,999,999" x="69" y="29" width="162" textAlign="center" verticalAlign="middle" size="24"/>
-		<e:Button label="" x="242" y="16" width="50">
+		<e:Label id="moneyText" text="999,999,999" x="69" y="29" width="162" textAlign="center" verticalAlign="middle" size="24"/>
+		<e:Button id="addBtn" label="" x="242" y="16" width="50">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="addBtn1_png" source.down="addBtn2_png"/>
@@ -15,11 +15,11 @@
 	<e:Group y="13" horizontalCenter="0">
 		<e:Image source="betTimeBg_png"/>
 		<e:Label id="timerText" text="01:15" y="35" width="108" verticalAlign="middle" textAlign="center" x="10"/>
-		<e:Label id="typeText" text="" x="0" y="1" width="125" size="22" textAlign="center" textColor="0xc3d4fd" bold="true"/>
+		<e:Label id="typeText" text="" x="-2" y="1" width="130" size="22" textAlign="center" textColor="0xc3d4fd" bold="true" height="30"/>
 	</e:Group>
 	<e:Group y="11" right="30">
 		<e:Image y="0" source="betBtnBg_png"/>
-		<e:Button label="" y="7" x="8">
+		<e:Button id="kjBtn" label="" y="7" x="8">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="openBtn1_png" source.down="openBtn2_png"/>
@@ -27,7 +27,7 @@
 				</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:Button label="" x="131" y="7">
+		<e:Button id="jlBtn" label="" x="131" y="7">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="minutesBtn1_png" source.down="minutesBtn2_png"/>
@@ -35,7 +35,7 @@
 				</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:Button label="" x="255" y="7">
+		<e:Button id="smBtn" label="" x="255" y="7">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="racingBtn1_png" source.down="racingBtn2_png"/>
@@ -43,7 +43,7 @@
 				</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:ToggleButton label="" x="390" y="0">
+		<e:ToggleButton id="soundBtn" label="" x="390" y="0">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="betSoundBtn1_png" source.down="betSoundBtn2_png"/>

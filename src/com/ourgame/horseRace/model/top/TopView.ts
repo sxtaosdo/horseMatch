@@ -3,8 +3,15 @@
  */
 class TopView extends BaseComponent implements IBase {
 
-	public typeText: eui.Label;
+	public moneyText: eui.Label;
+	public addBtn: eui.Button;
 	public timerText: eui.Label;
+	public typeText: eui.Label;
+	public kjBtn: eui.Button;
+	public jlBtn: eui.Button;
+	public smBtn: eui.Button;
+	public soundBtn: eui.ToggleButton;
+
 
 	private time: number = 0;
 	private call: Function;
@@ -19,6 +26,11 @@ class TopView extends BaseComponent implements IBase {
 
 	protected onSkinComplete(e: any): void {
 		super.onSkinComplete(e);
+		this.moneyText.text = String(UserModel.instance.money);
+		this.kjBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onKjTap, this);
+		this.jlBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onJlTap, this);
+		this.smBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSmTap, this);
+		this.soundBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSoundTap, this);
 	}
 
 	public enter(data?: any): void {
@@ -59,6 +71,25 @@ class TopView extends BaseComponent implements IBase {
 				this.call.apply(this.callThis);
 			}
 		}
+	}
+
+	public onKjTap(evt: egret.TouchEvent): void {
+		// ClientModel.instance.openWindow();
+	}
+
+	public onJlTap(evt: egret.TouchEvent): void {
+		// ClientModel.instance.openWindow();
+
+	}
+
+	public onSmTap(evt: egret.TouchEvent): void {
+		// ClientModel.instance.openWindow();
+
+	}
+
+	public onSoundTap(evt: egret.TouchEvent): void {
+		// ClientModel.instance.openWindow();
+
 	}
 
 }

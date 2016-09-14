@@ -9,7 +9,7 @@ class UserModel {
     private _roleName: string = "";
     private _nickName: string = "";
     private _money: number = 0;
-    private _ticket: string;
+    private _token: string="";
     private _isAnteVoChange: boolean = false;
 
     public constructor() {
@@ -22,12 +22,12 @@ class UserModel {
         return this._instance;
     }
 
-    public get ticket(): string {
-        return this._ticket;
+    public get token(): string {
+        return this._token;
     }
 
-    public set ticket(value: string) {
-        this._ticket = value;
+    public set token(value: string) {
+        this._token = value;
     }
 
     public get userName(): string {
@@ -53,5 +53,14 @@ class UserModel {
     public set nickName(value: string) {
         this._nickName = value;
     }
+
+    public get money(): number {
+        return this._money;
+    }
+
+    public set money(value: number) {
+        this._money = value;
+    }
+
 
 }

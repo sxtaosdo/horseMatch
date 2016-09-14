@@ -85,7 +85,7 @@ class ClientModel {
             UserModel.instance.userName = decodeURI(egret.getOption("userName").toString());
             UserModel.instance.roleName = decodeURI(egret.getOption("roleName"));
             UserModel.instance.nickName = decodeURI(egret.getOption("nickName"));
-            UserModel.instance.ticket = (egret.getOption("ticket"));
+            UserModel.instance.token = (egret.getOption("token"));
         }
         if (egret.Capabilities.runtimeType == egret.RuntimeType.NATIVE) {//native
 
