@@ -40,7 +40,7 @@ class ClientModel {
     /**
      * 最快速度
      */
-    public  maxSpeed: number = 0;
+    public maxSpeed: number = 0;
 
 
     public constructor() {
@@ -75,7 +75,7 @@ class ClientModel {
         console.log("移动设备：" + egret.Capabilities.isMobile);
         console.log("系统语言：" + egret.Capabilities.language);
         console.log("运行环境：" + egret.Capabilities.runtimeType);
-        
+
         if (egret.Capabilities.isMobile) {
             console.log("native support版本：" + egret.Capabilities.supportVersion);
         }
@@ -203,13 +203,11 @@ class ClientModel {
 
     public initGameSprite(id: number): Array<any> {
         for (var i: number = 0; i < 5; i++) {
-            var list: Array<PhaseVo> = new Array<PhaseVo>();
-            for (var j: number = 0; j < 10; j++) {
-                var tempMd5: string = new md5().hex_md5(id + i + j + "");
-                var vo: PhaseVo = new PhaseVo();
-                vo.initData(tempMd5);
-                list.push(vo);
-            }
+            var list: Array<any> = new Array<any>();
+            var obs: ObstacleVo = new ObstacleVo(new md5().hex_md5(id + i + "obstacle"));
+            list.push(obs);
+            var buf: BufferVo = new BufferVo(new md5().hex_md5(id + i + "buffer"));
+            list.push(buf);
             this._phaseList.push(list);
         }
         return this._phaseList;
