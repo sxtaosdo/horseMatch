@@ -4,7 +4,7 @@
   "debug": true,
   "version": "20160831:1626",
   "showPathPoint": false,
-  "betTime": 33,
+  "betTime": 3,
   "resultTime": 3,
   "prepareTime": 3,
   "nextTime": 3,

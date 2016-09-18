@@ -12,13 +12,14 @@ class BetView extends BaseComponent implements IBase {
 	public btn10000: eui.RadioButton;
 	public horseList: eui.List;
 	public revokeBtn: eui.Button;
+	public bgImage: eui.Image;
 	/**选中的筹码 */
 	public selectMoney: number = 100;
 	private coinList: Array<any>;
 
 
 	public constructor() {
-		super();
+		super(false);
 
 		this.coinList = new Array<any>();
 		this.horseData = new eui.ArrayCollection();
@@ -53,6 +54,7 @@ class BetView extends BaseComponent implements IBase {
 			});
 			this.horseData.refresh();
 		}
+
 	}
 
 	public exit(): void {
@@ -122,4 +124,5 @@ class BetView extends BaseComponent implements IBase {
 			}
 		});
 	}
+
 }

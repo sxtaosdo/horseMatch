@@ -65,7 +65,7 @@ class ConnectionManager {
         return this._instance;
     }
 
-    public send(type: number, body: any): void {
+    public send(type: any, body?: any): void {
         this.socket.send(type, body);
     }
 

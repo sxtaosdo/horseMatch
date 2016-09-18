@@ -133,9 +133,12 @@ class GameWorld extends egret.Sprite implements IBase {
         this.changeState(GameState.BET_STAGE);
 
         GameDispatcher.addEventListener(BaseEvent.REACH_END_LINE, this.onReachEndLine, this);
+        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
     }
 
     public exit(data?: any): void {
+        this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
+        this.stage.removeEventListener(egret.Event.RESIZE, this.onResize, this);
         if (this.parent != null) {
             this.parent.removeChild(this);
         }
@@ -247,6 +250,7 @@ class GameWorld extends egret.Sprite implements IBase {
 
                 break;
         }
+        this.onResize();
     }
 
     private run(): void {
@@ -263,6 +267,28 @@ class GameWorld extends egret.Sprite implements IBase {
         // this.client.horseList.forEach(element => {
         //     element.getFSM().ChangeState(HorseEnityStateEnd.instance);
         // });
+    }
+
+    private onAdd(): void {
+        this.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);
+        this.onResize();
+    }
+
+    private onResize(evt?: egret.Event): void {
+        if (this.stage) {
+            if (this.betView && this.betView.parent) {
+                this.betView.y = this.stage.stageHeight - this.betView.height;
+            }
+            // if (this.bg && this.bg.parent) {
+            //     this.bg.y = this.stage.stageHeight - this.bg.height;
+            // }
+            if (this.racetrack && this.racetrack.parent) {
+                this.racetrack.y = this.stage.stageHeight - this.racetrack.height;
+            }
+            if (this.progress && this.progress.parent) {
+                this.progress.y = this.stage.stageHeight - this.progress.height;
+            }
+        }
     }
 
 }

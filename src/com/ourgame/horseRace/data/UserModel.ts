@@ -9,8 +9,9 @@ class UserModel {
     private _roleName: string = "";
     private _nickName: string = "";
     private _money: number = 0;
-    private _token: string="";
+    private _token: string = "";
     private _isAnteVoChange: boolean = false;
+    private _JSESSIONID: string;
 
     public constructor() {
     }
@@ -52,6 +53,14 @@ class UserModel {
 
     public set nickName(value: string) {
         this._nickName = value;
+    }
+
+    public get JSESSIONID(): string {
+        return this._JSESSIONID;
+    }
+
+    public set JSESSIONID(value: string) {
+        this._JSESSIONID = value;
     }
 
     public get money(): number {

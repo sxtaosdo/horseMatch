@@ -27,12 +27,7 @@ class MsgSendHelper {
         // ConnectionManager.instance.send(MsgType.R_DICE_INFO, {});
     }
 
-    // /**步步为营go按钮 */
-    // public diceGo(): void {
-    //     ConnectionManager.instance.send(MsgType.GLFS_Ping, {});
-    // }
-
     public gameInfo():void{
-        ConnectionManager.instance.send(MsgType.GLFS_Ping, {});
+        ConnectionManager.instance.send("/hrb/init");
     }
 }
