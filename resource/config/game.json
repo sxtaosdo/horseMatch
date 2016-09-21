@@ -5,9 +5,9 @@
   "version": "20160831:1626",
   "showPathPoint": false,
   "betTime": 3,
-  "resultTime": 3,
   "prepareTime": 3,
+  "resultTime": 3,
   "nextTime": 3,
-  "url": "http://60.205.156.251:8080",
-  "url1": "172.28.160.176"
+  "url1": "http://60.205.156.251:8080",
+  "url": "ali.game.com"
 }

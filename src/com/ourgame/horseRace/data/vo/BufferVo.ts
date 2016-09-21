@@ -11,7 +11,7 @@ class BufferVo {
 	}
 
 	public initData(data: string): void {
-		console.log(data);
+		// console.log(data);
 		var index: number = 0;
 		var step: number = 4;
 		var temp: number = 0;

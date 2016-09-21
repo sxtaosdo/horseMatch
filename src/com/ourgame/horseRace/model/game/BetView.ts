@@ -16,12 +16,14 @@ class BetView extends BaseComponent implements IBase {
 	/**选中的筹码 */
 	public selectMoney: number = 100;
 	private coinList: Array<any>;
+	private betInfoList: Object;
 
 
 	public constructor() {
 		super(false);
 
 		this.coinList = new Array<any>();
+		this.betInfoList = Object();
 		this.horseData = new eui.ArrayCollection();
 		ConfigModel.instance.horseList.forEach(element => {
 			this.horseData.addItem(element);
@@ -48,13 +50,13 @@ class BetView extends BaseComponent implements IBase {
 			this.btn10000.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoneyTap, this);
 			this.revokeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onrevokeTap, this);
 
-			this.horseData.source.forEach(element => {
-				// console.log(element);
-				element.math = this.randomInfo(element.id);
-			});
-			this.horseData.refresh();
+			// this.horseData.source.forEach(element => {
+			// 	// console.log(element);
+			// 	element.math = this.randomInfo(element.id);
+			// });
+			// this.horseData.refresh();
 		}
-
+		GameDispatcher.addEventListener(BaseEvent.BET_INFO_CHANGE, this.onBetChange, this);
 	}
 
 	public exit(): void {
@@ -93,7 +95,7 @@ class BetView extends BaseComponent implements IBase {
 		this.coinList[this.horseList.selectedIndex].push(bmp);
 	}
 
-	private randomInfo(id: number): MatchPlayerVo {
+	private randomInfo(id: number): MatchPlayerVo {	//temp随机一个下注信息
 		var vo: MatchPlayerVo = new MatchPlayerVo();
 		vo.bet = 0;
 		vo.rate = RandomUtil.randInt(100, 2000) / 100;
@@ -123,6 +125,27 @@ class BetView extends BaseComponent implements IBase {
 				}
 			}
 		});
+	}
+
+	private onBetChange(): void {
+
+		if (ClientModel.instance.betInfo[ClientModel.instance.gameInfoVo.drawId]) {
+			// var list: any = ClientModel.instance.betInfo[ClientModel.instance.gameInfoVo.drawId].matchInfo;
+			var list: any = ClientModel.instance.lastBetInfo.horseInfoList;
+			list.forEach(element => {
+				// var vo: MatchPlayerVo = new MatchPlayerVo();
+				// vo.analysis(element);
+				this.betInfoList[element.id] = element;
+			});
+			// ClientModel.instance.horseList.forEach(element => {
+			// 	var horseVo: HorseVo = element.getDataVo<HorseVo>(HorseVo);
+			// 	horseVo.math = this.betInfoList[horseVo.id];
+			// });
+			this.horseData.source.forEach(element => {
+				element.math = this.betInfoList[element.id];
+			});
+			this.horseData.refresh();
+		}
 	}
 
 }

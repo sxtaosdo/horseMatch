@@ -15,8 +15,8 @@ class ObstacleVo {
 	}
 
 	public initData(data: string): void {
-		// this.type = data.type;\
-		console.log(data);
+		// this.type = data.type;
+		// console.log(data);
 		var index: number = 0;
 		var step: number = 4;
 		var temp: number = 0;

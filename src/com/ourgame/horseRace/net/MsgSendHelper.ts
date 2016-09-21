@@ -27,7 +27,15 @@ class MsgSendHelper {
         // ConnectionManager.instance.send(MsgType.R_DICE_INFO, {});
     }
 
-    public gameInfo():void{
+    public gameInfo(): void {
         ConnectionManager.instance.send("/hrb/init");
+    }
+
+    public drawMatch(data?: number): void {
+        ConnectionManager.instance.send("/hrb/draw/");
+    }
+
+    public history(data?:any):void{
+        ConnectionManager.instance.send("/hrb/drawResult/");
     }
 }

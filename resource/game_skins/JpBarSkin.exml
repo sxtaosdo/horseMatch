@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="JpBarSkin" width="291" height="59" xmlns:e="http://ns.egret.com/eui">
-	<e:Image source="jpBarBg_png" x="0" y="0"/>
-	<e:Image source="jpBarText2_png" x="18" y="23"/>
-</e:Skin>

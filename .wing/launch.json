@@ -5,7 +5,7 @@
 			"name": "Wing 内置播放器调试",
 			"type": "chrome",
 			"request": "launch",
-			"file": "index.html?token=007",
+			"file": "index.html?lztoken=080110EF95D9BE051A013022B002CF18E1E6D",
 			//"url": "http://mysite.com/index.html", //使用外部服务器时,请注释掉 file, 改用 url, 并将 useBuildInServer 设置为 false
 			"runtimeExecutable": "${execPath}",
 			"useBuildInServer": true,

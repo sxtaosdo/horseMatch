@@ -12,9 +12,9 @@
 			</e:skinName>
 		</e:Button>
 	</e:Group>
-	<e:Group y="13" horizontalCenter="0">
-		<e:Image source="betTimeBg_png"/>
-		<e:Label id="timerText" text="01:15" y="35" width="108" verticalAlign="middle" textAlign="center" x="10"/>
+	<e:Group id="stateGroup" y="13" horizontalCenter="0">
+		<e:Image id="timeBg" source="betTimeBg_png"/>
+		<e:Label id="timerText" text=" " y="35" width="108" verticalAlign="middle" textAlign="center" x="10" fontFamily="宋体"/>
 		<e:Label id="typeText" text="" x="-2" y="1" width="130" size="22" textAlign="center" textColor="0xc3d4fd" bold="true" height="30"/>
 	</e:Group>
 	<e:Group y="11" right="30">
@@ -43,13 +43,40 @@
 				</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:ToggleButton id="soundBtn" label="" x="390" y="0">
+		<e:ToggleButton id="moreBtn" label="" x="394" y="1">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="betSoundBtn1_png" source.down="betSoundBtn2_png"/>
+				<e:Image width="100%" height="100%" source="moreBtn1_png" source.down="moreBtn2_png"/>
 				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
 				</e:Skin>
 			</e:skinName>
 		</e:ToggleButton>
+	</e:Group>
+	<e:Group id="moreGroup" x="1101" y="85" visible="false">
+		<e:Image source="moreBg_png" x="0" y="0"/>
+		<e:ToggleButton id="soundBtn" label="" x="7" y="22">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="betSoundBtn1_png" source.down="betSoundBtn2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:ToggleButton>
+		<e:Button id="ruleBtn" label="" x="7" y="81.5">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="rultBtn1_png" source.down="rultBtn2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="taskBtn" label="" x="7" y="140">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="taskBtn1_png" source.down="taskBtn2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
 	</e:Group>
 </e:Skin>

@@ -6,7 +6,7 @@ class LoadingUI extends BaseComponent implements IBase {
     private static _instance: LoadingUI;
     private static tipList: Array<string> = ["抵制不良游戏，拒绝盗版游戏", "注意自我保护，谨防受骗上当", "适度游戏益脑，沉迷游戏伤身", "合理安排时间，享受健康生活"];
     /**基本资源 */
-    public static assets1: Array<any> = ["config", "loading", "labby", "alert", "top", "betView", "main", "fish1"];
+    public static assets1: Array<any> = ["config", "loading", "labby", "alert", "top", "betView", "main", "fish1", "db"];
     /**主场景 */
     // public static assets2: Array<any> = ["fish", "player", "bg", "bgPlant", "fish1", "jpBar", "shell", "path", "main"];
     /**步步为营 */
@@ -34,10 +34,11 @@ class LoadingUI extends BaseComponent implements IBase {
     }
 
     public onSkinComplete(e): void {
-        super.onSkinComplete(e);
-        LoadingUI.instance.removeEventListener(eui.UIEvent.COMPLETE, this.onSkinComplete, this);
-        LoadingUI.instance.onConfigComplete();
-        LoadingUI.instance.tempText.text = "当前加载进度：\n总进度：";
+        // LoadingUI.instance.removeEventListener(eui.UIEvent.COMPLETE, this.onSkinComplete, this);
+        // super.onSkinComplete(e);
+        this.skinLoaded = true;
+        this.onConfigComplete();
+        this.tempText.text = "当前加载进度：\n总进度：";
     }
 
     public static get instance(): LoadingUI {
@@ -89,20 +90,11 @@ class LoadingUI extends BaseComponent implements IBase {
         LoadingUI.instance.load();
         if (event.groupName == "config") {
             ConfigModel.instance.parse(RES.getRes("game_json"));
-            // ConfigModel.instance.parseFish(RES.getRes("fish_json"));
-            // ConfigModel.instance.parseCreate(RES.getRes("create_json"));
-            // ConfigModel.instance.parseRoomList(RES.getRes("room_json"));
-            // ConfigModel.instance.parseDeabed(RES.getRes("deabed_json"));
-            // ConfigModel.instance.parseShell(RES.getRes("shell_json"));
         }
-        // if (event.groupName == "path") {
-        //     ConfigModel.instance.parseFishPath();
-        // }
     }
 
     private onError(event: RES.ResourceEvent): void {
         console.error("加载资源遇到错误");
-        // InterfaceManager.instance.onLoadeError(TimeUtils.timestampDate());
     }
 
     private onResourceProgress(event: RES.ResourceEvent): void {
@@ -120,8 +112,8 @@ class LoadingUI extends BaseComponent implements IBase {
     }
 
     private onConfigComplete(evt?: any): void {
-        if (LoadingUI.instance.versionText != null) {
-            LoadingUI.instance.versionText.text = "程序版本：" + Main.VERSION + "\n配置文件：" + ConfigModel.instance.version;
+        if (this.versionText != null) {
+            this.versionText.text = "程序版本：" + Main.VERSION + "\n配置文件：" + ConfigModel.instance.version;
         }
     }
 

@@ -29,29 +29,41 @@ class MsgReceiveHelper {
     public onMessage(type: any, body?: any): void {
         var msg: any = MsgReceiveHelper.instance.msg;
         var cls: any;
-        switch (type) {
-            case 1:
-                //心跳
-                cls = msg.build("DuxLiveTick");
-                var tick = cls.decode(body.buffer);
-                var temp: number = parseInt(tick.time);
-                break;
-            case MsgType.GLFS_PeriodChangeACK:
-                // HallClientModel.instance.onGoResult(body);
-                break;
-            case MsgType.A_DICE_INFO:
-                // HallClientModel.instance.onDiceInfo(body);
-                break;
-            case "login":
-                if (body.rtnCode == 0) {
-                    GameDispatcher.send(BaseEvent.LOGIN_RESULT_EVENT);
-                    ConnectionManager.instance.sendHelper.gameInfo();
-                } else {
-                    ClientModel.instance.openAlert("登陆失败，请重试");
-                }
-                break;
-            case MsgType.A_GAME_POOL:
-            // HallClientModel.instance.onPool(body.value);
+        if (body.rtnCode == 0) {//正常返回
+            switch (type) {
+                case 1:
+                    //心跳
+                    cls = msg.build("DuxLiveTick");
+                    var tick = cls.decode(body.buffer);
+                    var temp: number = parseInt(tick.time);
+                    break;
+                case MsgType.GLFS_PeriodChangeACK:
+                    // HallClientModel.instance.onGoResult(body);
+                    break;
+                case MsgType.A_DICE_INFO:
+                    // HallClientModel.instance.onDiceInfo(body);
+                    break;
+                case "login":
+                    if (body.rtnCode == 0) {
+                        GameDispatcher.send(BaseEvent.LOGIN_RESULT_EVENT);
+                        ConnectionManager.instance.sendHelper.gameInfo();
+                    } else {
+                        ClientModel.instance.openAlert("登陆失败，请重试");
+                    }
+                    break;
+                case "init":
+                    ClientModel.instance.gameInfo = body;
+                    break;
+                case "draw":
+                    ClientModel.instance.setBetInfo(body.drawId, body);
+                    break;
+                case "drawResult":
+                    ClientModel.instance.setHistory(body);
+                    break;
+            }
+        } else {    //异常返回
+            ClientModel.instance.openAlert(body.rtnMsg + "(ERROR CDOE:" + body.rtnCode + ")");
+            console.log(body);
         }
     }
 }

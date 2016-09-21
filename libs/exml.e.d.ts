@@ -60,41 +60,29 @@ declare class DiceGameSkin extends eui.Skin{
 }
 declare class DicePanelSkin extends eui.Skin{
 }
-declare class JpBarSkin extends eui.Skin{
-}
-declare class LabbyRoomInfoListSkin extends eui.Skin{
-}
 declare class LabbySkin extends eui.Skin{
 }
 declare class LoadRoomSkin extends eui.Skin{
 }
 declare class LoadSkin extends eui.Skin{
 }
-declare class RightPanel extends eui.Skin{
-}
 declare class TestSkin extends eui.Skin{
-}
-declare class TopSkin extends eui.Skin{
 }
 declare class AlertSkin extends eui.Skin{
 }
-declare class DiceAlertSkin extends eui.Skin{
-}
-declare class DiceBindPanelSkin extends eui.Skin{
-}
-declare class DiceHitInfoPanelSkin extends eui.Skin{
-}
 declare class HelpPanelSkin extends eui.Skin{
 }
-declare class LevelUpSkin extends eui.Skin{
-}
-declare class MailPanelSkin extends eui.Skin{
+declare class HistoryPanelSkin extends eui.Skin{
 }
 declare class RankPanelSkin extends eui.Skin{
 }
 declare class SettingPanelSkin extends eui.Skin{
 }
+declare class HistoryItemSkin extends eui.Skin{
+}
 declare class HorseItenSkin extends eui.Skin{
+}
+declare class ResultItemSkin extends eui.Skin{
 }
 declare class BetViweSkin extends eui.Skin{
 }

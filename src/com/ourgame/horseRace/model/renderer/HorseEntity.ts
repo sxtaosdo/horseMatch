@@ -8,13 +8,14 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 	private _selectArrow: egret.MovieClip;
 	/**主体动画 */
 	private armature: dragonBones.Armature;
+	private dragonbonesFactory: dragonBones.EgretFactory
 	/**显示层 包括箭头、脚印、主体*/
 	private _content: egret.Sprite;
 
 	/**编号 */
 	private _text: egret.TextField;
 	/**阶段脚本 */
-	private _phaseSprite: Array<PhaseVo>;
+	// private _phaseSprite: Array<PhaseVo>;
 	/**当前所处的阶段 */
 	public currentPhase: number = 0;
 	/**完成的距离 */
@@ -52,7 +53,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 
 	public setData(vo: any): void {
 		if (vo instanceof Array) {
-			this._phaseSprite = vo;
+			// this._phaseSprite = vo;
 		}
 		if (vo instanceof HorseVo) {
 			this._vo = vo;
@@ -61,19 +62,52 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		}
 	}
 
+	public changeAnimation(name: string): void {
+		if (this.armature) {
+			dragonBones.WorldClock.clock.remove(this.armature);
+			this._content.removeChild(this.displayObject);
+
+			this.armature = this.dragonbonesFactory.buildArmature(name);
+			dragonBones.WorldClock.clock.add(this.armature);
+			this.armature.animation.gotoAndPlay(name);
+			// console.log("change animation to:" + name);
+			this.displayObject = this.armature.display;
+			this._content.addChild(this.displayObject);
+
+		}
+	}
+
 	private setMc(id: any): void {
-		var mc: egret.MovieClip;
-        var js: any = RES.getRes("fish" + id + "_json");
-        var tx: any = RES.getRes("fish" + id + "_png");
-        var data: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(js, tx);
-        mc = new egret.MovieClip(data.generateMovieClipData());
-		mc.stop();
-        // mc.rotation = 180;
-		mc.anchorOffsetX = mc.width;
-		// mc.anchorOffsetY = mc.height >> 1;
-        mc.play(-1);
-        mc.touchEnabled = false;
-		this.displayObject = mc;
+		// var dragonbonesData = RES.getRes("donghua" + id + "_json");
+		// var textureData = RES.getRes("texture" + id + "_json");
+		// var texture = RES.getRes("texture" + id + "_png");
+		var dragonbonesData = RES.getRes("donghua" + 4 + "_json");
+		var textureData = RES.getRes("texture" + 4 + "_json");
+		var texture = RES.getRes("texture" + 4 + "_png");
+		if (dragonbonesData) {
+			this.dragonbonesFactory = new dragonBones.EgretFactory();
+			this.dragonbonesFactory.addDragonBonesData(dragonBones.DataParser.parseDragonBonesData(dragonbonesData));
+			this.dragonbonesFactory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
+
+			this.armature = this.dragonbonesFactory.buildArmature(AnimationType.IDEL);
+			dragonBones.WorldClock.clock.add(this.armature);
+			this.armature.animation.gotoAndPlay(AnimationType.IDEL);
+
+			// this.changeAnimation(AnimationType.IDEL);
+
+			this.displayObject = this.armature.display;
+		} else {
+			var mc: egret.MovieClip;
+			var js: any = RES.getRes("fish" + id + "_json");
+			var tx: any = RES.getRes("fish" + id + "_png");
+			var data: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(js, tx);
+			mc = new egret.MovieClip(data.generateMovieClipData());
+			mc.stop();
+			mc.anchorOffsetX = mc.width;
+			mc.play(-1);
+			mc.touchEnabled = false;
+			this.displayObject = mc;
+		}
 		this._content.addChild(this.displayObject);
 		this._selectArrow.x = this.displayObject.width + this._selectArrow.width;
 	}
@@ -93,7 +127,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		this._vo.speed = value;
 	}
 
-	public phaseSprite(): Array<PhaseVo> {
-		return this._phaseSprite;
-	}
+	// public phaseSprite(): Array<PhaseVo> {
+	// 	return this._phaseSprite;
+	// }
 }

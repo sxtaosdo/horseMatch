@@ -25,6 +25,7 @@ class HorseEnityStateIdel implements IState {
 		this.self = <HorseEntity>entity;
 		this.self.currentX = GameWorld.LEFT_LINE;
 		this.self.getDisplayObject().x = GameWorld.LEFT_LINE;
+		this.self.changeAnimation(AnimationType.IDEL);
 	}
 
     public execute(entity: IBaseGameEntity): void {
@@ -59,7 +60,8 @@ class HorseEnityStateSeek implements IState {
 	}
 
     public enter(entity: IBaseGameEntity): void {
-
+		this.self = <HorseEntity>entity;
+		this.self.changeAnimation(AnimationType.RUN);
 	}
 
     public execute(entity: IBaseGameEntity): void {
@@ -79,7 +81,6 @@ class HorseEnityStateSeek implements IState {
 			//到达终点
 			else {
 				entity.getFSM().ChangeState(HorseEnityStateEnd.instance);	//比赛结束
-				// ClientModel.instance.roadPastLength = GameWorld.DEADLINE_LENGTH - GameWorld.RIGHT_LINE;
 				GameDispatcher.send(BaseEvent.REACH_END_LINE);
 			}
 		}
@@ -164,6 +165,7 @@ class HorseEnityStateStuck implements IState {
 
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
+		// this.self.armature.animation.gotoAndPlay("pao");
 	}
 
     public execute(entity: IBaseGameEntity): void {
@@ -199,7 +201,7 @@ class HorseEnityStatePass implements IState {
 
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
-
+		this.self.changeAnimation(AnimationType.JUMP);
 	}
 
     public execute(entity: IBaseGameEntity): void {

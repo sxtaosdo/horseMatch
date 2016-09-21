@@ -42,12 +42,32 @@ class ClientModel {
      */
     public maxSpeed: number = 0;
 
+    /**游戏状态信息 */
+    private _gameInfo: GameInfoVo;
+    /**游戏赔率历史信息 */
+    private _betInfo: any;
+    /**最近一期游戏赔率信息 */
+    private _lastBetInfo: any;
+    /**历史奖期记录 */
+    private _history: Array<HistoryVo>;
+
+    /**下注时间 */
+    public betTime: number;
+    /**结果时间 */
+    public resultTime: number;
+    /**准备时间 */
+    public prepareTime: number;
+    /**距下一场比赛 */
+    public nextTime: number;
 
     public constructor() {
         this.user = UserModel.instance;
         this.moneyType = "0";
         this._phaseList = new Array<any>();
         this._horseList = new Array<HorseEntity>();
+        this._history = new Array<HistoryVo>();
+        this._gameInfo = new GameInfoVo();
+        this._betInfo = new Object();
     }
 
     /**
@@ -75,6 +95,7 @@ class ClientModel {
         console.log("移动设备：" + egret.Capabilities.isMobile);
         console.log("系统语言：" + egret.Capabilities.language);
         console.log("运行环境：" + egret.Capabilities.runtimeType);
+        console.log("龙骨version：" + dragonBones.DragonBones.VERSION);
 
         if (egret.Capabilities.isMobile) {
             console.log("native support版本：" + egret.Capabilities.supportVersion);
@@ -85,7 +106,7 @@ class ClientModel {
             UserModel.instance.userName = decodeURI(egret.getOption("userName").toString());
             UserModel.instance.roleName = decodeURI(egret.getOption("roleName"));
             UserModel.instance.nickName = decodeURI(egret.getOption("nickName"));
-            UserModel.instance.token = (egret.getOption("token"));
+            UserModel.instance.token = (egret.getOption("lztoken"));
         }
         if (egret.Capabilities.runtimeType == egret.RuntimeType.NATIVE) {//native
 
@@ -129,6 +150,47 @@ class ClientModel {
 
     public set language(value: string) {
         this._language = value;
+    }
+
+    public get betInfo(): any {
+        return this._betInfo;
+    }
+
+    public get lastBetInfo(): MatchInfoVo {
+        return this._lastBetInfo;
+    }
+
+    public setBetInfo(key: string, data: any) {
+        var vo: MatchInfoVo = new MatchInfoVo(data);
+        this._lastBetInfo = vo;
+        this._betInfo[key] = vo;
+        GameDispatcher.send(BaseEvent.BET_INFO_CHANGE);
+    }
+
+    public get gameInfoVo(): GameInfoVo {
+        return this._gameInfo;
+    }
+
+    public set gameInfo(value: Object) {
+        this._gameInfo.setData(value);
+        this.user.money = this._gameInfo.acctAmount;
+        GameDispatcher.send(BaseEvent.GAME_STATE_INFO);
+        switch (this._gameInfo.rtnCode) {
+            case 0:
+                break;
+            case 100://奖期信息错误
+                break;
+            case 101://无法获得奖期信息
+                break;
+            case 102://奖期已过期
+                break;
+            case 103://奖期已停售
+                break;
+            case 200://奖期赛事信息错误
+                break;
+            case 201://无法获得奖期赛事信息
+                break;
+        }
     }
 
     public get window(): any {
@@ -231,6 +293,20 @@ class ClientModel {
 
     public get roadPastLength(): number {
         return this._roadPastLength;
+    }
+
+    public setHistory(data: any): void {
+        while (this._history.length > 0) {
+            this._history.pop();
+        }
+        data.drawInfo.forEach(element => {
+            this._history.push(new HistoryVo(element));
+        });
+        GameDispatcher.send(BaseEvent.WINDOW_HISTORY);
+    }
+
+    public get history(): Array<HistoryVo> {
+        return this._history;
     }
 
 }

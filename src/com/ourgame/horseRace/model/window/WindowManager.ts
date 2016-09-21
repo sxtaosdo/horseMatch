@@ -34,7 +34,7 @@ class WindowManager extends egret.Sprite {
             this._alertDataList.push(data);
         } else {
             if (this.currentWin != null) {
-                console.log("关闭旧窗口：" + this.currentWin);
+                // console.log("关闭旧窗口：" + this.currentWin);
                 this.close(this.currentWin);
             }
         }
@@ -94,7 +94,8 @@ class WindowManager extends egret.Sprite {
     private addPopUp(window: egret.DisplayObject, isModal: boolean = true): void {
         window.alpha = 0;
         this.addChild(window);
-        TweenMax.to(window, 0.2, { alpha: 1 });
+        // TweenMax.to(window, 0.2, { alpha: 1 });
+        egret.Tween.get(window).to({ alpha: 1 }, 300);
     }
 
     private removePopUp(window: egret.DisplayObject): void {

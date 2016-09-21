@@ -24,25 +24,25 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 	}
 
 	public enter(data?: any): void {
-		var indexA: number = 0;
-		var that: RacetrackPanel = this;
-		ClientModel.instance.horseList.forEach(element => {
-			var vo: Array<PhaseVo> = element.phaseSprite()
-			var sp: egret.Sprite = new egret.Sprite();
-			sp.y = indexA * 100;
-			var indexB: number = 0;
-			vo.forEach(element => {
-				if (element.obstacleType > 0) {
-					var thing: egret.Bitmap = BitMapUtil.createBitmapByName("obstacle" + element.obstacleType + "_png");
-					thing.x = GameWorld.LEFT_LINE + element.obstaclePosition + indexB * (GameWorld.DEADLINE_LENGTH / 10);
-					sp.addChild(thing);
-				}
-				indexB++;
-			});
-			that.racetrackArr.push(sp);
-			indexA++;
-			that.addChild(sp);
-		});
+		// var indexA: number = 0;
+		// var that: RacetrackPanel = this;
+		// ClientModel.instance.horseList.forEach(element => {
+		// 	var vo: Array<PhaseVo> = element.phaseSprite()
+		// 	var sp: egret.Sprite = new egret.Sprite();
+		// 	sp.y = indexA * 100;
+		// 	var indexB: number = 0;
+		// 	vo.forEach(element => {
+		// 		if (element.obstacleType > 0) {
+		// 			var thing: egret.Bitmap = BitMapUtil.createBitmapByName("obstacle" + element.obstacleType + "_png");
+		// 			thing.x = GameWorld.LEFT_LINE + element.obstaclePosition + indexB * (GameWorld.DEADLINE_LENGTH / 10);
+		// 			sp.addChild(thing);
+		// 		}
+		// 		indexB++;
+		// 	});
+		// 	that.racetrackArr.push(sp);
+		// 	indexA++;
+		// 	that.addChild(sp);
+		// });
 	}
 
 	public exit(): void {

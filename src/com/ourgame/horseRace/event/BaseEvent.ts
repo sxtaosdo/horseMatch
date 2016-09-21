@@ -8,4 +8,16 @@ class BaseEvent {
 	public static POOL_EVENT: string = "poolEvent";
 	/**到达终点线 */
 	public static REACH_END_LINE: string = "reachEndLine";
+	/**游戏状态信息 */
+	public static GAME_STATE_INFO: string = "gameStateInfo"
+
+	/**用户携带额改变 */
+	public static USER_MOENY_CHANGE: string = "userMoneyChange"
+	/**倍率信息变化 */
+	public static BET_INFO_CHANGE: string = "betInfoChange";
+
+
+	/**window */
+	/**历史奖期记录 */
+	public static WINDOW_HISTORY:string="windowHistory";
 }

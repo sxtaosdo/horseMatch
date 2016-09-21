@@ -52,6 +52,10 @@ class ConfigModel {
             console.log("debug模式:" + this._debug);
         }
         this.horseData(RES.getRes("horse_json"));
+        ClientModel.instance.prepareTime = this._prepareTime;
+        ClientModel.instance.betTime = this._betTime;
+        ClientModel.instance.resultTime = this._resultTime;
+        ClientModel.instance.nextTime = this._nextTime;
         GameDispatcher.send(GameEvent.CONFIG_INIT_COMPLETE_EVENT);
     }
 
@@ -68,7 +72,8 @@ class ConfigModel {
         return this._version;
     }
     public get url(): string {
-        return this._url;
+        return "http://ali.game.com:8080";
+        // return this._url;
     }
 
     public get debug(): boolean {

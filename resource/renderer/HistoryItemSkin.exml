@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HistoryItemSkin" width="800" height="33" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="dateText" text="20160920" y="3" size="28" width="200" height="30" textAlign="center" verticalAlign="middle" x="1" textColor="0x090000"/>
+	<e:Image id="icon1" source="firstIcon_png" x="288" y="0"/>
+	<e:Image id="icon2" source="firstIcon_png" x="400.5" y="0"/>
+	<e:Image id="icon3" source="firstIcon_png" x="512.5" y="0"/>
+	<e:Image id="icon4" source="firstIcon_png" x="624.5" y="0"/>
+	<e:Image id="icon5" source="firstIcon_png" x="737" y="0"/>
+</e:Skin>
