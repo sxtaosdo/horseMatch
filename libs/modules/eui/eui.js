@@ -135,7 +135,7 @@ var eui;
             return watcher;
         };
         Binding.$bindProperties = function (host, templates, chainIndex, target, prop) {
-            if (templates.length == 1) {
+            if (templates.length == 1 && chainIndex.length == 1) {
                 return Binding.bindProperty(host, templates[0].split("."), target, prop);
             }
             var assign = function () {
@@ -762,8 +762,8 @@ var eui;
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-/// <reference path="../utils/registerproperty.ts" />
-/// <reference path="../utils/registerbindable.ts" />
+/// <reference path="../utils/registerProperty.ts" />
+/// <reference path="../utils/registerBindable.ts" />
 var eui;
 (function (eui) {
     /**
@@ -2660,12 +2660,12 @@ var eui;
             mixin(descendant, UIComponentImpl);
             var prototype = descendant.prototype;
             prototype.$super = base.prototype;
-            eui.registerProperty(descendant, "left", "any");
-            eui.registerProperty(descendant, "right", "any");
-            eui.registerProperty(descendant, "top", "any");
-            eui.registerProperty(descendant, "bottom", "any");
-            eui.registerProperty(descendant, "horizontalCenter", "any");
-            eui.registerProperty(descendant, "verticalCenter", "any");
+            eui.registerProperty(descendant, "left", "Percentage");
+            eui.registerProperty(descendant, "right", "Percentage");
+            eui.registerProperty(descendant, "top", "Percentage");
+            eui.registerProperty(descendant, "bottom", "Percentage");
+            eui.registerProperty(descendant, "horizontalCenter", "Percentage");
+            eui.registerProperty(descendant, "verticalCenter", "Percentage");
             if (isContainer) {
                 prototype.$childAdded = function (child, index) {
                     this.invalidateSize();
@@ -2833,7 +2833,7 @@ var eui;
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-/// <reference path="../core/uicomponent.ts" />
+/// <reference path="../core/UIComponent.ts" />
 var eui;
 (function (eui) {
     var UIImpl = eui.sys.UIComponentImpl;
@@ -3184,8 +3184,8 @@ var eui;
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-/// <reference path="../core/uicomponent.ts" />
-/// <reference path="../utils/registerproperty.ts" />
+/// <reference path="../core/UIComponent.ts" />
+/// <reference path="../utils/registerProperty.ts" />
 var eui;
 (function (eui) {
     /**
@@ -4823,8 +4823,8 @@ var eui;
 //
 //////////////////////////////////////////////////////////////////////////////////////
 /// <reference path="../states/State.ts" />
-/// <reference path="../core/uicomponent.ts" />
-/// <reference path="../utils/registerproperty.ts" />
+/// <reference path="../core/UIComponent.ts" />
+/// <reference path="../utils/registerProperty.ts" />
 var eui;
 (function (eui) {
     /**
@@ -9460,10 +9460,6 @@ var eui;
              * @private
              */
             this._widthConstraint = NaN;
-            /**
-             * @private
-             */
-            this.availableWidth = NaN;
             this.initializeUIValues();
             this.text = text;
         }
@@ -9544,17 +9540,18 @@ var eui;
             var values = this.$UIComponent;
             var textValues = this.$TextField;
             var oldWidth = textValues[3 /* textFieldWidth */];
+            var availableWidth = NaN;
             if (!isNaN(this._widthConstraint)) {
-                this.availableWidth = this._widthConstraint;
+                availableWidth = this._widthConstraint;
                 this._widthConstraint = NaN;
             }
             else if (!isNaN(values[8 /* explicitWidth */])) {
-                this.availableWidth = values[8 /* explicitWidth */];
+                availableWidth = values[8 /* explicitWidth */];
             }
             else if (values[13 /* maxWidth */] != 100000) {
-                this.availableWidth = values[13 /* maxWidth */];
+                availableWidth = values[13 /* maxWidth */];
             }
-            _super.prototype.$setWidth.call(this, this.availableWidth);
+            _super.prototype.$setWidth.call(this, availableWidth);
             this.setMeasuredSize(this.textWidth, this.textHeight);
             _super.prototype.$setWidth.call(this, oldWidth);
         };
@@ -9659,10 +9656,11 @@ var eui;
          */
         p.setLayoutBoundsSize = function (layoutWidth, layoutHeight) {
             UIImpl.prototype.setLayoutBoundsSize.call(this, layoutWidth, layoutHeight);
-            this._widthConstraint = layoutWidth;
             if (isNaN(layoutWidth) || layoutWidth === this._widthConstraint || layoutWidth == 0) {
+                this._widthConstraint = layoutWidth;
                 return;
             }
+            this._widthConstraint = layoutWidth;
             var values = this.$UIComponent;
             if (!isNaN(values[9 /* explicitHeight */])) {
                 return;
@@ -18073,6 +18071,7 @@ var eui;
         var RECTANGLE = "egret.Rectangle";
         var TYPE_CLASS = "Class";
         var TYPE_ARRAY = "Array";
+        var TYPE_PERCENTAGE = "Percentage";
         var TYPE_STATE = "State[]";
         var SKIN_NAME = "skinName";
         var ELEMENTS_CONTENT = "elementsContent";
@@ -18318,6 +18317,10 @@ var eui;
                     else if (node.nodeType === 1) {
                         var id = node.attributes["id"];
                         if (id) {
+                            var first = parseInt(id.slice(0, 1));
+                            if (!isNaN(first)) {
+                                egret.$warn(2023, id);
+                            }
                             if (id.indexOf(" ") > -1) {
                                 egret.$warn(2022, id);
                             }
@@ -18820,6 +18823,12 @@ var eui;
                         }
                     }
                     value = "new " + RECTANGLE + "(" + value + ")";
+                }
+                else if (type == TYPE_PERCENTAGE) {
+                    if (value.indexOf("%") != -1) {
+                        value = this.formatString(value);
+                        ;
+                    }
                 }
                 else {
                     var orgValue = value;
@@ -20059,6 +20068,7 @@ var eui;
     locale_strings[2020] = "EXML parsing error {0}: for child nodes in w: Declarations, the includeIn and excludeFrom properties are not allowed to use \n {1}";
     locale_strings[2021] = "Compile errors in {0}, the attribute name: {1}, the attribute value: {2}.";
     locale_strings[2022] = "EXML parsing error: there can be no Spaces in the id `{0}`";
+    locale_strings[2023] = "EXML parsing error: the first character in id `{0}`,can not be a number";
     locale_strings[2101] = "EXML parsing warnning : fail to register the class property : {0},there is already a class with the same name in the global,please try to rename the class name for the exml. \n {1}";
     locale_strings[2102] = "EXML parsing warnning {0}: no child node can be found on the property code \n {1}";
     locale_strings[2103] = "EXML parsing warnning {0}: the same property '{1}' on the node is assigned multiple times \n {2}";
@@ -20125,6 +20135,7 @@ var eui;
     locale_strings[2020] = "EXML解析错误 {0}: 在w:Declarations内的子节点，不允许使用includeIn和excludeFrom属性\n{1}";
     locale_strings[2021] = "{0} 中存在编译错误，属性名 : {1}，属性值 : {2}";
     locale_strings[2022] = "EXML解析错误: id `{0}` 中不可以有空格";
+    locale_strings[2023] = "EXML解析错误: id `{0}` 中第一个字符不能是数字";
     //EXML警告信息
     locale_strings[2101] = "EXML解析警告: 在EXML根节点上声明的 class 属性: {0} 注册失败，所对应的类已经存在，请尝试重命名要注册的类名。\n{1}";
     locale_strings[2102] = "EXML解析警告 {0}: 在属性节点上找不到任何子节点\n{1}";

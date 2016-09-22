@@ -69,10 +69,11 @@ class TopView extends BaseComponent implements IBase {
 				case GameState.RESULT_STAGE:
 					this.typeText.text = "距下一场比赛";
 					this.time = ClientModel.instance.nextTime;
-					this.changeTimerState(true);
+					this.changeTimerState(false);
 					break;
 			}
 		}
+		this.onMoneyChange();
 		TimerManager.instance.doLoop(1000, this.execute, this);
 		GameDispatcher.addEventListener(BaseEvent.USER_MOENY_CHANGE, this.onMoneyChange, this);
 	}
@@ -98,8 +99,7 @@ class TopView extends BaseComponent implements IBase {
 	}
 
 	public onJlTap(evt: egret.TouchEvent): void {
-		// ClientModel.instance.openWindow();
-
+		ClientModel.instance.openWindow(OpenationCordPanel);
 	}
 
 	public onSmTap(evt: egret.TouchEvent): void {

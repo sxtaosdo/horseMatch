@@ -47,9 +47,10 @@ class MsgReceiveHelper {
                     if (body.rtnCode == 0) {
                         GameDispatcher.send(BaseEvent.LOGIN_RESULT_EVENT);
                         ConnectionManager.instance.sendHelper.gameInfo();
-                    } else {
-                        ClientModel.instance.openAlert("登陆失败，请重试");
-                    }
+                    } 
+                    // else {
+                    //     ClientModel.instance.openAlert("登陆失败，请重试");
+                    // }
                     break;
                 case "init":
                     ClientModel.instance.gameInfo = body;

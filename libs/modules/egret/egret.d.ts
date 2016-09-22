@@ -2259,6 +2259,19 @@ declare module egret {
 }
 declare module egret {
     /**
+     * @private
+     */
+    interface MapLike<T> {
+        [key: string]: T;
+        [key: number]: T;
+    }
+    /**
+     * @private
+     */
+    function createMap<T>(): MapLike<T>;
+}
+declare module egret {
+    /**
      * @language en_US
      * A BitmapData object contains an array of pixel data. This data can represent either a fully opaque bitmap or a
      * transparent bitmap that contains alpha channel data. Either type of BitmapData object is stored as a buffer of 32-bit
@@ -2269,6 +2282,7 @@ declare module egret {
      * @see egret.Bitmap
      * @version Egret 2.4
      * @platform Web,Native
+     * @private
      */
     /**
      * @language zh_CN
@@ -2279,8 +2293,9 @@ declare module egret {
      * @see egret.Bitmap
      * @version Egret 2.4
      * @platform Web,Native
+     * @private
      */
-    interface BitmapData extends HashObject {
+    class BitmapData extends HashObject {
         /**
          * @language en_US
          * The width of the bitmap image in pixels.
@@ -2311,6 +2326,57 @@ declare module egret {
          * @platform Web,Native
          */
         height: number;
+        /**
+         * @language en_US
+         * Original bitmap image.
+         * @version Egret 2.4
+         * @platform Web,Native
+         */
+        /**
+         * @language zh_CN
+         * 原始位图图像。
+         * @version Egret 2.4
+         * @platform Web,Native
+         */
+        source: any;
+        /**
+         * @language en_US
+         * WebGL texture.
+         * @version Egret 2.4
+         * @platform Web,Native
+         */
+        /**
+         * @language zh_CN
+         * WebGL纹理。
+         * @version Egret 2.4
+         * @platform Web,Native
+         */
+        webGLTexture: any;
+        /**
+         * @language en_US
+         * Texture format.
+         * @version Egret 2.4
+         * @platform Web,Native
+         */
+        /**
+         * @language zh_CN
+         * 纹理格式。
+         * @version Egret 2.4
+         * @platform Web,Native
+         */
+        format: string;
+        /**
+         * @private
+         * webgl纹理生成后，是否删掉原始图像数据
+         */
+        $deleteSource: boolean;
+        constructor(source: any);
+        $dispose(): void;
+        private static _displayList;
+        static $addDisplayObject(displayObject: DisplayObject, bitmapData: BitmapData | Texture): void;
+        static $removeDisplayObject(displayObject: DisplayObject, bitmapData: BitmapData | Texture): void;
+        static $invalidate(bitmapData: BitmapData | Texture): void;
+        static $dispose(bitmapData: BitmapData | Texture): void;
     }
 }
 declare module egret {
@@ -3338,6 +3404,10 @@ declare module egret {
          *
          */
         $hitTest(stageX: number, stageY: number): DisplayObject;
+        /**
+         * @private
+         */
+        $onRemoveFromStage(): void;
     }
 }
 declare module egret {
@@ -3397,19 +3467,6 @@ declare module egret {
         LANDSCAPE: string;
         LANDSCAPE_FLIPPED: string;
     };
-}
-declare module egret {
-    /**
-     * @private
-     */
-    interface MapLike<T> {
-        [key: string]: T;
-        [key: number]: T;
-    }
-    /**
-     * @private
-     */
-    function createMap<T>(): MapLike<T>;
 }
 declare module egret {
     var $TextureScaleFactor: number;
@@ -3534,7 +3591,7 @@ declare module egret {
         /**
          * @private
          */
-        _bitmapData: any;
+        _bitmapData: BitmapData;
         /**
          * @language en_US
          * The BitmapData object being referenced.
@@ -3553,7 +3610,7 @@ declare module egret {
          *
          * @param value
          */
-        _setBitmapData(value: any): void;
+        _setBitmapData(value: BitmapData): void;
         /**
          * @private
          * 设置Texture数据
@@ -3640,11 +3697,6 @@ declare module egret {
          * @platform Web,Native
          */
         dispose(): void;
-        private static _displayList;
-        static $addDisplayObject(displayObject: DisplayObject, bitmapData: BitmapData | Texture): void;
-        static $removeDisplayObject(displayObject: DisplayObject, bitmapData: BitmapData | Texture): void;
-        static $invalidate(bitmapData: BitmapData | Texture): void;
-        static $dispose(bitmapData: BitmapData | Texture): void;
     }
 }
 declare module egret {
@@ -3744,6 +3796,10 @@ declare module egret {
          */
         $measureContentBounds(bounds: Rectangle): void;
         $hitTest(stageX: number, stageY: number): DisplayObject;
+        /**
+         * @private
+         */
+        $onRemoveFromStage(): void;
     }
 }
 declare module egret {
@@ -3797,6 +3853,10 @@ declare module egret {
          * @private
          */
         $measureContentBounds(bounds: Rectangle): void;
+        /**
+         * @private
+         */
+        $onRemoveFromStage(): void;
     }
 }
 declare module egret {
@@ -8269,6 +8329,7 @@ declare module egret_native {
     function onTouchesMove(num: number, ids: Array<any>, xs_array: Array<any>, ys_array: Array<any>): any;
     function onTouchesEnd(num: number, ids: Array<any>, xs_array: Array<any>, ys_array: Array<any>): any;
     function onTouchesCancel(num: number, ids: Array<any>, xs_array: Array<any>, ys_array: Array<any>): any;
+    function sendToC(float32Array: Float32Array, arrayBufferLen: number, array: Array<string>): void;
     /**
      * 启动主循环
      * @param callback 主循环回调函数
@@ -9086,6 +9147,7 @@ declare module egret.sys {
          * 绘制根节点显示对象到目标画布，返回draw的次数。
          */
         drawToSurface(): number;
+        private bitmapData;
         /**
          * @private
          */
@@ -9439,7 +9501,8 @@ declare module egret.sys {
     /**
      * 共享的用于碰撞检测的渲染缓冲
      */
-    var hitTestBuffer: sys.RenderBuffer;
+    var customHitTestBuffer: sys.RenderBuffer;
+    var canvasHitTestBuffer: sys.RenderBuffer;
     /**
      * @private
      * 渲染缓冲
@@ -9516,6 +9579,16 @@ declare module egret.sys {
     var RenderBuffer: {
         /**
          * 创建一个RenderTarget。
+         * 注意：若内存不足或创建缓冲区失败，将会抛出错误异常。
+         * @param width 渲染缓冲的初始宽
+         * @param height 渲染缓冲的初始高
+         * @param root 是否为舞台buffer
+         */
+        new (width?: number, height?: number, root?: boolean): RenderBuffer;
+    };
+    var CanvasRenderBuffer: {
+        /**
+         * 创建一个CanvasRenderBuffer。
          * 注意：若内存不足或创建缓冲区失败，将会抛出错误异常。
          * @param width 渲染缓冲的初始宽
          * @param height 渲染缓冲的初始高
@@ -10153,6 +10226,10 @@ declare module egret.sys {
         $texture: any;
         $textureWidth: any;
         $textureHeight: any;
+        /**
+         * 清除非绘制的缓存数据
+         */
+        clean(): void;
     }
 }
 declare module egret.sys {
@@ -10339,6 +10416,10 @@ declare module egret.sys {
         $texture: any;
         $textureWidth: any;
         $textureHeight: any;
+        /**
+         * 清除非绘制的缓存数据
+         */
+        clean(): void;
     }
 }
 declare module egret.sys {
@@ -10382,6 +10463,16 @@ declare module egret.sys {
         $data: number[];
         private commandPosition;
         private dataPosition;
+        /**
+         * 当前移动到的坐标X
+         * 注意：目前只有drawArc之前会被赋值
+         */
+        $lastX: number;
+        /**
+         * 当前移动到的坐标Y
+         * 注意：目前只有drawArc之前会被赋值
+         */
+        $lastY: number;
         /**
          * 将当前绘图位置移动到 (x, y)。如果缺少任何一个参数，则此方法将失败，并且当前绘图位置不改变。
          * @param x 一个表示相对于父显示对象注册点的水平位置的数字（以像素为单位）。
@@ -12973,7 +13064,7 @@ declare module egret {
          * @private
          *
          */
-        private fillBackground(lines);
+        private fillBackground(lines?);
         /**
          * @language en_US
          * Enter the text automatically entered into the input state, the input type is text only and may only be invoked in the user interaction.

@@ -174,23 +174,9 @@ class ClientModel {
     public set gameInfo(value: Object) {
         this._gameInfo.setData(value);
         this.user.money = this._gameInfo.acctAmount;
+        console.log("money:" + this._gameInfo.acctAmount);
+
         GameDispatcher.send(BaseEvent.GAME_STATE_INFO);
-        switch (this._gameInfo.rtnCode) {
-            case 0:
-                break;
-            case 100://奖期信息错误
-                break;
-            case 101://无法获得奖期信息
-                break;
-            case 102://奖期已过期
-                break;
-            case 103://奖期已停售
-                break;
-            case 200://奖期赛事信息错误
-                break;
-            case 201://无法获得奖期赛事信息
-                break;
-        }
     }
 
     public get window(): any {

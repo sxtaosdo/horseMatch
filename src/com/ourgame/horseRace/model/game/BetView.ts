@@ -11,6 +11,7 @@ class BetView extends BaseComponent implements IBase {
 	public btn1000: eui.RadioButton;
 	public btn10000: eui.RadioButton;
 	public horseList: eui.List;
+	public matchIdText: eui.Label;
 	public revokeBtn: eui.Button;
 	public bgImage: eui.Image;
 	/**选中的筹码 */
@@ -49,18 +50,21 @@ class BetView extends BaseComponent implements IBase {
 			this.btn1000.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoneyTap, this);
 			this.btn10000.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoneyTap, this);
 			this.revokeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onrevokeTap, this);
-
-			// this.horseData.source.forEach(element => {
-			// 	// console.log(element);
-			// 	element.math = this.randomInfo(element.id);
-			// });
-			// this.horseData.refresh();
 		}
 		GameDispatcher.addEventListener(BaseEvent.BET_INFO_CHANGE, this.onBetChange, this);
+		this.onBetChange();
 	}
 
 	public exit(): void {
 		this.onRemove();
+		this.btn100.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoneyTap, this);
+		this.btn1000.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoneyTap, this);
+		this.btn10000.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoneyTap, this);
+		this.revokeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onrevokeTap, this);
+		GameDispatcher.removeEventListener(BaseEvent.BET_INFO_CHANGE, this.onBetChange, this);
+		if (this.parent) {
+			this.parent.removeChild(this);
+		}
 	}
 
 	public execute(data?: any): void {
@@ -68,8 +72,13 @@ class BetView extends BaseComponent implements IBase {
 	}
 
 	private onItemTap(evt: eui.ItemTapEvent): void {
-		var data = this.horseData.source[this.horseList.selectedIndex];
+		if (!UserModel.instance.isEnough(this.selectMoney)) {
+			ClientModel.instance.openAlert("RMB不足，请充值");
+			return;
+		}
+		var data = this.horseData.source[this.horseList.selectedIndex];//点击扣钱
 		data.math.bet += this.selectMoney;
+		UserModel.instance.money -= this.selectMoney;
 		this.horseData.itemUpdated(data);
 
 		var bmp: egret.Bitmap = BitMapUtil.createBitmapByName("coin_png");
@@ -129,22 +138,16 @@ class BetView extends BaseComponent implements IBase {
 
 	private onBetChange(): void {
 
-		if (ClientModel.instance.betInfo[ClientModel.instance.gameInfoVo.drawId]) {
-			// var list: any = ClientModel.instance.betInfo[ClientModel.instance.gameInfoVo.drawId].matchInfo;
+		if (ClientModel.instance.lastBetInfo) {
 			var list: any = ClientModel.instance.lastBetInfo.horseInfoList;
 			list.forEach(element => {
-				// var vo: MatchPlayerVo = new MatchPlayerVo();
-				// vo.analysis(element);
 				this.betInfoList[element.id] = element;
 			});
-			// ClientModel.instance.horseList.forEach(element => {
-			// 	var horseVo: HorseVo = element.getDataVo<HorseVo>(HorseVo);
-			// 	horseVo.math = this.betInfoList[horseVo.id];
-			// });
 			this.horseData.source.forEach(element => {
 				element.math = this.betInfoList[element.id];
 			});
 			this.horseData.refresh();
+			this.matchIdText.text = String(ClientModel.instance.lastBetInfo.info.drawId);
 		}
 	}
 

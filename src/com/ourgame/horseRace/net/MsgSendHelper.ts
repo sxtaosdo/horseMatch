@@ -27,15 +27,15 @@ class MsgSendHelper {
         // ConnectionManager.instance.send(MsgType.R_DICE_INFO, {});
     }
 
-    public gameInfo(): void {
+    public gameInfo(): void {//这个消息感觉有点不合理，仅作请求用户金币消息，待该消息返回再请求一次/hrb/draw
         ConnectionManager.instance.send("/hrb/init");
     }
 
     public drawMatch(data?: number): void {
-        ConnectionManager.instance.send("/hrb/draw/");
+        ConnectionManager.instance.send("/hrb/draw");
     }
 
-    public history(data?:any):void{
-        ConnectionManager.instance.send("/hrb/drawResult/");
+    public history(data?: any): void {
+        ConnectionManager.instance.send("/hrb/drawResult");
     }
 }

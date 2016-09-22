@@ -13,7 +13,7 @@ class ConfigModel {
     /**下注时间 */
     private _betTime: number;
     /**结果时间 */
-    private _resultTime: number;
+    // private _resultTime: number;
     /**准备时间 */
     private _prepareTime: number;
     /**距下一场比赛 */
@@ -41,11 +41,11 @@ class ConfigModel {
         this._prepareTime = data.prepareTime;
         this._showTest = data.showTest;
         this._betTime = data.betTime;
-        this._resultTime = data.resultTime;
+        // this._resultTime = data.resultTime;
         this._nextTime = data.nextTime;
         console.log("配置文件:" + this._version);
         if (data.debug) {
-            this._debug = data.debug == "true" ? true : false;
+            this._debug = data.debug;
             if (this._debug) {
                 this._isShowLogin = true;
             }
@@ -54,7 +54,7 @@ class ConfigModel {
         this.horseData(RES.getRes("horse_json"));
         ClientModel.instance.prepareTime = this._prepareTime;
         ClientModel.instance.betTime = this._betTime;
-        ClientModel.instance.resultTime = this._resultTime;
+        // ClientModel.instance.resultTime = this._resultTime;
         ClientModel.instance.nextTime = this._nextTime;
         GameDispatcher.send(GameEvent.CONFIG_INIT_COMPLETE_EVENT);
     }
@@ -72,8 +72,7 @@ class ConfigModel {
         return this._version;
     }
     public get url(): string {
-        return "http://ali.game.com:8080";
-        // return this._url;
+        return this._url;
     }
 
     public get debug(): boolean {
@@ -90,10 +89,6 @@ class ConfigModel {
 
     public get betTime(): number {
         return this._betTime;
-    }
-
-    public get resultTime(): number {
-        return this._resultTime;
     }
 
     public get prepareTime(): number {

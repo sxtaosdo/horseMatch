@@ -1,0 +1,409 @@
+{
+    "/hrb/init": {
+        "rtnCode": 0,
+        "rtnMsg": "奖期已停售",
+        "drawId": "1609220638",
+        "cdTime": 5000,
+        "leftTime": 55000,
+        "acctAmount": 10000000
+    },
+    "/login": {
+        "rtnCode": 0,
+        "rtnMsg": "成功"
+    },
+    "/hrb/draw": {
+        "rtnCode": 0,
+        "rtnMsg": "成功",
+        "drawId": "1609220640",
+        "cdTime": 5000,
+        "leftTime": 55000,
+        "matchInfo": [
+            {
+                "hId": 5,
+                "state": 1047,
+                "odds": 3.95,
+                "rank": 1
+            },
+            {
+                "hId": 1,
+                "state": 1282,
+                "odds": 3.38,
+                "rank": 2
+            },
+            {
+                "hId": 2,
+                "state": 1432,
+                "odds": 3.4,
+                "rank": 3
+            },
+            {
+                "hId": 3,
+                "state": 515,
+                "odds": 14.66,
+                "rank": 4
+            },
+            {
+                "hId": 4,
+                "state": 720,
+                "odds": 7.07,
+                "rank": 5
+            }
+        ]
+    },
+    "/hrb/drawResult": {
+        "rtnCode": 0,
+        "rtnMsg": "成功",
+        "drawInfo": [
+            {
+                "drawId": "1609220642",
+                "matchInfo": [
+                    {
+                        "hId": 1,
+                        "state": 1171,
+                        "odds": 4.77,
+                        "rank": 0
+                    },
+                    {
+                        "hId": 2,
+                        "state": 968,
+                        "odds": 4.68,
+                        "rank": 0
+                    },
+                    {
+                        "hId": 3,
+                        "state": 1148,
+                        "odds": 7.18,
+                        "rank": 0
+                    },
+                    {
+                        "hId": 4,
+                        "state": 1414,
+                        "odds": 3.39,
+                        "rank": 0
+                    },
+                    {
+                        "hId": 5,
+                        "state": 1192,
+                        "odds": 5.14,
+                        "rank": 0
+                    }
+                ]
+            },
+            {
+                "drawId": "1609220641",
+                "matchInfo": [
+                    {
+                        "hId": 2,
+                        "state": 894,
+                        "odds": 4.6,
+                        "rank": 1
+                    },
+                    {
+                        "hId": 5,
+                        "state": 1109,
+                        "odds": 3.18,
+                        "rank": 2
+                    },
+                    {
+                        "hId": 1,
+                        "state": 926,
+                        "odds": 4.74,
+                        "rank": 3
+                    },
+                    {
+                        "hId": 3,
+                        "state": 606,
+                        "odds": 9.1,
+                        "rank": 4
+                    },
+                    {
+                        "hId": 4,
+                        "state": 1091,
+                        "odds": 4.99,
+                        "rank": 5
+                    }
+                ]
+            },
+            {
+                "drawId": "1609220640",
+                "matchInfo": [
+                    {
+                        "hId": 5,
+                        "state": 1047,
+                        "odds": 3.95,
+                        "rank": 1
+                    },
+                    {
+                        "hId": 1,
+                        "state": 1282,
+                        "odds": 3.38,
+                        "rank": 2
+                    },
+                    {
+                        "hId": 2,
+                        "state": 1432,
+                        "odds": 3.4,
+                        "rank": 3
+                    },
+                    {
+                        "hId": 3,
+                        "state": 515,
+                        "odds": 14.66,
+                        "rank": 4
+                    },
+                    {
+                        "hId": 4,
+                        "state": 720,
+                        "odds": 7.07,
+                        "rank": 5
+                    }
+                ]
+            },
+            {
+                "drawId": "1609220639",
+                "matchInfo": [
+                    {
+                        "hId": 5,
+                        "state": 1363,
+                        "odds": 4.42,
+                        "rank": 1
+                    },
+                    {
+                        "hId": 2,
+                        "state": 1144,
+                        "odds": 3.87,
+                        "rank": 2
+                    },
+                    {
+                        "hId": 1,
+                        "state": 1078,
+                        "odds": 3.39,
+                        "rank": 3
+                    },
+                    {
+                        "hId": 4,
+                        "state": 694,
+                        "odds": 7.17,
+                        "rank": 4
+                    },
+                    {
+                        "hId": 3,
+                        "state": 1435,
+                        "odds": 7.5,
+                        "rank": 5
+                    }
+                ]
+            },
+            {
+                "drawId": "1609220638",
+                "matchInfo": [
+                    {
+                        "hId": 5,
+                        "state": 691,
+                        "odds": 3.75,
+                        "rank": 1
+                    },
+                    {
+                        "hId": 1,
+                        "state": 1055,
+                        "odds": 3.15,
+                        "rank": 2
+                    },
+                    {
+                        "hId": 4,
+                        "state": 621,
+                        "odds": 8.41,
+                        "rank": 3
+                    },
+                    {
+                        "hId": 3,
+                        "state": 909,
+                        "odds": 5.57,
+                        "rank": 4
+                    },
+                    {
+                        "hId": 2,
+                        "state": 559,
+                        "odds": 5.88,
+                        "rank": 5
+                    }
+                ]
+            },
+            {
+                "drawId": "1609220637",
+                "matchInfo": [
+                    {
+                        "hId": 5,
+                        "state": 1119,
+                        "odds": 2.79,
+                        "rank": 1
+                    },
+                    {
+                        "hId": 1,
+                        "state": 877,
+                        "odds": 4.97,
+                        "rank": 2
+                    },
+                    {
+                        "hId": 4,
+                        "state": 911,
+                        "odds": 5.53,
+                        "rank": 3
+                    },
+                    {
+                        "hId": 2,
+                        "state": 907,
+                        "odds": 3.94,
+                        "rank": 4
+                    },
+                    {
+                        "hId": 3,
+                        "state": 738,
+                        "odds": 17.18,
+                        "rank": 5
+                    }
+                ]
+            },
+            {
+                "drawId": "1609211440",
+                "matchInfo": [
+                    {
+                        "hId": 1,
+                        "state": 1335,
+                        "odds": 3.18,
+                        "rank": 1
+                    },
+                    {
+                        "hId": 4,
+                        "state": 536,
+                        "odds": 9.16,
+                        "rank": 2
+                    },
+                    {
+                        "hId": 5,
+                        "state": 901,
+                        "odds": 4.0,
+                        "rank": 3
+                    },
+                    {
+                        "hId": 2,
+                        "state": 1272,
+                        "odds": 3.52,
+                        "rank": 4
+                    },
+                    {
+                        "hId": 3,
+                        "state": 876,
+                        "odds": 10.57,
+                        "rank": 5
+                    }
+                ]
+            },
+            {
+                "drawId": "1609211439",
+                "matchInfo": [
+                    {
+                        "hId": 3,
+                        "state": 555,
+                        "odds": 6.7,
+                        "rank": 1
+                    },
+                    {
+                        "hId": 4,
+                        "state": 1313,
+                        "odds": 4.8,
+                        "rank": 2
+                    },
+                    {
+                        "hId": 5,
+                        "state": 982,
+                        "odds": 4.27,
+                        "rank": 3
+                    },
+                    {
+                        "hId": 1,
+                        "state": 1096,
+                        "odds": 3.32,
+                        "rank": 4
+                    },
+                    {
+                        "hId": 2,
+                        "state": 715,
+                        "odds": 6.27,
+                        "rank": 5
+                    }
+                ]
+            },
+            {
+                "drawId": "1609211438",
+                "matchInfo": [
+                    {
+                        "hId": 4,
+                        "state": 883,
+                        "odds": 5.8,
+                        "rank": 1
+                    },
+                    {
+                        "hId": 5,
+                        "state": 1319,
+                        "odds": 2.79,
+                        "rank": 2
+                    },
+                    {
+                        "hId": 1,
+                        "state": 711,
+                        "odds": 5.63,
+                        "rank": 3
+                    },
+                    {
+                        "hId": 2,
+                        "state": 1353,
+                        "odds": 4.09,
+                        "rank": 4
+                    },
+                    {
+                        "hId": 3,
+                        "state": 876,
+                        "odds": 10.04,
+                        "rank": 5
+                    }
+                ]
+            },
+            {
+                "drawId": "1609211437",
+                "matchInfo": [
+                    {
+                        "hId": 1,
+                        "state": 1072,
+                        "odds": 4.27,
+                        "rank": 1
+                    },
+                    {
+                        "hId": 4,
+                        "state": 1260,
+                        "odds": 4.01,
+                        "rank": 2
+                    },
+                    {
+                        "hId": 2,
+                        "state": 954,
+                        "odds": 4.8,
+                        "rank": 3
+                    },
+                    {
+                        "hId": 5,
+                        "state": 1046,
+                        "odds": 4.42,
+                        "rank": 4
+                    },
+                    {
+                        "hId": 3,
+                        "state": 1170,
+                        "odds": 7.43,
+                        "rank": 5
+                    }
+                ]
+            }
+        ]
+    }
+}

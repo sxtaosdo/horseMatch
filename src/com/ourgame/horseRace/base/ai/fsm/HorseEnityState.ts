@@ -66,7 +66,7 @@ class HorseEnityStateSeek implements IState {
 
     public execute(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
-		var speed: number = RandomUtil.randNumber(1, 10);
+		var speed: number = RandomUtil.randNumber(1, 25);
 		this.self.speed = speed;
 		if (speed > this.client.maxSpeed) {
 			this.client.maxSpeed = speed;

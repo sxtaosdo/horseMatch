@@ -8,7 +8,7 @@ class ConnectionManager {
     /**
      * 连接类型
      */
-    public static CONN_TYPE: number = 4;
+    public static CONN_TYPE: number = 1;
     /**
      * 重连间隔
      */
@@ -44,7 +44,8 @@ class ConnectionManager {
 
         switch (ConnectionManager.CONN_TYPE) {
             case 1://本地调试
-                this.socket = new LocalHandler(this._receiveHelper.onMessage);
+                // this.socket = new LocalHandler(this._receiveHelper.onMessage);
+                this.socket = new HttpService(this._receiveHelper.onMessage, this);
                 break;
             case 2://白鹭官方websocket
                 this.socket = new WebSocketHandler(this._receiveHelper.onMessage, this);

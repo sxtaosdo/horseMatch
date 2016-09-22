@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ResultItemSkin" width="400" height="50" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="nameText" text=" " x="24" y="9" width="117" textAlign="center" verticalAlign="middle"/>
+	<e:Label id="muText" text=" " x="160" y="9" width="121" textAlign="center" verticalAlign="middle"/>
+	<e:Label id="awardText" text=" " x="281" y="9" width="108" textAlign="center" verticalAlign="middle"/>
+</e:Skin>

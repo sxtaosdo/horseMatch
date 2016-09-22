@@ -43,6 +43,7 @@
     "resource/game_skins/window/AlertSkin.exml",
     "resource/game_skins/window/HelpPanelSkin.exml",
     "resource/game_skins/window/HistoryPanelSkin.exml",
+    "resource/game_skins/window/OperationRecordPanelSkin.exml",
     "resource/game_skins/window/RankPanelSkin.exml",
     "resource/game_skins/window/SettingPanelSkin.exml",
     "resource/renderer/HistoryItemSkin.exml",

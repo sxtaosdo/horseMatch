@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LoadingRoomPBSkin" width="426" height="31" xmlns:e="http://ns.egret.com/eui">
+    <e:Image scale9Grid="2,2,2,2" width="100%" height="100%" verticalCenter="0"  source="loadingRoomBarBg_png"/>
+    <e:Image id="thumb" scale9Grid="6,4,4,4" y="-5" x="0"  source="loadingRoomBar_png" width="427"/>
+    <e:Label id="labelDisplay" textAlign="center" verticalAlign="middle" size="18" fontFamily="Tahoma"
+             textColor="0x000000" horizontalCenter="0" verticalCenter="0" />
+</e:Skin>
