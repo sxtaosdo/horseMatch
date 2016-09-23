@@ -72,6 +72,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			this.armature.animation.gotoAndPlay(name);
 			// console.log("change animation to:" + name);
 			this.displayObject = this.armature.display;
+			this.displayObject.anchorOffsetX = this.displayObject.width/2;
 			this._content.addChild(this.displayObject);
 
 		}
@@ -94,8 +95,8 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			this.armature.animation.gotoAndPlay(AnimationType.IDEL);
 
 			// this.changeAnimation(AnimationType.IDEL);
-
 			this.displayObject = this.armature.display;
+			this.displayObject.anchorOffsetX = this.displayObject.width/2;
 		} else {
 			var mc: egret.MovieClip;
 			var js: any = RES.getRes("fish" + id + "_json");

@@ -8,7 +8,7 @@ class ConnectionManager {
     /**
      * 连接类型
      */
-    public static CONN_TYPE: number = 1;
+    public CONN_TYPE: number = 1;
     /**
      * 重连间隔
      */
@@ -42,7 +42,12 @@ class ConnectionManager {
         this._sendHelper = new MsgSendHelper(this.message);
         this._receiveHelper = new MsgReceiveHelper(this.message);
 
-        switch (ConnectionManager.CONN_TYPE) {
+        if (ConfigModel.instance.debug) {
+            this.CONN_TYPE = 1;
+        } else {
+            this.CONN_TYPE = 4;
+        }
+        switch (this.CONN_TYPE) {
             case 1://本地调试
                 // this.socket = new LocalHandler(this._receiveHelper.onMessage);
                 this.socket = new HttpService(this._receiveHelper.onMessage, this);

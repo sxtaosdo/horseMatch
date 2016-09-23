@@ -28,9 +28,9 @@ class GameWorld extends egret.Sprite implements IBase {
     /**游戏场景的宽高 */
     public static GAME_WIDTH: number = Main.STAGE_WIDTH;
     public static GAME_HEIGHT: number = Main.STAGE_HEIGHT;
-    
+
     /**终点长度（包含初始左侧长度） */
-    public static DEADLINE_LENGTH: number = 6000;
+    public static DEADLINE_LENGTH: number = 3000;
     /**左侧 */
     public static LEFT_LINE: number = GameWorld.GAME_WIDTH / 4 * 1;
     /**右侧 */
@@ -56,7 +56,7 @@ class GameWorld extends egret.Sprite implements IBase {
     private betView: BetView;
     /**比赛结果 */
     private resultBiew: ResultView;
-    
+
     /**进度 */
     private progress: ProgressPanel;
     /**跑道 */
@@ -110,7 +110,7 @@ class GameWorld extends egret.Sprite implements IBase {
         for (var i: number = 1; i < 6; i++) {
             var horse: HorseEntity = EntityManager.instance.getAvailableEntity<HorseEntity>(HorseEntity);
             horse.setData(ConfigModel.instance.horseList[i - 1]);
-            horse.getDisplayObject().y = i * 80 + 200;
+            horse.getDisplayObject().y = i * 110 + 187;
 
             this.client.horseList.push(horse);
             this.addChild(horse.getDisplayObject());
@@ -144,7 +144,7 @@ class GameWorld extends egret.Sprite implements IBase {
         if (this.parent != null) {
             this.parent.removeChild(this);
         }
-        
+
         this.betView.exit();
         this.racetrack.exit();
         TimerManager.instance.clearTimer(this.execute);
@@ -155,7 +155,7 @@ class GameWorld extends egret.Sprite implements IBase {
         this.client.horseList.forEach(element => {  //移动
             element.getFSM().Update();//
         });
-        
+
         this.racetrack.execute(ClientModel.instance.roadPastLength);
         if (this.progress.parent) {
             this.progress.execute();
@@ -240,6 +240,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 TimerManager.instance.clearTimer(this.execute);
                 break;
             case GameState.RUN_STAGE:
+                this.addChild(this.progress);
                 this.isBulletTime = false;
                 this.tempSpeed = 0;
                 ClientModel.instance.roadPastLength = 0;
@@ -288,6 +289,9 @@ class GameWorld extends egret.Sprite implements IBase {
             }
             if (this.progress && this.progress.parent) {
                 this.progress.y = this.stage.stageHeight - this.progress.height;
+            }
+            for (var i = 0; i < 5; i++) {
+                this.client.horseList[i].getDisplayObject().y = this.stage.stageHeight - (4-i) * 110 - 130;
             }
         }
     }
