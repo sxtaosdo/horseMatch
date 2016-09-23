@@ -9,7 +9,7 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 
 	public constructor() {
 		super();
-		this.y = 300;
+		// this.y = 300;
 
 		this.racetrackArr = new Array<egret.Sprite>();
 		for (var i: number = 0; i < 5; i++) {

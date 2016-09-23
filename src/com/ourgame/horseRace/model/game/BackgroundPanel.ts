@@ -2,55 +2,43 @@
 class BackgroundPanel extends egret.Sprite implements IBase {
 
 	/**赛道 */
-	private trackImageArr: Array<egret.Bitmap>;
+	private trackGroup: ImageGroup;;
 	/**近景背景 */
-	private image1Arr: Array<egret.Bitmap>;
+	private image1Group: ImageGroup;
 	/**远景背景 */
-	private image2Arr: Array<egret.Bitmap>;
+	private image2Group: ImageGroup;
 	/**天空背景 */
-	private image3Arr: Array<egret.Bitmap>;
+	private image3Group: ImageGroup;
 
 
 
 	public constructor() {
 		super();
-		this.trackImageArr = new Array<egret.Bitmap>();
-		this.trackImageArr.push(BitMapUtil.createBitmapByName("bg_track_png"));
-
-		this.image1Arr = new Array<egret.Bitmap>();
-		this.image1Arr.push(BitMapUtil.createBitmapByName("bg_image1_png"));
-
-		this.image2Arr = new Array<egret.Bitmap>();
-		this.image2Arr.push(BitMapUtil.createBitmapByName("bg_image2_png"));
-
-		this.image3Arr = new Array<egret.Bitmap>();
-		this.image3Arr.push(BitMapUtil.createBitmapByName("bg_image3_png"));
+		this.image3Group = new ImageGroup(this, "bg_image3_png");
+		this.image2Group = new ImageGroup(this, "bg_image2_png", 70);
+		this.image1Group = new ImageGroup(this, "bg_image1_png", 24);
+		this.trackGroup = new ImageGroup(this, "bg_track_png", 187 - 37);
 	}
 
 	public enter(data?: any): void {
-		while (this.trackImageArr.length * this.trackImageArr[0].width < GameWorld.GAME_WIDTH * 2) {
-			var bmp: egret.Bitmap = BitMapUtil.createBitmapByName("bg_track_png");
-			bmp.x = this.trackImageArr.length * this.trackImageArr[0].width;
-			this.trackImageArr.push(bmp);
-		}
-		var that: BackgroundPanel = this;
-		this.trackImageArr.forEach(element => {
-			that.addChild(element);
-		});
+		this.image1Group.enter();
+		this.image2Group.enter();
+		this.image3Group.enter();
+		this.trackGroup.enter();
 	}
 
 	public exit(): void {
-
+		this.image1Group.exit();
+		this.image2Group.exit();
+		this.image3Group.exit();
+		this.trackGroup.exit();
 	}
 
 	public execute(data?: any): void {
-		this.trackImageArr.forEach(element => {
-			element.x -= data;
-		});
-		if (this.trackImageArr[0].x <= -this.trackImageArr[0].width) {
-			this.trackImageArr.push(this.trackImageArr.shift());
-			this.trackImageArr[this.trackImageArr.length - 1].x = this.trackImageArr[this.trackImageArr.length - 2].x + this.trackImageArr[this.trackImageArr.length - 2].width;
-		}
+		this.image1Group.execute(data);
+		this.image2Group.execute(data * 0.3);
+		this.image3Group.execute(0);
+		this.trackGroup.execute(data);
 	}
 
 

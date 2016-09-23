@@ -51,6 +51,7 @@ var game_file_list = [
 	"bin-debug/com/ourgame/horseRace/model/game/BetView.js",
 	"bin-debug/Main.js",
 	"bin-debug/com/ourgame/horseRace/model/game/GameWorld.js",
+	"bin-debug/com/ourgame/horseRace/model/game/ImageGroup.js",
 	"bin-debug/com/ourgame/horseRace/model/game/JpBarPanel.js",
 	"bin-debug/com/ourgame/horseRace/model/game/PlayerList.js",
 	"bin-debug/com/ourgame/horseRace/model/game/ProgressPanel.js",
