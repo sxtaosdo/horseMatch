@@ -12,7 +12,7 @@ class HorseVo {
 	public acceleration: number;
 	/**最高速度 */
 	public maximumSpeed: number;
-	/**速度 */
+	/**普通速度 */
 	public speed: number;
 	/**耐力 */
 	public endurance: number;

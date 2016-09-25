@@ -1,14 +1,20 @@
 class ObstacleVo {
 	/**障碍类型 */
 	public type: number = 0;
-	/**障碍位置 */
-	public local: number;
-	/**是否通过 */
-	public isPass: boolean;
-	/**滞留时间 */
-	public time: number;
-	/**进入陷阱的时间 */
-	public inTime: number = 0;
+    /**障碍长度 */
+	public length:number;
+	/**通过障碍时间 */
+	public passTime: number;
+	/**滞留障碍最大时间 */
+	public notPassMaxTime: number;
+	/**滞留障碍最小时间 */
+	public notPassMinTime: number;
+	/**纹理图集 */
+	public picUrl:String;
+	/**通过障碍动作 */
+	public passMove:String;
+	/**未通过障碍动作 */
+	public notPassMove:String;
 
 	public constructor(data?: any) {
 		if (data) {

@@ -36,7 +36,7 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 			this.racetrackArr[i].addChild(bmp)
 
 			bmp = BitMapUtil.createBitmapByName("bg_end_png");
-			bmp.x = GameWorld.DEADLINE_LENGTH - (GameWorld.GAME_WIDTH / 4);
+			bmp.x = GameWorld.DEADLINE_LENGTH;
 			this.racetrackArr[i].addChild(bmp);
 
 			var arr = ClientModel.instance.phaseList[i];
