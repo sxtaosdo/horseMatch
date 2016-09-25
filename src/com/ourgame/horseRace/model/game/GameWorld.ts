@@ -14,10 +14,10 @@ enum GameState {
 enum RunState {
     /**开始阶段 */
     GEGIN,
-    /**拉锯阶段 */
-    SEESAW,
-    /**冲刺阶段 */
-    SPRINT
+    /**赛跑阶段 */
+    RUN,
+    /**过线阶段 */
+    END
 }
 
 /**
@@ -155,8 +155,9 @@ class GameWorld extends egret.Sprite implements IBase {
         this.client.horseList.forEach(element => {  //移动
             element.getFSM().Update();//
         });
-
-        this.racetrack.execute(ClientModel.instance.roadPastLength);
+        if (this._runState == RunState.RUN) {
+            this.racetrack.execute(ClientModel.instance.roadPastLength);
+        }
         if (this.progress.parent) {
             this.progress.execute();
         }
@@ -210,14 +211,15 @@ class GameWorld extends egret.Sprite implements IBase {
             case GameState.BET_STAGE:
 
                 this.resultBiew.exit();
-                this.addChildAt(this.betView, this.numChildren - 1);
                 this.betView.enter();
                 this.client.horseList.forEach(element => {
                     element.getFSM().ChangeState(HorseEnityStateIdel.instance);
                 });
-                this._runState = RunState.GEGIN;
+                // this.addChildAt(this.betView, this.numChildren - 1);
+                this.addChild(this.betView);
                 break;
             case GameState.PREPARE_STAGE:
+                this._runState = RunState.GEGIN;
                 ClientModel.instance.initGameSprite(this.client.gameInfoVo.drawId);
                 this.addChild(this.progress);
                 var index: number = 0;
@@ -229,6 +231,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.progress.enter();
                 break;
             case GameState.RESULT_STAGE:
+                this._runState = RunState.END;
                 this.addChild(this.resultBiew);
                 this.resultBiew.enter();
 
@@ -240,6 +243,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 TimerManager.instance.clearTimer(this.execute);
                 break;
             case GameState.RUN_STAGE:
+                this._runState = RunState.RUN;
                 this.addChild(this.progress);
                 this.isBulletTime = false;
                 this.tempSpeed = 0;
@@ -282,16 +286,20 @@ class GameWorld extends egret.Sprite implements IBase {
     private onResize(evt?: egret.Event): void {
         if (this.stage) {
             if (this.betView && this.betView.parent) {
-                this.betView.y = this.stage.stageHeight - this.betView.height;
+                // this.betView.y = this.stage.stageHeight - this.betView.height;
+                this.betView.top = 0;
+                this.betView.bottom = 0;
+                this.betView.height = this.stage.stageHeight;
             }
             if (this.racetrack && this.racetrack.parent) {
-                this.racetrack.y = this.stage.stageHeight - this.racetrack.height;
+                this.racetrack.y = this.stage.stageHeight - 720;
+                // this.racetrack.y = this.stage.stageHeight - this.racetrack.height;
             }
             if (this.progress && this.progress.parent) {
                 this.progress.y = this.stage.stageHeight - this.progress.height;
             }
             for (var i = 0; i < 5; i++) {
-                this.client.horseList[i].getDisplayObject().y = this.stage.stageHeight - (4-i) * 110 - 130;
+                this.client.horseList[i].getDisplayObject().y = this.stage.stageHeight - (4 - i) * 110 - 130;
             }
         }
     }
@@ -306,7 +314,7 @@ class GameWorld extends egret.Sprite implements IBase {
     }
 
     private parseGameStateData(data: GameInfoVo): void {
-        // console.log("berview \tcdTime:" + data.cdTime + "\tleftTime:" + data.leftTime);
+        console.log("berview \tcdTime:" + data.cdTime + "\tleftTime:" + data.leftTime);
         if (data.cdTime > 0) {
             this.client.betTime = data.cdTime;
             this.changeState(GameState.BET_STAGE);

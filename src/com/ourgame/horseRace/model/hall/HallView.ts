@@ -37,16 +37,10 @@ class HallView extends BaseComponent implements IBase {
 	private onTap(evt: egret.TouchEvent): void {
 		switch (evt.target) {
 			case this.btn1:
-				// ClientModel.instance.changeGameState(LoadingUI.instance);
-				// LoadingUI.instance.loadAssets(() => {
-					ClientModel.instance.changeGameState(new GameWorld());
-				// }, LoadingUI.assets2);
+				ClientModel.instance.changeGameState(new GameWorld());
 				break;
 			case this.btn2:
-				// ClientModel.instance.changeGameState(LoadingUI.instance);
-				// LoadingUI.instance.loadAssets(() => {
-					ClientModel.instance.changeGameState(new GameWorld());
-				// }, LoadingUI.assets2);
+				ClientModel.instance.changeGameState(new GameWorld());
 				break;
 		}
 	}

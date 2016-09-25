@@ -91,9 +91,9 @@ class ClientModel {
      * 解析参数
      */
     public parseParams(): void {
-        console.log("当前系统：" + egret.Capabilities.os);
-        console.log("移动设备：" + egret.Capabilities.isMobile);
-        console.log("系统语言：" + egret.Capabilities.language);
+        console.log("系统：" + egret.Capabilities.os);
+        console.log("设备：" + egret.Capabilities.isMobile);
+        console.log("语言：" + egret.Capabilities.language);
         console.log("运行环境：" + egret.Capabilities.runtimeType);
         console.log("龙骨version：" + dragonBones.DragonBones.VERSION);
 

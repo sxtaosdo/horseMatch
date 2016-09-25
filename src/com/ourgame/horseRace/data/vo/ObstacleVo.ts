@@ -7,6 +7,8 @@ class ObstacleVo {
 	public isPass: boolean;
 	/**滞留时间 */
 	public time: number;
+	/**进入陷阱的时间 */
+	public inTime: number = 0;
 
 	public constructor(data?: any) {
 		if (data) {
@@ -24,13 +26,13 @@ class ObstacleVo {
 		this.type = temp < 5000 ? 0 : 1;
 		index += step;
 		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		this.local = temp / 100;
+		this.local = temp / 10;
 		index += step;
 		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
 		this.isPass = temp < 50000 ? true : false;
 		index += step;
 		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		this.time = temp/10000;
+		this.time = temp / 10000;
 	}
 
 }

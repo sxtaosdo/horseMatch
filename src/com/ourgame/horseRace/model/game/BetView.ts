@@ -18,11 +18,14 @@ class BetView extends BaseComponent implements IBase {
 	public selectMoney: number = 100;
 	private coinList: Array<any>;
 	private betInfoList: Object;
+	/**操作队列 */
+	private operationObj: any;
 
 
 	public constructor() {
 		super(false);
 
+		this.operationObj = new Object();
 		this.coinList = new Array<any>();
 		this.betInfoList = Object();
 		this.horseData = new eui.ArrayCollection();
@@ -95,13 +98,30 @@ class BetView extends BaseComponent implements IBase {
 				bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.blue)];
 				break;
 		}
-		bmp.y = 570;
+		bmp.y = this.stage.stageHeight - 140;
+		// bmp.y = 570;
 		this.addChild(bmp);
 		if (this.coinList[this.horseList.selectedIndex] == null) {
 			this.coinList[this.horseList.selectedIndex] = new Array<egret.Bitmap>();
 		}
-		egret.Tween.get(bmp).to({ x: (this.coinList[this.horseList.selectedIndex].length % 2 == 0 ? 60 : 130) + RandomUtil.randNumber(0, 5) + (this.horseList.selectedIndex * 250), y: 390 + Math.floor(this.coinList[this.horseList.selectedIndex].length / 2) * -10 }, 200);
+		egret.Tween.get(bmp).to({ x: (this.coinList[this.horseList.selectedIndex].length % 2 == 0 ? 60 : 130) + RandomUtil.randNumber(0, 5) + (this.horseList.selectedIndex * 250), y: (this.horseList.y + 300) + Math.floor(this.coinList[this.horseList.selectedIndex].length / 2) * -10 }, 200);
 		this.coinList[this.horseList.selectedIndex].push(bmp);
+		if (this.operationObj[this.horseList.selectedIndex]) {
+			this.operationObj[this.horseList.selectedIndex] += this.selectMoney;
+		} else {
+			this.operationObj[this.horseList.selectedIndex] = this.selectMoney;
+		}
+		TimerManager.instance.doOnce(1000, this.sendOperation, this);
+	}
+
+	private sendOperation(): void {
+		var key: any;
+		var str: string = "";
+		for (key in this.operationObj) {
+			str += (key + "x" + this.operationObj[key] + "#");
+		}
+		str = str.substr(0, str.length - 1);
+		ConnectionManager.instance.sendHelper.bet(str);
 	}
 
 	private randomInfo(id: number): MatchPlayerVo {	//temp随机一个下注信息

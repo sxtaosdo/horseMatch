@@ -47,6 +47,8 @@ class ConnectionManager {
         } else {
             this.CONN_TYPE = 4;
         }
+        console.log("conn type:" + this.CONN_TYPE);
+
         switch (this.CONN_TYPE) {
             case 1://本地调试
                 // this.socket = new LocalHandler(this._receiveHelper.onMessage);

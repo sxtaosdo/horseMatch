@@ -38,6 +38,10 @@ class ResultView extends BaseComponent implements IBase {
 	public execute(data?: any): void {
 		this.timeText.text = String(this.timer);
 		this.timer--;
+		if (this.timer < 0) {
+			TimerManager.instance.clearTimer(this.execute);
+			this.timeText.text = "";
+		}
 	}
 
 	private onInfo(): void {

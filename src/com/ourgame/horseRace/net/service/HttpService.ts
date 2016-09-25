@@ -4,7 +4,7 @@ class HttpService implements ISocket {
 	private callThis: any;
 
 	private data: any;
-	private globalTime: number = 35;
+	private globalTime: number = 10;
 
 	public constructor(callback?: Function, callThis?: any) {
 		this.call = callback;

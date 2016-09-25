@@ -72,6 +72,14 @@ class HorseEnityStateSeek implements IState {
 			this.client.maxSpeed = speed;
 		}
 		this.self.currentX += speed;
+		if ((this.self.obstacle) && (this.self.currentX >= this.self.obstacle.local)) {
+			if (this.self.obstacle.isPass == false) {
+				this.self.obstacle.inTime = egret.getTimer();
+				this.self.getFSM().ChangeState(HorseEnityStateStuck.instance);
+			} else {
+				this.self.obstacle = null;
+			}
+		}
 		//超过右侧线
 		if (this.self.currentX > GameWorld.RIGHT_LINE + ClientModel.instance.roadPastLength) {
 			//尚未到达终点--》摄像头向右移动
@@ -166,11 +174,14 @@ class HorseEnityStateStuck implements IState {
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
 		// this.self.armature.animation.gotoAndPlay("pao");
+		this.self.changeAnimation(AnimationType.FALL);
 	}
 
     public execute(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
-
+		if ((egret.getTimer() - this.self.obstacle.inTime) > this.self.obstacle.time) {
+			this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
+		}
 	}
 
     public exit(entity: IBaseGameEntity): void {

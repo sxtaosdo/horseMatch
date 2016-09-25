@@ -14,12 +14,14 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 
 	/**编号 */
 	private _text: egret.TextField;
-	/**阶段脚本 */
-	// private _phaseSprite: Array<PhaseVo>;
 	/**当前所处的阶段 */
 	public currentPhase: number = 0;
 	/**完成的距离 */
 	public currentX: number = 0;
+	/**障碍 */
+	public obstacle: ObstacleVo;
+	/**状态 */
+	public buffList: Array<BufferVo>;
 
 	public constructor() {
 		super();
@@ -54,6 +56,9 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 	public setData(vo: any): void {
 		if (vo instanceof Array) {
 			// this._phaseSprite = vo;
+			var temp: Array<any> = vo;
+			this.obstacle = temp.shift();
+			this.buffList = temp;
 		}
 		if (vo instanceof HorseVo) {
 			this._vo = vo;
@@ -72,7 +77,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			this.armature.animation.gotoAndPlay(name);
 			// console.log("change animation to:" + name);
 			this.displayObject = this.armature.display;
-			this.displayObject.anchorOffsetX = this.displayObject.width/2;
+			this.displayObject.anchorOffsetX = this.displayObject.width / 2;
 			this._content.addChild(this.displayObject);
 
 		}
@@ -96,7 +101,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 
 			// this.changeAnimation(AnimationType.IDEL);
 			this.displayObject = this.armature.display;
-			this.displayObject.anchorOffsetX = this.displayObject.width/2;
+			this.displayObject.anchorOffsetX = this.displayObject.width / 2;
 		} else {
 			var mc: egret.MovieClip;
 			var js: any = RES.getRes("fish" + id + "_json");

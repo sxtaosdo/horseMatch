@@ -38,4 +38,16 @@ class MsgSendHelper {
     public history(data?: any): void {
         ConnectionManager.instance.send("/hrb/drawResult");
     }
+
+    public bet(data: string): void {
+        var str: string = JSON.stringify({ "\"drawId\"": ClientModel.instance.lastBetInfo.info.drawId, "\"betInfo\"": data, "\"playId\"": "1" })
+        // let temp = JSON.parse(str);
+        // console.log("发送了下注信息：" + temp);
+        ConnectionManager.instance.send("/hrb/bet", str);
+    }
+
+    public cancel(): void {
+        var str: string = JSON.stringify({ drawId: ClientModel.instance.lastBetInfo.info.drawId, playId: 1 })
+        ConnectionManager.instance.send("/hrb/cancel");
+    }
 }

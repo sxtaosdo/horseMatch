@@ -29,25 +29,16 @@ class MsgReceiveHelper {
     public onMessage(type: any, body?: any): void {
         var msg: any = MsgReceiveHelper.instance.msg;
         var cls: any;
-        if (body.rtnCode == 0) {//正常返回
+
+        console.log("in onMessage:\ntype:" + type + "\nbody:" + body);
+        if ((body.rtnCode == 0) || (body.rtnCode == -103)) {//正常返回
             switch (type) {
-                case 1:
-                    //心跳
-                    cls = msg.build("DuxLiveTick");
-                    var tick = cls.decode(body.buffer);
-                    var temp: number = parseInt(tick.time);
-                    break;
-                case MsgType.GLFS_PeriodChangeACK:
-                    // HallClientModel.instance.onGoResult(body);
-                    break;
-                case MsgType.A_DICE_INFO:
-                    // HallClientModel.instance.onDiceInfo(body);
-                    break;
                 case "login":
                     if (body.rtnCode == 0) {
                         GameDispatcher.send(BaseEvent.LOGIN_RESULT_EVENT);
-                        ConnectionManager.instance.sendHelper.gameInfo();
-                    } 
+                        console.log("收到登陆成功消息：" + egret.getTimer());
+                        // ConnectionManager.instance.sendHelper.gameInfo();
+                    }
                     // else {
                     //     ClientModel.instance.openAlert("登陆失败，请重试");
                     // }
@@ -64,7 +55,7 @@ class MsgReceiveHelper {
             }
         } else {    //异常返回
             ClientModel.instance.openAlert(body.rtnMsg + "(ERROR CDOE:" + body.rtnCode + ")");
-            console.log(body);
         }
+        console.log(body + "\t\n=========================>" + egret.getTimer());
     }
 }
