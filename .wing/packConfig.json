@@ -1,9 +1,20 @@
 {
-    "sourcePath": "D:/svn/AngryFisherman/ClientHTML5-EUI/AngryFisher/resource/",
-    "unPackGroup": [],
-    "packGroups": [],
-    "publishPath": "D:/svn/AngryFisherman/ClientHTML5-EUI/AngryFisher/resource_Publish/",
-    "publishCopyAll": false,
-    "cleanPublishPath": false,
-    "addCrc": true
+    "maxImageWidth": 2014,
+    "maxImageHeight": 2014,
+    "defaultResPath": "d:\\svn\\HorseRace\\resource\\default.res.json",
+    "packGroups": {
+        "preload": true,
+        "config": true,
+        "main": true,
+        "bg": true,
+        "loading": true,
+        "labby": true,
+        "alert": true,
+        "top": true,
+        "fish1": true,
+        "window": true,
+        "betView": true,
+        "db": true,
+        "font": true
+    }
 }

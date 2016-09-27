@@ -21,7 +21,7 @@
 			"name":"loading"
 		},
 		{
-			"keys":"suiji_png,duding_png,lobbyBg_png",
+			"keys":"",
 			"name":"labby"
 		},
 		{
@@ -33,7 +33,7 @@
 			"name":"top"
 		},
 		{
-			"keys":"fish1_json,fish1_png,fishd1_json,fishd1_png,fish2_json,fish2_png,fish3_json,fish3_png,fish4_json,fish4_png,fish6_png,fish5_json,fish5_png,fish6_json",
+			"keys":"fish1_json,fish1_png,fish2_json,fish2_png,fish3_json,fish3_png,fish4_json,fish4_png",
 			"name":"fish1"
 		},
 		{
@@ -205,16 +205,6 @@
 			"url":"assets/fish1/fish1.png"
 		},
 		{
-			"name":"fishd1_json",
-			"type":"json",
-			"url":"assets/fish1/fishd1.json"
-		},
-		{
-			"name":"fishd1_png",
-			"type":"image",
-			"url":"assets/fish1/fishd1.png"
-		},
-		{
 			"name":"fish2_json",
 			"type":"json",
 			"url":"assets/fish1/fish2.json"
@@ -243,26 +233,6 @@
 			"name":"fish4_png",
 			"type":"image",
 			"url":"assets/fish1/fish4.png"
-		},
-		{
-			"name":"fish6_png",
-			"type":"image",
-			"url":"assets/fish1/fish6.png"
-		},
-		{
-			"name":"fish5_json",
-			"type":"json",
-			"url":"assets/fish1/fish5.json"
-		},
-		{
-			"name":"fish5_png",
-			"type":"image",
-			"url":"assets/fish1/fish5.png"
-		},
-		{
-			"name":"fish6_json",
-			"type":"json",
-			"url":"assets/fish1/fish6.json"
 		},
 		{
 			"name":"horse_json",
@@ -408,21 +378,6 @@
 			"name":"bg_png",
 			"type":"image",
 			"url":"assets/game/bg.png"
-		},
-		{
-			"name":"suiji_png",
-			"type":"image",
-			"url":"assets/lobby/suiji.png"
-		},
-		{
-			"name":"duding_png",
-			"type":"image",
-			"url":"assets/lobby/duding.png"
-		},
-		{
-			"name":"lobbyBg_png",
-			"type":"image",
-			"url":"assets/lobby/lobbyBg.png"
 		},
 		{
 			"name":"arrow_png",
