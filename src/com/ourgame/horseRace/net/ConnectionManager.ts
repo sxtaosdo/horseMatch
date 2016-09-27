@@ -63,6 +63,9 @@ class ConnectionManager {
             case 4://Http
                 this.socket = new HttpHandler(this._receiveHelper.onMessage, this);
                 break;
+            case 5://Http
+                this.socket = new HttpHandlerLoader(this._receiveHelper.onMessage, this);
+                break;
         }
     }
 

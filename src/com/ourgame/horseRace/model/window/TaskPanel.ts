@@ -1,13 +1,12 @@
-class MailPanel extends BaseComponent implements IWindow {
-
+class TaskPanel extends BaseComponent implements IWindow {
 	public constructor() {
 		super();
-		this.skinName = "resource/game_skins/window/MailPanelSkin.exml";
+		this.skinName = "resource/game_skins/window/TaskPanelSkin.exml";
 	}
 
 	protected onSkinComplete(e: any): void {
         super.onSkinComplete(e);
-    }
+	}
 
 	public enter(data?: any): void {
 

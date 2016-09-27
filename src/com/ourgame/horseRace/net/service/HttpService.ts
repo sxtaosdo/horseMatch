@@ -4,7 +4,7 @@ class HttpService implements ISocket {
 	private callThis: any;
 
 	private data: any;
-	private globalTime: number = 25;
+	private globalTime: number = 10;
 
 	public constructor(callback?: Function, callThis?: any) {
 		this.call = callback;
@@ -12,6 +12,7 @@ class HttpService implements ISocket {
 		if (ConfigModel.instance.debug) {
 			RES.getResAsync("tempContent_json", (e) => {
 				this.data = e;
+				ConnectionManager.instance.sendHelper.gameInfo();
 			}, this);
 		}
 		TimerManager.instance.doLoop(1000, this.onTimer, this);

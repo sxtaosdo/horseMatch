@@ -41,5 +41,10 @@
     },
     "156d5418b79": {
         "guideLinesEnabled": true
+    },
+    "1576acc4833": {
+        "path": "..\\resource\\game_skins\\baseSkin\\InfoHeadBtnSkin.ts",
+        "class": "InfoHeadBtnSkin",
+        "parentPath": "resource/eui_skins/RadioButtonSkin.exml"
     }
 }

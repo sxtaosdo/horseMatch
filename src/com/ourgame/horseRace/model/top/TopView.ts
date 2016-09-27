@@ -35,7 +35,10 @@ class TopView extends BaseComponent implements IBase {
 		this.kjBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onKjTap, this);
 		this.jlBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onJlTap, this);
 		this.smBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSmTap, this);
+		this.ruleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleTap, this);
+		this.taskBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTaskTap, this);
 		this.moreBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoreTap, this);
+		this.addBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAddTap, this);
 		this.soundBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSoundTap, this);
 	}
 
@@ -103,7 +106,7 @@ class TopView extends BaseComponent implements IBase {
 	}
 
 	public onSmTap(evt: egret.TouchEvent): void {
-		// ClientModel.instance.openWindow();
+		ClientModel.instance.openWindow(InfoPanel);
 
 	}
 
@@ -112,8 +115,21 @@ class TopView extends BaseComponent implements IBase {
 
 	}
 
+	public onRuleTap(): void {
+		ClientModel.instance.openWindow(HelpPanel);
+	}
+
+	public onTaskTap(): void {
+		ClientModel.instance.openWindow(TaskPanel);
+	}
+
 	private onMoneyChange(): void {
 		this.moneyText.text = UserModel.instance.money.toString();
+	}
+
+	private onAddTap(): void {
+		// this.moneyText.text = UserModel.instance.money.toString();
+		InterfaceManager.instance.recharge();
 	}
 
 }

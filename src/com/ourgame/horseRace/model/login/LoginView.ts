@@ -76,6 +76,7 @@ class LoginView extends egret.Sprite implements IBase {
 
 	/**登陆结果处理 */
 	private onLoginResult(): void {
+		console.log("onLoginResult");
 		ClientModel.instance.changeGameState(LoadingUI.instance);
 		LoadingUI.instance.loadAssets(() => {
 			ClientModel.instance.changeGameState(new HallView());

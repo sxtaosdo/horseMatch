@@ -405,5 +405,23 @@
                 ]
             }
         ]
+    },
+    "/hrb/bet": {
+        "rtnCode": 0,
+        "rtnMsg": "投注成功",
+        "drawId": "1609260956",
+        "cdTime": 24891,
+        "leftTime": 54891,
+        "playId": 1,
+        "betInfo": "4x100",
+        "betAmount": 100,
+        "acctAmount": 98999800
+    },
+    "/hrb/bet2": {
+        "rtnCode": -301,
+        "rtnMsg": "当前指定奖期无法投注",
+        "drawId": "1609260965",
+        "playId": 1,
+        "betInfo": "4x400100"
     }
 }

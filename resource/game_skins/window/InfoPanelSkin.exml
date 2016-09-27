@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="InfoPanelSkin" width="1015" height="580" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Image source="windowBg_png" x="45" y="0" />
+    <e:Button id="closeBtn" label="" x="928" y="15">
+        <e:skinName>
+            <e:Skin states="up,down,disabled">
+                <e:Image width="100%" height="100%" source="closeBtn1_png" source.down="closeBtn2_png" />
+                <e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+            </e:Skin>
+        </e:skinName>
+    </e:Button>
+    <e:RadioButton id="headBtn1" label="" x="0" y="137" selected="true">
+        <e:skinName>
+            <e:Skin states="up,down,disabled">
+                <e:Image width="100%" height="100%" source="window_info_head1_png" />
+                <e:Image width="100%" height="100%" source.down="window_info_heads_png" />
+                <e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+            </e:Skin>
+        </e:skinName>
+    </e:RadioButton>
+    <e:RadioButton id="headBtn2" label="" x="0" y="214.5">
+        <e:skinName>
+            <e:Skin states="up,down,disabled">
+                <e:Image width="100%" height="100%" source="window_info_head2_png" />
+                <e:Image width="100%" height="100%" source.down="window_info_heads_png" />
+                <e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+            </e:Skin>
+        </e:skinName>
+    </e:RadioButton>
+    <e:RadioButton id="headBtn3" label="" x="-1" y="292.5">
+        <e:Skin states="up,down,disabled">
+            <e:Image width="100%" height="100%" source="window_info_head3_png" />
+            <e:Image width="100%" height="100%" source.down="window_info_heads_png" />
+            <e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+        </e:Skin>
+    </e:RadioButton>
+    <e:RadioButton id="headBtn4" label="" x="-1" y="369.5">
+        <e:Skin states="up,down,disabled">
+            <e:Image width="100%" height="100%" source="window_info_head4_png" />
+            <e:Image width="100%" height="100%" source.down="window_info_heads_png" />
+            <e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+        </e:Skin>
+    </e:RadioButton>
+    <e:RadioButton id="headBtn5" label="" x="0" y="447">
+        <e:Skin states="up,down,disabled">
+            <e:Image width="100%" height="100%" source="window_info_head5_png" />
+            <e:Image width="100%" height="100%" source.down="window_info_heads_png" />
+            <e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+        </e:Skin>
+    </e:RadioButton>
+    <e:Image source="window_info_title_png" y="0" horizontalCenter="45.5" />
+    <e:ViewStack id="viewStack" width="812" height="439" x="128" y="101" selectedIndex="1">
+        <e:Group width="100%" height="100%" name="赛马信息">
+            <e:Image x="0" y="0" source="window_info_bg_png" />
+        </e:Group>
+        <e:Group width="100%" height="100%" name="近期成绩">
+            <e:Image x="0" y="0" source="window_info_bg2_png" />
+        </e:Group>
+    </e:ViewStack>
+    <e:TabBar dataProvider="{viewStack}" width="119" height="281" x="937" y="187">
+        <e:itemRendererSkinName>
+            <e:Skin states="up,down" height="138" width="75">
+                <e:Image id="btnSkin" width="100%" height="100%" source="window_info_Btn1_png"
+                         source.down="window_info_Btn2_png" />
+                <e:BitmapLabel text="{data}" font="f1_fnt" width="41" height="118" x="20" y="20"/>
+            </e:Skin>
+        </e:itemRendererSkinName>
+        <e:layout>
+            <e:VerticalLayout gap="10" />
+        </e:layout>
+    </e:TabBar>
+</e:Skin>

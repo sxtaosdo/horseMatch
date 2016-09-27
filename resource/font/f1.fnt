@@ -1,0 +1,9 @@
+{"file":"f1.png","frames":{
+"马":{"x":25,"y":80,"w":21,"h":24,"offX":1,"offY":0,"sourceW":25,"sourceH":24},
+"赛":{"x":26,"y":0,"w":24,"h":25,"offX":1,"offY":0,"sourceW":25,"sourceH":25},
+"息":{"x":25,"y":53,"w":23,"h":25,"offX":1,"offY":0,"sourceW":25,"sourceH":26},
+"信":{"x":0,"y":27,"w":24,"h":24,"offX":0,"offY":1,"sourceW":25,"sourceH":25},
+"成":{"x":0,"y":53,"w":23,"h":25,"offX":1,"offY":0,"sourceW":25,"sourceH":25},
+"绩":{"x":0,"y":0,"w":24,"h":25,"offX":1,"offY":0,"sourceW":25,"sourceH":26},
+"近":{"x":0,"y":80,"w":23,"h":24,"offX":1,"offY":0,"sourceW":25,"sourceH":25},
+"期":{"x":26,"y":27,"w":24,"h":24,"offX":0,"offY":0,"sourceW":25,"sourceH":24}}}

@@ -55,6 +55,7 @@ class BetView extends BaseComponent implements IBase {
 			this.revokeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onrevokeTap, this);
 		}
 		GameDispatcher.addEventListener(BaseEvent.BET_INFO_CHANGE, this.onBetChange, this);
+		GameDispatcher.addEventListener(BaseEvent.BET_OPERATION_ERROR, this.onBetError, this);
 		this.onBetChange();
 	}
 
@@ -99,12 +100,13 @@ class BetView extends BaseComponent implements IBase {
 				break;
 		}
 		bmp.y = this.stage.stageHeight - 140;
-		// bmp.y = 570;
 		this.addChild(bmp);
 		if (this.coinList[this.horseList.selectedIndex] == null) {
 			this.coinList[this.horseList.selectedIndex] = new Array<egret.Bitmap>();
 		}
-		egret.Tween.get(bmp).to({ x: (this.coinList[this.horseList.selectedIndex].length % 2 == 0 ? 60 : 130) + RandomUtil.randNumber(0, 5) + (this.horseList.selectedIndex * 250), y: (this.horseList.y + 300) + Math.floor(this.coinList[this.horseList.selectedIndex].length / 2) * -10 }, 200);
+		let tx: number = (this.coinList[this.horseList.selectedIndex].length % 2 == 0 ? 60 : 130) + RandomUtil.randNumber(0, 5) + (this.horseList.selectedIndex * 250)
+		let ty: number = (this.stage.stageHeight >> 1) + 35 + Math.floor(this.coinList[this.horseList.selectedIndex].length / 2) * -10;
+		egret.Tween.get(bmp).to({ x: tx, y: ty }, 200);
 		this.coinList[this.horseList.selectedIndex].push(bmp);
 		if (this.operationObj[this.horseList.selectedIndex]) {
 			this.operationObj[this.horseList.selectedIndex] += this.selectMoney;
@@ -142,6 +144,7 @@ class BetView extends BaseComponent implements IBase {
 		});
 		this.horseData.refresh();
 		this.onRemove();
+		ConnectionManager.instance.sendHelper.cancel();
 	}
 
 
@@ -169,6 +172,17 @@ class BetView extends BaseComponent implements IBase {
 			this.horseData.refresh();
 			this.matchIdText.text = String(ClientModel.instance.lastBetInfo.info.drawId);
 		}
+	}
+
+	private onBetError(): void {
+		let arr: Array<string> = ClientModel.instance.betOperationList.split("#");
+		arr.forEach(element => {
+			let id = element[0];
+			let money: number = parseInt(element[1]);
+			if (this.operationObj[id]) {
+				this.operationObj[id] -= money;
+			}
+		});
 	}
 
 }

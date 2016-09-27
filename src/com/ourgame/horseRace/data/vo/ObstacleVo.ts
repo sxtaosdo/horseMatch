@@ -23,8 +23,6 @@ class ObstacleVo {
 	}
 
 	public initData(data: string): void {
-		// this.type = data.type;
-		// console.log(data);
 		var index: number = 0;
 		var step: number = 4;
 		var temp: number = 0;
@@ -32,13 +30,13 @@ class ObstacleVo {
 		this.type = temp < 5000 ? 0 : 1;
 		index += step;
 		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		this.local = temp / 10;
-		index += step;
-		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		this.isPass = temp < 50000 ? true : false;
-		index += step;
-		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		this.time = temp / 10000;
+		// this.local = temp / 10;
+		// index += step;
+		// temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
+		// this.isPass = temp < 50000 ? true : false;
+		// index += step;
+		// temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
+		// this.time = temp / 10000;
 	}
 
 }

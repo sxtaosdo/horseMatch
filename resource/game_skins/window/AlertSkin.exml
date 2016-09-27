@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="AlertSkin" width="464" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="AlertSkin" width="595" height="332" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="alertBg_png" x="0" y="0"/>
-	<e:Button id="returnBtn" label="" x="256" y="103">
+	<e:Button id="returnBtn" label="" x="66" y="248">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 			<e:Image width="100%" height="100%" source="alertCanleBtn1_png" source.down="alertCanleBtn2_png"/>
@@ -9,7 +9,7 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Button id="okBtn" label="" x="105" y="103">
+	<e:Button id="okBtn" label="" x="325" y="248">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 			<e:Image width="100%" height="100%" source="alertOkBtn1_png" source.down="alertOkBtn2_png"/>
@@ -17,6 +17,5 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Label id="contentText" text="你好世界" x="26" y="27" width="423" height="74" verticalAlign="middle" textAlign="center" size="28"/>
-	<e:Label text="提示" x="35" y="5" size="14" bold="true"/>
+	<e:Label id="contentText" text="你好世界" x="40" y="35" width="521" height="194" verticalAlign="middle" textAlign="center" size="40" textColor="0x000000"/>
 </e:Skin>

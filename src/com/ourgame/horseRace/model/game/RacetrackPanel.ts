@@ -6,6 +6,8 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 	private racetrackArr: Array<egret.Sprite>;
 	/**背景 */
     private bgImage: BackgroundPanel;
+	/**天空背景 */
+	private image3Group: egret.Bitmap;
 
 	public constructor() {
 		super();
@@ -20,6 +22,9 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 			this.addChild(sp);
 			this.racetrackArr.push(sp);
 		}
+
+		this.image3Group = BitMapUtil.createBitmapByName("bg_image3_png");
+		this.addChildAt(this.image3Group, 0);
 	}
 
 	public enter(data?: any): void {
@@ -42,12 +47,10 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 			var arr = ClientModel.instance.phaseList[i];
 			arr.forEach(element => {
 				if (element instanceof ObstacleVo) {
-					// bmp = BitMapUtil.createBitmapByName("bg_obstacle_" + element.type + "_png");	
 					bmp = BitMapUtil.createBitmapByName("bg_obstacle_1_png");
 					bmp.x = element.local;
 					console.log("ObstacleVo:" + element.local);
 					this.racetrackArr[i].addChild(bmp);
-
 				}
 			});
 		}
@@ -71,6 +74,12 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 				element.removeChild(element.getChildAt(0));
 			}
 		});
+	}
+
+	public updateView(num: number): void {
+		this.y = num - 720;
+		this.image3Group.y = -this.y;
+		this.image3Group.height = this.y + 211;
 	}
 
 }

@@ -14,6 +14,8 @@ declare module skins{
 	class HSliderSkin extends eui.Skin{
 	}
 }
+declare class InfoHeadBtnSkinSkin extends eui.Skin{
+}
 declare module skins{
 	class ItemRendererSkin extends eui.Skin{
 	}
@@ -50,15 +52,7 @@ declare module skins{
 	class VSliderSkin extends eui.Skin{
 	}
 }
-declare class LoadingProgressBarSkin extends eui.Skin{
-}
 declare class LoadingRoomPBSkin extends eui.Skin{
-}
-declare class PlayerLvProgressBarSkin extends eui.Skin{
-}
-declare class DiceGameSkin extends eui.Skin{
-}
-declare class DicePanelSkin extends eui.Skin{
 }
 declare class LabbySkin extends eui.Skin{
 }
@@ -74,11 +68,11 @@ declare class HelpPanelSkin extends eui.Skin{
 }
 declare class HistoryPanelSkin extends eui.Skin{
 }
+declare class InfoPanelSkin extends eui.Skin{
+}
 declare class OperationRecordPanelSkin extends eui.Skin{
 }
-declare class RankPanelSkin extends eui.Skin{
-}
-declare class SettingPanelSkin extends eui.Skin{
+declare class TaskPanelSkin extends eui.Skin{
 }
 declare class HistoryItemSkin extends eui.Skin{
 }

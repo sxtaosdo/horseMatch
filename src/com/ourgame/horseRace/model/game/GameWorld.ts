@@ -69,6 +69,8 @@ class GameWorld extends egret.Sprite implements IBase {
     // private _currentProgress: number = 0;
     /**当前赛跑中的状态 */
     private _runState: any = RunState.GEGIN;
+    /**龙骨动画播放速度 */
+    private bdSpeed: number = -1;
 
     public constructor() {
         super();
@@ -131,10 +133,8 @@ class GameWorld extends egret.Sprite implements IBase {
         GameDispatcher.addEventListener(BaseEvent.BET_INFO_CHANGE, this.onMatchInfoChange, this);
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
 
-        ConnectionManager.instance.sendHelper.gameInfo();
-
         TimerManager.instance.doFrameLoop(1, () => {
-            dragonBones.WorldClock.clock.advanceTime(-1);
+            dragonBones.WorldClock.clock.advanceTime(this.bdSpeed);
         }, this);
     }
 
@@ -276,6 +276,8 @@ class GameWorld extends egret.Sprite implements IBase {
             this.onBullertTme();
         }
         ClientModel.instance.maxSpeed = 0;
+        this.bdSpeed = 0.001;
+        egret.Tween.get(this).wait(100).to({ bdSpeed: 0.03 }, 2000);
     }
 
     private onAdd(): void {
@@ -292,8 +294,8 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.betView.height = this.stage.stageHeight;
             }
             if (this.racetrack && this.racetrack.parent) {
-                this.racetrack.y = this.stage.stageHeight - 720;
-                // this.racetrack.y = this.stage.stageHeight - this.racetrack.height;
+                // this.racetrack.y = this.stage.stageHeight - 720;
+                this.racetrack.updateView(this.stage.stageHeight);
             }
             if (this.progress && this.progress.parent) {
                 this.progress.y = this.stage.stageHeight - this.progress.height;

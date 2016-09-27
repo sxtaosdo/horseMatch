@@ -17,7 +17,7 @@
 			"name":"bg"
 		},
 		{
-			"keys":"loadingBar_png,loadingBarBg_png,loadingBg_png,loadingRoomBar_png,loadingRoomBarBg_png,loadingRoomBg_png",
+			"keys":"loaderHead_png",
 			"name":"loading"
 		},
 		{
@@ -37,7 +37,7 @@
 			"name":"fish1"
 		},
 		{
-			"keys":"closeBtn1_png,closeBtn2_png,windowBg_png,firstIcon_png,resultPanelBg_png,resultTitle_png,historyBar_png,historyBg_png,historyTitle_png",
+			"keys":"closeBtn1_png,closeBtn2_png,windowBg_png,firstIcon_png,resultPanelBg_png,resultTitle_png,historyBar_png,historyBg_png,historyTitle_png,window_help_bg_png,window_help_goBtn1_png,window_help_goBtn2_png,window_help_knowBtn1_png,window_help_knowBtn2_png,window_help_page1_png,window_help_title_png,window_help_title1_png,window_info_bg_png,window_info_head1_png,window_info_head2_png,window_info_head3_png,window_info_head4_png,window_info_head5_png,window_info_heads_png,window_info_title_png,window_info_bg2_png,window_info_Btn2_png,window_info_Btn1_png",
 			"name":"window"
 		},
 		{
@@ -47,6 +47,10 @@
 		{
 			"keys":"texture4_png,donghua4_json,texture4_json",
 			"name":"db"
+		},
+		{
+			"keys":"f1_fnt",
+			"name":"font"
 		}
 	],
 	"resources":[
@@ -166,21 +170,6 @@
 			"url":"assets/ScrollBar/track_sb.png"
 		},
 		{
-			"name":"loadingBar_png",
-			"type":"image",
-			"url":"assets/loading/loadingBar.png"
-		},
-		{
-			"name":"loadingBarBg_png",
-			"type":"image",
-			"url":"assets/loading/loadingBarBg.png"
-		},
-		{
-			"name":"loadingBg_png",
-			"type":"image",
-			"url":"assets/loading/loadingBg.png"
-		},
-		{
 			"name":"alertBg_png",
 			"type":"image",
 			"url":"assets/alert/alertBg.png"
@@ -204,21 +193,6 @@
 			"name":"alertOkBtn2_png",
 			"type":"image",
 			"url":"assets/alert/alertOkBtn2.png"
-		},
-		{
-			"name":"loadingRoomBar_png",
-			"type":"image",
-			"url":"assets/loading/loadingRoomBar.png"
-		},
-		{
-			"name":"loadingRoomBarBg_png",
-			"type":"image",
-			"url":"assets/loading/loadingRoomBarBg.png"
-		},
-		{
-			"name":"loadingRoomBg_png",
-			"type":"image",
-			"url":"assets/loading/loadingRoomBg.png"
 		},
 		{
 			"name":"fish1_json",
@@ -715,6 +689,111 @@
 			"name":"bg_obstacle_1_png",
 			"type":"image",
 			"url":"assets/game/bg/bg_obstacle_1.png"
+		},
+		{
+			"name":"loaderHead_png",
+			"type":"image",
+			"url":"assets/loading/loaderHead.png"
+		},
+		{
+			"name":"window_help_bg_png",
+			"type":"image",
+			"url":"assets/window/help/window_help_bg.png"
+		},
+		{
+			"name":"window_help_goBtn1_png",
+			"type":"image",
+			"url":"assets/window/help/window_help_goBtn1.png"
+		},
+		{
+			"name":"window_help_goBtn2_png",
+			"type":"image",
+			"url":"assets/window/help/window_help_goBtn2.png"
+		},
+		{
+			"name":"window_help_knowBtn1_png",
+			"type":"image",
+			"url":"assets/window/help/window_help_knowBtn1.png"
+		},
+		{
+			"name":"window_help_knowBtn2_png",
+			"type":"image",
+			"url":"assets/window/help/window_help_knowBtn2.png"
+		},
+		{
+			"name":"window_help_page1_png",
+			"type":"image",
+			"url":"assets/window/help/window_help_page1.png"
+		},
+		{
+			"name":"window_help_title_png",
+			"type":"image",
+			"url":"assets/window/help/window_help_title.png"
+		},
+		{
+			"name":"window_help_title1_png",
+			"type":"image",
+			"url":"assets/window/help/window_help_title1.png"
+		},
+		{
+			"name":"window_info_bg_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_bg.png"
+		},
+		{
+			"name":"window_info_head1_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_head1.png"
+		},
+		{
+			"name":"window_info_head2_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_head2.png"
+		},
+		{
+			"name":"window_info_head3_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_head3.png"
+		},
+		{
+			"name":"window_info_head4_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_head4.png"
+		},
+		{
+			"name":"window_info_head5_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_head5.png"
+		},
+		{
+			"name":"window_info_heads_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_heads.png"
+		},
+		{
+			"name":"window_info_title_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_title.png"
+		},
+		{
+			"name":"window_info_bg2_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_bg2.png"
+		},
+		{
+			"name":"f1_fnt",
+			"type":"font",
+			"url":"font/f1.fnt"
+		},
+		{
+			"name":"window_info_Btn2_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_Btn2.png"
+		},
+		{
+			"name":"window_info_Btn1_png",
+			"type":"image",
+			"url":"assets/window/info/window_info_Btn1.png"
 		}
 	]
 }

@@ -17,26 +17,25 @@ class HttpHandler implements ISocket {
         this.request.responseType = egret.HttpResponseType.TEXT;
         this.request.withCredentials = true;
         var url: string = ConfigModel.instance.url + "/login/" + UserModel.instance.token;
+        // var url: string = ConfigModel.instance.url + "/hrb/init";
         this.request.open(url, egret.HttpMethod.POST);
-        // this.request.setRequestHeader("contentType", "application/json;charset=UTF-8");
-        this.request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
         this.request.addEventListener(egret.Event.COMPLETE, this.onLogin, this);
-        this.request.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onGetIOError, this);
+        this.request.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onLoadError, this);
         this.request.addEventListener(egret.ProgressEvent.PROGRESS, this.onGetProgress, this);
         this.request.send();
-        console.log("发送了：" + ConfigModel.instance.url + "/login/" + UserModel.instance.token);
     }
 
     private onLogin(event: egret.Event): void {
         let request: egret.HttpRequest = event.currentTarget;
         request.removeEventListener(egret.Event.COMPLETE, this.onLogin, this);
         this.request.addEventListener(egret.Event.COMPLETE, this.onGetComplete, this);
-        console.log("event.currentTarget.response:" + request.response);
         this.callback("login", JSON.parse(event.currentTarget.response));
+        console.log("event.currentTarget.response:" + request.response);
     }
 
     public send(type: any, byts?: any): void {
         this.request.open(ConfigModel.instance.url + type, egret.HttpMethod.POST);
+        this.request.setRequestHeader("Content-Type", "application/json");
         this.request.send(byts);
         console.log("发送了：" + ConfigModel.instance.url + type);
     }
@@ -69,8 +68,9 @@ class HttpHandler implements ISocket {
         }
     }
 
-    private onGetIOError(event: egret.IOErrorEvent): void {
-        console.log("get error : " + event.type + "\n url:" + event.currentTarget._url);
+    private onLoadError(event: egret.IOErrorEvent): void {
+        console.log("onLoadError");
+        console.log(event.currentTarget);
     }
 
     private onGetProgress(event: egret.ProgressEvent): void {

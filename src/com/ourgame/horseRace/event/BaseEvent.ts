@@ -15,9 +15,11 @@ class BaseEvent {
 	public static USER_MOENY_CHANGE: string = "userMoneyChange"
 	/**倍率信息变化 */
 	public static BET_INFO_CHANGE: string = "betInfoChange";
+	/**下注结果错误 */
+	public static BET_OPERATION_ERROR: string = "betOperationError";
 
 
 	/**window */
 	/**历史奖期记录 */
-	public static WINDOW_HISTORY:string="windowHistory";
+	public static WINDOW_HISTORY: string = "windowHistory";
 }

@@ -17,7 +17,7 @@ class WebInterface implements INative {
     }
 
     public recharge(data?: any): void {
-        window.open("http://newshop.ourgame.com/class.shtml?flag=2&templateID=19&ClassID=21&ClassName=t");
+        window.open("http://ali.ourgame.com/html/my-score.html");
     }
 
     public scan(data?: any): void {

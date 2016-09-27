@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="TaskPanelSkin" width="841" height="481" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="window_help_page1_png" x="19" y="70"/>
+	<e:Image source="window_help_bg_png" x="0" y="0"/>
+	<e:Image source="window_help_title1_png" y="0" horizontalCenter="0.5"/>
+	<e:Button id="closeBtn" label="" y="388" horizontalCenter="0">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="window_help_goBtn1_png" source.down="window_help_goBtn2_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+</e:Skin>

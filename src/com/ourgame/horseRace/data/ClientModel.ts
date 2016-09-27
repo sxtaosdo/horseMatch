@@ -59,6 +59,8 @@ class ClientModel {
     public prepareTime: number;
     /**距下一场比赛 */
     public nextTime: number;
+    /**下注错误列表 */
+    public _betOperationList: string;
 
     public constructor() {
         this.user = UserModel.instance;
@@ -293,6 +295,20 @@ class ClientModel {
 
     public get history(): Array<HistoryVo> {
         return this._history;
+    }
+
+    public setBetReslut(data: any): void {
+        this.user.money = data.acctAmount;
+        if (data.rtnCode == 0) {
+            console.log("下注成功");
+        } else {
+            this._betOperationList = data.betInfo;
+            GameDispatcher.send(BaseEvent.BET_OPERATION_ERROR);
+        }
+    }
+
+    public get betOperationList(): string {
+        return this._betOperationList;
     }
 
 }

@@ -31,13 +31,13 @@ class MsgReceiveHelper {
         var cls: any;
 
         console.log("in onMessage:\ntype:" + type + "\nbody:" + body);
-        if ((body.rtnCode == 0) || (body.rtnCode == -103)) {//正常返回
+        if ((body.rtnCode == 0) || (body.rtnCode == -301)) {//正常返回
             switch (type) {
                 case "login":
                     if (body.rtnCode == 0) {
                         GameDispatcher.send(BaseEvent.LOGIN_RESULT_EVENT);
                         console.log("收到登陆成功消息：" + egret.getTimer());
-                        // ConnectionManager.instance.sendHelper.gameInfo();
+                        ConnectionManager.instance.sendHelper.gameInfo();
                     }
                     // else {
                     //     ClientModel.instance.openAlert("登陆失败，请重试");
@@ -51,6 +51,9 @@ class MsgReceiveHelper {
                     break;
                 case "drawResult":
                     ClientModel.instance.setHistory(body);
+                    break;
+                case "":
+                    ClientModel.instance.setBetReslut(body);
                     break;
             }
         } else {    //异常返回

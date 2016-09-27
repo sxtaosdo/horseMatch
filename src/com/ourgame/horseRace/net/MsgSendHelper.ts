@@ -29,6 +29,8 @@ class MsgSendHelper {
 
     public gameInfo(): void {//这个消息感觉有点不合理，仅作请求用户金币消息，待该消息返回再请求一次/hrb/draw
         ConnectionManager.instance.send("/hrb/init");
+        // var str: string = JSON.stringify({ "\"drawId\"": "20160926", "\"betInfo\"": "1x100", "\"playId\"": "1" })
+        // ConnectionManager.instance.send("/hrb/bet", str);
     }
 
     public drawMatch(data?: number): void {
@@ -40,14 +42,12 @@ class MsgSendHelper {
     }
 
     public bet(data: string): void {
-        var str: string = JSON.stringify({ "\"drawId\"": ClientModel.instance.lastBetInfo.info.drawId, "\"betInfo\"": data, "\"playId\"": "1" })
-        // let temp = JSON.parse(str);
-        // console.log("发送了下注信息：" + temp);
-        ConnectionManager.instance.send("/hrb/bet", str);
+        var jsondata = "{\"drawId\" : \"" + ClientModel.instance.lastBetInfo.info.drawId + "\",\"playId\" : \"1\",\"betInfo\" : \"" + data + "\"}"
+        ConnectionManager.instance.send("/hrb/bet", jsondata);
     }
 
     public cancel(): void {
-        var str: string = JSON.stringify({ drawId: ClientModel.instance.lastBetInfo.info.drawId, playId: 1 })
-        ConnectionManager.instance.send("/hrb/cancel");
+        var jsondata = "{\"drawId\" : \"" + ClientModel.instance.lastBetInfo.info.drawId + "\",\"playId\" : \"1\"}";
+        ConnectionManager.instance.send("/hrb/cancel", jsondata);
     }
 }

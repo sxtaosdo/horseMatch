@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="LoadingProgressBarSkin" minWidth="30" minHeight="18" xmlns:e="http://ns.egret.com/eui">
-	<e:Image width="100%" height="100%" verticalCenter="0"  source="loadingBarBg_png" scale9Grid="32,16,15,5"/>
-	<e:Image id="thumb" source="loadingBar_png" y="3" x="3" width="392" height="30" scale9Grid="26,12,296,7"/>
-	<e:Label id="labelDisplay" textAlign="center" verticalAlign="middle" size="18" fontFamily="Tahoma" textColor="0xffffff"
-	         horizontalCenter="0" verticalCenter="0" />
-</e:Skin>
