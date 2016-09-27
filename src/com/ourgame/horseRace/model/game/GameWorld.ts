@@ -38,7 +38,6 @@ class GameWorld extends egret.Sprite implements IBase {
     /**已经在舞台之后的跑道 */
     private _pastlength: number = 0;
 
-
     private static that: GameWorld;
     private client: ClientModel;
     /**子弹时间 */
@@ -204,7 +203,7 @@ class GameWorld extends egret.Sprite implements IBase {
         }
     }
 
-    private changeState(state: any): void {
+    private changeState(state: any,enterStateTime:number=0): void {
         this._gameState = state;
         this.topBar.enter(state);
         switch (this._gameState) {
@@ -220,11 +219,13 @@ class GameWorld extends egret.Sprite implements IBase {
                 break;
             case GameState.PREPARE_STAGE:
                 this._runState = RunState.GEGIN;
+                var d:Date=new Date();
+                ClientModel.instance.enterStateTime=d.getTime()+enterStateTime;
                 ClientModel.instance.initGameSprite(this.client.gameInfoVo.drawId);
                 this.addChild(this.progress);
                 var index: number = 0;
                 this.client.horseList.forEach(element => {
-                    element.setData(ClientModel.instance.phaseList[index++])
+                    element.roadList=ClientModel.instance.phaseList[index++];
                 });
                 this.betView.exit();
                 this.racetrack.enter();

@@ -22,21 +22,14 @@ class ObstacleVo {
 		}
 	}
 
-	public initData(data: string): void {
-		var index: number = 0;
-		var step: number = 4;
-		var temp: number = 0;
-		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		this.type = temp < 5000 ? 0 : 1;
-		index += step;
-		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		// this.local = temp / 10;
-		// index += step;
-		// temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		// this.isPass = temp < 50000 ? true : false;
-		// index += step;
-		// temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		// this.time = temp / 10000;
+	public initData(index: number): void {
+		this.type=index;
+		this.length=50;
+		this.passTime=0.05;
+		this.notPassMaxTime=1;
+		this.notPassMinTime=0.5;
+		this.picUrl="obstacle"+index.toString()+"_png";
+		this.passMove="jump";
+		this.notPassMove="drunk";
 	}
-
 }

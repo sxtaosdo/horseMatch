@@ -11,7 +11,8 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 	private dragonbonesFactory: dragonBones.EgretFactory
 	/**显示层 包括箭头、脚印、主体*/
 	private _content: egret.Sprite;
-
+	/**生成道路信息 */
+	private _roadList:Array<RoadVo>;
 	/**编号 */
 	private _text: egret.TextField;
 	/**当前所处的阶段 */
@@ -54,17 +55,19 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 	}
 
 	public setData(vo: any): void {
-		if (vo instanceof Array) {
-			// this._phaseSprite = vo;
-			var temp: Array<any> = vo;
-			this.obstacle = temp.shift();
-			this.buffList = temp;
-		}
 		if (vo instanceof HorseVo) {
 			this._vo = vo;
 			this.setMc(this._vo.mcName);
 			this._text.text = vo.id + "";
 		}
+	}
+
+	public get roadList():Array<RoadVo>{
+		return this._roadList;
+	}
+
+	public set roadList(value:Array<RoadVo>){
+		this._roadList=value;
 	}
 
 	public changeAnimation(name: string): void {
@@ -90,19 +93,19 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		var dragonbonesData = RES.getRes("donghua" + 4 + "_json");
 		var textureData = RES.getRes("texture" + 4 + "_json");
 		var texture = RES.getRes("texture" + 4 + "_png");
-		if (dragonbonesData) {
-			this.dragonbonesFactory = new dragonBones.EgretFactory();
-			this.dragonbonesFactory.addDragonBonesData(dragonBones.DataParser.parseDragonBonesData(dragonbonesData));
-			this.dragonbonesFactory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
+		// if (dragonbonesData) {
+		// 	this.dragonbonesFactory = new dragonBones.EgretFactory();
+		// 	this.dragonbonesFactory.addDragonBonesData(dragonBones.DataParser.parseDragonBonesData(dragonbonesData));
+		// 	this.dragonbonesFactory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
 
-			this.armature = this.dragonbonesFactory.buildArmature(AnimationType.IDEL);
-			dragonBones.WorldClock.clock.add(this.armature);
-			this.armature.animation.gotoAndPlay(AnimationType.IDEL);
+		// 	this.armature = this.dragonbonesFactory.buildArmature(AnimationType.IDEL);
+		// 	dragonBones.WorldClock.clock.add(this.armature);
+		// 	this.armature.animation.gotoAndPlay(AnimationType.IDEL);
 
-			// this.changeAnimation(AnimationType.IDEL);
-			this.displayObject = this.armature.display;
-			this.displayObject.anchorOffsetX = this.displayObject.width / 2;
-		} else {
+		// 	// this.changeAnimation(AnimationType.IDEL);
+		// 	this.displayObject = this.armature.display;
+		// 	this.displayObject.anchorOffsetX = this.displayObject.width / 2;
+		// } else {
 			var mc: egret.MovieClip;
 			var js: any = RES.getRes("fish" + id + "_json");
 			var tx: any = RES.getRes("fish" + id + "_png");
@@ -113,7 +116,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			mc.play(-1);
 			mc.touchEnabled = false;
 			this.displayObject = mc;
-		}
+		// }
 		this._content.addChild(this.displayObject);
 		this._selectArrow.x = this.displayObject.width + this._selectArrow.width;
 	}
