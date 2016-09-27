@@ -6,7 +6,7 @@ class RoadMethod {
 
     private static _instance: RoadMethod;
     /**将每秒钟分成多少个分隔数 */
-    private static secondInterval: number = 100;
+    public static secondInterval: number = 100;
     /**比赛秒数 */
     private static competeSeconds: number = 23;
     /**暂时将比赛路段平均分为100段（暂定，可以更多或者更少） */
@@ -36,12 +36,13 @@ class RoadMethod {
         return this._instance;
     }
     /**根据马匹及状态，生成不同的道路 */
-    public creatRoad(horse: HorseVo, state: number): void {
+    public creatRoad(drawId:number,horse: HorseVo, state: number): Array<RoadVo> {
         var i: number;
         //通过状态及随机数，获得一个路障，并随机是否通过，及障碍位置(路段总数的中间三分之一)
         var obsVo: ObstacleVo = new ObstacleVo();
+        obsVo.initData(1);
         var isPass: boolean = false;
-        var obsPostion: number = 10;
+        var obsPostion: number = 35;
         //道路的总长度获取
         var totalRoadLength: number = GameWorld.DEADLINE_LENGTH - GameWorld.LEFT_LINE;
         var singleRoadLength: number = totalRoadLength / RoadMethod.roadIntervals;
@@ -53,7 +54,7 @@ class RoadMethod {
             if (i == obsPostion) {
                 //为路障赋初始值
                 var vo1: RoadVo = new RoadVo();
-                vo1.startX = singleRoadLength;
+                vo1.startX = singleRoadLength*i+GameWorld.LEFT_LINE;
                 vo1.throughLength = obsVo.length;
                 vo1.obstacleType = obsVo.type;
                 //如果未通过，则先设定为一个中间时间，稍后如果时间有欠缺再进行调整
@@ -71,7 +72,7 @@ class RoadMethod {
                 roadList.push(vo);
             }
             else {
-                vo.startX = singleRoadLength * i;
+                vo.startX = singleRoadLength * i+GameWorld.LEFT_LINE;
                 vo.throughLength = singleRoadLength;
                 roadList.push(vo);
             }
@@ -126,6 +127,7 @@ class RoadMethod {
             if (passRoad < vo.throughLength) {
                 passTime += (vo.throughLength - passRoad) / currentSpeed;
             }
+            vo.throughTime=passTime;
             //计算当前热情度
             currentPassion += passionDirection * endurance;
             if (currentPassion < 0) {
@@ -188,9 +190,9 @@ class RoadMethod {
             currentTime += roadList[i].throughTime;
         }
         //当前所需时间与目标时间进行倍数比较，差异化的数值分步在着重于后半阶段之中
-        if (currentTime > 0 && targetTime != lastTime) {
-            var multiple = 2 * lastTime / currentTime;
-            var lastTime = targetTime - lastTime;
+        if (currentTime > 0 && targetTime != currentTime) {
+            var multiple :number;
+            var lastTime = targetTime - currentTime;
             for (i = roadList.length - 1; i >= 0; i--) {
                 if (lastTime == 0) {
                     break;
@@ -198,8 +200,15 @@ class RoadMethod {
                 if (roadList[i].state == 4 || roadList[i].state == 5) {
                     continue;
                 }
-                var diffTime = roadList[i].throughTime / multiple - roadList[i].throughTime;
-                if (lastTime > 0 && diffTime >= lastTime || lastTime < 0 && diffTime <= 0) {
+                if(targetTime>currentTime){
+                    multiple= 2 * targetTime / currentTime;
+                }
+                else{
+                    multiple= targetTime / (2*currentTime);
+                }
+                
+                var diffTime = roadList[i].throughTime * multiple - roadList[i].throughTime;
+                if (lastTime > 0 && diffTime >= lastTime || lastTime < 0 && diffTime <= lastTime) {
                     diffTime = lastTime;
                     roadList[i].acceleration = 0;
                     roadList[i].throughTime += diffTime;
@@ -207,14 +216,15 @@ class RoadMethod {
                     break;
                 }
                 else {
-                    currentTime += roadList[i].throughTime / multiple - roadList[i].throughTime
-                    roadList[i].startSpeed *= multiple;
-                    roadList[i].acceleration *= multiple;
-                    roadList[i].throughTime /= multiple;
-                    multiple = 2 * targetTime / currentTime;
+                    currentTime += roadList[i].throughTime * multiple - roadList[i].throughTime;
+                    lastTime=targetTime-currentTime;
+                    roadList[i].startSpeed /= multiple;
+                    roadList[i].acceleration /= multiple;
+                    roadList[i].throughTime *= multiple;
                 }
             }
         }
+        return roadList;
     }
 
     private getDifftimeFromStatus(horseId: number, state: number): number {

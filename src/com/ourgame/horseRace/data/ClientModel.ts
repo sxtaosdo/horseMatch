@@ -27,7 +27,7 @@ class ClientModel {
     /**
      * 客户端模拟的比赛过程的数据
      */
-    private _phaseList: Array<any>;
+    private _phaseList: Array<Array<RoadVo>>;
     /**
      * 马
      */
@@ -59,11 +59,13 @@ class ClientModel {
     public prepareTime: number;
     /**距下一场比赛 */
     public nextTime: number;
+    /**进入当前状态时间 */
+    private _enterStateTime:number=0;
 
     public constructor() {
         this.user = UserModel.instance;
         this.moneyType = "0";
-        this._phaseList = new Array<any>();
+        this._phaseList = [];
         this._horseList = new Array<HorseEntity>();
         this._history = new Array<HistoryVo>();
         this._gameInfo = new GameInfoVo();
@@ -249,19 +251,38 @@ class ClientModel {
         // console.log("消息延迟：" + (TimeUtils.timestampDate() - time));
     }
 
-    public initGameSprite(id: number): Array<any> {
-        for (var i: number = 0; i < 5; i++) {
-            var list: Array<any> = new Array<any>();
-            var obs: ObstacleVo = new ObstacleVo(new md5().hex_md5(id + i + "obstacle"));
-            list.push(obs);
-            var buf: BufferVo = new BufferVo(new md5().hex_md5(id + i + "buffer"));
-            list.push(buf);
-            this._phaseList.push(list);
+    public initGameSprite(drawid: number): Array<any> {
+        //create a temperary seq of horses in state instead of server supply
+        var stateArr:Array<number>=[-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        var stateIndexArr:Array<number>=[];
+        var temp:number;
+        this._phaseList=[];
+        for(var i:number=0;i<5;i++){
+            temp=Math.floor(Math.random()*stateArr.length);
+            stateIndexArr.push(stateArr[temp]);
+            this._phaseList.push(RoadMethod.instance.creatRoad(drawid,this.horseList[i].getDataVo<HorseVo>(HorseVo),stateArr[temp]));
+            stateArr.splice(temp,1);
         }
+        // for (var i: number = 0; i < 5; i++) {
+        //     var list: Array<any> = new Array<any>();
+        //     var obs: ObstacleVo = new ObstacleVo(new md5().hex_md5(id + i + "obstacle"));
+        //     list.push(obs);
+        //     var buf: BufferVo = new BufferVo(new md5().hex_md5(id + i + "buffer"));
+        //     list.push(buf);
+        //     this._phaseList.push(list);
+        // }
         return this._phaseList;
     }
 
-    public get phaseList(): Array<any> {
+    public set enterStateTime(value:number){
+        this._enterStateTime=value;
+    }
+
+    public get enterStateTime():number{
+        return this._enterStateTime;
+    }
+
+    public get phaseList(): Array<Array<RoadVo>> {
         return this._phaseList;
     }
 
