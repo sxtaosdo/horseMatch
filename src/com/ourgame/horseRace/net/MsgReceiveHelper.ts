@@ -59,6 +59,6 @@ class MsgReceiveHelper {
         } else {    //异常返回
             ClientModel.instance.openAlert(body.rtnMsg + "(ERROR CDOE:" + body.rtnCode + ")");
         }
-        console.log(body + "\t\n=========================>" + egret.getTimer());
+        // console.log(body + "\t\n=========================>" + egret.getTimer());
     }
 }

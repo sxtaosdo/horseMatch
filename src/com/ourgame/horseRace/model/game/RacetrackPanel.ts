@@ -45,14 +45,14 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 			this.racetrackArr[i].addChild(bmp);
 
 			var arr = ClientModel.instance.phaseList[i];
-			arr.forEach(element => {
-				if (element instanceof ObstacleVo) {
-					bmp = BitMapUtil.createBitmapByName("bg_obstacle_1_png");
-					bmp.x = element.local;
-					console.log("ObstacleVo:" + element.local);
-					this.racetrackArr[i].addChild(bmp);
-				}
-			});
+			// arr.forEach(element => {
+			// 	if (element instanceof ObstacleVo) {
+			// 		bmp = BitMapUtil.createBitmapByName("bg_obstacle_1_png");
+			// 		bmp.x = element.local;
+			// 		console.log("ObstacleVo:" + element.local);
+			// 		this.racetrackArr[i].addChild(bmp);
+			// 	}
+			// });
 		}
 	}
 

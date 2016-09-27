@@ -93,19 +93,19 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		var dragonbonesData = RES.getRes("donghua" + 4 + "_json");
 		var textureData = RES.getRes("texture" + 4 + "_json");
 		var texture = RES.getRes("texture" + 4 + "_png");
-		// if (dragonbonesData) {
-		// 	this.dragonbonesFactory = new dragonBones.EgretFactory();
-		// 	this.dragonbonesFactory.addDragonBonesData(dragonBones.DataParser.parseDragonBonesData(dragonbonesData));
-		// 	this.dragonbonesFactory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
+		if (dragonbonesData) {
+			this.dragonbonesFactory = new dragonBones.EgretFactory();
+			this.dragonbonesFactory.addDragonBonesData(dragonBones.DataParser.parseDragonBonesData(dragonbonesData));
+			this.dragonbonesFactory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
 
-		// 	this.armature = this.dragonbonesFactory.buildArmature(AnimationType.IDEL);
-		// 	dragonBones.WorldClock.clock.add(this.armature);
-		// 	this.armature.animation.gotoAndPlay(AnimationType.IDEL);
+			this.armature = this.dragonbonesFactory.buildArmature(AnimationType.IDEL);
+			dragonBones.WorldClock.clock.add(this.armature);
+			this.armature.animation.gotoAndPlay(AnimationType.IDEL);
 
-		// 	// this.changeAnimation(AnimationType.IDEL);
-		// 	this.displayObject = this.armature.display;
-		// 	this.displayObject.anchorOffsetX = this.displayObject.width / 2;
-		// } else {
+			// this.changeAnimation(AnimationType.IDEL);
+			this.displayObject = this.armature.display;
+			this.displayObject.anchorOffsetX = this.displayObject.width / 2;
+		} else {
 			var mc: egret.MovieClip;
 			var js: any = RES.getRes("fish" + id + "_json");
 			var tx: any = RES.getRes("fish" + id + "_png");
@@ -116,7 +116,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			mc.play(-1);
 			mc.touchEnabled = false;
 			this.displayObject = mc;
-		// }
+		}
 		this._content.addChild(this.displayObject);
 		this._selectArrow.x = this.displayObject.width + this._selectArrow.width;
 	}

@@ -249,7 +249,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.isBulletTime = false;
                 this.tempSpeed = 0;
                 ClientModel.instance.roadPastLength = 0;
-                TimerManager.instance.doFrameLoop(1, this.execute, this);
+                TimerManager.instance.doLoop(1/30*1000, this.execute, this);
                 var that: GameWorld = this;
                 ConfigModel.instance.horseList.forEach(element => {
                     if (element.id && (that.client.horseList[element.id - 1])) {
@@ -317,7 +317,7 @@ class GameWorld extends egret.Sprite implements IBase {
     }
 
     private parseGameStateData(data: GameInfoVo): void {
-        console.log("berview \tcdTime:" + data.cdTime + "\tleftTime:" + data.leftTime);
+        // console.log("berview \tcdTime:" + data.cdTime + "\tleftTime:" + data.leftTime);
         if (data.cdTime > 0) {
             this.client.betTime = data.cdTime;
             this.changeState(GameState.BET_STAGE);

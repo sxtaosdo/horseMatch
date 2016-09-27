@@ -178,7 +178,7 @@ class ClientModel {
     public set gameInfo(value: Object) {
         this._gameInfo.setData(value);
         this.user.money = this._gameInfo.acctAmount;
-        console.log("money:" + this._gameInfo.acctAmount);
+        // console.log("money:" + this._gameInfo.acctAmount);
 
         GameDispatcher.send(BaseEvent.GAME_STATE_INFO);
     }
