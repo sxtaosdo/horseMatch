@@ -30,7 +30,7 @@ class GameWorld extends egret.Sprite implements IBase {
     public static GAME_HEIGHT: number = Main.STAGE_HEIGHT;
 
     /**终点长度（包含初始左侧长度） */
-    public static DEADLINE_LENGTH: number = 3000;
+    public static DEADLINE_LENGTH: number = 10000;
     /**左侧 */
     public static LEFT_LINE: number = GameWorld.GAME_WIDTH / 4 * 1;
     /**右侧 */

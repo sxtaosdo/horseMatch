@@ -85,18 +85,21 @@ class BetView extends BaseComponent implements IBase {
 		UserModel.instance.money -= this.selectMoney;
 		this.horseData.itemUpdated(data);
 
-		var bmp: egret.Bitmap = BitMapUtil.createBitmapByName("coin_png");
+		var bmp: egret.Bitmap;
 		switch (this.selectMoney) {
 			case 100:
+				// bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.red)];
+				bmp = BitMapUtil.createBitmapByName("coin100_png");
 				bmp.x = 750;
-				bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.red)];
 				break;
 			case 1000:
+				bmp = BitMapUtil.createBitmapByName("coin1000_png");
 				bmp.x = 900;
 				break;
 			case 10000:
+				// bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.blue)];
+				bmp = BitMapUtil.createBitmapByName("coin10000_png");
 				bmp.x = 1050;
-				bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.blue)];
 				break;
 		}
 		bmp.y = this.stage.stageHeight - 140;

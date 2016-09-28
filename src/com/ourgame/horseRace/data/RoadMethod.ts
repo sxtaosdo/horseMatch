@@ -118,7 +118,7 @@ class RoadMethod {
             while (passRoad < vo.throughLength) {
                 passRoad += currentSpeed;
                 currentSpeed += vo.acceleration;
-                passTime += RoadMethod.competeSeconds / RoadMethod.secondInterval;
+                passTime += 1;
                 if (passRoad + currentSpeed > vo.throughLength) {
                     break;
                 }

@@ -68,8 +68,9 @@ class HorseEnityStateSeek implements IState {
 		this.self = <HorseEntity>entity;
 		var list: Array<RoadVo> = this.self.roadList;
 		var date: Date = new Date();
-		var nextTime = (date.getTime() - ClientModel.instance.enterStateTime + 1000 / RoadMethod.secondInterval)/10000;
+		var nextTime = (date.getTime() - ClientModel.instance.enterStateTime + 1000 / RoadMethod.secondInterval)/200;
 		var currentTime = 0;
+		var reachEnd:boolean=true;
 		for (var i: number = 0; i < list.length; i++) {
 			if (list[i].throughTime + currentTime >= nextTime) {
 				//s=vo*t+1/2*a*t*t--无障碍(到达终点冲过去，哦吼吼)
@@ -92,11 +93,15 @@ class HorseEnityStateSeek implements IState {
 						console.log("播放跳跃或者什么什么的状态吧，应该计算一下播放到第几帧，请sxt自行研究吧");
 					}
 				}
+				reachEnd=false;
 				break;
 			}
 			else {
 				currentTime += list[i].throughTime;
 			}
+		}
+		if(reachEnd){
+			this.self.currentX=list[list.length-1].startX+list[list.length-1].throughLength+list[list.length-1].startSpeed*(nextTime-currentTime);
 		}
 		// var speed: number = RandomUtil.randNumber(1, 25);
 		// this.self.speed = speed;
@@ -112,6 +117,11 @@ class HorseEnityStateSeek implements IState {
 		// 		this.self.obstacle = null;
 		// 	}
 		// }
+		if(this.self.sid=="0"){
+			egret.log("horse id:"+this.self.sid+"  currentX:"+this.self.currentX);
+			egret.log("pastRoad:"+ClientModel.instance.roadPastLength);
+		}
+		
 		//超过右侧线
 		if (this.self.currentX > GameWorld.RIGHT_LINE + ClientModel.instance.roadPastLength) {
 			//尚未到达终点--》摄像头向右移动

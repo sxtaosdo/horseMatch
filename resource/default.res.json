@@ -41,7 +41,7 @@
 			"name":"window"
 		},
 		{
-			"keys":"chip1000Btn1.png_png,chip1000Btn2_png,chip10000Btn1_png,chip10000Btn2_png,revokeBtn1_png,revokeBtn2_png,betBg_png,betChipBtnBg_png,betHeadBg_png,betTimes_png,chip100Btn1_png,chip100Btn2_png,coin_png,betHead5_png,betHead1_png,betHead2_png,betHead3_png,betHead4_png,betNameBg_png,betIndexBg_png",
+			"keys":"chip1000Btn1.png_png,chip1000Btn2_png,chip10000Btn1_png,chip10000Btn2_png,revokeBtn1_png,revokeBtn2_png,betBg_png,betChipBtnBg_png,betHeadBg_png,betTimes_png,chip100Btn1_png,chip100Btn2_png,coin_png,betHead5_png,betHead1_png,betHead2_png,betHead3_png,betHead4_png,betNameBg_png,betIndexBg_png,coin100_png,coin1000_png,coin10000_png",
 			"name":"betView"
 		},
 		{
@@ -749,6 +749,21 @@
 			"name":"window_info_Btn1_png",
 			"type":"image",
 			"url":"assets/window/info/window_info_Btn1.png"
+		},
+		{
+			"name":"coin100_png",
+			"type":"image",
+			"url":"assets/betView/coin100.png"
+		},
+		{
+			"name":"coin1000_png",
+			"type":"image",
+			"url":"assets/betView/coin1000.png"
+		},
+		{
+			"name":"coin10000_png",
+			"type":"image",
+			"url":"assets/betView/coin10000.png"
 		}
 	]
 }
