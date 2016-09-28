@@ -37,7 +37,6 @@ class BackgroundPanel extends egret.Sprite implements IBase {
 	public execute(data?: any): void {
 		this.image1Group.execute(data);
 		this.image2Group.execute(data * 0.3);
-		// this.image3Group.execute(0);
 		this.trackGroup.execute(data);
 	}
 

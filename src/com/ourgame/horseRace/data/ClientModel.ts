@@ -60,9 +60,11 @@ class ClientModel {
     /**距下一场比赛 */
     public nextTime: number;
     /**进入当前状态时间 */
-    private _enterStateTime:number=0;
-    /**下注错误列表 */
-    public _betOperationList: string;
+    private _enterStateTime: number = 0;
+    /**下注结果 */
+    public _betOperation: string;
+    /**撤销投注信息 */
+    public _betCancel: any;
 
     public constructor() {
         this.user = UserModel.instance;
@@ -255,15 +257,15 @@ class ClientModel {
 
     public initGameSprite(drawid: number): Array<any> {
         //create a temperary seq of horses in state instead of server supply
-        var stateArr:Array<number>=[-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-        var stateIndexArr:Array<number>=[];
-        var temp:number;
-        this._phaseList=[];
-        for(var i:number=0;i<5;i++){
-            temp=Math.floor(Math.random()*stateArr.length);
+        var stateArr: Array<number> = [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        var stateIndexArr: Array<number> = [];
+        var temp: number;
+        this._phaseList = [];
+        for (var i: number = 0; i < 5; i++) {
+            temp = Math.floor(Math.random() * stateArr.length);
             stateIndexArr.push(stateArr[temp]);
-            this._phaseList.push(RoadMethod.instance.creatRoad(drawid,this.horseList[i].getDataVo<HorseVo>(HorseVo),stateArr[temp]));
-            stateArr.splice(temp,1);
+            this._phaseList.push(RoadMethod.instance.creatRoad(drawid, this.horseList[i].getDataVo<HorseVo>(HorseVo), stateArr[temp]));
+            stateArr.splice(temp, 1);
         }
         // for (var i: number = 0; i < 5; i++) {
         //     var list: Array<any> = new Array<any>();
@@ -276,11 +278,11 @@ class ClientModel {
         return this._phaseList;
     }
 
-    public set enterStateTime(value:number){
-        this._enterStateTime=value;
+    public set enterStateTime(value: number) {
+        this._enterStateTime = value;
     }
 
-    public get enterStateTime():number{
+    public get enterStateTime(): number {
         return this._enterStateTime;
     }
 
@@ -322,14 +324,35 @@ class ClientModel {
         this.user.money = data.acctAmount;
         if (data.rtnCode == 0) {
             console.log("下注成功");
-        } else {
-            this._betOperationList = data.betInfo;
-            GameDispatcher.send(BaseEvent.BET_OPERATION_ERROR);
         }
+        this._betOperation = data;
+        GameDispatcher.send(BaseEvent.BET_OPERATION_RESULT);
     }
 
-    public get betOperationList(): string {
-        return this._betOperationList;
+    public setCancelResult(data: any): void {
+        this._betCancel = data;
+        GameDispatcher.send(BaseEvent.BET_CANCEL);
+    }
+
+    public get betOperation(): any {
+        /**
+         * {
+            "rtnCode" : 0,
+            "rtnMsg" : "投注成功",
+            "drawId" : "1609280869",
+            "cdTime" : 33884,
+            "leftTime" : 63884,
+            "playId" : 1,
+            "betInfo" : "4x120100",
+            "betAmount" : 120100,
+            "acctAmount" : 999342199
+            }
+         */
+        return this._betOperation;
+    }
+
+    public get betCancel(): any {
+        return this._betCancel;
     }
 
 }

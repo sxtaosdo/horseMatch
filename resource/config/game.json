@@ -5,8 +5,8 @@
   "version": "20160922:1535",
   "showPathPoint": false,
   "betTime": 30,
-  "prepareTime": 5,
-  "nextTime": 5,
+  "prepareTime": 3,
+  "nextTime": 7,
   "url1": "http://60.205.156.251:8080",
   "url": "http://ali.game.com:8080"
 }

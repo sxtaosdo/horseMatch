@@ -52,8 +52,11 @@ class MsgReceiveHelper {
                 case "drawResult":
                     ClientModel.instance.setHistory(body);
                     break;
-                case "":
+                case "bet":
                     ClientModel.instance.setBetReslut(body);
+                    break;
+                case "cancel":
+                    ClientModel.instance.setCancelResult(body);
                     break;
             }
         } else {    //异常返回

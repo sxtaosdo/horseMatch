@@ -16,7 +16,9 @@ class BaseEvent {
 	/**倍率信息变化 */
 	public static BET_INFO_CHANGE: string = "betInfoChange";
 	/**下注结果错误 */
-	public static BET_OPERATION_ERROR: string = "betOperationError";
+	public static BET_OPERATION_RESULT: string = "betOperationError";
+	/**撤销投注消息 */
+	public static BET_CANCEL: string = "betCancel";
 
 
 	/**window */

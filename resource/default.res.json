@@ -9,7 +9,7 @@
 			"name":"config"
 		},
 		{
-			"keys":"shutter_json,shutter_png,bg_png,arrow_png,arrow_json,gameProgress_png,flag_png,arrow5_png,arrow1_png,arrow2_png,arrow3_png,arrow4_png,obstacle1_png,obstacle2_png,result_topTime_png,result_bg_png,result_cup_png,result_star_png,result_thing_1_png,result_thing_2_png",
+			"keys":"shutter_png,bg_png,arrow_png,gameProgress_png,flag_png,arrow5_png,arrow1_png,arrow2_png,arrow3_png,arrow4_png,obstacle1_png,obstacle2_png,result_topTime_png,result_bg_png,result_cup_png,result_star_png,result_thing_1_png,result_thing_2_png",
 			"name":"main"
 		},
 		{
@@ -45,7 +45,7 @@
 			"name":"betView"
 		},
 		{
-			"keys":"texture4_png,donghua4_json,texture4_json",
+			"keys":"texture4_png,donghua4_json,texture4_json,texture5_png,donghua5_json,texture5_json",
 			"name":"db"
 		},
 		{
@@ -240,11 +240,6 @@
 			"url":"config/horse.json"
 		},
 		{
-			"name":"shutter_json",
-			"type":"json",
-			"url":"assets/game/shutter.json"
-		},
-		{
 			"name":"shutter_png",
 			"type":"image",
 			"url":"assets/game/shutter.png"
@@ -383,11 +378,6 @@
 			"name":"arrow_png",
 			"type":"image",
 			"url":"assets/game/arrow.png"
-		},
-		{
-			"name":"arrow_json",
-			"type":"json",
-			"url":"assets/game/arrow.json"
 		},
 		{
 			"name":"gameProgress_png",
@@ -764,6 +754,21 @@
 			"name":"coin10000_png",
 			"type":"image",
 			"url":"assets/betView/coin10000.png"
+		},
+		{
+			"name":"texture5_png",
+			"type":"image",
+			"url":"db/texture5.png"
+		},
+		{
+			"name":"donghua5_json",
+			"type":"json",
+			"url":"db/donghua5.json"
+		},
+		{
+			"name":"texture5_json",
+			"type":"json",
+			"url":"db/texture5.json"
 		}
 	]
 }

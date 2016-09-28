@@ -30,7 +30,7 @@ class GameWorld extends egret.Sprite implements IBase {
     public static GAME_HEIGHT: number = Main.STAGE_HEIGHT;
 
     /**终点长度（包含初始左侧长度） */
-    public static DEADLINE_LENGTH: number = 10000;
+    public static DEADLINE_LENGTH: number = 150000;
     /**左侧 */
     public static LEFT_LINE: number = GameWorld.GAME_WIDTH / 4 * 1;
     /**右侧 */
@@ -43,7 +43,7 @@ class GameWorld extends egret.Sprite implements IBase {
     /**子弹时间 */
     private isBulletTime: boolean = false;
     /** 快门动画 */
-    private shutter: egret.MovieClip;
+    private shutter: egret.Bitmap;
     /**子弹时间的加速度 */
     private tempSpeed: number = 0;
 
@@ -118,11 +118,12 @@ class GameWorld extends egret.Sprite implements IBase {
         }
 
         if (this.shutter == null) {
-            this.shutter = MovieclipUtils.createMc("shutter_png", "shutter_json");
-            this.shutter.stop();
-            this.shutter.scaleX = this.shutter.scaleY = GameWorld.GAME_WIDTH / this.shutter.width;
-            this.shutter.x = -50;
-            this.shutter.y = -120;
+            this.shutter = BitMapUtil.createBitmapByName("shutter_png");
+            this.shutter.scaleX = this.shutter.scaleY = 5;
+            this.shutter.x = GameWorld.GAME_WIDTH >> 1
+            this.shutter.y = GameWorld.GAME_HEIGHT >> 1;
+            this.shutter.anchorOffsetX = this.shutter.width >> 1;
+            this.shutter.anchorOffsetY = this.shutter.height >> 1;
         }
 
         this.addChildAt(this.racetrack, 0);
@@ -167,9 +168,7 @@ class GameWorld extends egret.Sprite implements IBase {
     private onBullertTme(): void {
         if (this.isBulletTime) {
             this.addChild(this.shutter);
-            this.shutter.gotoAndPlay(1, 1);
-
-            egret.Tween.get(this).wait(1000 / 30 * 10).call(() => {
+            egret.Tween.get(this.shutter).to({ scaleX: 1, scaleY: 1 }, 150).to({ scaleX: 5, scaleY: 5 }, 200).call(() => {
                 if (this.shutter.parent) {
                     this.shutter.parent.removeChild(this.shutter);
                 }
@@ -203,7 +202,7 @@ class GameWorld extends egret.Sprite implements IBase {
         }
     }
 
-    private changeState(state: any,enterStateTime:number=0): void {
+    private changeState(state: any, enterStateTime: number = 0): void {
         this._gameState = state;
         this.topBar.enter(state);
         switch (this._gameState) {
@@ -219,13 +218,13 @@ class GameWorld extends egret.Sprite implements IBase {
                 break;
             case GameState.PREPARE_STAGE:
                 this._runState = RunState.GEGIN;
-                var d:Date=new Date();
-                ClientModel.instance.enterStateTime=d.getTime()+enterStateTime;
+                var d: Date = new Date();
+                ClientModel.instance.enterStateTime = d.getTime() - enterStateTime;
                 ClientModel.instance.initGameSprite(this.client.gameInfoVo.drawId);
                 this.addChild(this.progress);
                 var index: number = 0;
                 this.client.horseList.forEach(element => {
-                    element.roadList=ClientModel.instance.phaseList[index++];
+                    element.roadList = ClientModel.instance.phaseList[index++];
                 });
                 this.betView.exit();
                 this.racetrack.enter();
@@ -249,7 +248,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.isBulletTime = false;
                 this.tempSpeed = 0;
                 ClientModel.instance.roadPastLength = 0;
-                TimerManager.instance.doLoop(1/30*1000, this.execute, this);
+                TimerManager.instance.doLoop(1 / 30 * 1000, this.execute, this);
                 var that: GameWorld = this;
                 ConfigModel.instance.horseList.forEach(element => {
                     if (element.id && (that.client.horseList[element.id - 1])) {
@@ -331,9 +330,7 @@ class GameWorld extends egret.Sprite implements IBase {
                     this.changeState(GameState.RESULT_STAGE);
                 }
             } else {//赛跑阶段
-                // if (this._gameState != GameState.RUN_STAGE) {
-                this.changeState(GameState.RUN_STAGE);
-                // }
+                this.changeState(GameState.RUN_STAGE, data.leftTime - ConfigModel.instance.nextTime);
             }
         }
     }

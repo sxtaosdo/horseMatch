@@ -8,6 +8,7 @@ class RacetrackPanel extends egret.Sprite implements IBase {
     private bgImage: BackgroundPanel;
 	/**天空背景 */
 	private image3Group: egret.Bitmap;
+	private lastX: number = 0;
 
 	public constructor() {
 		super();
@@ -44,12 +45,11 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 			bmp.x = GameWorld.DEADLINE_LENGTH;
 			this.racetrackArr[i].addChild(bmp);
 
-			var arr = ClientModel.instance.phaseList[i];
+			// var arr = ClientModel.instance.phaseList[i];
 			// arr.forEach(element => {
 			// 	if (element instanceof ObstacleVo) {
-			// 		bmp = BitMapUtil.createBitmapByName("bg_obstacle_1_png");
-			// 		bmp.x = element.local;
-			// 		console.log("ObstacleVo:" + element.local);
+			// 		bmp = BitMapUtil.createBitmapByName("bg_obstacle_" + element.obstacleType + "_png");
+			// 		bmp.x = element.startX;
 			// 		this.racetrackArr[i].addChild(bmp);
 			// 	}
 			// });
@@ -57,15 +57,16 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 	}
 
 	public exit(): void {
-		// this.clearnRacetrack();
+		this.clearnRacetrack();
 		this.bgImage.exit();
 	}
 
 	public execute(data?: any): void {
 		this.racetrackArr.forEach(element => {
-			element.x -= ClientModel.instance.maxSpeed;
+			element.x -= (data - this.lastX);
 		});
-		this.bgImage.execute(ClientModel.instance.maxSpeed);
+		this.bgImage.execute(data - this.lastX);
+		this.lastX = data;
 	}
 
 	private clearnRacetrack(): void {

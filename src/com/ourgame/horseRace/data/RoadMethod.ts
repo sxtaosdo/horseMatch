@@ -6,11 +6,11 @@ class RoadMethod {
 
     private static _instance: RoadMethod;
     /**将每秒钟分成多少个分隔数 */
-    public static secondInterval: number = 100;
+    public static secondInterval: number = 30;
     /**比赛秒数 */
     private static competeSeconds: number = 23;
     /**暂时将比赛路段平均分为100段（暂定，可以更多或者更少） */
-    private static roadIntervals: number = 100;
+    private static roadIntervals: number = 30;
     /**愤怒系数，即愤怒时的速度为普通时的多少 */
     private static angryKey: number = 2;
     /**
@@ -36,13 +36,13 @@ class RoadMethod {
         return this._instance;
     }
     /**根据马匹及状态，生成不同的道路 */
-    public creatRoad(drawId:number,horse: HorseVo, state: number): Array<RoadVo> {
+    public creatRoad(drawId: number, horse: HorseVo, state: number): Array<RoadVo> {
         var i: number;
         //通过状态及随机数，获得一个路障，并随机是否通过，及障碍位置(路段总数的中间三分之一)
         var obsVo: ObstacleVo = new ObstacleVo();
-        obsVo.initData(1);
+        obsVo.initData(new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId + i + "obstacle"));
         var isPass: boolean = false;
-        var obsPostion: number = 35;
+        var obsPostion: number = obsVo.postion;
         //道路的总长度获取
         var totalRoadLength: number = GameWorld.DEADLINE_LENGTH - GameWorld.LEFT_LINE;
         var singleRoadLength: number = totalRoadLength / RoadMethod.roadIntervals;
@@ -54,7 +54,7 @@ class RoadMethod {
             if (i == obsPostion) {
                 //为路障赋初始值
                 var vo1: RoadVo = new RoadVo();
-                vo1.startX = singleRoadLength*i+GameWorld.LEFT_LINE;
+                vo1.startX = singleRoadLength * i + GameWorld.LEFT_LINE;
                 vo1.throughLength = obsVo.length;
                 vo1.obstacleType = obsVo.type;
                 //如果未通过，则先设定为一个中间时间，稍后如果时间有欠缺再进行调整
@@ -72,7 +72,7 @@ class RoadMethod {
                 roadList.push(vo);
             }
             else {
-                vo.startX = singleRoadLength * i+GameWorld.LEFT_LINE;
+                vo.startX = singleRoadLength * i + GameWorld.LEFT_LINE;
                 vo.throughLength = singleRoadLength;
                 roadList.push(vo);
             }
@@ -127,7 +127,7 @@ class RoadMethod {
             if (passRoad < vo.throughLength) {
                 passTime += (vo.throughLength - passRoad) / currentSpeed;
             }
-            vo.throughTime=passTime;
+            vo.throughTime = passTime;
             //计算当前热情度
             currentPassion += passionDirection * endurance;
             if (currentPassion < 0) {
@@ -152,7 +152,7 @@ class RoadMethod {
             }
             roadList[i].state = 2;
             roadList[i].startSpeed *= RoadMethod.angryKey;
-            roadList[i].acceleration *= RoadMethod.angryKey;
+            roadList[i].acceleration *= (RoadMethod.angryKey * RoadMethod.angryKey);
             roadList[i].throughTime /= RoadMethod.angryKey;
         }
         for (i = angryStart2 - 1; i < angryEnd2; i++) {
@@ -161,7 +161,7 @@ class RoadMethod {
             }
             roadList[i].state = 2;
             roadList[i].startSpeed *= RoadMethod.angryKey;
-            roadList[i].acceleration *= RoadMethod.angryKey;
+            roadList[i].acceleration *= (RoadMethod.angryKey * RoadMethod.angryKey);
             roadList[i].throughTime /= RoadMethod.angryKey;
         }
         for (i = angryStart3 - 1; i < angryEnd3; i++) {
@@ -170,7 +170,7 @@ class RoadMethod {
             }
             roadList[i].state = 2;
             roadList[i].startSpeed *= RoadMethod.angryKey;
-            roadList[i].acceleration *= RoadMethod.angryKey;
+            roadList[i].acceleration *= (RoadMethod.angryKey * RoadMethod.angryKey);
             roadList[i].throughTime /= RoadMethod.angryKey;
         }
         //阻挡物之后5期不能有愤怒状态
@@ -178,7 +178,7 @@ class RoadMethod {
             if (roadList[obsPostion + i].state == 2) {
                 roadList[obsPostion + i].state = 1;
                 roadList[obsPostion + i].startSpeed /= RoadMethod.angryKey;
-                roadList[obsPostion + i].acceleration /= RoadMethod.angryKey;
+                roadList[obsPostion + i].acceleration /= (RoadMethod.angryKey * RoadMethod.angryKey);
                 roadList[obsPostion + i].throughTime *= RoadMethod.angryKey;
             }
         }
@@ -191,7 +191,7 @@ class RoadMethod {
         }
         //当前所需时间与目标时间进行倍数比较，差异化的数值分步在着重于后半阶段之中
         if (currentTime > 0 && targetTime != currentTime) {
-            var multiple :number;
+            var multiple: number;
             var lastTime = targetTime - currentTime;
             for (i = roadList.length - 1; i >= 0; i--) {
                 if (lastTime == 0) {
@@ -200,13 +200,13 @@ class RoadMethod {
                 if (roadList[i].state == 4 || roadList[i].state == 5) {
                     continue;
                 }
-                if(targetTime>currentTime){
-                    multiple= 2 * targetTime / currentTime;
+                if (targetTime > currentTime) {
+                    multiple = 1.3 * targetTime / currentTime;
                 }
-                else{
-                    multiple= targetTime / (2*currentTime);
+                else {
+                    multiple = targetTime / (1.3 * currentTime);
                 }
-                
+
                 var diffTime = roadList[i].throughTime * multiple - roadList[i].throughTime;
                 if (lastTime > 0 && diffTime >= lastTime || lastTime < 0 && diffTime <= lastTime) {
                     diffTime = lastTime;
@@ -217,9 +217,9 @@ class RoadMethod {
                 }
                 else {
                     currentTime += roadList[i].throughTime * multiple - roadList[i].throughTime;
-                    lastTime=targetTime-currentTime;
+                    lastTime = targetTime - currentTime;
                     roadList[i].startSpeed /= multiple;
-                    roadList[i].acceleration /= multiple;
+                    roadList[i].acceleration /= (multiple * multiple);
                     roadList[i].throughTime *= multiple;
                 }
             }

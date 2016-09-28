@@ -16,10 +16,13 @@ class BetView extends BaseComponent implements IBase {
 	public bgImage: eui.Image;
 	/**选中的筹码 */
 	public selectMoney: number = 100;
+	/** 筹码的图像*/
 	private coinList: Array<any>;
 	private betInfoList: Object;
-	/**操作队列 */
+	/**每局的操作队列 */
 	private operationObj: any;
+	/**每次的操作，发送给服务器前的操作，发送后清空 */
+	public operationTemp: any;
 
 
 	public constructor() {
@@ -55,8 +58,10 @@ class BetView extends BaseComponent implements IBase {
 			this.revokeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onrevokeTap, this);
 		}
 		GameDispatcher.addEventListener(BaseEvent.BET_INFO_CHANGE, this.onBetChange, this);
-		GameDispatcher.addEventListener(BaseEvent.BET_OPERATION_ERROR, this.onBetError, this);
+		GameDispatcher.addEventListener(BaseEvent.BET_OPERATION_RESULT, this.onBetResult, this);
+		GameDispatcher.addEventListener(BaseEvent.BET_CANCEL, this.onBetCancel, this);
 		this.onBetChange();
+		this.operationTemp = {};
 	}
 
 	public exit(): void {
@@ -66,6 +71,8 @@ class BetView extends BaseComponent implements IBase {
 		this.btn10000.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoneyTap, this);
 		this.revokeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onrevokeTap, this);
 		GameDispatcher.removeEventListener(BaseEvent.BET_INFO_CHANGE, this.onBetChange, this);
+		GameDispatcher.removeEventListener(BaseEvent.BET_OPERATION_RESULT, this.onBetResult, this);
+		GameDispatcher.removeEventListener(BaseEvent.BET_CANCEL, this.onBetCancel, this);
 		if (this.parent) {
 			this.parent.removeChild(this);
 		}
@@ -116,14 +123,19 @@ class BetView extends BaseComponent implements IBase {
 		} else {
 			this.operationObj[this.horseList.selectedIndex] = this.selectMoney;
 		}
+		if (this.operationTemp[this.horseList.selectedIndex]) {
+			this.operationTemp[this.horseList.selectedIndex] += this.selectMoney;
+		} else {
+			this.operationTemp[this.horseList.selectedIndex] = this.selectMoney;
+		}
 		TimerManager.instance.doOnce(1000, this.sendOperation, this);
 	}
 
 	private sendOperation(): void {
 		var key: any;
 		var str: string = "";
-		for (key in this.operationObj) {
-			str += (key + "x" + this.operationObj[key] + "#");
+		for (key in this.operationTemp) {
+			str += (key + "x" + this.operationTemp[key] + "#");
 		}
 		str = str.substr(0, str.length - 1);
 		ConnectionManager.instance.sendHelper.bet(str);
@@ -142,11 +154,6 @@ class BetView extends BaseComponent implements IBase {
 	}
 
 	private onrevokeTap(evt: egret.TouchEvent): void {
-		this.horseData.source.forEach(element => {
-			element.math.bet = 0;
-		});
-		this.horseData.refresh();
-		this.onRemove();
 		ConnectionManager.instance.sendHelper.cancel();
 	}
 
@@ -163,7 +170,6 @@ class BetView extends BaseComponent implements IBase {
 	}
 
 	private onBetChange(): void {
-
 		if (ClientModel.instance.lastBetInfo) {
 			var list: any = ClientModel.instance.lastBetInfo.horseInfoList;
 			list.forEach(element => {
@@ -177,15 +183,31 @@ class BetView extends BaseComponent implements IBase {
 		}
 	}
 
-	private onBetError(): void {
-		let arr: Array<string> = ClientModel.instance.betOperationList.split("#");
-		arr.forEach(element => {
-			let id = element[0];
-			let money: number = parseInt(element[1]);
-			if (this.operationObj[id]) {
-				this.operationObj[id] -= money;
-			}
-		});
+	/**下注消息结果 */
+	private onBetResult(): void {
+		if (ClientModel.instance.betOperation.rtnCode != 0) {
+			let arr: Array<string> = ClientModel.instance.betOperation.betInfo.split("#");
+			arr.forEach(element => {
+				let id = element[0];
+				let money: number = parseInt(element[1]);
+				if (this.operationObj[id]) {
+					this.operationObj[id] -= money;
+				}
+			});
+		} else {
+			this.operationTemp = {};
+		}
+	}
+
+	/**撤销消息结果 */
+	private onBetCancel(): void {
+		if (ClientModel.instance.betCancel.rtnCode == 0) {
+			this.horseData.source.forEach(element => {
+				element.math.bet = 0;
+			});
+			this.horseData.refresh();
+			this.onRemove();
+		}
 	}
 
 }
