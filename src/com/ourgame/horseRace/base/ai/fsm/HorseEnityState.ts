@@ -68,7 +68,7 @@ class HorseEnityStateSeek implements IState {
 		this.self = <HorseEntity>entity;
 		var list: Array<RoadVo> = this.self.roadList;
 		var date: Date = new Date();
-		var nextTime = (date.getTime() - ClientModel.instance.enterStateTime + 1000 / RoadMethod.secondInterval) / 200;
+		var nextTime = (date.getTime() - ClientModel.instance.enterStateTime + 1000 / RoadMethod.secondInterval) / 1000 * RoadMethod.secondInterval;
 		var currentTime = 0;
 		var reachEnd: boolean = true;
 		for (var i: number = 0; i < list.length; i++) {
@@ -119,10 +119,6 @@ class HorseEnityStateSeek implements IState {
 		// 		this.self.obstacle = null;
 		// 	}
 		// }
-		if (this.self.sid == "0") {
-			egret.log("horse id:" + this.self.sid + "  currentX:" + this.self.currentX);
-			egret.log("pastRoad:" + ClientModel.instance.roadPastLength);
-		}
 
 		//超过右侧线
 		if (this.self.currentX > GameWorld.RIGHT_LINE + ClientModel.instance.roadPastLength) {
@@ -270,6 +266,7 @@ class HorseEnityStatePass implements IState {
 	}
 
     public exit(entity: IBaseGameEntity): void {
-
+		this.self = <HorseEntity>entity;
+		this.self.currentX += ObstacleVo.OBSTACLE_LENGTH;
 	}
 }

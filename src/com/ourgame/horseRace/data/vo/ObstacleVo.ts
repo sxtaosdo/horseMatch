@@ -1,4 +1,5 @@
 class ObstacleVo {
+	public static OBSTACLE_LENGTH: number = 200;
 	/**障碍类型 */
 	public type: number = 0;
     /**障碍长度 */
@@ -30,10 +31,10 @@ class ObstacleVo {
 		var step: number = 4;
 		var temp: number = 0;
 
-		this.length = 50;
-		this.passTime = 0.05;
-		this.notPassMaxTime = 1;
-		this.notPassMinTime = 0.5;
+		this.length = ObstacleVo.OBSTACLE_LENGTH;
+		this.passTime = 1 * RoadMethod.secondInterval;
+		this.notPassMaxTime = 2 * RoadMethod.secondInterval;
+		this.notPassMinTime = 1.5 * RoadMethod.secondInterval;
 		this.picUrl = "obstacle" + index.toString() + "_png";
 		this.passMove = "jump";
 		this.notPassMove = "drunk";
@@ -43,11 +44,6 @@ class ObstacleVo {
 		index += step;
 		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
 		this.postion = Math.floor(temp / 1000 > 30 ? temp / 10000 : temp);
-		// index += step;
-		// temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		// this.isPass = temp < 50000 ? true : false;
-		// index += step;
-		// temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
-		// this.time = temp / 10000;
+		this.postion = Math.floor(RoadMethod.roadIntervals * (Math.random() + 1) / 3)
 	}
 }

@@ -3,14 +3,13 @@
  * @author anj
  */
 class RoadMethod {
-
-    private static _instance: RoadMethod;
     /**将每秒钟分成多少个分隔数 */
-    public static secondInterval: number = 30;
+    public static secondInterval: number = 100;
+    private static _instance: RoadMethod;
     /**比赛秒数 */
-    private static competeSeconds: number = 23;
+    private static competeSeconds: number = 20;
     /**暂时将比赛路段平均分为100段（暂定，可以更多或者更少） */
-    private static roadIntervals: number = 30;
+    public static roadIntervals: number = 100;
     /**愤怒系数，即愤怒时的速度为普通时的多少 */
     private static angryKey: number = 2;
     /**
@@ -41,7 +40,7 @@ class RoadMethod {
         //通过状态及随机数，获得一个路障，并随机是否通过，及障碍位置(路段总数的中间三分之一)
         var obsVo: ObstacleVo = new ObstacleVo();
         obsVo.initData(new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId + i + "obstacle"));
-        var isPass: boolean = false;
+        var isPass: boolean = Math.random() > 0.5 ? true : false;
         var obsPostion: number = obsVo.postion;
         //道路的总长度获取
         var totalRoadLength: number = GameWorld.DEADLINE_LENGTH - GameWorld.LEFT_LINE;
@@ -78,11 +77,11 @@ class RoadMethod {
             }
         }
         //模拟运动，为道路每一段进行速度等的赋值
-        var acceleration: number = horse.acceleration;
-        var endurance = horse.endurance;       //耐力越高，热情减少越慢
-        var recovery = horse.recovery;         //热情消耗后，重燃热情的速度
-        var maximumSpeed = horse.maximumSpeed; //热情时的最大速度，达到此速度及以上时消耗热情
-        var usualSpeed = horse.speed;          //无热情时的速度，达到此速度及以下时增长热情
+        var acceleration: number = horse.acceleration * 40 / RoadMethod.secondInterval;
+        var endurance = horse.endurance / RoadMethod.secondInterval;       //耐力越高，热情减少越慢
+        var recovery = horse.recovery / RoadMethod.secondInterval;         //热情消耗后，重燃热情的速度
+        var maximumSpeed = horse.maximumSpeed * 100 / RoadMethod.secondInterval; //热情时的最大速度，达到此速度及以上时消耗热情
+        var usualSpeed = horse.speed * 100 / RoadMethod.secondInterval;          //无热情时的速度，达到此速度及以下时增长热情
         var totalPassion = 100;                //热情满槽值，热情不能超过这些
         var currentSpeed: number = 0;
         var currentPassion: number = 100;
@@ -94,7 +93,7 @@ class RoadMethod {
                 continue;
             }
             //如果当前热情等于0且速度大于普通速度则速度直接变成普通速度
-            else if (currentSpeed > usualSpeed && currentPassion == 0) {
+            if (currentSpeed > usualSpeed && currentPassion == 0) {
                 currentSpeed = usualSpeed;
             }
             //如果当前热情>80且速度小于最大值则进行加速
@@ -111,25 +110,35 @@ class RoadMethod {
                     currentSpeed = maximumSpeed;
                 }
             }
+            //对于当前速度进行范围约束
+            if (currentSpeed > maximumSpeed) {
+                currentSpeed = maximumSpeed;
+            }
+            else if (currentSpeed < 0) {
+                currentSpeed = 0;
+            }
+
             vo.startSpeed = currentSpeed;
             var passRoad: number = 0;
             var passTime: number = 0;
             //计算获得该路段的消耗时间
-            while (passRoad < vo.throughLength) {
-                passRoad += currentSpeed;
+            while (passRoad + currentSpeed + vo.acceleration / 2 < vo.throughLength) {
+                passRoad += currentSpeed + vo.acceleration / 2;
                 currentSpeed += vo.acceleration;
                 passTime += 1;
-                if (passRoad + currentSpeed > vo.throughLength) {
+                if (passRoad + currentSpeed + vo.acceleration / 2 > vo.throughLength) {
                     break;
                 }
             }
             //如果有富余段则视为模拟匀速运动，忽略加速度
             if (passRoad < vo.throughLength) {
-                passTime += (vo.throughLength - passRoad) / currentSpeed;
+                var t = (vo.throughLength - passRoad) / (currentSpeed + vo.acceleration / 2);
+                passTime += t;
+                currentSpeed += t * vo.acceleration;
             }
             vo.throughTime = passTime;
             //计算当前热情度
-            currentPassion += passionDirection * endurance;
+            currentPassion += passionDirection * endurance * passTime;
             if (currentPassion < 0) {
                 currentPassion = 0;
             }
@@ -185,13 +194,19 @@ class RoadMethod {
 
         //累加所有的路段时间，与目标时间进行比较，进行分层
         var currentTime = 0;
-        var targetTime = RoadMethod.competeSeconds + this.getDifftimeFromStatus(horse.id, state);
+        var targetTime = (RoadMethod.competeSeconds + this.getDifftimeFromStatus(horse.id, state)) * RoadMethod.secondInterval;
         for (i = 0; i < roadList.length; i++) {
             currentTime += roadList[i].throughTime;
         }
         //当前所需时间与目标时间进行倍数比较，差异化的数值分步在着重于后半阶段之中
         if (currentTime > 0 && targetTime != currentTime) {
             var multiple: number;
+            if (targetTime > currentTime) {
+                multiple = 1.1 * targetTime / currentTime;
+            }
+            else {
+                multiple = targetTime / (1.1 * currentTime);
+            }
             var lastTime = targetTime - currentTime;
             for (i = roadList.length - 1; i >= 0; i--) {
                 if (lastTime == 0) {
@@ -200,12 +215,7 @@ class RoadMethod {
                 if (roadList[i].state == 4 || roadList[i].state == 5) {
                     continue;
                 }
-                if (targetTime > currentTime) {
-                    multiple = 1.3 * targetTime / currentTime;
-                }
-                else {
-                    multiple = targetTime / (1.3 * currentTime);
-                }
+
 
                 var diffTime = roadList[i].throughTime * multiple - roadList[i].throughTime;
                 if (lastTime > 0 && diffTime >= lastTime || lastTime < 0 && diffTime <= lastTime) {

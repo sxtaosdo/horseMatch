@@ -30,7 +30,7 @@ class GameWorld extends egret.Sprite implements IBase {
     public static GAME_HEIGHT: number = Main.STAGE_HEIGHT;
 
     /**终点长度（包含初始左侧长度） */
-    public static DEADLINE_LENGTH: number = 150000;
+    public static DEADLINE_LENGTH: number = 10000;
     /**左侧 */
     public static LEFT_LINE: number = GameWorld.GAME_WIDTH / 4 * 1;
     /**右侧 */
@@ -218,8 +218,6 @@ class GameWorld extends egret.Sprite implements IBase {
                 break;
             case GameState.PREPARE_STAGE:
                 this._runState = RunState.GEGIN;
-                var d: Date = new Date();
-                ClientModel.instance.enterStateTime = d.getTime() - enterStateTime;
                 ClientModel.instance.initGameSprite(this.client.gameInfoVo.drawId);
                 this.addChild(this.progress);
                 var index: number = 0;
@@ -243,6 +241,8 @@ class GameWorld extends egret.Sprite implements IBase {
                 TimerManager.instance.clearTimer(this.execute);
                 break;
             case GameState.RUN_STAGE:
+                var d: Date = new Date();
+                ClientModel.instance.enterStateTime = d.getTime() - enterStateTime;
                 this._runState = RunState.RUN;
                 this.addChild(this.progress);
                 this.isBulletTime = false;

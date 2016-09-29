@@ -46,6 +46,7 @@
     "resource/game_skins/window/TaskPanelSkin.exml",
     "resource/renderer/HistoryItemSkin.exml",
     "resource/renderer/HorseItenSkin.exml",
+    "resource/renderer/InfoItemSkin.exml",
     "resource/renderer/ResultItemSkin.exml",
     "resource/skins/BetViewSkin.exml",
     "resource/skins/HallViewSkin.exml",

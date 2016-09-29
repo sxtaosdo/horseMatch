@@ -65,6 +65,7 @@ var game_file_list = [
 	"bin-debug/com/ourgame/horseRace/model/renderer/HistoryItemRenderer.js",
 	"bin-debug/com/ourgame/horseRace/model/renderer/HorseBetInfoRenderer.js",
 	"bin-debug/com/ourgame/horseRace/model/renderer/HorseEntity.js",
+	"bin-debug/com/ourgame/horseRace/model/renderer/InfoItemRenderer.js",
 	"bin-debug/com/ourgame/horseRace/model/renderer/ResultItemRenderer.js",
 	"bin-debug/com/ourgame/horseRace/model/renderer/RoomBtnItemRenderer.js",
 	"bin-debug/com/ourgame/horseRace/model/top/TopView.js",

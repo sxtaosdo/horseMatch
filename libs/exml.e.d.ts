@@ -78,6 +78,8 @@ declare class HistoryItemSkin extends eui.Skin{
 }
 declare class HorseItenSkin extends eui.Skin{
 }
+declare class InfoItemSkin extends eui.Skin{
+}
 declare class ResultItemSkin extends eui.Skin{
 }
 declare class BetViweSkin extends eui.Skin{
