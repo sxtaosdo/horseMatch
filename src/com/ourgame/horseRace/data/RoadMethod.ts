@@ -41,7 +41,7 @@ class RoadMethod {
         var obsVo: ObstacleVo = new ObstacleVo();
         obsVo.initData(new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId + horse.id + "obstacle" + (TimeUtils.timestampDate() / 60)));
         var isPass: boolean = Math.random() > 0.5 ? true : false;
-        // var isPass=true;
+        // var isPass=false;
         var obsPostion: number = obsVo.postion;
         //道路的总长度获取
         var totalRoadLength: number = GameWorld.DEADLINE_LENGTH - GameWorld.LEFT_LINE;

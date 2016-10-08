@@ -160,7 +160,7 @@ class GameWorld extends egret.Sprite implements IBase {
     public execute(): void {
         var that: GameWorld = this;
         this.client.horseList.forEach(element => {  //移动
-            element.getFSM().Update();//
+            element.getFSM().Update();
         });
         if (this._runState == RunState.RUN) {
             this.racetrack.execute(ClientModel.instance.roadPastLength - this.lastX);
@@ -176,7 +176,7 @@ class GameWorld extends egret.Sprite implements IBase {
     private onBullertTme(): void {
         if (this.isBulletTime) {
             this.addChild(this.shutter);
-            egret.Tween.get(this.shutter).to({ scaleX: 1, scaleY: 1 }, 400).to({ scaleX: 5, scaleY: 5 }, 500).call(() => {
+            egret.Tween.get(this.shutter).to({ scaleX: 1, scaleY: 1 }, 200).to({ scaleX: 5, scaleY: 5 }, 400).call(() => {
                 if (this.shutter.parent) {
                     this.shutter.parent.removeChild(this.shutter);
                 }
@@ -228,6 +228,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 });
                 this.addChild(this.betView);
                 this.image4Group.exit();
+                TimerManager.instance.clearTimer(this.execute);
                 break;
             case GameState.PREPARE_STAGE:
                 this._runState = RunState.GEGIN;
@@ -253,7 +254,6 @@ class GameWorld extends egret.Sprite implements IBase {
                 }
                 this.racetrack.exit();
                 this.lastX = 0;
-                TimerManager.instance.clearTimer(this.execute);
                 break;
             case GameState.RUN_STAGE:
                 var d: Date = new Date();
@@ -290,7 +290,7 @@ class GameWorld extends egret.Sprite implements IBase {
             this.isBulletTime = true;
             this.onBullertTme();
         }
-        ClientModel.instance.maxSpeed = 0;
+        // ClientModel.instance.maxSpeed = 0;
         this.client.horseList.forEach(element => {
             MessageDispatcher.instance.DispatchSimpleMessage(this.client.first, element, "onReachEndLine");
         });

@@ -62,9 +62,6 @@ class HorseEnityStateSeek implements IState {
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
 		this.self.changeAnimation(AnimationType.RUN);
-		// if (this.self.sid == "1") {
-		// 	egret.log("seekstate");
-		// }
 	}
 
     public execute(entity: IBaseGameEntity): void {
@@ -89,7 +86,7 @@ class HorseEnityStateSeek implements IState {
 						this.self.currentX = Math.min(list[i].throughLength, target) + list[i].startX;
 					}
 					else {
-						this.self.currentX = target;
+						this.self.currentX = target+list[i].startX;
 					}
 				}
 				else {
@@ -169,6 +166,13 @@ class HorseEnityStateEnd implements IState {
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
 		this.self.sTime = egret.getTimer();
+		console.log("this.self.id:"+this.self.sid+"  this.self.x:"+this.self.currentX);
+		// egret.Tween.get(this).wait(1000 / 30 * 100).call(() => {
+		// 	this.self.displayObject["frameRate"] = 0;
+		// 	egret.Tween.get(this.self.displayObject).wait(200).to({
+		// 		frameRate: 30
+		// 	}, 5000);
+		// });
 	}
 
     public execute(entity: IBaseGameEntity): void {
@@ -182,30 +186,19 @@ class HorseEnityStateEnd implements IState {
 				// this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
 			}
 		} else {
-			var list: Array<RoadVo> = this.self.roadList;
-			var date: Date = new Date();
-			var nextTime = (date.getTime() - ClientModel.instance.enterStateTime + 1000 / RoadMethod.secondInterval) / 1000 * RoadMethod.secondInterval;
-			var currentTime = 0;
-			var reachEnd: boolean = true;
-			for (var i: number = 0; i < list.length; i++) {
-				if (list[i].throughTime + currentTime >= nextTime) {
-					//跑出障碍(返回奔跑状态)
-					if (list[i].obstacleType == 0) {
-						this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
-					}
-					//在障碍中，pass要播放动画，x坐标随之变化，待sxt确认
-					else {
-						this.self.currentX = list[i].throughLength / list[i].throughTime * (nextTime - currentTime) + list[i].startX;
-						entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
-						this.self.sTime = egret.getTimer();
-					}
-					break;
-				}
-				else {
-					currentTime += list[i].throughTime;
-				}
+			let list: Array<RoadVo> = this.self.roadList;
+			var speed: number = list[list.length-1].throughLength/list[list.length-1].throughTime;
+			this.self.speed = speed;
+			// if (speed > this.client.maxSpeed) {
+			// 	this.client.maxSpeed = speed;
+			// }
+			this.self.currentX += speed;
+			if(this.self.currentX<0){
+				console.log("this.self.id:"+this.self.sid+"  this.self.x:"+this.self.currentX);
 			}
+			entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 		}
+
 	}
 
     public exit(entity: IBaseGameEntity): void {
@@ -254,13 +247,14 @@ class HorseEnityStateStuck implements IState {
 			if (list[i].throughTime + currentTime >= nextTime) {
 				//跑出障碍(返回奔跑状态)
 				if (list[i].obstacleType == 0) {
+					this.self.currentX = list[i].startX;
 					this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
 				}
 				//在障碍中，stuk是否要播放动画，x坐标不变
 				else {
 					this.self.sTime = egret.getTimer();
-					entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 				}
+				entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 				break;
 			}
 			else {

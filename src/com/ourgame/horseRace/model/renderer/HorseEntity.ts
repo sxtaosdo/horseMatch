@@ -18,7 +18,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 	/**当前所处的阶段 */
 	public currentPhase: number = 0;
 	/**完成的距离 */
-	public currentX: number = 0;
+	private _currentX: number = 0;
 	/**障碍 */
 	public obstacle: ObstacleVo;
 	/**状态 */
@@ -39,6 +39,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		this.stateMachine = new StateMachine(this);
 		this.getFSM().ChangeState(HorseEnityStateIdel.instance);
 	}
+	
 
     public update(): void {
 		this.getFSM().Update();
@@ -161,6 +162,16 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 
 	public set speed(value: number) {
 		this._vo.speed = value;
+	}
+	public set currentX(value: number) {
+		if(this._currentX>value){
+			console.log("attention");
+		}
+		this._currentX = value;
+	}
+
+	public get currentX():number{
+		return this._currentX;
 	}
 
 	// public phaseSprite(): Array<PhaseVo> {

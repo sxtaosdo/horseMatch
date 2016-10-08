@@ -40,7 +40,7 @@ class ClientModel {
     /**
      * 最快速度
      */
-    public maxSpeed: number = 0;
+    // public maxSpeed: number = 0;
 
     /**游戏状态信息 */
     private _gameInfo: GameInfoVo;

@@ -61,6 +61,10 @@ class ProgressPanel extends egret.Sprite implements IBase {
 			var temp: egret.Sprite = that.arrowList[element.getDataVo<HorseVo>(HorseVo).id - 1]
 			if (temp) {
 				temp.x = Math.min(ProgressPanel.STAR_X + ProgressPanel.PORGRESS_WIDTH * (element.currentX - GameWorld.LEFT_LINE) / (GameWorld.DEADLINE_LENGTH - GameWorld.LEFT_LINE), ProgressPanel.PORGRESS_WIDTH + ProgressPanel.STAR_X);
+				console.log("id:"+element.getDataVo<HorseVo>(HorseVo).id+"  currentProgress:"+temp.x);
+				if(temp.x<=0){
+					console.log("attention");
+				}
 			}
 		});
 	}
