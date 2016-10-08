@@ -36,10 +36,10 @@ class RoadMethod {
     }
     /**根据马匹及状态，生成不同的道路 */
     public creatRoad(drawId: number, horse: HorseVo, state: number): Array<RoadVo> {
-        var i: number;
+        var i: number = 0;
         //通过状态及随机数，获得一个路障，并随机是否通过，及障碍位置(路段总数的中间三分之一)
         var obsVo: ObstacleVo = new ObstacleVo();
-        obsVo.initData(new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId + i + "obstacle" + (TimeUtils.timestampDate() / 60)));
+        obsVo.initData(new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId + horse.id + "obstacle" + (TimeUtils.timestampDate() / 60)));
         var isPass: boolean = Math.random() > 0.5 ? true : false;
         // var isPass=true;
         var obsPostion: number = obsVo.postion;

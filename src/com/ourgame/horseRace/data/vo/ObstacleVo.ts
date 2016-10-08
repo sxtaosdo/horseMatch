@@ -27,9 +27,9 @@ class ObstacleVo {
 
 	public initData(data: string): void {
 		// this.type = index;
-		var index: number = 0;
-		var step: number = 4;
-		var temp: number = 0;
+		let index: number = 0;
+		let step: number = 4;
+		let temp: number = 0;
 
 		this.length = ObstacleVo.OBSTACLE_LENGTH;
 		this.passTime = 0.5 * RoadMethod.secondInterval;
@@ -40,9 +40,11 @@ class ObstacleVo {
 		this.notPassMove = "drunk";
 
 		temp = (parseInt(data.substring(index, index + step), 16));	//随机生成障碍类型
-		this.type = temp < 50000 ? 1 : 2;
-		console.log(temp);
-		
+		let temp1: string = temp.toString();
+		temp = parseInt(temp1.substr(temp1.length - 1));
+		this.type = temp < 5 ? 1 : 2;
+		console.log(temp + "\t" + data);
+
 		index += step;
 		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
 		this.postion = Math.floor(temp / 1000 > 30 ? temp / 10000 : temp);

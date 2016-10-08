@@ -69,11 +69,11 @@ class HorseEnityStateSeek implements IState {
 
     public execute(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
-		var list: Array<RoadVo> = this.self.roadList;
-		var date: Date = new Date();
-		var nextTime = (date.getTime() - ClientModel.instance.enterStateTime + 1000 / RoadMethod.secondInterval) / 1000 * RoadMethod.secondInterval;
-		var currentTime = 0;
-		var reachEnd: boolean = true;
+		let list: Array<RoadVo> = this.self.roadList;
+		let date: Date = new Date();
+		let nextTime = (date.getTime() - ClientModel.instance.enterStateTime + 1000 / RoadMethod.secondInterval) / 1000 * RoadMethod.secondInterval;
+		let currentTime = 0;
+		let reachEnd: boolean = true;
 		if (this.self.sTime > 0) {
 			if (egret.getTimer() - this.self.sTime > 1000) {
 				this.self.changeAnimation(AnimationType.RUN);
@@ -96,6 +96,11 @@ class HorseEnityStateSeek implements IState {
 					if (list[i].state == 5) {
 						// console.log("中陷阱");
 						this.self.getFSM().ChangeState(HorseEnityStateStuck.instance);
+						if (list[i].obstacleType == 2) {
+							this.self.changeAnimation(AnimationType.DROWN);
+						} else if (list[i].obstacleType == 1) {
+							this.self.changeAnimation(AnimationType.FALL);
+						}
 						//this.self.changeAnimation(AnimationType.FALL);
 					}
 					else if (list[i].state == 4) {
@@ -185,7 +190,6 @@ class HorseEnityStateEnd implements IState {
 
 /**中陷阱 */
 class HorseEnityStateStuck implements IState {
-
 	private static _instance: HorseEnityStateStuck;
 	private client: ClientModel;
 	private self: HorseEntity;
@@ -206,11 +210,6 @@ class HorseEnityStateStuck implements IState {
 
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
-		if (this.self) {
-			this.self.changeAnimation(AnimationType.DROWN);
-		} else {
-			this.self.changeAnimation(AnimationType.FALL);
-		}
 	}
 
     public execute(entity: IBaseGameEntity): void {
