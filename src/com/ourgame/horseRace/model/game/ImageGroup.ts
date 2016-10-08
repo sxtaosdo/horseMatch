@@ -37,7 +37,12 @@ class ImageGroup implements IBase {
 	}
 
 	public enter(data?: any): void {
-
+		if (data) {
+			this.imageList.forEach(element => {
+				element.y = data;
+				this.parent.addChild(element);
+			});
+		}
 	}
 
 	public exit(): void {

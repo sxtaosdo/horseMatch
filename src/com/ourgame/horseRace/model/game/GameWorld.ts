@@ -60,6 +60,8 @@ class GameWorld extends egret.Sprite implements IBase {
     private progress: ProgressPanel;
     /**跑道 */
     private racetrack: RacetrackPanel;
+    /**前景 */
+    private image4Group: ImageGroup;
 
 
     /**当前游戏状态 */
@@ -70,6 +72,7 @@ class GameWorld extends egret.Sprite implements IBase {
     private _runState: any = RunState.GEGIN;
     /**龙骨动画播放速度 */
     private bdSpeed: number = -1;
+    private lastX: number = 0;
 
     public constructor() {
         super();
@@ -97,6 +100,7 @@ class GameWorld extends egret.Sprite implements IBase {
         this.progress = new ProgressPanel();
 
         this.resultBiew = new ResultView();
+        this.image4Group = new ImageGroup(this, "bg_image4_png");
     }
 
     private set pastlength(value: number) {
@@ -128,6 +132,8 @@ class GameWorld extends egret.Sprite implements IBase {
 
         this.addChildAt(this.racetrack, 0);
 
+        this.image4Group.enter();
+
         GameDispatcher.addEventListener(BaseEvent.REACH_END_LINE, this.onReachEndLine, this);
         GameDispatcher.addEventListener(BaseEvent.GAME_STATE_INFO, this.onGameInfo, this);
         GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onMatchInfoChange, this);
@@ -147,6 +153,7 @@ class GameWorld extends egret.Sprite implements IBase {
 
         this.betView.exit();
         this.racetrack.exit();
+        this.image4Group.exit();
         TimerManager.instance.clearTimer(this.execute);
     }
 
@@ -156,12 +163,13 @@ class GameWorld extends egret.Sprite implements IBase {
             element.getFSM().Update();//
         });
         if (this._runState == RunState.RUN) {
-            this.racetrack.execute(ClientModel.instance.roadPastLength);
+            this.racetrack.execute(ClientModel.instance.roadPastLength - this.lastX);
+            this.image4Group.execute(ClientModel.instance.roadPastLength - this.lastX);
+            this.lastX = ClientModel.instance.roadPastLength;
         }
         if (this.progress.parent) {
             this.progress.execute();
         }
-
     }
 
     /**子弹时间的快门动画 */
@@ -219,6 +227,7 @@ class GameWorld extends egret.Sprite implements IBase {
                     element.getFSM().ChangeState(HorseEnityStateIdel.instance);
                 });
                 this.addChild(this.betView);
+                this.image4Group.exit();
                 break;
             case GameState.PREPARE_STAGE:
                 this._runState = RunState.GEGIN;
@@ -230,7 +239,9 @@ class GameWorld extends egret.Sprite implements IBase {
                     element.roadList = ClientModel.instance.phaseList[index++];
                 });
                 this.racetrack.enter();
+                this.lastX = 0;
                 this.progress.enter();
+
                 break;
             case GameState.RESULT_STAGE:
                 this._runState = RunState.END;
@@ -241,6 +252,7 @@ class GameWorld extends egret.Sprite implements IBase {
                     this.progress.exit();
                 }
                 this.racetrack.exit();
+                this.lastX = 0;
                 TimerManager.instance.clearTimer(this.execute);
                 break;
             case GameState.RUN_STAGE:
@@ -293,14 +305,20 @@ class GameWorld extends egret.Sprite implements IBase {
 
     private onResize(evt?: egret.Event): void {
         if (this.stage) {
+            if (this.racetrack && this.racetrack.parent) {
+                this.racetrack.updateView(this.stage.stageHeight);
+                this.image4Group.enter(this.stage.stageHeight - 118);
+                this.addChild(this.progress);
+            }
             if (this.betView && this.betView.parent) {
                 // this.betView.y = this.stage.stageHeight - this.betView.height;
                 this.betView.top = 0;
                 this.betView.bottom = 0;
                 this.betView.height = this.stage.stageHeight;
+                this.addChild(this.betView);
             }
-            if (this.racetrack && this.racetrack.parent) {
-                this.racetrack.updateView(this.stage.stageHeight);
+            if (this.topBar && this.topBar.parent) {
+                this.addChild(this.topBar);
             }
             if (this.progress && this.progress.parent) {
                 this.progress.y = this.stage.stageHeight - this.progress.height;

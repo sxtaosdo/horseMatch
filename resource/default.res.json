@@ -13,7 +13,7 @@
 			"name":"main"
 		},
 		{
-			"keys":"bg_start_png,bg_track_png,bg_end_png,bg_image1_png,bg_image2_png,bg_image3_png,bg_obstacle_1_png,bg_obstacle_2_png",
+			"keys":"bg_start_png,bg_track_png,bg_end_png,bg_image1_png,bg_image2_png,bg_image3_png,bg_obstacle_1_png,bg_obstacle_2_png,bg_image4_png",
 			"name":"bg"
 		},
 		{
@@ -764,6 +764,11 @@
 			"name":"bg_obstacle_2_png",
 			"type":"image",
 			"url":"assets/game/bg/bg_obstacle_2.png"
+		},
+		{
+			"name":"bg_image4_png",
+			"type":"image",
+			"url":"assets/game/bg/bg_image4.png"
 		}
 	]
 }
