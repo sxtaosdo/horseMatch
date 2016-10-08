@@ -16,4 +16,15 @@ class MatchInfoVo {
 			this.horseInfoList.push(new MatchPlayerVo(element));
 		});
 	}
+
+	public toString(): string {
+		var str: string = "";
+		var key: any;
+		for (key in this.info) {
+			if (String(this.info[key]).indexOf("function") < 0) {
+				str += key + ":" + this.info[key] + "\t"
+			}
+		}
+		return str;
+	}
 }

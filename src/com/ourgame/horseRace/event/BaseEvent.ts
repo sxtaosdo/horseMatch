@@ -13,8 +13,8 @@ class BaseEvent {
 
 	/**用户携带额改变 */
 	public static USER_MOENY_CHANGE: string = "userMoneyChange"
-	/**倍率信息变化 */
-	public static BET_INFO_CHANGE: string = "betInfoChange";
+	/**比赛详情 */
+	public static MATCH_INFO_CHANGE: string = "betInfoChange";
 	/**下注结果错误 */
 	public static BET_OPERATION_RESULT: string = "betOperationError";
 	/**撤销投注消息 */

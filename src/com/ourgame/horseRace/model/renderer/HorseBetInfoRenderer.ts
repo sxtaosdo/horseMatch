@@ -8,7 +8,7 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 	public betText: eui.Label;
 
 	private icon: egret.Bitmap;
-	
+
 	private point: egret.Point = new egret.Point(0, 0);
 
 	public constructor() {
@@ -21,6 +21,7 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 	protected onSkinComplete(e: any): void {
 		// this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTap, this, false, 0);
 		// this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
+		this.betText.visible = false;
 	}
 
 	public dataChanged(): void {
@@ -34,12 +35,8 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 		if (vo.math) {
 			this.numText.text = "X" + vo.math.rate;
 			this.stateText.text = "" + vo.math.state;
-			// if (vo.math.bet > 0) {
-			// 	this.onTap(vo.math.bet - parseInt(this.betText.text));
-			// } else if (vo.math.bet == 0) {
-			// 	this.onRemove();
-			// }
 			this.betText.text = "" + vo.math.bet;
+			this.betText.visible = vo.math.bet > 0 ? true : false;
 		}
 	}
 

@@ -8,7 +8,7 @@ class MatchPlayerVo {
 	/**倍率 */
 	public rate: number;
 	/**已下注的金额 */
-	public bet: number = 0;
+	private _bet: number = 0;
 	/**排名 */
 	public rank: number;
 
@@ -23,6 +23,22 @@ class MatchPlayerVo {
 		this.rate = data.odds;
 		this.state = data.state;
 		this.rank = data.rank;
+		if (data.bet || (data.bet == 0)) {
+			this.bet = data.bet;
+		}
 	}
+
+
+	public get bet(): number {
+		return this._bet;
+	}
+
+
+	public set bet(v: number) {
+		this._bet = v;
+		console.log();
+
+	}
+
 
 }

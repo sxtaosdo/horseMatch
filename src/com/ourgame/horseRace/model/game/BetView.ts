@@ -19,8 +19,7 @@ class BetView extends BaseComponent implements IBase {
 	/** 筹码的图像*/
 	private coinList: Array<any>;
 	private betInfoList: Object;
-	/**每局的操作队列 */
-	private operationObj: any;
+
 	/**每次的操作，发送给服务器前的操作，发送后清空 */
 	public operationTemp: any;
 
@@ -28,7 +27,6 @@ class BetView extends BaseComponent implements IBase {
 	public constructor() {
 		super(false);
 
-		this.operationObj = new Object();
 		this.coinList = new Array<any>();
 		this.betInfoList = Object();
 		this.horseData = new eui.ArrayCollection();
@@ -57,7 +55,7 @@ class BetView extends BaseComponent implements IBase {
 			this.btn10000.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoneyTap, this);
 			this.revokeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onrevokeTap, this);
 		}
-		GameDispatcher.addEventListener(BaseEvent.BET_INFO_CHANGE, this.onBetChange, this);
+		GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onBetChange, this);
 		GameDispatcher.addEventListener(BaseEvent.BET_OPERATION_RESULT, this.onBetResult, this);
 		GameDispatcher.addEventListener(BaseEvent.BET_CANCEL, this.onBetCancel, this);
 		this.onBetChange();
@@ -70,7 +68,7 @@ class BetView extends BaseComponent implements IBase {
 		this.btn1000.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoneyTap, this);
 		this.btn10000.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoneyTap, this);
 		this.revokeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onrevokeTap, this);
-		GameDispatcher.removeEventListener(BaseEvent.BET_INFO_CHANGE, this.onBetChange, this);
+		GameDispatcher.removeEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onBetChange, this);
 		GameDispatcher.removeEventListener(BaseEvent.BET_OPERATION_RESULT, this.onBetResult, this);
 		GameDispatcher.removeEventListener(BaseEvent.BET_CANCEL, this.onBetCancel, this);
 		if (this.parent) {
@@ -95,7 +93,6 @@ class BetView extends BaseComponent implements IBase {
 		var bmp: egret.Bitmap;
 		switch (this.selectMoney) {
 			case 100:
-				// bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.red)];
 				bmp = BitMapUtil.createBitmapByName("coin100_png");
 				bmp.x = 750;
 				break;
@@ -104,7 +101,6 @@ class BetView extends BaseComponent implements IBase {
 				bmp.x = 900;
 				break;
 			case 10000:
-				// bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.blue)];
 				bmp = BitMapUtil.createBitmapByName("coin10000_png");
 				bmp.x = 1050;
 				break;
@@ -114,15 +110,21 @@ class BetView extends BaseComponent implements IBase {
 		if (this.coinList[this.horseList.selectedIndex] == null) {
 			this.coinList[this.horseList.selectedIndex] = new Array<egret.Bitmap>();
 		}
+
+		//飞金币动画
 		let tx: number = (this.coinList[this.horseList.selectedIndex].length % 2 == 0 ? 60 : 130) + RandomUtil.randNumber(0, 5) + (this.horseList.selectedIndex * 250)
 		let ty: number = (this.stage.stageHeight >> 1) + 35 + Math.floor(this.coinList[this.horseList.selectedIndex].length / 2) * -10;
 		egret.Tween.get(bmp).to({ x: tx, y: ty }, 200);
 		this.coinList[this.horseList.selectedIndex].push(bmp);
-		if (this.operationObj[this.horseList.selectedIndex]) {
-			this.operationObj[this.horseList.selectedIndex] += this.selectMoney;
+
+		//记录总投注
+		if (ClientModel.instance.operationObj[this.horseList.selectedIndex]) {
+			ClientModel.instance.operationObj[this.horseList.selectedIndex] += this.selectMoney;
 		} else {
-			this.operationObj[this.horseList.selectedIndex] = this.selectMoney;
+			ClientModel.instance.operationObj[this.horseList.selectedIndex] = this.selectMoney;
 		}
+
+		//记录本次投注
 		if (this.operationTemp[this.horseList.selectedIndex]) {
 			this.operationTemp[this.horseList.selectedIndex] += this.selectMoney;
 		} else {
@@ -141,20 +143,19 @@ class BetView extends BaseComponent implements IBase {
 		ConnectionManager.instance.sendHelper.bet(str);
 	}
 
-	private randomInfo(id: number): MatchPlayerVo {	//temp随机一个下注信息
-		var vo: MatchPlayerVo = new MatchPlayerVo();
-		vo.bet = 0;
-		vo.rate = RandomUtil.randInt(100, 2000) / 100;
-		vo.state = RandomUtil.randInt(1, 5);
-		return vo;
-	}
-
 	private onMoneyTap(evt: egret.TouchEvent): void {
 		this.selectMoney = parseInt(evt.currentTarget.label);
 	}
 
 	private onrevokeTap(evt: egret.TouchEvent): void {
 		ConnectionManager.instance.sendHelper.cancel();
+		if (ConfigModel.instance.debug) {
+			this.horseData.source.forEach(element => {
+				element.math.bet = 0;
+			});
+			this.horseData.refresh();
+			this.onRemove();
+		}
 	}
 
 
@@ -190,13 +191,12 @@ class BetView extends BaseComponent implements IBase {
 			arr.forEach(element => {
 				let id = element[0];
 				let money: number = parseInt(element[1]);
-				if (this.operationObj[id]) {
-					this.operationObj[id] -= money;
+				if (ClientModel.instance.operationObj[id]) {
+					ClientModel.instance.operationObj[id] -= money;
 				}
 			});
-		} else {
-			this.operationTemp = {};
 		}
+		this.operationTemp = {};
 	}
 
 	/**撤销消息结果 */

@@ -1,7 +1,8 @@
 /**
 * @author  sxt
 */
-class MsgReceiveHelper {
+class MsgReceiveHelper extends egret.HashObject {
+    public name: string = "MsgReceiveHelper";
     private static instance: MsgReceiveHelper;
 
     private clientModel: ClientModel;
@@ -10,6 +11,7 @@ class MsgReceiveHelper {
     private _sender: any;
 
     public constructor(message: any) {
+        super();
         MsgReceiveHelper.instance = this;
         this._message = message;
         this.userModel = UserModel.instance;
@@ -27,10 +29,10 @@ class MsgReceiveHelper {
      * 数据处理，反序列化
      */
     public onMessage(type: any, body?: any): void {
+        // console.log("in onMessage:\ntype:" + type + "\nbody:" + body + "\t" + TimeUtils.printTime);
         var msg: any = MsgReceiveHelper.instance.msg;
         var cls: any;
 
-        console.log("in onMessage:\ntype:" + type + "\nbody:" + body);
         if ((body.rtnCode == 0) || (body.rtnCode == -301)) {//正常返回
             switch (type) {
                 case "login":

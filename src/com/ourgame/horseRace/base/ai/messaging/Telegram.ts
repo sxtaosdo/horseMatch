@@ -31,6 +31,10 @@ class Telegram implements ICompositor {
     public DispatchTime: number;
 
     public time: number;
+    /**
+     * 内容
+     */
+    public info: any;
 
     public constructor(time: number, sender: string, receiver: string, msg: number, info: any = null) {
         this.Sender = sender;
@@ -38,6 +42,7 @@ class Telegram implements ICompositor {
         this.Msg = msg;
         this.DispatchTime = time;
         this.time = egret.getTimer();
+        this.info = info;
     }
 
 	/**

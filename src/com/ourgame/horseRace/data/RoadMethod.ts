@@ -9,7 +9,7 @@ class RoadMethod {
     /**比赛秒数 */
     private static competeSeconds: number = 20;
     /**暂时将比赛路段平均分为100段（暂定，可以更多或者更少） */
-    public static roadIntervals: number = 100;
+    public static roadIntervals: number = 30;
     /**愤怒系数，即愤怒时的速度为普通时的多少 */
     private static angryKey: number = 2;
     /**
@@ -39,8 +39,9 @@ class RoadMethod {
         var i: number;
         //通过状态及随机数，获得一个路障，并随机是否通过，及障碍位置(路段总数的中间三分之一)
         var obsVo: ObstacleVo = new ObstacleVo();
-        obsVo.initData(new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId + i + "obstacle"));
+        obsVo.initData(new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId + i + "obstacle" + (TimeUtils.timestampDate() / 60)));
         var isPass: boolean = Math.random() > 0.5 ? true : false;
+        // var isPass=true;
         var obsPostion: number = obsVo.postion;
         //道路的总长度获取
         var totalRoadLength: number = GameWorld.DEADLINE_LENGTH - GameWorld.LEFT_LINE;

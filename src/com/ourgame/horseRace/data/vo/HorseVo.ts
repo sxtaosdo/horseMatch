@@ -1,4 +1,4 @@
-class HorseVo {
+class HorseVo extends egret.HashObject {
 
 	public id: number;
 	public name: string;
@@ -27,7 +27,7 @@ class HorseVo {
 
 
 	public constructor() {
-
+		super();
 	}
 
 	public analysis(data: any): void {

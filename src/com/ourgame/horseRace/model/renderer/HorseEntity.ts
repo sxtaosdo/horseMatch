@@ -45,6 +45,11 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 	}
 
 	public handleMessage(msg: Telegram): boolean {
+		switch (msg.info) {
+			case "onReachEndLine":
+				this.getFSM().ChangeState(HorseEnityStateEnd.instance);
+				return true;
+		}
 		return;
 	}
 
@@ -72,6 +77,16 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		this._roadList = value;
 	}
 
+	public stopAnimation(key: boolean = true): void {
+		if (this.armature) {
+			if (key) {
+				this.armature.animation.stop();
+			} else {
+				this.armature.animation.play();
+			}
+		}
+	}
+
 	public changeAnimation(name: string): void {
 		if (this.armature) {
 			dragonBones.WorldClock.clock.remove(this.armature);
@@ -80,11 +95,11 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			this.armature = this.dragonbonesFactory.buildArmature(name);
 			dragonBones.WorldClock.clock.add(this.armature);
 			this.armature.animation.gotoAndPlay(name);
-			// console.log("change animation to:" + name);
 			this.displayObject = this.armature.display;
 			this.displayObject.anchorOffsetX = this.displayObject.width / 2;
 			this._content.addChild(this.displayObject);
 
+			this.armature.animation.gotoAndPlay(name);
 		}
 	}
 
@@ -93,6 +108,10 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		var textureData = RES.getRes("texture" + id + "_json");
 		var texture = RES.getRes("texture" + id + "_png");
 		if (!dragonbonesData) {
+		// if (true) {
+			// dragonbonesData = RES.getRes("donghua" + 1 + "_json");
+			// textureData = RES.getRes("texture" + 1 + "_json");
+			// texture = RES.getRes("texture" + 1 + "_png");
 			dragonbonesData = RES.getRes("donghua" + 4 + "_json");
 			textureData = RES.getRes("texture" + 4 + "_json");
 			texture = RES.getRes("texture" + 4 + "_png");
@@ -105,6 +124,10 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			this.armature = this.dragonbonesFactory.buildArmature(AnimationType.IDEL);
 			dragonBones.WorldClock.clock.add(this.armature);
 			this.armature.animation.gotoAndPlay(AnimationType.IDEL);
+
+			// this.armature = this.dragonbonesFactory.buildArmature("armatureName");
+			// dragonBones.WorldClock.clock.add(this.armature);
+			// this.armature.animation.gotoAndPlay(AnimationType.IDEL);
 
 			this.displayObject = this.armature.display;
 			this.displayObject.anchorOffsetX = this.displayObject.width / 2;
@@ -121,7 +144,8 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			this.displayObject = mc;
 		}
 		this._content.addChild(this.displayObject);
-		this._selectArrow.x = this.displayObject.width + this._selectArrow.width;
+		this._selectArrow.x = 250;
+		// this._selectArrow.y = this.displayObject.height>>1;
 	}
 
 	public getDataVo<T>(clazz: any) {

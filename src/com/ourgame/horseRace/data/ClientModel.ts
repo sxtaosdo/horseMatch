@@ -61,12 +61,18 @@ class ClientModel {
     public nextTime: number;
     /**进入当前状态时间 */
     private _enterStateTime: number = 0;
+    /**第一名的马匹 */
+    private _first: HorseEntity;
     /**下注结果 */
     public _betOperation: string;
     /**撤销投注信息 */
     public _betCancel: any;
+    /**每局的操作队列 */
+    public operationObj: any;
+
 
     public constructor() {
+        this.operationObj = new Object();
         this.user = UserModel.instance;
         this.moneyType = "0";
         this._phaseList = [];
@@ -170,7 +176,9 @@ class ClientModel {
         var vo: MatchInfoVo = new MatchInfoVo(data);
         this._lastBetInfo = vo;
         this._betInfo[key] = vo;
-        GameDispatcher.send(BaseEvent.BET_INFO_CHANGE);
+        GameDispatcher.send(BaseEvent.MATCH_INFO_CHANGE);
+        console.log("msgr：setBetInfo收到数据处理并发送" + vo);
+
     }
 
     public get gameInfoVo(): GameInfoVo {
@@ -354,5 +362,18 @@ class ClientModel {
     public get betCancel(): any {
         return this._betCancel;
     }
+
+
+    public set first(v: HorseEntity) {
+        this._first = v;
+        if (v != null) {
+            GameDispatcher.send(BaseEvent.REACH_END_LINE);
+        }
+    }
+
+    public get first(): HorseEntity {
+        return this._first;
+    }
+
 
 }

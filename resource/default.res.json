@@ -9,11 +9,11 @@
 			"name":"config"
 		},
 		{
-			"keys":"shutter_png,bg_png,arrow_png,gameProgress_png,flag_png,arrow5_png,arrow1_png,arrow2_png,arrow3_png,arrow4_png,obstacle1_png,obstacle2_png,result_topTime_png,result_bg_png,result_cup_png,result_star_png,result_thing_1_png,result_thing_2_png",
+			"keys":"shutter_png,bg_png,arrow_png,gameProgress_png,flag_png,arrow5_png,arrow1_png,arrow2_png,arrow3_png,arrow4_png,result_topTime_png,result_bg_png,result_cup_png,result_star_png,result_thing_1_png,result_thing_2_png",
 			"name":"main"
 		},
 		{
-			"keys":"bg_start_png,bg_track_png,bg_end_png,bg_image1_png,bg_image2_png,bg_image3_png,bg_obstacle_1_png",
+			"keys":"bg_start_png,bg_track_png,bg_end_png,bg_image1_png,bg_image2_png,bg_image3_png,bg_obstacle_1_png,bg_obstacle_2_png",
 			"name":"bg"
 		},
 		{
@@ -416,16 +416,6 @@
 			"url":"assets/game/arrow4.png"
 		},
 		{
-			"name":"obstacle1_png",
-			"type":"image",
-			"url":"assets/game/obstacle1.png"
-		},
-		{
-			"name":"obstacle2_png",
-			"type":"image",
-			"url":"assets/game/obstacle2.png"
-		},
-		{
 			"name":"coin_png",
 			"type":"image",
 			"url":"assets/betView/coin.png"
@@ -769,6 +759,11 @@
 			"name":"texture5_json",
 			"type":"json",
 			"url":"db/texture5.json"
+		},
+		{
+			"name":"bg_obstacle_2_png",
+			"type":"image",
+			"url":"assets/game/bg/bg_obstacle_2.png"
 		}
 	]
 }

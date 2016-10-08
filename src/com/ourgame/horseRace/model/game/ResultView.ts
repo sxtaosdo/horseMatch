@@ -11,6 +11,8 @@ class ResultView extends BaseComponent implements IBase {
 
 	private dataList: eui.ArrayCollection;
 	private timer: number = 0;
+	private call: Function;
+	private callThis: any;
 
 	public constructor() {
 		super();
@@ -20,15 +22,23 @@ class ResultView extends BaseComponent implements IBase {
 		this.itemList.dataProvider = this.dataList;
 	}
 
+	protected onSkinComplete(e: any): void {
+		super.onSkinComplete(e);
+		this.timeText.text = "";
+	}
+
 	public enter(data?: any): void {
 		// console.log("ResultView enter:" + egret.getTimer());
-		GameDispatcher.addEventListener(BaseEvent.BET_INFO_CHANGE, this.onInfo, this);
-		ConnectionManager.instance.sendHelper.drawMatch();
+		this.call = data.call;
+		this.callThis = data.thisObj;
+		GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
+		// ConnectionManager.instance.sendHelper.drawMatch();
+		this.onInfo();
 	}
 
 	public exit(): void {
 		// console.log("ResultView exit:" + egret.getTimer());
-		this.removeEventListener(BaseEvent.BET_INFO_CHANGE, this.onInfo, this);
+		this.removeEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
 		TimerManager.instance.clearTimer(this.execute);
 		if (this.parent) {
 			this.parent.removeChild(this);
@@ -41,6 +51,9 @@ class ResultView extends BaseComponent implements IBase {
 		if (this.timer < 0) {
 			TimerManager.instance.clearTimer(this.execute);
 			this.timeText.text = "";
+			if (this.call) {
+				this.call.call(this.callThis);
+			}
 		}
 	}
 
@@ -55,7 +68,8 @@ class ResultView extends BaseComponent implements IBase {
 				this.dataList.addItem(element);
 			});
 			this.dataList.refresh();
-			this.timer = ClientModel.instance.lastBetInfo.info.leftTime;
+			// this.timer = ClientModel.instance.lastBetInfo.info.leftTime;
+			this.timer = ConfigModel.instance.nextTime;
 			TimerManager.instance.doLoop(1000, this.execute, this);
 		}
 	}

@@ -8,5 +8,5 @@ class AnimationType {
 	/**落水 */
 	public static DROWN: string = "luoshui"
 	/**撞倒 */
-	public static FALL: string = "zhanggan"
+	public static FALL: string = "zhuanggan"
 }

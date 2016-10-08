@@ -10,6 +10,15 @@ class InfoPanel extends BaseComponent implements IWindow {
 	public headBtn4: eui.RadioButton;
 	public headBtn5: eui.RadioButton;
 	public viewStack: eui.ViewStack;
+	public headImage: eui.Image;
+	public idText: eui.Label;
+	public nameText: eui.Label;
+	public qxdText: eui.Label;
+	public nlText: eui.Label;
+	public bqpvText: eui.Label;
+	public lsdlText: eui.Label;
+	public bqtzText: eui.Label;
+	public bqztText: eui.Label;
 	public dataList: eui.List;
 	public leftTab: eui.TabBar;
 
@@ -23,6 +32,7 @@ class InfoPanel extends BaseComponent implements IWindow {
 
 	protected onSkinComplete(e: any): void {
         super.onSkinComplete(e);
+		this.onInfoData(1);
     }
 
 	public enter(data?: any): void {
@@ -81,6 +91,27 @@ class InfoPanel extends BaseComponent implements IWindow {
 	}
 
 	private onLeftTap(evt: egret.TouchEvent): void {
-		this.onData();
+		let index: number = parseInt(this.headBtn1.group.selection.label)
+		switch (this.leftTab.selectedIndex) {
+			case 0:
+				this.onInfoData(index);
+				break;
+			case 1:
+				this.onData();
+				break;
+		}
+	}
+
+	private onInfoData(index: number): void {
+		let data: HorseVo = ConfigModel.instance.horseList[index - 1];
+		this.qxdText.text = data.habitat;
+		this.nlText.text = String(data.age);
+		this.bqpvText.text = "";
+		this.lsdlText.text = "";
+		this.bqtzText.text = "";
+		this.bqztText.text = "";
+		this.headImage.texture = RES.getRes("betHead" + index + "_png");
+		this.nameText.text = data.name;
+		this.idText.text = String(data.id);
 	}
 }

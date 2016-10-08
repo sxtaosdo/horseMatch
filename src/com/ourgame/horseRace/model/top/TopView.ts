@@ -21,6 +21,7 @@ class TopView extends BaseComponent implements IBase {
 	private time: number = 0;
 	private call: Function;
 	private callThis: any;
+	private isShowTime: boolean = false;
 
 	public constructor(call: Function, callThis: any) {
 		super(false);
@@ -43,6 +44,7 @@ class TopView extends BaseComponent implements IBase {
 	}
 
 	private changeTimerState(key: boolean): void {
+		this.isShowTime = key;
 		this.stateGroup.visible = key;
 		this.timeBg.visible = key;
 	}
@@ -61,23 +63,29 @@ class TopView extends BaseComponent implements IBase {
 					break;
 				case GameState.PREPARE_STAGE:
 					this.typeText.text = "比赛倒计时";
-					this.time = ClientModel.instance.resultTime;
+					this.time = ClientModel.instance.prepareTime;
 					this.changeTimerState(true);
 					break;
 				case GameState.RUN_STAGE:
-					this.typeText.text = "";
-					this.timerText.text = "";
+					this.typeText.text = "比赛中";
+					// this.timerText.text = String(ClientModel.instance.enterStateTime);
+					this.time = ClientModel.instance.lastBetInfo.info.leftTime
 					this.changeTimerState(false);
-					return;
+					break;
 				case GameState.RESULT_STAGE:
 					this.typeText.text = "距下一场比赛";
-					this.time = ClientModel.instance.nextTime;
+					this.time = ConfigModel.instance.nextTime;
 					this.changeTimerState(false);
 					break;
 			}
 		}
 		this.onMoneyChange();
-		TimerManager.instance.doLoop(1000, this.execute, this);
+		console.log("TopView time:" + this.time + "\t state:" + data + "\t" + TimeUtils.printTime);
+
+		if (this.isShowTime) {
+			this.execute();
+			TimerManager.instance.doLoop(1000, this.execute, this);
+		}
 		GameDispatcher.addEventListener(BaseEvent.USER_MOENY_CHANGE, this.onMoneyChange, this);
 	}
 
@@ -86,13 +94,16 @@ class TopView extends BaseComponent implements IBase {
 	}
 
 	public execute(data?: any): void {
-		if (this.time > -1) {
+		if (this.time > 0) {
 			this.timerText.text = String(this.time);
+			console.log("top time:" + this.time);
 			this.time--;
 		} else {
 			TimerManager.instance.clearTimer(this.execute);
-			if (this.call) {
+			try {
 				this.call.apply(this.callThis);
+			} catch (e) {
+				console.error(e)
 			}
 		}
 	}

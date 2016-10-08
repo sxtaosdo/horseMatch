@@ -29,6 +29,7 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 	}
 
 	public enter(data?: any): void {
+		this.lastX = 0;
 		this.bgImage.enter();
 		this.racetrackArr.forEach(element => {
 			element.x = 0;
@@ -45,6 +46,19 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 			bmp.x = GameWorld.DEADLINE_LENGTH;
 			this.racetrackArr[i].addChild(bmp);
 
+			var arr = ClientModel.instance.phaseList[i];
+			arr.forEach(element => {
+				if (element.obstacleType != 0) {
+					bmp = BitMapUtil.createBitmapByName("bg_obstacle_" + element.obstacleType + "_png");
+					bmp.y = -90;
+					bmp.x = element.startX;
+					if (element.obstacleType == 2) {
+						bmp.y = 0;
+						bmp.x = element.startX - 10;
+					}
+					this.racetrackArr[i].addChild(bmp);
+				}
+			});
 			// var arr = ClientModel.instance.phaseList[i];
 			// arr.forEach(element => {
 			// 	if (element instanceof ObstacleVo) {
@@ -57,13 +71,15 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 	}
 
 	public exit(): void {
-		this.clearnRacetrack();
+		// this.clearnRacetrack();
 		this.bgImage.exit();
+		this.lastX = 0;
 	}
 
 	public execute(data?: any): void {
 		this.racetrackArr.forEach(element => {
-			element.x -= (data - this.lastX);
+			// element.x -= (data - this.lastX);
+			element.x = -ClientModel.instance.roadPastLength;
 		});
 		this.bgImage.execute(data - this.lastX);
 		this.lastX = data;

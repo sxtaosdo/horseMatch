@@ -83,14 +83,14 @@ class MessageDispatcher {
         }
     }
 
-    public DispatchSimpleMessage(sender: IBaseGameEntity, receiver: IBaseGameEntity): void {
+    public DispatchSimpleMessage(sender: IBaseGameEntity, receiver: IBaseGameEntity, info: any = null): void {
         var pSender: IBaseGameEntity = sender;
         var pReceiver: IBaseGameEntity = receiver;
         if (pReceiver == null) {
             console.warn("\nWarning! No Receiver with ID of " + receiver + " found");
             return;
         }
-        var telegram: Telegram = new Telegram(0, pSender.sid, receiver.sid, 0, null);
+        var telegram: Telegram = new Telegram(0, pSender.sid, receiver.sid, 0, info);
         // console.log("[" + DateUtils.s2d(telegram.time) + "]" + (<SkillEntity>sender).source.name + " 对" + receiver.property.name + " 使用了 " + (<SkillEntity>sender).name + "\t造成伤害:" + (<SkillEntity>sender).damageHurt);
         this.Discharge(pReceiver, telegram);
 

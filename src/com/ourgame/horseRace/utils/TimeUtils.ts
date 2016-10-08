@@ -5,7 +5,11 @@ class TimeUtils {
     public static timestampDate(): any {
         return Math.round(new Date().getTime() / 1000);
     }
-    
+
+    public static get printTime(): string {
+        return (TimeUtils.formatDate(TimeUtils.timestampDate()));
+    }
+
     /**
      *  时间戳转换时间
      */

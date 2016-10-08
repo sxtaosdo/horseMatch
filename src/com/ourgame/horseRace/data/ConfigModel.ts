@@ -38,11 +38,10 @@ class ConfigModel {
         var value: any;
         this._version = data.version;
         this._url = data.url;
-        this._prepareTime = data.prepareTime;
+        ClientModel.instance.prepareTime = this._prepareTime = data.prepareTime;
+        ClientModel.instance.nextTime = this._nextTime = data.nextTime;
+        ClientModel.instance.betTime = this._betTime = data.betTime;
         this._showTest = data.showTest;
-        this._betTime = data.betTime;
-        // this._resultTime = data.resultTime;
-        this._nextTime = data.nextTime;
         console.log("配置文件:" + this._version);
         if (data.debug) {
             this._debug = data.debug;
@@ -53,10 +52,10 @@ class ConfigModel {
             console.log("debug模式:" + this._debug);
         }
         this.horseData(RES.getRes("horse_json"));
-        ClientModel.instance.prepareTime = this._prepareTime;
-        ClientModel.instance.betTime = this._betTime;
+        // ClientModel.instance.prepareTime = this._prepareTime;
+        // ClientModel.instance.betTime = this._betTime;
         // ClientModel.instance.resultTime = this._resultTime;
-        ClientModel.instance.nextTime = this._nextTime;
+        // ClientModel.instance.nextTime = this._nextTime;
         GameDispatcher.send(GameEvent.CONFIG_INIT_COMPLETE_EVENT);
     }
 
