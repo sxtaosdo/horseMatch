@@ -62,7 +62,7 @@ class Main extends eui.UILayer {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
             this.addChild(this.game);
         }
-        
+
     }
 
     private onAssetsComplete(): void {

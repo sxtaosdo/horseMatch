@@ -1,5 +1,10 @@
 class HorseAnamiationDemo extends egret.Sprite {
-    private horseMcList: Array<any>;
+    private static list: Array<string> = [AnimationType.IDEL, AnimationType.RUN, AnimationType.JUMP, AnimationType.FALL, AnimationType.DROWN];
+
+    private factoryList: Array<dragonBones.EgretFactory>;
+    private armatureList: Array<dragonBones.Armature>;
+
+    private currentIndex: number = 0;
 
     public constructor() {
         super();
@@ -8,7 +13,8 @@ class HorseAnamiationDemo extends egret.Sprite {
     }
 
     private init(): void {
-        this.horseMcList = new Array<any>();
+        this.factoryList = new Array<dragonBones.EgretFactory>();
+        this.armatureList = new Array<dragonBones.Armature>();
         for (let i: number = 0; i < 5; i++) {
             let dragonbonesData = RES.getRes("donghua" + 4 + "_json");
             let textureData = RES.getRes("texture" + 4 + "_json");
@@ -27,8 +33,10 @@ class HorseAnamiationDemo extends egret.Sprite {
                 // dragonBones.WorldClock.clock.add(this.armature);
                 // this.armature.animation.gotoAndPlay(AnimationType.IDEL);
 
-                this.horseMcList.push(dragonbonesFactory);
-                armature.display.x = i * 100;
+                this.factoryList.push(dragonbonesFactory);
+                this.armatureList.push(armature);
+                armature.display.x = (i + 1) * 200;
+                armature.display.y = (i + 1) * 130;
                 this.addChild(armature.display);
             }
         }
@@ -38,10 +46,37 @@ class HorseAnamiationDemo extends egret.Sprite {
     }
 
     private run(): void {
-        TimerManager.instance.doFrameLoop(1, () => {
-
+        TimerManager.instance.doLoop(5000, () => {
+            if (this.currentIndex >= HorseAnamiationDemo.list.length) {
+                this.currentIndex = 0;
+            }
+            for (let i: number = 0; i < 5; i++) {
+                this.changeAnimation(i, HorseAnamiationDemo.list[this.currentIndex]);
+            }
+            this.currentIndex++;
         }, this)
 
 
+    }
+
+    public changeAnimation(i: number, name: string): void {
+        let armature = this.armatureList[i];
+        let dragonbonesFactory = this.factoryList[i];
+        if (armature) {
+            dragonBones.WorldClock.clock.remove(armature);
+            this.removeChild(armature.display);
+
+            armature = dragonbonesFactory.buildArmature(name);
+            dragonBones.WorldClock.clock.add(armature);
+            armature.animation.gotoAndPlay(name);
+            if (armature.display) {
+                this.addChild(armature.display);
+                armature.display.x = (i + 1) * 200;
+                armature.display.y = (i + 1) * 130;
+            }else{
+                console.log(armature);
+                
+            }
+        }
     }
 }

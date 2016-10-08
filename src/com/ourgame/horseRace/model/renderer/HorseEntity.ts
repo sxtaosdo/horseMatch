@@ -99,7 +99,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			this.displayObject.anchorOffsetX = this.displayObject.width / 2;
 			this._content.addChild(this.displayObject);
 
-			this.armature.animation.gotoAndPlay(name);
+			// this.armature.animation.gotoAndPlay(name);
 		}
 	}
 
