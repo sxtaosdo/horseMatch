@@ -32,7 +32,7 @@
         "age": 4,
         "breed": "马",
         "acceleration": 1.6,
-        "maximumSpeed": 4.4,
+        "maximumSpeed": 4.6,
         "speed": 3.5,
         "endurance": 3,
         "recovery": 8,
@@ -59,7 +59,7 @@
         "breed": "草泥马 ",
         "acceleration": 1.7,
         "maximumSpeed": 4.1,
-        "speed": 3.5,
+        "speed": 3.7,
         "endurance": 3,
         "recovery": 8,
         "mcName": 5

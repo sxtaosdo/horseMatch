@@ -185,7 +185,7 @@ class GameWorld extends egret.Sprite implements IBase {
     }
 
     private onTimerComplete(): void {
-        console.log("GameWord:onTimerComplete 收到TopView的回调:" + this._gameState + "\t" + TimeUtils.printTime);
+        // console.log("GameWord:onTimerComplete 收到TopView的回调:" + this._gameState + "\t" + TimeUtils.printTime);
 
         switch (this._gameState) {
             case GameState.BET_STAGE:
@@ -207,7 +207,7 @@ class GameWorld extends egret.Sprite implements IBase {
     }
 
     private changeState(state: any, enterStateTime: number = 0): void {
-        console.log("GameWord:changeState _gameState:" + this._gameState + "\t" + TimeUtils.printTime);
+        // console.log("GameWord:changeState _gameState:" + this._gameState + "\t" + TimeUtils.printTime);
         this._gameState = state;
         this.topBar.enter(state);
         switch (this._gameState) {
@@ -317,13 +317,12 @@ class GameWorld extends egret.Sprite implements IBase {
     }
 
     private onMatchInfoChange(): void {
-        console.log("gameword 收到draw事件并处理" + this.client.lastBetInfo.info);
-
+        // console.log("gameword 收到draw事件并处理" + this.client.lastBetInfo.info);
         this.parseGameStateData(this.client.lastBetInfo.info);
     }
 
     private parseGameStateData(data: GameInfoVo): void {
-        console.log("berview \tcdTime:" + data.cdTime + "\tleftTime:" + data.leftTime);
+        console.log("berview \tcdTime:" + data.cdTime + "\tleftTime:" + data.leftTime + "\t" + TimeUtils.printTime);
         if (data.cdTime > 0) {
             this.client.betTime = data.cdTime;
             this.changeState(GameState.BET_STAGE);

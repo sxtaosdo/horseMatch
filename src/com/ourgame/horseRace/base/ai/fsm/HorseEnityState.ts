@@ -179,6 +179,31 @@ class HorseEnityStateEnd implements IState {
 			if (egret.getTimer() - this.self.sTime > 2500) {
 				this.self.sTime = 0;
 				this.self.stopAnimation(false);
+				// this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
+			}
+		} else {
+			var list: Array<RoadVo> = this.self.roadList;
+			var date: Date = new Date();
+			var nextTime = (date.getTime() - ClientModel.instance.enterStateTime + 1000 / RoadMethod.secondInterval) / 1000 * RoadMethod.secondInterval;
+			var currentTime = 0;
+			var reachEnd: boolean = true;
+			for (var i: number = 0; i < list.length; i++) {
+				if (list[i].throughTime + currentTime >= nextTime) {
+					//跑出障碍(返回奔跑状态)
+					if (list[i].obstacleType == 0) {
+						this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
+					}
+					//在障碍中，pass要播放动画，x坐标随之变化，待sxt确认
+					else {
+						this.self.currentX = list[i].throughLength / list[i].throughTime * (nextTime - currentTime) + list[i].startX;
+						entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
+						this.self.sTime = egret.getTimer();
+					}
+					break;
+				}
+				else {
+					currentTime += list[i].throughTime;
+				}
 			}
 		}
 	}
@@ -301,7 +326,6 @@ class HorseEnityStatePass implements IState {
 			else {
 				currentTime += list[i].throughTime;
 			}
-
 		}
 	}
 

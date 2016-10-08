@@ -43,7 +43,7 @@ class ObstacleVo {
 		let temp1: string = temp.toString();
 		temp = parseInt(temp1.substr(temp1.length - 1));
 		this.type = temp < 5 ? 1 : 2;
-		console.log(temp + "\t" + data);
+		// console.log(temp + "\t" + data);
 
 		index += step;
 		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;

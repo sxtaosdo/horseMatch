@@ -69,7 +69,7 @@ class ResultView extends BaseComponent implements IBase {
 			});
 			this.dataList.refresh();
 			// this.timer = ClientModel.instance.lastBetInfo.info.leftTime;
-			this.timer = ConfigModel.instance.nextTime;
+			this.timer = ConfigModel.instance.nextTime - 2;
 			TimerManager.instance.doLoop(1000, this.execute, this);
 		}
 	}

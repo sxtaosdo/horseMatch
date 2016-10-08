@@ -144,7 +144,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			this.displayObject = mc;
 		}
 		this._content.addChild(this.displayObject);
-		this._selectArrow.x = 250;
+		this._selectArrow.x = 50;
 		// this._selectArrow.y = this.displayObject.height>>1;
 	}
 

@@ -177,7 +177,7 @@ class ClientModel {
         this._lastBetInfo = vo;
         this._betInfo[key] = vo;
         GameDispatcher.send(BaseEvent.MATCH_INFO_CHANGE);
-        console.log("msgr：setBetInfo收到数据处理并发送" + vo);
+        console.log("msgr：setBetInfo收到数据处理并发送" + TimeUtils.printTime + vo);
 
     }
 

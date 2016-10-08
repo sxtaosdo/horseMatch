@@ -80,7 +80,7 @@ class TopView extends BaseComponent implements IBase {
 			}
 		}
 		this.onMoneyChange();
-		console.log("TopView time:" + this.time + "\t state:" + data + "\t" + TimeUtils.printTime);
+		// console.log("TopView time:" + this.time + "\t state:" + data + "\t" + TimeUtils.printTime);
 
 		if (this.isShowTime) {
 			this.execute();
@@ -96,7 +96,7 @@ class TopView extends BaseComponent implements IBase {
 	public execute(data?: any): void {
 		if (this.time > 0) {
 			this.timerText.text = String(this.time);
-			console.log("top time:" + this.time);
+			// console.log("top time:" + this.time);
 			this.time--;
 		} else {
 			TimerManager.instance.clearTimer(this.execute);
