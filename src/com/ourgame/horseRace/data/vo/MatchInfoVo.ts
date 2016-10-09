@@ -1,6 +1,7 @@
 class MatchInfoVo {
 	public info: GameInfoVo;
 	public horseInfoList: Array<MatchPlayerVo>;
+	private _includeRank: boolean = false;
 
 	public constructor(data?: any) {
 		this.info = new GameInfoVo();
@@ -11,10 +12,19 @@ class MatchInfoVo {
 	}
 
 	public setData(data: any): void {
+		this._includeRank = false;
 		this.info.setData(data);
+		let temp: number = 0;
 		data.matchInfo.forEach(element => {
-			this.horseInfoList.push(new MatchPlayerVo(element));
+			let vo: MatchPlayerVo = new MatchPlayerVo(element)
+			this.horseInfoList.push(vo);
+			if (vo.rank > 0) {//判断是否包含名次信息
+				temp++;
+			}
 		});
+		if (temp > 4) {
+			this._includeRank = true;
+		}
 	}
 
 	public toString(): string {
@@ -26,5 +36,9 @@ class MatchInfoVo {
 			}
 		}
 		return str;
+	}
+
+	public get includeRank(): boolean {
+		return this._includeRank;
 	}
 }

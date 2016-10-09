@@ -41,9 +41,6 @@ class MsgReceiveHelper extends egret.HashObject {
                         console.log("收到登陆成功消息：" + egret.getTimer());
                         ConnectionManager.instance.sendHelper.gameInfo();
                     }
-                    // else {
-                    //     ClientModel.instance.openAlert("登陆失败，请重试");
-                    // }
                     break;
                 case "init":
                     ClientModel.instance.gameInfo = body;
@@ -51,7 +48,7 @@ class MsgReceiveHelper extends egret.HashObject {
                 case "draw":
                     ClientModel.instance.setBetInfo(body.drawId, body);
                     break;
-                case "drawResult":
+                case "drawHist":
                     ClientModel.instance.setHistory(body);
                     break;
                 case "bet":
@@ -59,6 +56,12 @@ class MsgReceiveHelper extends egret.HashObject {
                     break;
                 case "cancel":
                     ClientModel.instance.setCancelResult(body);
+                    break;
+                case "drawHist":
+                    ClientModel.instance.setDrawHistory(body);
+                    break;
+                case "betHist":
+                    ClientModel.instance.setBethistory(body);
                     break;
             }
         } else {    //异常返回

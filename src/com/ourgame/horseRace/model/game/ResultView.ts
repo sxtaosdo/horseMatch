@@ -32,13 +32,15 @@ class ResultView extends BaseComponent implements IBase {
 		this.call = data.call;
 		this.callThis = data.thisObj;
 		GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
-		// ConnectionManager.instance.sendHelper.drawMatch();
+		GameDispatcher.addEventListener(BaseEvent.DRAW_RESULT, this.onAward, this);
+		ConnectionManager.instance.sendHelper.matchResult();
 		this.onInfo();
 	}
 
 	public exit(): void {
 		// console.log("ResultView exit:" + egret.getTimer());
 		this.removeEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
+		GameDispatcher.removeEventListener(BaseEvent.DRAW_RESULT, this.onAward, this);
 		TimerManager.instance.clearTimer(this.execute);
 		if (this.parent) {
 			this.parent.removeChild(this);
@@ -68,9 +70,18 @@ class ResultView extends BaseComponent implements IBase {
 				this.dataList.addItem(element);
 			});
 			this.dataList.refresh();
-			// this.timer = ClientModel.instance.lastBetInfo.info.leftTime;
-			this.timer = ConfigModel.instance.nextTime - 2;
+			if (ConfigModel.instance.debug) {
+				this.timer = ConfigModel.instance.nextTime - 2;
+			} else {
+				this.timer = vo.info.leftTime;
+			}
 			TimerManager.instance.doLoop(1000, this.execute, this);
+		}
+	}
+
+	private onAward(): void {
+		if (this.moneyText) {
+			this.moneyText.text = String(ClientModel.instance.awardMoneoy);
 		}
 	}
 }

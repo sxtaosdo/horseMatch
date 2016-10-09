@@ -50,6 +50,14 @@ class ClientModel {
     private _lastBetInfo: any;
     /**历史奖期记录 */
     private _history: Array<HistoryVo>;
+    /**进入当前状态时间 */
+    private _enterStateTime: number = 0;
+    /**第一名的马匹 */
+    private _first: HorseEntity;
+    /**我的投注记录 */
+    private _betHistory: Array<BetHistoryInfoVo>;
+    /**奖励金额 */
+    private _awardMoney: number = 0;
 
     /**下注时间 */
     public betTime: number;
@@ -59,17 +67,12 @@ class ClientModel {
     public prepareTime: number;
     /**距下一场比赛 */
     public nextTime: number;
-    /**进入当前状态时间 */
-    private _enterStateTime: number = 0;
-    /**第一名的马匹 */
-    private _first: HorseEntity;
     /**下注结果 */
     public _betOperation: string;
     /**撤销投注信息 */
     public _betCancel: any;
     /**每局的操作队列 */
     public operationObj: any;
-
 
     public constructor() {
         this.operationObj = new Object();
@@ -79,6 +82,7 @@ class ClientModel {
         this._horseList = new Array<HorseEntity>();
         this._history = new Array<HistoryVo>();
         this._gameInfo = new GameInfoVo();
+        this._betHistory = new Array<BetHistoryInfoVo>();
         this._betInfo = new Object();
     }
 
@@ -175,6 +179,7 @@ class ClientModel {
     public setBetInfo(key: string, data: any) {
         var vo: MatchInfoVo = new MatchInfoVo(data);
         this._lastBetInfo = vo;
+        this.betTime = vo.info.cdTime;
         this._betInfo[key] = vo;
         GameDispatcher.send(BaseEvent.MATCH_INFO_CHANGE);
         console.log("msgr：setBetInfo收到数据处理并发送" + TimeUtils.printTime + vo);
@@ -275,14 +280,10 @@ class ClientModel {
             this._phaseList.push(RoadMethod.instance.creatRoad(drawid, this.horseList[i].getDataVo<HorseVo>(HorseVo), stateArr[temp]));
             stateArr.splice(temp, 1);
         }
-        // for (var i: number = 0; i < 5; i++) {
-        //     var list: Array<any> = new Array<any>();
-        //     var obs: ObstacleVo = new ObstacleVo(new md5().hex_md5(id + i + "obstacle"));
-        //     list.push(obs);
-        //     var buf: BufferVo = new BufferVo(new md5().hex_md5(id + i + "buffer"));
-        //     list.push(buf);
-        //     this._phaseList.push(list);
-        // }
+        var index: number = 0;
+        ClientModel.instance.horseList.forEach(element => {
+            element.roadList = ClientModel.instance.phaseList[index++];
+        });
         return this._phaseList;
     }
 
@@ -375,5 +376,24 @@ class ClientModel {
         return this._first;
     }
 
+    public setDrawHistory(data: any): void {
+        this._awardMoney = data;
+        GameDispatcher.send(BaseEvent.DRAW_RESULT)
+    }
 
+    public setBethistory(data: any): void {
+        this._betHistory = [];
+        data.list.forEach(element => {
+            this._betHistory.push(new BetHistoryInfoVo(element));
+        });
+        GameDispatcher.send(BaseEvent.BET_HISTORY)
+    }
+
+    public get betHistory(): Array<BetHistoryInfoVo> {
+        return this._betHistory;
+    }
+
+    public get awardMoneoy(): number {
+        return this._awardMoney;
+    }
 }

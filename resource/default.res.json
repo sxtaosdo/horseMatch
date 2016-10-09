@@ -29,7 +29,7 @@
 			"name":"alert"
 		},
 		{
-			"keys":"betMoneyBg_png,betSoundBtn2_png,betSoundBtn1_png,betTimeBg_png,betBtnBg_png,racingBtn2_png,minutesBtn1_png,minutesBtn2_png,openBtn1_png,openBtn2_png,racingBtn1_png,addBtn2_png,addBtn1_png,taskBtn2_png,moreBg_png,moreBtn1_png,moreBtn2_png,rultBtn1_png,rultBtn2_png,taskBtn1_png",
+			"keys":"betMoneyBg_png,betSoundBtn2_png,betSoundBtn1_png,betTimeBg_png,betBtnBg_png,racingBtn2_png,minutesBtn1_png,minutesBtn2_png,openBtn1_png,openBtn2_png,racingBtn1_png,addBtn2_png,addBtn1_png,taskBtn2_png,moreBg_png,moreBtn1_png,moreBtn2_png,rultBtn1_png,rultBtn2_png,taskBtn1_png,shareBtn1_png,shareBtn2_png",
 			"name":"top"
 		},
 		{
@@ -45,7 +45,7 @@
 			"name":"betView"
 		},
 		{
-			"keys":"texture4_png,donghua4_json,texture4_json,texture5_png,donghua5_json,texture5_json",
+			"keys":"texture4_png,donghua4_json,texture4_json,donghua1_json,texture1_json,texture1_png,donghua5_json,texture5_json,texture5_png",
 			"name":"db"
 		},
 		{
@@ -512,6 +512,7 @@
 		},
 		{
 			"name":"moreBg_png",
+			"scale9grid":"46,133,38,31",
 			"type":"image",
 			"url":"assets/top/moreBg.png"
 		},
@@ -746,9 +747,39 @@
 			"url":"assets/betView/coin10000.png"
 		},
 		{
-			"name":"texture5_png",
+			"name":"bg_obstacle_2_png",
 			"type":"image",
-			"url":"db/texture5.png"
+			"url":"assets/game/bg/bg_obstacle_2.png"
+		},
+		{
+			"name":"bg_image4_png",
+			"type":"image",
+			"url":"assets/game/bg/bg_image4.png"
+		},
+		{
+			"name":"donghua1_json",
+			"type":"json",
+			"url":"db/donghua1.json"
+		},
+		{
+			"name":"texture1_json",
+			"type":"json",
+			"url":"db/texture1.json"
+		},
+		{
+			"name":"texture1_png",
+			"type":"image",
+			"url":"db/texture1.png"
+		},
+		{
+			"name":"shareBtn1_png",
+			"type":"image",
+			"url":"assets/top/shareBtn1.png"
+		},
+		{
+			"name":"shareBtn2_png",
+			"type":"image",
+			"url":"assets/top/shareBtn2.png"
 		},
 		{
 			"name":"donghua5_json",
@@ -761,14 +792,9 @@
 			"url":"db/texture5.json"
 		},
 		{
-			"name":"bg_obstacle_2_png",
+			"name":"texture5_png",
 			"type":"image",
-			"url":"assets/game/bg/bg_obstacle_2.png"
-		},
-		{
-			"name":"bg_image4_png",
-			"type":"image",
-			"url":"assets/game/bg/bg_image4.png"
+			"url":"db/texture5.png"
 		}
 	]
 }

@@ -11,4 +11,12 @@
 	</e:Button>
 	<e:Image source="historyTitle_png" x="301" y="0"/>
 	<e:Image source="historyBg_png" x="74" y="86"/>
+	<e:List id="list" width="804" height="389" x="82" y="151" itemRendererSkinName="BetHistoryItemSkin">
+		<e:ArrayCollection>
+			<e:Array>
+				<e:Object/>
+				<e:Object/>
+			</e:Array>
+		</e:ArrayCollection>
+	</e:List>
 </e:Skin>

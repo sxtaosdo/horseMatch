@@ -8,7 +8,7 @@ class WindowManager extends egret.Sprite {
 
     private currentWin: IWindow;
     private winList: any;
-    private modalAlpha: number = 0;
+    private modalAlpha: number = .6;
     private bg: egret.Sprite;
     private _alertDataList: Array<any>;
 

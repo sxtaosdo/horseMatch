@@ -38,7 +38,7 @@ class MsgSendHelper {
     }
 
     public history(data?: any): void {
-        ConnectionManager.instance.send("/hrb/drawResult");
+        ConnectionManager.instance.send("/hrb/drawHist");
     }
 
     public bet(data: string): void {
@@ -49,5 +49,13 @@ class MsgSendHelper {
     public cancel(): void {
         var jsondata = "{\"drawId\" : \"" + ClientModel.instance.lastBetInfo.info.drawId + "\",\"playId\" : \"1\"}";
         ConnectionManager.instance.send("/hrb/cancel", jsondata);
+    }
+
+    public myBetHistory(): void {
+        ConnectionManager.instance.send("/hrb/betHist");
+    }
+
+    public matchResult(): void {
+        ConnectionManager.instance.send("/hrb/drawResult");
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BetHistoryItemSkin" width="800" height="40" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="idText" text="●" x="7" y="5" width="176" verticalAlign="middle" textAlign="center"/>
+	<e:Label id="dateText" text="●" x="193" y="5" width="187" verticalAlign="middle" textAlign="center"/>
+	<e:Label id="moneyText" text="●" x="386" y="5" width="198" verticalAlign="middle" textAlign="center"/>
+	<e:Label id="awardText" text="●" x="592" y="5" width="197" verticalAlign="middle" textAlign="center"/>
+</e:Skin>

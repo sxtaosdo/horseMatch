@@ -54,7 +54,7 @@
 	</e:Group>
 	<e:Group id="moreGroup" x="1101" y="85" visible="false">
 		<e:Image source="moreBg_png" x="0" y="0"/>
-		<e:ToggleButton id="soundBtn" label="" x="7" y="22">
+		<e:ToggleButton id="soundBtn" label="" x="13" y="22">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="betSoundBtn1_png" source.down="betSoundBtn2_png"/>
@@ -62,7 +62,7 @@
 			</e:Skin>
 			</e:skinName>
 		</e:ToggleButton>
-		<e:Button id="ruleBtn" label="" x="7" y="81.5">
+		<e:Button id="ruleBtn" label="" x="13" y="84">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="rultBtn1_png" source.down="rultBtn2_png"/>
@@ -70,10 +70,18 @@
 				</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:Button id="taskBtn" label="" x="7" y="140">
+		<e:Button id="taskBtn" label="" x="13" y="145">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="taskBtn1_png" source.down="taskBtn2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="shareBtn" label="" x="13" y="207">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="shareBtn1_png" source.down="shareBtn2_png"/>
 				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
 				</e:Skin>
 			</e:skinName>

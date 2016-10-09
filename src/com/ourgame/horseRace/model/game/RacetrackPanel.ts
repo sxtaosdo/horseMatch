@@ -71,6 +71,9 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 		// this.clearnRacetrack();
 		this.image4Group.exit();
 		this.bgImage.exit();
+		this.racetrackArr.forEach(element => {
+			element.x = 0;
+		});
 	}
 
 	public execute(data?: any): void {

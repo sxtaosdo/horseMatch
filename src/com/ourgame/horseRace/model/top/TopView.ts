@@ -47,6 +47,9 @@ class TopView extends BaseComponent implements IBase {
 		this.isShowTime = key;
 		this.stateGroup.visible = key;
 		this.timeBg.visible = key;
+		if (!key) {
+			TimerManager.instance.clearTimer(this.execute);
+		}
 	}
 
 	private onMoreTap(): void {
@@ -101,15 +104,11 @@ class TopView extends BaseComponent implements IBase {
 	public execute(data?: any): void {
 		if (this.time > 0) {
 			this.timerText.text = String(this.time);
-			// console.log("top time:" + this.time);
+			console.log("TopView: time:" + this.time + "\t state:" + ClientModel.instance.gameState);
 			this.time--;
 		} else {
 			TimerManager.instance.clearTimer(this.execute);
-			try {
-				this.call.apply(this.callThis);
-			} catch (e) {
-				console.error(e)
-			}
+			this.call.apply(this.callThis);
 		}
 	}
 
@@ -147,7 +146,7 @@ class TopView extends BaseComponent implements IBase {
 	}
 
 	private onMoneyChange(): void {
-		this.moneyText.text = UserModel.instance.money.toString();
+		this.moneyText.text = String(UserModel.instance.money);
 	}
 
 	private onAddTap(): void {

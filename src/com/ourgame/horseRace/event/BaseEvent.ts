@@ -19,6 +19,10 @@ class BaseEvent {
 	public static BET_OPERATION_RESULT: string = "betOperationError";
 	/**撤销投注消息 */
 	public static BET_CANCEL: string = "betCancel";
+	/**历史投注消息 */
+	public static BET_HISTORY: string = "getHistroy"
+	/**赛事结果-中奖金额 */
+	public static DRAW_RESULT: string = "drawResult"
 
 
 	/**window */

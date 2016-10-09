@@ -200,16 +200,18 @@ class GameWorld extends egret.Sprite implements IBase {
                 if (this.betView.parent) {
                     this.betView.parent.removeChild(this.betView);
                 }
-                ConnectionManager.instance.sendHelper.drawMatch();
+                // ConnectionManager.instance.sendHelper.drawMatch();
                 this.changeState(GameState.PREPARE_STAGE);
                 break;
             case GameState.PREPARE_STAGE:
-                this.changeState(GameState.RUN_STAGE);
+
+                //准备倒计时结束后，请求名次信息
+                ConnectionManager.instance.sendHelper.drawMatch();
                 break;
-            case GameState.RUN_STAGE:
-                break;
+            // case GameState.RUN_STAGE:
+            //     break;
             case GameState.RESULT_STAGE:
-                this.changeState(GameState.BET_STAGE);
+                ConnectionManager.instance.sendHelper.drawMatch();
                 break;
         }
     }
@@ -233,13 +235,9 @@ class GameWorld extends egret.Sprite implements IBase {
             case GameState.PREPARE_STAGE:
                 this._runState = RunState.GEGIN;
                 this.betView.exit();
-                ClientModel.instance.initGameSprite(this.client.gameInfoVo.drawId);
+
                 this.addChild(this.progress);
-                var index: number = 0;
-                this.client.horseList.forEach(element => {
-                    element.roadList = ClientModel.instance.phaseList[index++];
-                });
-                this.racetrack.enter();
+
                 this.lastX = 0;
                 this.progress.enter();
 
@@ -263,6 +261,9 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.isBulletTime = false;
                 this.tempSpeed = 0;
                 ClientModel.instance.roadPastLength = 0;
+                ClientModel.instance.initGameSprite(this.client.gameInfoVo.drawId);
+
+                this.racetrack.enter();
                 TimerManager.instance.doLoop(1 / 30 * 1000, this.execute, this);
                 var that: GameWorld = this;
                 ConfigModel.instance.horseList.forEach(element => {
@@ -336,7 +337,25 @@ class GameWorld extends egret.Sprite implements IBase {
 
     private onMatchInfoChange(): void {
         // console.log("gameword 收到draw事件并处理" + this.client.lastBetInfo.info);
-        this.parseGameStateData(this.client.lastBetInfo.info);
+        switch (this._gameState) {
+            case GameState.PREPARE_STAGE://比赛3秒倒计时后服务器才知道比赛结果，所以这里需要请求一次，如果没有名次信息则重试，次数太多弹板提示
+                if (this.client.lastBetInfo.includeRank) {
+                    this.changeState(GameState.RUN_STAGE, this.client.lastBetInfo.info.leftTime - this.client.nextTime);
+                } else {
+                    ConnectionManager.instance.sendHelper.drawMatch();
+                    console.log("获取名次信息失败，重试" + TimeUtils.printTime);
+                }
+                break;
+            case GameState.RESULT_STAGE:
+                if (this.client.lastBetInfo.info.cdTime > 0) {
+                    this.changeState(GameState.BET_STAGE);
+                    console.log("在结果展示界面倒计时完毕，收到cdTime：" + this.client.lastBetInfo.info.cdTime + "\t" + TimeUtils.printTime);
+                }
+                break;
+            default:
+                this.parseGameStateData(this.client.lastBetInfo.info);
+                break;
+        }
     }
 
     private parseGameStateData(data: GameInfoVo): void {

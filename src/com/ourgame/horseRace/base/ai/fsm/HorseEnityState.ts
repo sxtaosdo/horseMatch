@@ -83,11 +83,11 @@ class HorseEnityStateSeek implements IState {
 				//s=vo*t+1/2*a*t*t--无障碍(到达终点冲过去，哦吼吼)
 				if (list[i].obstacleType == 0) {
 					var target = list[i].startSpeed * (nextTime - currentTime) + (nextTime - currentTime) * (nextTime - currentTime) * list[i].acceleration / 2;
-					target=Math.min(list[i].throughLength, target);
+					target = Math.min(list[i].throughLength, target);
 					this.self.currentX = target + list[i].startX;
 				}
 				else {
-					this.self.currentX=list[i].startX;
+					this.self.currentX = list[i].startX;
 					if (list[i].state == 5) {
 						// console.log("中陷阱");
 						this.self.getFSM().ChangeState(HorseEnityStateStuck.instance);
@@ -179,7 +179,7 @@ class HorseEnityStateEnd implements IState {
 
 		if (this.self.sTime > 0) {
 			this.self.stopAnimation();
-			if (egret.getTimer() - this.self.sTime > 2000) {
+			if (egret.getTimer() - this.self.sTime > 1500) {
 				this.self.sTime = 0;
 				this.self.stopAnimation(false);
 				// this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
@@ -193,6 +193,7 @@ class HorseEnityStateEnd implements IState {
 			// }
 			this.self.currentX += speed;
 			entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
+
 		}
 
 	}
@@ -305,14 +306,14 @@ class HorseEnityStatePass implements IState {
 			if (list[i].throughTime + currentTime >= nextTime) {
 				//跑出障碍(返回奔跑状态)
 				if (list[i].obstacleType == 0) {
-					this.self.currentX=list[i-1].startX+list[i-1].throughLength;
+					this.self.currentX = list[i - 1].startX + list[i - 1].throughLength;
 					entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 					this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
 				}
 				//在障碍中，pass要播放动画，x坐标随之变化，待sxt确认
 				else {
-					var target=list[i].throughLength / list[i].throughTime * (nextTime - currentTime);
-					target=Math.min(list[i].throughLength,target);
+					var target = list[i].throughLength / list[i].throughTime * (nextTime - currentTime);
+					target = Math.min(list[i].throughLength, target);
 					this.self.currentX = target + list[i].startX;
 					entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 					this.self.sTime = egret.getTimer();
