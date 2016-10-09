@@ -74,6 +74,8 @@ declare class OperationRecordPanelSkin extends eui.Skin{
 }
 declare class TaskPanelSkin extends eui.Skin{
 }
+declare class BetHistoryItemSkin extends eui.Skin{
+}
 declare class HistoryItemSkin extends eui.Skin{
 }
 declare class HorseItenSkin extends eui.Skin{

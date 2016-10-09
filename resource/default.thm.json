@@ -44,6 +44,7 @@
     "resource/game_skins/window/InfoPanelSkin.exml",
     "resource/game_skins/window/OperationRecordPanelSkin.exml",
     "resource/game_skins/window/TaskPanelSkin.exml",
+    "resource/renderer/BetHistoryItemSkin.exml",
     "resource/renderer/HistoryItemSkin.exml",
     "resource/renderer/HorseItenSkin.exml",
     "resource/renderer/InfoItemSkin.exml",
