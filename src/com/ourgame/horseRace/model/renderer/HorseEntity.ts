@@ -39,7 +39,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		this.stateMachine = new StateMachine(this);
 		this.getFSM().ChangeState(HorseEnityStateIdel.instance);
 	}
-	
+
 
     public update(): void {
 		this.getFSM().Update();
@@ -90,6 +90,10 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 
 	public changeAnimation(name: string): void {
 		if (this.armature) {
+			if (name == this.armature.name) {
+				// console.log("this.armature重复");
+				return;
+			}
 			dragonBones.WorldClock.clock.remove(this.armature);
 			this._content.removeChild(this.displayObject);
 
@@ -109,7 +113,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		var textureData = RES.getRes("texture" + id + "_json");
 		var texture = RES.getRes("texture" + id + "_png");
 		if (!dragonbonesData) {
-		// if (true) {
+			// if (true) {
 			// dragonbonesData = RES.getRes("donghua" + 1 + "_json");
 			// textureData = RES.getRes("texture" + 1 + "_json");
 			// texture = RES.getRes("texture" + 1 + "_png");
@@ -167,7 +171,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		this._currentX = value;
 	}
 
-	public get currentX():number{
+	public get currentX(): number {
 		return this._currentX;
 	}
 

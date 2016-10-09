@@ -57,7 +57,7 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 					bmp.y = -90;
 					bmp.x = element.startX;
 					if (element.obstacleType == 2) {
-						bmp.y = -20;
+						bmp.y = -10;
 						bmp.x = element.startX - 120;
 					}
 					this.racetrackArr[i].addChild(bmp);

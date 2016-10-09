@@ -72,12 +72,12 @@ class HorseEnityStateSeek implements IState {
 		let nextTime = (date.getTime() - ClientModel.instance.enterStateTime + 1000 / RoadMethod.secondInterval) / 1000 * RoadMethod.secondInterval;
 		let currentTime = 0;
 		let reachEnd: boolean = true;
-		if (this.self.sTime > 0) {
-			if (egret.getTimer() - this.self.sTime > 1000) {
-				this.self.changeAnimation(AnimationType.RUN);
-				this.self.sTime = 0;
-			}
-		}
+		// if (this.self.sTime > 0) {
+		// 	if (egret.getTimer() - this.self.sTime > 1000) {
+		// 		this.self.changeAnimation(AnimationType.RUN);
+		// 		this.self.sTime = 0;
+		// 	}
+		// }
 		for (var i: number = 0; i < list.length; i++) {
 			if (list[i].throughTime + currentTime >= nextTime) {
 				//s=vo*t+1/2*a*t*t--无障碍(到达终点冲过去，哦吼吼)
@@ -102,7 +102,7 @@ class HorseEnityStateSeek implements IState {
 						// console.log("通过障碍");
 						this.self.getFSM().ChangeState(HorseEnityStatePass.instance);
 					}
-					this.self.sTime = egret.getTimer();
+					// this.self.sTime = egret.getTimer();
 				}
 				reachEnd = false;
 				break;
@@ -165,7 +165,7 @@ class HorseEnityStateEnd implements IState {
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
 		this.self.sTime = egret.getTimer();
-		this.execute(this.self);
+		// this.execute(this.self);
 		// egret.Tween.get(this).wait(1000 / 30 * 100).call(() => {
 		// 	this.self.displayObject["frameRate"] = 0;
 		// 	egret.Tween.get(this.self.displayObject).wait(200).to({
@@ -179,7 +179,7 @@ class HorseEnityStateEnd implements IState {
 
 		if (this.self.sTime > 0) {
 			this.self.stopAnimation();
-			if (egret.getTimer() - this.self.sTime > 2500) {
+			if (egret.getTimer() - this.self.sTime > 2000) {
 				this.self.sTime = 0;
 				this.self.stopAnimation(false);
 				// this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
