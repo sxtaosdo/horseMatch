@@ -51,6 +51,11 @@ class TopView extends BaseComponent implements IBase {
 
 	private onMoreTap(): void {
 		this.moreGroup.visible = this.moreBtn.selected;
+		// if (this.moreGroup.visible) {
+		// 	this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onMoreTap, this);
+		// } else {
+		// 	this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onMoreTap, this);
+		// }
 	}
 
 	public enter(data?: any): void {
@@ -128,10 +133,17 @@ class TopView extends BaseComponent implements IBase {
 
 	public onRuleTap(): void {
 		ClientModel.instance.openWindow(HelpPanel);
+		this.changeMoreBtn();
 	}
 
 	public onTaskTap(): void {
 		ClientModel.instance.openWindow(TaskPanel);
+		this.changeMoreBtn();
+	}
+
+	private changeMoreBtn(key: boolean = false): void {
+		this.moreBtn.selected = key;
+		this.onMoreTap();
 	}
 
 	private onMoneyChange(): void {

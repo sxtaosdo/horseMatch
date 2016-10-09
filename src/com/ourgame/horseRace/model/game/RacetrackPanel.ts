@@ -10,7 +10,7 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 	private image3Group: egret.Bitmap;
 	/**前景 */
 	private image4Group: ImageGroup;
-	
+
 
 	public constructor() {
 		super();
@@ -33,7 +33,7 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 	}
 
 	public enter(data?: any): void {
-		
+
 		this.bgImage.enter();
 		this.racetrackArr.forEach(element => {
 			element.x = 0;
@@ -47,7 +47,7 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 			this.racetrackArr[i].addChild(bmp)
 
 			bmp = BitMapUtil.createBitmapByName("bg_end_png");
-			bmp.x = GameWorld.DEADLINE_LENGTH;
+			bmp.x = GameWorld.DEADLINE_LENGTH - bmp.width/4;
 			this.racetrackArr[i].addChild(bmp);
 
 			var arr = ClientModel.instance.phaseList[i];

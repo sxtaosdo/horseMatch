@@ -1,11 +1,11 @@
 class HorseBetInfoRenderer extends eui.ItemRenderer {
 
-	public nameText: eui.Label;
-	public indexText: eui.Label;
 	public stateText: eui.Label;
 	public numText: eui.Label;
-	public image: eui.Image;
 	public betText: eui.Label;
+	public nameText: eui.Label;
+	public indexText: eui.Label;
+	public steteText: eui.Label;
 
 	private icon: egret.Bitmap;
 
@@ -37,6 +37,7 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 			this.stateText.text = "" + vo.math.state;
 			this.betText.text = "" + vo.math.bet;
 			this.betText.visible = vo.math.bet > 0 ? true : false;
+			this.steteText.text = vo.math.state + "";
 		}
 	}
 
