@@ -62,6 +62,7 @@ class HorseEnityStateSeek implements IState {
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
 		this.self.changeAnimation(AnimationType.RUN);
+		this.execute(this.self);
 	}
 
     public execute(entity: IBaseGameEntity): void {
@@ -82,14 +83,11 @@ class HorseEnityStateSeek implements IState {
 				//s=vo*t+1/2*a*t*t--无障碍(到达终点冲过去，哦吼吼)
 				if (list[i].obstacleType == 0) {
 					var target = list[i].startSpeed * (nextTime - currentTime) + (nextTime - currentTime) * (nextTime - currentTime) * list[i].acceleration / 2;
-					if (i != list.length - 1) {
-						this.self.currentX = Math.min(list[i].throughLength, target) + list[i].startX;
-					}
-					else {
-						this.self.currentX = target+list[i].startX;
-					}
+					target=Math.min(list[i].throughLength, target);
+					this.self.currentX = target + list[i].startX;
 				}
 				else {
+					this.self.currentX=list[i].startX;
 					if (list[i].state == 5) {
 						// console.log("中陷阱");
 						this.self.getFSM().ChangeState(HorseEnityStateStuck.instance);
@@ -132,6 +130,7 @@ class HorseEnityStateSeek implements IState {
 				}
 			}
 		}
+		// console.log("sid is: "+this.self.sid+"\n nextTime is: "+nextTime +"\n currentX is "+this.self.currentX);
 		entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 	}
 
@@ -166,7 +165,7 @@ class HorseEnityStateEnd implements IState {
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
 		this.self.sTime = egret.getTimer();
-		console.log("this.self.id:"+this.self.sid+"  this.self.x:"+this.self.currentX);
+		this.execute(this.self);
 		// egret.Tween.get(this).wait(1000 / 30 * 100).call(() => {
 		// 	this.self.displayObject["frameRate"] = 0;
 		// 	egret.Tween.get(this.self.displayObject).wait(200).to({
@@ -193,9 +192,6 @@ class HorseEnityStateEnd implements IState {
 			// 	this.client.maxSpeed = speed;
 			// }
 			this.self.currentX += speed;
-			if(this.self.currentX<0){
-				console.log("this.self.id:"+this.self.sid+"  this.self.x:"+this.self.currentX);
-			}
 			entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 		}
 
@@ -228,6 +224,7 @@ class HorseEnityStateStuck implements IState {
 
     public enter(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
+		this.execute(this.self);
 	}
 
     public execute(entity: IBaseGameEntity): void {
@@ -260,8 +257,8 @@ class HorseEnityStateStuck implements IState {
 			else {
 				currentTime += list[i].throughTime;
 			}
-
 		}
+		// console.log("sid is: "+this.self.sid+"\n stuck nextTime is: "+nextTime +"\n currentX is "+this.self.currentX);
 	}
 
     public exit(entity: IBaseGameEntity): void {
@@ -294,6 +291,7 @@ class HorseEnityStatePass implements IState {
 		this.self = <HorseEntity>entity;
 		this.self.sTime = egret.getTimer();
 		this.self.changeAnimation(AnimationType.JUMP);
+		this.execute(this.self);
 	}
 
     public execute(entity: IBaseGameEntity): void {
@@ -307,11 +305,15 @@ class HorseEnityStatePass implements IState {
 			if (list[i].throughTime + currentTime >= nextTime) {
 				//跑出障碍(返回奔跑状态)
 				if (list[i].obstacleType == 0) {
+					this.self.currentX=list[i-1].startX+list[i-1].throughLength;
+					entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 					this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
 				}
 				//在障碍中，pass要播放动画，x坐标随之变化，待sxt确认
 				else {
-					this.self.currentX = list[i].throughLength / list[i].throughTime * (nextTime - currentTime) + list[i].startX;
+					var target=list[i].throughLength / list[i].throughTime * (nextTime - currentTime);
+					target=Math.min(list[i].throughLength,target);
+					this.self.currentX = target + list[i].startX;
 					entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 					this.self.sTime = egret.getTimer();
 				}
@@ -320,11 +322,10 @@ class HorseEnityStatePass implements IState {
 			else {
 				currentTime += list[i].throughTime;
 			}
+			// console.log("sid is: "+this.self.sid+"\n pass nextTime is: "+nextTime +"\n currentX is "+this.self.currentX);
 		}
 	}
 
     public exit(entity: IBaseGameEntity): void {
-		this.self = <HorseEntity>entity;
-		this.self.currentX += ObstacleVo.OBSTACLE_LENGTH;
 	}
 }

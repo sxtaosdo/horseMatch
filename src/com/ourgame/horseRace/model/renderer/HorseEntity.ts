@@ -164,9 +164,6 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		this._vo.speed = value;
 	}
 	public set currentX(value: number) {
-		if(this._currentX>value){
-			console.log("attention");
-		}
 		this._currentX = value;
 	}
 
