@@ -29,8 +29,9 @@ class ResultView extends BaseComponent implements IBase {
 
 	public enter(data?: any): void {
 		// console.log("ResultView enter:" + egret.getTimer());
-		this.call = data.call;
-		this.callThis = data.thisObj;
+		// this.call = data.call;
+		// this.callThis = data.thisObj;
+		this.timeText.text = String(ClientModel.instance.gameTime);
 		GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
 		GameDispatcher.addEventListener(BaseEvent.DRAW_RESULT, this.onAward, this);
 		ConnectionManager.instance.sendHelper.matchResult();
@@ -67,7 +68,7 @@ class ResultView extends BaseComponent implements IBase {
 		if (vo) {
 			this.nameText.text = ConfigModel.instance.horseList[vo.horseInfoList[0].id - 1].name;
 			this.headImage.source = RES.getRes("betHead" + vo.horseInfoList[0].id + "_png");
-			this.timeText.text = String(vo.info.leftTime);
+			// this.timeText.text = String(vo.info.leftTime);
 			vo.horseInfoList.forEach(element => {
 				this.dataList.addItem(element);
 			});

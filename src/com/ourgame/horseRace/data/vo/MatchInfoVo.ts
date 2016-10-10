@@ -16,6 +16,7 @@ class MatchInfoVo {
 		this.info.setData(data);
 		let temp: number = 0;
 		if (data.matchInfo) {
+			this.horseInfoList = [];
 			data.matchInfo.forEach(element => {
 				let vo: MatchPlayerVo = new MatchPlayerVo(element)
 				this.horseInfoList.push(vo);

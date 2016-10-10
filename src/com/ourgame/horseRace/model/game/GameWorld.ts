@@ -270,7 +270,7 @@ class GameWorld extends egret.Sprite implements IBase {
             case GameState.RESULT_STAGE:
                 this._runState = RunState.END;
                 this.addChild(this.resultBiew);
-                // this.resultBiew.enter({ call: this.onTimerComplete, thisObj: this });
+                this.resultBiew.enter();
                 if (this.progress.parent) {
                     this.progress.parent.removeChild(this.progress);
                     this.progress.exit();
