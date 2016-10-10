@@ -28,4 +28,7 @@ class BaseEvent {
 	/**window */
 	/**历史奖期记录 */
 	public static WINDOW_HISTORY: string = "windowHistory";
+
+	/**窗口尺寸变化 */
+	public static RESIZE_EVENT: string = "resizeEvent";
 }

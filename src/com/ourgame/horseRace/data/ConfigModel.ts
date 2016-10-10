@@ -12,12 +12,13 @@ class ConfigModel {
 
     /**下注时间 */
     private _betTime: number;
-    /**结果时间 */
-    // private _resultTime: number;
     /**准备时间 */
     private _prepareTime: number;
+    /**奔跑时间 */
+    private _runTime: number;
     /**距下一场比赛 */
     private _nextTime: number;
+
     /**url */
     private _url: string;
 
@@ -38,9 +39,10 @@ class ConfigModel {
         var value: any;
         this._version = data.version;
         this._url = data.url;
-        ClientModel.instance.prepareTime = this._prepareTime = data.prepareTime;
-        ClientModel.instance.nextTime = this._nextTime = data.nextTime;
-        ClientModel.instance.betTime = this._betTime = data.betTime;
+        this._prepareTime = data.prepareTime;
+        this._nextTime = data.nextTime;
+        this._betTime = data.betTime;
+        this._runTime = data.runTime;
         this._showTest = data.showTest;
         console.log("配置文件:" + this._version);
         if (data.debug) {
@@ -52,10 +54,6 @@ class ConfigModel {
             console.log("debug模式:" + this._debug);
         }
         this.horseData(RES.getRes("horse_json"));
-        // ClientModel.instance.prepareTime = this._prepareTime;
-        // ClientModel.instance.betTime = this._betTime;
-        // ClientModel.instance.resultTime = this._resultTime;
-        // ClientModel.instance.nextTime = this._nextTime;
         GameDispatcher.send(GameEvent.CONFIG_INIT_COMPLETE_EVENT);
     }
 
@@ -93,6 +91,10 @@ class ConfigModel {
 
     public get prepareTime(): number {
         return this._prepareTime;
+    }
+
+    public get runTime(): number {
+        return this._runTime;
     }
 
     public get nextTime(): number {

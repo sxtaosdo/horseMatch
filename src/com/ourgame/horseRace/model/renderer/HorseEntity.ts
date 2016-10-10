@@ -174,8 +174,4 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 	public get currentX(): number {
 		return this._currentX;
 	}
-
-	// public phaseSprite(): Array<PhaseVo> {
-	// 	return this._phaseSprite;
-	// }
 }

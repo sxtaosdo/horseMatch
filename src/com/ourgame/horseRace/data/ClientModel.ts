@@ -59,14 +59,15 @@ class ClientModel {
     /**奖励金额 */
     private _awardMoney: number = 0;
 
-    /**下注时间 */
-    public betTime: number;
-    /**结果时间 */
-    public resultTime: number;
-    /**准备时间 */
-    public prepareTime: number;
-    /**距下一场比赛 */
-    public nextTime: number;
+    // /**下注时间 */
+    // public betTime: number;
+    // /**准备时间 */
+    // public prepareTime: number;
+    // /**距下一场比赛 */
+    // public nextTime: number;
+    /**游戏当前时间 */
+    private _gameTime: number = 0;
+
     /**下注结果 */
     public _betOperation: string;
     /**撤销投注信息 */
@@ -179,11 +180,19 @@ class ClientModel {
     public setBetInfo(key: string, data: any) {
         var vo: MatchInfoVo = new MatchInfoVo(data);
         this._lastBetInfo = vo;
-        this.betTime = vo.info.cdTime;
+        this._gameTime = vo.info.leftTime;
         this._betInfo[key] = vo;
         GameDispatcher.send(BaseEvent.MATCH_INFO_CHANGE);
-        console.log("msgr：setBetInfo收到数据处理并发送" + TimeUtils.printTime + vo);
+        console.log("收到draw返回数据" + vo + "\t" + TimeUtils.printTime);
 
+    }
+
+    public get gameTime(): number {
+        return this._gameTime;
+    }
+
+    public set gameTime(v: number) {
+        this._gameTime = v;
     }
 
     public get gameInfoVo(): GameInfoVo {

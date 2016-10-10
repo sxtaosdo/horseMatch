@@ -41,4 +41,8 @@ class MatchInfoVo {
 	public get includeRank(): boolean {
 		return this._includeRank;
 	}
+
+	public get isNew(): boolean {
+		return this.info.isNew;
+	}
 }

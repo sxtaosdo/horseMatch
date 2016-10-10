@@ -18,15 +18,15 @@ class TopView extends BaseComponent implements IBase {
 	public ruleBtn: eui.Button;
 	public taskBtn: eui.Button;
 
-	private time: number = 0;
+	// private time: number = 0;
 	private call: Function;
 	private callThis: any;
 	private isShowTime: boolean = false;
 
-	public constructor(call: Function, callThis: any) {
+	public constructor() {
 		super(false);
-		this.call = call;
-		this.callThis = callThis;
+		// this.call = call;
+		// this.callThis = callThis;
 		this.skinName = "resource/skins/TopViewSkin.exml";
 	}
 
@@ -62,27 +62,32 @@ class TopView extends BaseComponent implements IBase {
 	}
 
 	public enter(data?: any): void {
+		let client: ClientModel = ClientModel.instance;
+		let config: ConfigModel = ConfigModel.instance;;
 		if (this.skinLoaded) {
 			switch (data) {
 				case GameState.BET_STAGE:
-					this.time = ClientModel.instance.betTime;
+					// this.time = client.gameTime - config.betTime;
 					this.typeText.text = "投注倒计时";
 					this.changeTimerState(true);
+					// client.gameTime = config.betTime;
 					break;
 				case GameState.PREPARE_STAGE:
 					this.typeText.text = "比赛倒计时";
-					this.time = ClientModel.instance.prepareTime;
+					// this.time = client.gameTime - config.runTime - config.nextTime;
 					this.changeTimerState(true);
+					// client.gameTime = config.runTime + config.nextTime
 					break;
 				case GameState.RUN_STAGE:
 					this.typeText.text = "比赛中";
-					// this.timerText.text = String(ClientModel.instance.enterStateTime);
-					this.time = ClientModel.instance.lastBetInfo.info.leftTime
+					// client.gameTime = (client.gameTime - config.runTime);
+					// this.time = ClientModel.instance.lastBetInfo.info.leftTime
 					this.changeTimerState(false);
 					break;
 				case GameState.RESULT_STAGE:
 					this.typeText.text = "距下一场比赛";
-					this.time = ConfigModel.instance.nextTime;
+					// client.gameTime = (client.gameTime - config.nextTime);
+					// this.time = 0;
 					this.changeTimerState(false);
 					break;
 			}
@@ -90,10 +95,12 @@ class TopView extends BaseComponent implements IBase {
 		this.onMoneyChange();
 		// console.log("TopView time:" + this.time + "\t state:" + data + "\t" + TimeUtils.printTime);
 
-		if (this.isShowTime) {
-			this.execute();
-			TimerManager.instance.doLoop(1000, this.execute, this);
-		}
+		// if (this.isShowTime) {
+		// 	this.execute();
+		// 	TimerManager.instance.doLoop(1000, this.execute, this);
+		// } else {
+		// 	TimerManager.instance.clearTimer(this.execute);
+		// }
 		GameDispatcher.addEventListener(BaseEvent.USER_MOENY_CHANGE, this.onMoneyChange, this);
 	}
 
@@ -102,14 +109,15 @@ class TopView extends BaseComponent implements IBase {
 	}
 
 	public execute(data?: any): void {
-		if (this.time > 0) {
-			this.timerText.text = String(this.time);
-			console.log("TopView: time:" + this.time + "\t state:" + ClientModel.instance.gameState);
-			this.time--;
-		} else {
-			TimerManager.instance.clearTimer(this.execute);
-			this.call.apply(this.callThis);
-		}
+		// if (this.time > 0) {
+		// 	this.timerText.text = String(this.time);
+		// 	console.log("TopView: time:" + this.time + "\t state:" + ClientModel.instance.gameState);
+		// 	this.time--;
+		// } else {
+		// 	TimerManager.instance.clearTimer(this.execute);
+		// 	this.call.apply(this.callThis);
+		// }
+		this.timerText.text = String(data);
 	}
 
 	public onKjTap(evt: egret.TouchEvent): void {

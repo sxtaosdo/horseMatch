@@ -41,27 +41,29 @@ class ResultView extends BaseComponent implements IBase {
 		// console.log("ResultView exit:" + egret.getTimer());
 		this.removeEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
 		GameDispatcher.removeEventListener(BaseEvent.DRAW_RESULT, this.onAward, this);
-		TimerManager.instance.clearTimer(this.execute);
+		// TimerManager.instance.clearTimer(this.execute);
 		if (this.parent) {
 			this.parent.removeChild(this);
 		}
 	}
 
 	public execute(data?: any): void {
-		this.timeText.text = String(this.timer);
-		this.timer--;
-		if (this.timer < 0) {
-			TimerManager.instance.clearTimer(this.execute);
-			this.timeText.text = "";
-			if (this.call) {
-				this.call.call(this.callThis);
-			}
-		}
+		this.timeText.text = String(data);
+		// this.timeText.text = String(this.timer);
+		// this.timer--;
+		// if (this.timer < 0) {
+		// 	TimerManager.instance.clearTimer(this.execute);
+		// 	this.timeText.text = "";
+		// 	if (this.call) {
+		// 		ClientModel.instance.gameTime = 0;
+		// 		this.call.call(this.callThis);
+		// 	}
+		// }
 	}
 
 	private onInfo(): void {
 		// console.log("ResultView onInfo:" + egret.getTimer());
-		var vo: MatchInfoVo = ClientModel.instance.lastBetInfo
+		var vo: MatchInfoVo = ClientModel.instance.lastBetInfo;
 		if (vo) {
 			this.nameText.text = ConfigModel.instance.horseList[vo.horseInfoList[0].id - 1].name;
 			this.headImage.source = RES.getRes("betHead" + vo.horseInfoList[0].id + "_png");
@@ -75,7 +77,7 @@ class ResultView extends BaseComponent implements IBase {
 			} else {
 				this.timer = vo.info.leftTime;
 			}
-			TimerManager.instance.doLoop(1000, this.execute, this);
+			// TimerManager.instance.doLoop(1000, this.execute, this);
 		}
 	}
 

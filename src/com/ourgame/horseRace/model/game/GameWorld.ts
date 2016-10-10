@@ -91,7 +91,7 @@ class GameWorld extends egret.Sprite implements IBase {
         this.graphics.drawRect(GameWorld.RIGHT_LINE, 0, 5, GameWorld.GAME_HEIGHT);
         this.graphics.endFill();
 
-        this.topBar = new TopView(this.onTimerComplete, this);
+        this.topBar = new TopView();
         this.betView = new BetView();
 
         this.racetrack = new RacetrackPanel();
@@ -129,7 +129,6 @@ class GameWorld extends egret.Sprite implements IBase {
             this.shutter.anchorOffsetX = this.shutter.width >> 1;
             this.shutter.anchorOffsetY = this.shutter.height >> 1;
         }
-
         this.addChildAt(this.racetrack, 0);
 
         this.image4Group.enter();
@@ -137,16 +136,20 @@ class GameWorld extends egret.Sprite implements IBase {
         GameDispatcher.addEventListener(BaseEvent.REACH_END_LINE, this.onReachEndLine, this);
         GameDispatcher.addEventListener(BaseEvent.GAME_STATE_INFO, this.onGameInfo, this);
         GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onMatchInfoChange, this);
-        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
+        GameDispatcher.addEventListener(BaseEvent.RESIZE_EVENT, this.onResize, this);
 
         TimerManager.instance.doFrameLoop(1, () => {
             dragonBones.WorldClock.clock.advanceTime(this.bdSpeed);
         }, this);
+        TimerManager.instance.doLoop(1000, this.gameTimer, this);
+        this.onResize();
     }
 
     public exit(data?: any): void {
-        this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
-        this.stage.removeEventListener(egret.Event.RESIZE, this.onResize, this);
+        GameDispatcher.removeEventListener(BaseEvent.REACH_END_LINE, this.onReachEndLine, this);
+        GameDispatcher.removeEventListener(BaseEvent.GAME_STATE_INFO, this.onGameInfo, this);
+        GameDispatcher.removeEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onMatchInfoChange, this);
+        GameDispatcher.removeEventListener(BaseEvent.RESIZE_EVENT, this.onResize, this);
         if (this.parent != null) {
             this.parent.removeChild(this);
         }
@@ -172,6 +175,50 @@ class GameWorld extends egret.Sprite implements IBase {
         }
     }
 
+    public gameTimer(): void {
+        let config: ConfigModel = ConfigModel.instance;
+        let time: number = 0;
+        if (this.topBar) {
+            if (this.client.gameTime > -1) {
+                switch (this._gameState) {
+                    case GameState.BET_STAGE:
+                        time = this.client.gameTime - (config.prepareTime + config.runTime + config.nextTime);
+                        this.topBar.execute(time);
+                        if (time < 1) {
+                            this.changeState(GameState.PREPARE_STAGE);
+                        }
+                        break;
+                    case GameState.PREPARE_STAGE:
+                        time = this.client.gameTime - (config.runTime + config.nextTime);
+                        this.topBar.execute(time);
+                        if (time < 1) {
+                            ConnectionManager.instance.sendHelper.drawMatch();  //准备倒计时结束后，请求名次信息,否则无法生成动画脚本
+                        }
+                        break;
+                    case GameState.RUN_STAGE:
+                        time = this.client.gameTime - config.nextTime;
+                        //不处理，等待第一名撞线的事件改变游戏状态
+                        break;
+                    case GameState.RESULT_STAGE:
+                        time = this.client.gameTime;
+                        this.resultBiew.execute(time);
+                        if (time < 1) {
+                            this.changeState(GameState.BET_STAGE);
+                            ConnectionManager.instance.sendHelper.drawMatch();  //结果之后请求下一场比赛的信息
+                        }
+                        break;
+                }
+            } else {
+                console.log("游戏进度错误,TIME:" + this.client.gameTime);
+            }
+            this.client.gameTime--;
+            if (this.client.gameTime < 0) {
+                this.client.gameTime = 0;
+            }
+            console.log("\t this.client.gameTime:" + this.client.gameTime);
+        }
+    }
+
     /**子弹时间的快门动画 */
     private onBullertTme(): void {
         if (this.isBulletTime) {
@@ -192,29 +239,22 @@ class GameWorld extends egret.Sprite implements IBase {
         }
     }
 
-    private onTimerComplete(): void {
-        // console.log("GameWord:onTimerComplete 收到TopView的回调:" + this._gameState + "\t" + TimeUtils.printTime);
-
-        switch (this._gameState) {
-            case GameState.BET_STAGE:
-                if (this.betView.parent) {
-                    this.betView.parent.removeChild(this.betView);
-                }
-                // ConnectionManager.instance.sendHelper.drawMatch();
-                this.changeState(GameState.PREPARE_STAGE);
-                break;
-            case GameState.PREPARE_STAGE:
-
-                //准备倒计时结束后，请求名次信息
-                ConnectionManager.instance.sendHelper.drawMatch();
-                break;
-            // case GameState.RUN_STAGE:
-            //     break;
-            case GameState.RESULT_STAGE:
-                ConnectionManager.instance.sendHelper.drawMatch();
-                break;
-        }
-    }
+    // private onTimerComplete(): void {
+    //     // console.log("GameWord:onTimerComplete 收到TopView的回调:" + this._gameState + "\t" + TimeUtils.printTime);
+    //     switch (this._gameState) {
+    //         case GameState.BET_STAGE:
+    //             this.changeState(GameState.PREPARE_STAGE);
+    //             break;
+    //         case GameState.PREPARE_STAGE:
+    //             ConnectionManager.instance.sendHelper.drawMatch();//准备倒计时结束后，请求名次信息
+    //             break;
+    //         case GameState.RUN_STAGE:
+    //             break;
+    //         case GameState.RESULT_STAGE:
+    //             ConnectionManager.instance.sendHelper.drawMatch();///*****************************************************************
+    //             break;
+    //     }
+    // }
 
     private changeState(state: any, enterStateTime: number = 0): void {
         // console.log("GameWord:changeState _gameState:" + this._gameState + "\t" + TimeUtils.printTime);
@@ -233,19 +273,19 @@ class GameWorld extends egret.Sprite implements IBase {
                 TimerManager.instance.clearTimer(this.execute);
                 break;
             case GameState.PREPARE_STAGE:
+                if (this.betView.parent) {
+                    this.betView.parent.removeChild(this.betView);
+                }
                 this._runState = RunState.GEGIN;
                 this.betView.exit();
-
                 this.addChild(this.progress);
-
                 this.lastX = 0;
                 this.progress.enter();
-
                 break;
             case GameState.RESULT_STAGE:
                 this._runState = RunState.END;
                 this.addChild(this.resultBiew);
-                this.resultBiew.enter({ call: this.onTimerComplete, thisObj: this });
+                // this.resultBiew.enter({ call: this.onTimerComplete, thisObj: this });
                 if (this.progress.parent) {
                     this.progress.parent.removeChild(this.progress);
                     this.progress.exit();
@@ -299,11 +339,6 @@ class GameWorld extends egret.Sprite implements IBase {
         // egret.Tween.get(this).wait(100).to({ bdSpeed: 0.03 }, 2000);
     }
 
-    private onAdd(): void {
-        this.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);
-        this.onResize();
-    }
-
     private onResize(evt?: egret.Event): void {
         if (this.stage) {
             if (this.racetrack && this.racetrack.parent) {
@@ -335,21 +370,23 @@ class GameWorld extends egret.Sprite implements IBase {
         ConnectionManager.instance.sendHelper.drawMatch(this.client.gameInfoVo.drawId);
     }
 
+    //draw信息结果
     private onMatchInfoChange(): void {
         // console.log("gameword 收到draw事件并处理" + this.client.lastBetInfo.info);
+        let config: ConfigModel = ConfigModel.instance;
         switch (this._gameState) {
             case GameState.PREPARE_STAGE://比赛3秒倒计时后服务器才知道比赛结果，所以这里需要请求一次，如果没有名次信息则重试，次数太多弹板提示
                 if (this.client.lastBetInfo.includeRank) {
-                    this.changeState(GameState.RUN_STAGE, this.client.lastBetInfo.info.leftTime - this.client.nextTime);
+                    this.changeState(GameState.RUN_STAGE, config.runTime - (this.client.gameTime - config.nextTime));
                 } else {
                     ConnectionManager.instance.sendHelper.drawMatch();
                     console.log("获取名次信息失败，重试" + TimeUtils.printTime);
                 }
                 break;
             case GameState.RESULT_STAGE:
-                if (this.client.lastBetInfo.info.cdTime > 0) {
+                if (this.client.lastBetInfo.info.isNew) {
                     this.changeState(GameState.BET_STAGE);
-                    console.log("在结果展示界面倒计时完毕，收到cdTime：" + this.client.lastBetInfo.info.cdTime + "\t" + TimeUtils.printTime);
+                    console.log("在结果展示界面倒计时完毕，收到cdTime：" + this.client.lastBetInfo.info.cdTime + "\t isNew:" + this.client.lastBetInfo.info.isNew + "\t" + TimeUtils.printTime);
                 }
                 break;
             default:
@@ -358,23 +395,21 @@ class GameWorld extends egret.Sprite implements IBase {
         }
     }
 
+    //根据cdTime和leftTime确定游戏状态
     private parseGameStateData(data: GameInfoVo): void {
         console.log("berview \tcdTime:" + data.cdTime + "\tleftTime:" + data.leftTime + "\t" + TimeUtils.printTime);
-        if (data.cdTime > 0) {
-            this.client.betTime = data.cdTime;
+        let config: ConfigModel = ConfigModel.instance;
+        if (this.client.gameTime > config.betTime) {
             this.changeState(GameState.BET_STAGE);
         } else {
-            if (data.leftTime >= (30 - this.client.prepareTime)) {//准备阶段
-                this.client.prepareTime = ConfigModel.instance.prepareTime - (30 - data.leftTime);
+            if (this.client.gameTime > (config.runTime + config.nextTime)) {//准备阶段
                 this.changeState(GameState.PREPARE_STAGE);
-            } else if (data.leftTime <= (this.client.nextTime)) {//结果展示阶段
-                // this.client.nextTime = data.leftTime;
-                this.client.nextTime = ConfigModel.instance.nextTime;
+            } else if (this.client.gameTime <= config.nextTime) {//结果展示阶段
                 if (this._gameState != GameState.RESULT_STAGE) {
                     this.changeState(GameState.RESULT_STAGE);
                 }
             } else {//赛跑阶段
-                this.changeState(GameState.RUN_STAGE, data.leftTime - this.client.nextTime);
+                this.changeState(GameState.RUN_STAGE, config.runTime - (this.client.gameTime - config.nextTime));
             }
         }
     }

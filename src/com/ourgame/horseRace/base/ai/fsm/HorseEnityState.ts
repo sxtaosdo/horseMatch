@@ -72,12 +72,6 @@ class HorseEnityStateSeek implements IState {
 		let nextTime = (date.getTime() - ClientModel.instance.enterStateTime + 1000 / RoadMethod.secondInterval) / 1000 * RoadMethod.secondInterval;
 		let currentTime = 0;
 		let reachEnd: boolean = true;
-		// if (this.self.sTime > 0) {
-		// 	if (egret.getTimer() - this.self.sTime > 1000) {
-		// 		this.self.changeAnimation(AnimationType.RUN);
-		// 		this.self.sTime = 0;
-		// 	}
-		// }
 		for (var i: number = 0; i < list.length; i++) {
 			if (list[i].throughTime + currentTime >= nextTime) {
 				//s=vo*t+1/2*a*t*t--无障碍(到达终点冲过去，哦吼吼)
@@ -188,9 +182,6 @@ class HorseEnityStateEnd implements IState {
 			let list: Array<RoadVo> = this.self.roadList;
 			var speed: number = list[list.length-1].throughLength/list[list.length-1].throughTime;
 			this.self.speed = speed;
-			// if (speed > this.client.maxSpeed) {
-			// 	this.client.maxSpeed = speed;
-			// }
 			this.self.currentX += speed;
 			entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 

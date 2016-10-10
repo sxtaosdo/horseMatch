@@ -15,28 +15,17 @@ class GameMain extends egret.Sprite implements IBase {
 
 	public constructor() {
 		super();
-
 		this.popup = WindowManager.instance;
 
 		this.addEventListener(egret.Event.ADDED_TO_STAGE, this.enter, this);
-		GameDispatcher.addEventListener(GameEvent.ASSETS_COMPLETE_EVENT, this.onAssetsComplete, this);
 		GameDispatcher.addEventListener(GameEvent.WINDOW_EVENT, this.onWindow, this);
 	}
 
 	public enter(data?: any): void {
 		GameDispatcher.addEventListener(GameEvent.GAME_STATE_EVENT, this.onStateChange, this);
+		this.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);
+        this.onResize();
 		this.setDefoult();
-		// var temp: any = new window["lib"].无标题1();
-		// this.stage.addChild(temp);
-	}
-
-	private onAssetsComplete(): void {
-
-		// if (ConfigModel.instance.showTest) {
-        //     var test: TestWindow = new TestWindow();
-        //     this.addChild(test);
-        //     test.enter(this.parent);
-        // }
 	}
 
 	/**
@@ -58,10 +47,6 @@ class GameMain extends egret.Sprite implements IBase {
 	 * 进入游戏后默认的设置
 	 */
 	private setDefoult(): void {
-		// if (ConfigModel.instance.debug) {
-		// 	ClientModel.instance.changeGameState(new LoginView());
-		// } else {
-		//===================================
 		ClientModel.instance.parseParams();
 		ClientModel.instance.changeGameState(LoadingUI.instance);
 		LoadingUI.instance.loadAssets(() => {
@@ -69,8 +54,6 @@ class GameMain extends egret.Sprite implements IBase {
 			ConnectionManager.instance.conn();
 			// this.addChild(new HorseAnamiationDemo());
 		}, LoadingUI.assets1);
-		//================================
-		
 	}
 
 	public exit(): void {
@@ -92,16 +75,13 @@ class GameMain extends egret.Sprite implements IBase {
 		this.currentState.enter();
 
 		this.addChild(<any>this.currentState);
-		// if ((newState instanceof LoginView) || (newState instanceof HallView) || (newState instanceof LoadingUI)) {
-		// 	if (this.topBar && this.topBar.parent) {
-		// 		this.topBar.removeChild(this.topBar);
-		// 	}
-		// } else {
-		// 	this.addChild(this.topBar);
-		// 	if (this.topBar) {
-		// 		this.topBar.execute(newState);
-		// 	}
-		// }
+	}
+
+
+    private onResize(evt?: egret.Event): void {
+        if (this.stage) {
+			GameDispatcher.send(BaseEvent.RESIZE_EVENT);
+		}
 	}
 
 }
