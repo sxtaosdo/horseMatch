@@ -33,15 +33,11 @@
 			"name":"top"
 		},
 		{
-			"keys":"fish1_json,fish1_png,fish2_json,fish2_png,fish3_json,fish3_png,fish4_json,fish4_png",
-			"name":"fish1"
-		},
-		{
 			"keys":"closeBtn1_png,closeBtn2_png,windowBg_png,firstIcon_png,resultPanelBg_png,resultTitle_png,historyBar_png,historyBg_png,historyTitle_png,window_help_bg_png,window_help_goBtn1_png,window_help_goBtn2_png,window_help_knowBtn1_png,window_help_knowBtn2_png,window_help_page1_png,window_help_title_png,window_help_title1_png,window_info_bg_png,window_info_head1_png,window_info_head2_png,window_info_head3_png,window_info_head4_png,window_info_head5_png,window_info_heads_png,window_info_title_png,window_info_bg2_png,window_info_Btn2_png,window_info_Btn1_png",
 			"name":"window"
 		},
 		{
-			"keys":"chip1000Btn1.png_png,chip1000Btn2_png,chip10000Btn1_png,chip10000Btn2_png,revokeBtn1_png,revokeBtn2_png,betBg_png,betChipBtnBg_png,betHeadBg_png,betTimes_png,chip100Btn1_png,chip100Btn2_png,coin_png,betHead5_png,betHead1_png,betHead2_png,betHead3_png,betHead4_png,betNameBg_png,betIndexBg_png,coin100_png,coin1000_png,coin10000_png",
+			"keys":"chip1000Btn1.png_png,chip1000Btn2_png,chip10000Btn1_png,chip10000Btn2_png,revokeBtn1_png,revokeBtn2_png,betBg_png,betChipBtnBg_png,betHeadBg_png,betTimes_png,chip100Btn1_png,chip100Btn2_png,betHead5_png,betHead1_png,betHead2_png,betHead3_png,betHead4_png,betIndexBg_png,coin100_png,coin1000_png,coin10000_png,betHeadState1_png,betHeadState2_png,betHeadState3_png,betHeadState4_png,betHeadState5_png,betHeadStateBg1_png,betHeadStateBg2_png,coin1_png",
 			"name":"betView"
 		},
 		{
@@ -49,7 +45,7 @@
 			"name":"db"
 		},
 		{
-			"keys":"f1_fnt",
+			"keys":"f1_fnt,f2_fnt",
 			"name":"font"
 		}
 	],
@@ -416,11 +412,6 @@
 			"url":"assets/game/arrow4.png"
 		},
 		{
-			"name":"coin_png",
-			"type":"image",
-			"url":"assets/betView/coin.png"
-		},
-		{
 			"name":"betHead5_png",
 			"type":"image",
 			"url":"assets/betView/betHead5.png"
@@ -444,11 +435,6 @@
 			"name":"betHead4_png",
 			"type":"image",
 			"url":"assets/betView/betHead4.png"
-		},
-		{
-			"name":"betNameBg_png",
-			"type":"image",
-			"url":"assets/betView/betNameBg.png"
 		},
 		{
 			"name":"betIndexBg_png",
@@ -795,6 +781,51 @@
 			"name":"texture5_png",
 			"type":"image",
 			"url":"db/texture5.png"
+		},
+		{
+			"name":"betHeadState1_png",
+			"type":"image",
+			"url":"assets/betView/betHeadState1.png"
+		},
+		{
+			"name":"betHeadState2_png",
+			"type":"image",
+			"url":"assets/betView/betHeadState2.png"
+		},
+		{
+			"name":"betHeadState3_png",
+			"type":"image",
+			"url":"assets/betView/betHeadState3.png"
+		},
+		{
+			"name":"betHeadState4_png",
+			"type":"image",
+			"url":"assets/betView/betHeadState4.png"
+		},
+		{
+			"name":"betHeadState5_png",
+			"type":"image",
+			"url":"assets/betView/betHeadState5.png"
+		},
+		{
+			"name":"betHeadStateBg1_png",
+			"type":"image",
+			"url":"assets/betView/betHeadStateBg1.png"
+		},
+		{
+			"name":"betHeadStateBg2_png",
+			"type":"image",
+			"url":"assets/betView/betHeadStateBg2.png"
+		},
+		{
+			"name":"coin1_png",
+			"type":"image",
+			"url":"assets/betView/coin1.png"
+		},
+		{
+			"name":"f2_fnt",
+			"type":"font",
+			"url":"font/f2.fnt"
 		}
 	]
 }

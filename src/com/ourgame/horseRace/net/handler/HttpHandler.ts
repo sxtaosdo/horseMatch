@@ -35,8 +35,10 @@ class HttpHandler implements ISocket {
 
     public send(type: any, byts?: any): void {
         this.request.open(ConfigModel.instance.url + type, egret.HttpMethod.POST);
-        this.request.setRequestHeader("Content-Type", "application/json");
-        this.request.send(byts);
+        // if (byts) {
+            this.request.setRequestHeader("Content-Type", "application/json");
+            this.request.send(byts);
+        // }
         console.log("发送了：" + ConfigModel.instance.url + type);
     }
 

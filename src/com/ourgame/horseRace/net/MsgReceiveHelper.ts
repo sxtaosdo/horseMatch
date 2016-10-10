@@ -46,7 +46,7 @@ class MsgReceiveHelper extends egret.HashObject {
                     ClientModel.instance.gameInfo = body;
                     break;
                 case "draw":
-                    ClientModel.instance.setBetInfo(body.drawId, body);
+                    ClientModel.instance.setBetInfo(body);
                     break;
                 case "drawHist":
                     ClientModel.instance.setHistory(body);

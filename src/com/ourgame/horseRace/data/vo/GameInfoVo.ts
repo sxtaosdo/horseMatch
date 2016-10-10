@@ -22,13 +22,13 @@ class GameInfoVo {
 	public setData(data: any): void {
 		this.acctAmount = data.acctAmount;
 		this.cdTime = Math.floor(data.cdTime / 1000);
+		this.leftTime = Math.floor(data.leftTime / 1000);
 		if (this.drawId < parseInt(data.drawId)) {
 			this._isNew = true;
 		} else {
 			this._isNew = false;
 		}
 		this.drawId = data.drawId;
-		this.leftTime = Math.floor(data.leftTime / 1000);
 		this.rtnCode = data.rtnCode;
 		this.rtnMsg = data.rtnMsg;
 		this.nextDrawId = data.nextDrawId;

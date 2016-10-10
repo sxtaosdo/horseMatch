@@ -15,13 +15,15 @@ class MatchInfoVo {
 		this._includeRank = false;
 		this.info.setData(data);
 		let temp: number = 0;
-		data.matchInfo.forEach(element => {
-			let vo: MatchPlayerVo = new MatchPlayerVo(element)
-			this.horseInfoList.push(vo);
-			if (vo.rank > 0) {//判断是否包含名次信息
-				temp++;
-			}
-		});
+		if (data.matchInfo) {
+			data.matchInfo.forEach(element => {
+				let vo: MatchPlayerVo = new MatchPlayerVo(element)
+				this.horseInfoList.push(vo);
+				if (vo.rank > 0) {//判断是否包含名次信息
+					temp++;
+				}
+			});
+		}
 		if (temp > 4) {
 			this._includeRank = true;
 		}

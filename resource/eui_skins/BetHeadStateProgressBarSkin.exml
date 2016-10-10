@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BetHeadStateProgressBarSkinSkin" minWidth="30" minHeight="18" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image scale9Grid="1,1,4,4" verticalCenter="0" source="betHeadStateBg1_png"/>
+	<e:Image scale9Grid="1,1,4,4" verticalCenter="0" source="betHeadStateBg2_png"/>
+
+	<e:Label id="labelDisplay" textAlign="center" verticalAlign="middle"
+			 size="15" fontFamily="Tahoma" textColor="0x707070"
+			 horizontalCenter="0" verticalCenter="0" visible="false"/>
+	<e:Rect id="thumb" width="128" height="23" x="0" y="5" fillColor="0x02fd23"/>
+
+	<w:Config id="157ae1591aa" ></w:Config>
+</e:Skin>

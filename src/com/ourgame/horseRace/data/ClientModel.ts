@@ -47,7 +47,7 @@ class ClientModel {
     /**游戏赔率历史信息 */
     private _betInfo: any;
     /**最近一期游戏赔率信息 */
-    private _lastBetInfo: any;
+    private _lastBetInfo: MatchInfoVo;
     /**历史奖期记录 */
     private _history: Array<HistoryVo>;
     /**进入当前状态时间 */
@@ -177,14 +177,15 @@ class ClientModel {
         return this._lastBetInfo;
     }
 
-    public setBetInfo(key: string, data: any) {
-        var vo: MatchInfoVo = new MatchInfoVo(data);
-        this._lastBetInfo = vo;
-        this._gameTime = vo.info.leftTime;
-        this._betInfo[key] = vo;
+    public setBetInfo(data: any) {
+        if (!this._lastBetInfo) {
+            var vo: MatchInfoVo = new MatchInfoVo();
+            this._lastBetInfo = vo;
+        }
+        this._lastBetInfo.setData(data);
+        this._gameTime = this._lastBetInfo.info.leftTime;
+        console.log("收到draw返回数据,gameTime:" + this._gameTime + "\t" + TimeUtils.printTime);
         GameDispatcher.send(BaseEvent.MATCH_INFO_CHANGE);
-        console.log("收到draw返回数据" + vo + "\t" + TimeUtils.printTime);
-
     }
 
     public get gameTime(): number {
@@ -195,14 +196,18 @@ class ClientModel {
         this._gameTime = v;
     }
 
-    public get gameInfoVo(): GameInfoVo {
-        return this._gameInfo;
-    }
+    // public get gameInfoVo(): GameInfoVo {
+    //     return this._gameInfo;
+    // }
 
     public set gameInfo(value: Object) {
-        this._gameInfo.setData(value);
-        this.user.money = this._gameInfo.acctAmount;
-        // console.log("money:" + this._gameInfo.acctAmount);
+        // this._gameInfo.setData(value);
+        if (!this._lastBetInfo) {
+            var vo: MatchInfoVo = new MatchInfoVo(value);
+            this._lastBetInfo = vo;
+        }
+        this.user.money = this._lastBetInfo.info.acctAmount;
+        this._gameTime = this._lastBetInfo.info.leftTime;
 
         GameDispatcher.send(BaseEvent.GAME_STATE_INFO);
     }

@@ -8,6 +8,8 @@ class HttpService implements ISocket {
 	private data: any;
 	private globalTime: number = HttpService.passTime;
 
+	private drawId: number = new Date().getFullYear();
+
 	public constructor(callback?: Function, callThis?: any) {
 		this.call = callback;
 		this.callThis = callThis;
@@ -21,8 +23,9 @@ class HttpService implements ISocket {
 	}
 
 	private onTimer(): void {
-		if (this.globalTime > 60) {
+		if (this.globalTime >= 60) {
 			this.globalTime = HttpService.passTime;
+			this.drawId++;
 		}
 		this.globalTime++;
 	}
@@ -48,6 +51,9 @@ class HttpService implements ISocket {
 					if (data.leftTime) {
 						data.leftTime = (60 - this.globalTime) * 1000;
 					}
+					if (data.drawId) {
+						data.drawId = this.drawId;
+					}
 					data.matchInfo.forEach(element => {
 						// let key: any;
 						// for (key in ClientModel.instance.operationObj) {
@@ -55,20 +61,20 @@ class HttpService implements ISocket {
 						// 		element.bet = ClientModel.instance.operationObj[key+1];
 						// 	}
 						// }
-						if (ClientModel.instance.operationObj[element.hId-1]) {
-							element.bet = ClientModel.instance.operationObj[element.hId-1];
+						if (ClientModel.instance.operationObj[element.hId - 1]) {
+							element.bet = ClientModel.instance.operationObj[element.hId - 1];
 						}
 					});
 					let key: any
 					for (key in ClientModel.instance.operationObj) {
 						ClientModel.instance.operationObj[key] = 0;
 					}
-					try {
+					// try {
 						// console.log("server time:" + this.globalTime + "\t type:" + type + "\t this.callThis:" + this.callThis + "\t" + egret.getTimer());
 						this.call.apply(this.callThis, [temp, data]);
-					} catch (e) {
-						console.error(e);
-					}
+					// } catch (e) {
+					// 	console.error(e);
+					// }
 				}
 				break;
 			default:

@@ -117,7 +117,11 @@ class TopView extends BaseComponent implements IBase {
 		// 	TimerManager.instance.clearTimer(this.execute);
 		// 	this.call.apply(this.callThis);
 		// }
-		this.timerText.text = String(data);
+		if (data < 0) {
+			this.timerText.text = "";
+		} else {
+			this.timerText.text = String(data);
+		}
 	}
 
 	public onKjTap(evt: egret.TouchEvent): void {

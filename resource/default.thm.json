@@ -15,10 +15,12 @@
     "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml",
     "PlayerLvProgressBarSkin": "resource/eui_skins/PlayerLvProgressBarSkin.exml",
     "LoadingProgressBarSkin": "resource/eui_skins/LoadingProgressBarSkin.exml",
-    "InfoHeadBtnSkin": "resource/eui_skins/InfoHeadBtnSkin.exml"
+    "InfoHeadBtnSkin": "resource/eui_skins/InfoHeadBtnSkin.exml",
+    "BetHeadStateProgressBarSkin": "resource/eui_skins/BetHeadStateProgressBarSkin.exml"
   },
   "autoGenerateExmlsList": true,
   "exmls": [
+    "resource/eui_skins/BetHeadStateProgressBarSkin.exml",
     "resource/eui_skins/ButtonSkin.exml",
     "resource/eui_skins/CheckBoxSkin.exml",
     "resource/eui_skins/HScrollBarSkin.exml",

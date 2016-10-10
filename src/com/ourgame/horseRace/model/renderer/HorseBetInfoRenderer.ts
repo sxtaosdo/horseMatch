@@ -1,13 +1,15 @@
 class HorseBetInfoRenderer extends eui.ItemRenderer {
 
+	public headImgae: eui.Image;
 	public stateText: eui.Label;
 	public numText: eui.Label;
-	public betText: eui.Label;
-	public nameText: eui.Label;
 	public indexText: eui.Label;
+	public statePb: eui.ProgressBar;
+	public stateImage: eui.Image;
+	public nameText: eui.Label;
 	public steteText: eui.Label;
+	public betText: eui.BitmapLabel;
 
-	private icon: egret.Bitmap;
 
 	private point: egret.Point = new egret.Point(0, 0);
 
@@ -22,14 +24,17 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 		// this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTap, this, false, 0);
 		// this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
 		this.betText.visible = false;
+		this.statePb.maximum = 1500;
+		this.statePb.minimum = 0;
 	}
 
 	public dataChanged(): void {
 		var vo: HorseVo = this.data;
-		if (this.icon == null) {
-			this.icon = BitMapUtil.createBitmapByName("betHead" + vo.mcName + "_png");
-			this.addChildAt(this.icon, this.numChildren - 1);
-		}
+		// if (this.icon == null) {
+		// 	this.icon = BitMapUtil.createBitmapByName("betHead" + vo.mcName + "_png");
+		// 	this.addChildAt(this.icon, this.numChildren - 1);
+		// }
+		this.headImgae.source = RES.getRes("betHead" + vo.mcName + "_png");
 		this.nameText.text = vo.name;
 		this.indexText.text = vo.id.toString();
 		if (vo.math) {
@@ -37,7 +42,8 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 			this.stateText.text = "" + vo.math.state;
 			this.betText.text = "" + vo.math.bet;
 			this.betText.visible = vo.math.bet > 0 ? true : false;
-			this.steteText.text = vo.math.state + "";
+			// this.steteText.text = vo.math.state + "";
+			this.statePb.value = vo.math.state;
 		}
 	}
 
