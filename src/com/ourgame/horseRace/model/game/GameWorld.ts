@@ -137,7 +137,7 @@ class GameWorld extends egret.Sprite implements IBase {
         GameDispatcher.addEventListener(BaseEvent.GAME_STATE_INFO, this.onGameInfo, this);
         GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onMatchInfoChange, this);
         GameDispatcher.addEventListener(BaseEvent.RESIZE_EVENT, this.onResize, this);
-
+this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
         TimerManager.instance.doFrameLoop(1, () => {
             dragonBones.WorldClock.clock.advanceTime(this.bdSpeed);
         }, this);
@@ -174,6 +174,11 @@ class GameWorld extends egret.Sprite implements IBase {
         if (this.progress.parent) {
             this.progress.execute();
         }
+    }
+
+    private onAdd():void{
+        this.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);
+        this.onResize();
     }
 
     public gameTimer(): void {

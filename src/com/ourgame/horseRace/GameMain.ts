@@ -23,8 +23,6 @@ class GameMain extends egret.Sprite implements IBase {
 
 	public enter(data?: any): void {
 		GameDispatcher.addEventListener(GameEvent.GAME_STATE_EVENT, this.onStateChange, this);
-		this.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);
-        this.onResize();
 		this.setDefoult();
 	}
 
