@@ -288,7 +288,17 @@ class ClientModel {
         var stateIndexArr: Array<number> = [];
         var temp: number;
         this._phaseList = [];
+        let str: string = new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId);
         for (var i: number = 0; i < 5; i++) {
+            // if(i==0){
+
+            // }else{
+
+            // let key: number = parseInt(str.substr(i, 1));
+            // if (key > 9) {
+            //     key = parseInt(String(key).substr(1, 1));
+            // }
+            // }
             temp = Math.floor(Math.random() * stateArr.length);
             stateIndexArr.push(stateArr[temp]);
             this._phaseList.push(RoadMethod.instance.creatRoad(drawid, this.horseList[i].getDataVo<HorseVo>(HorseVo), stateArr[temp]));
