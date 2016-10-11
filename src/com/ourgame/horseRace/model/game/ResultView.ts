@@ -28,6 +28,7 @@ class ResultView extends BaseComponent implements IBase {
 	}
 
 	public enter(data?: any): void {
+		this.moneyText.text = "";
 		this.timeText.text = String(ClientModel.instance.gameTime);
 		GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
 		GameDispatcher.addEventListener(BaseEvent.DRAW_RESULT, this.onAward, this);

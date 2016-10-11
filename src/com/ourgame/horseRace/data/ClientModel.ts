@@ -67,6 +67,8 @@ class ClientModel {
     // public nextTime: number;
     /**游戏当前时间 */
     private _gameTime: number = 0;
+    /**奖励金额 */
+    // private _awardMoney: number = 0;
 
     /**下注结果 */
     public _betOperation: string;
@@ -284,25 +286,26 @@ class ClientModel {
 
     public initGameSprite(drawid: number): Array<any> {
         //create a temperary seq of horses in state instead of server supply
-        var stateArr: Array<number> = [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        var stateArr: Array<number> = [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
         var stateIndexArr: Array<number> = [];
         var temp: number;
         this._phaseList = [];
         let str: string = new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId);
         for (var i: number = 0; i < 5; i++) {
-            // if(i==0){
-
-            // }else{
-
-            // let key: number = parseInt(str.substr(i, 1));
-            // if (key > 9) {
-            //     key = parseInt(String(key).substr(1, 1));
-            // }
-            // }
-            temp = Math.floor(Math.random() * stateArr.length);
+            if (i == 0) {
+                temp = 9;   //设置第一名的到达为0
+            } else {
+                let key: number = parseInt(str.substr(i, 1));
+                if (key > 8) {
+                    temp += 1;
+                } else {
+                    temp += 2;
+                }
+            }
+            // temp = Math.floor(Math.random() * stateArr.length);
             stateIndexArr.push(stateArr[temp]);
             this._phaseList.push(RoadMethod.instance.creatRoad(drawid, this.horseList[i].getDataVo<HorseVo>(HorseVo), stateArr[temp]));
-            stateArr.splice(temp, 1);
+            // stateArr.splice(temp, 1);
         }
         var index: number = 0;
         ClientModel.instance.horseList.forEach(element => {
@@ -401,16 +404,25 @@ class ClientModel {
     }
 
     public setDrawHistory(data: any): void {
-        this._awardMoney = data;
-        GameDispatcher.send(BaseEvent.DRAW_RESULT)
+        // this._awardMoney = data;
+        // GameDispatcher.send(BaseEvent.DRAW_RESULT)
     }
 
     public setBethistory(data: any): void {
         this._betHistory = [];
-        data.list.forEach(element => {
+        data.betList.forEach(element => {
             this._betHistory.push(new BetHistoryInfoVo(element));
         });
         GameDispatcher.send(BaseEvent.BET_HISTORY)
+    }
+
+    public setResult(data: any): void {
+        if (data.betAmount) {
+            this._awardMoney = data.betAmount;
+        } else {
+            this._awardMoney = 0;
+        }
+        GameDispatcher.send(BaseEvent.DRAW_RESULT)
     }
 
     public get betHistory(): Array<BetHistoryInfoVo> {

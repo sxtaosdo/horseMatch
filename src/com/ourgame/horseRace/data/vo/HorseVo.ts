@@ -24,6 +24,8 @@ class HorseVo extends egret.HashObject {
 	public mcName: string;
 	/**本局信息 */
 	public math: MatchPlayerVo;
+	public width: number = 0;
+	public height: number = 0;
 
 
 	public constructor() {

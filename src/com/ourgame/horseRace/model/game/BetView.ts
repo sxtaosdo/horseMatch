@@ -85,7 +85,8 @@ class BetView extends BaseComponent implements IBase {
 			ClientModel.instance.openAlert("RMB不足，请充值");
 			return;
 		}
-		var data = this.horseData.source[this.horseList.selectedIndex];//点击扣钱
+		//被点击马匹的信息
+		let data: HorseVo = this.horseData.source[this.horseList.selectedIndex];//点击扣钱
 		data.math.bet += this.selectMoney;
 		UserModel.instance.money -= this.selectMoney;
 		this.horseData.itemUpdated(data);
@@ -118,17 +119,17 @@ class BetView extends BaseComponent implements IBase {
 		this.coinList[this.horseList.selectedIndex].push(bmp);
 
 		//记录总投注
-		if (ClientModel.instance.operationObj[this.horseList.selectedIndex]) {
-			ClientModel.instance.operationObj[this.horseList.selectedIndex] += this.selectMoney;
+		if (ClientModel.instance.operationObj[data.id]) {
+			ClientModel.instance.operationObj[data.id] += this.selectMoney;
 		} else {
-			ClientModel.instance.operationObj[this.horseList.selectedIndex] = this.selectMoney;
+			ClientModel.instance.operationObj[data.id] = this.selectMoney;
 		}
 
 		//记录本次投注
-		if (this.operationTemp[this.horseList.selectedIndex]) {
-			this.operationTemp[this.horseList.selectedIndex] += this.selectMoney;
+		if (this.operationTemp[data.id]) {
+			this.operationTemp[data.id] += this.selectMoney;
 		} else {
-			this.operationTemp[this.horseList.selectedIndex] = this.selectMoney;
+			this.operationTemp[data.id] = this.selectMoney;
 		}
 		TimerManager.instance.doOnce(1000, this.sendOperation, this);
 	}

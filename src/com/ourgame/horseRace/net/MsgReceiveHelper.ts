@@ -63,6 +63,9 @@ class MsgReceiveHelper extends egret.HashObject {
                 case "betHist":
                     ClientModel.instance.setBethistory(body);
                     break;
+                case "drawResult":
+                    ClientModel.instance.setResult(body);
+                    break;
             }
         } else {    //异常返回
             ClientModel.instance.openAlert(body.rtnMsg + "(ERROR CDOE:" + body.rtnCode + ")");

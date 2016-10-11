@@ -137,7 +137,7 @@ class GameWorld extends egret.Sprite implements IBase {
         GameDispatcher.addEventListener(BaseEvent.GAME_STATE_INFO, this.onGameInfo, this);
         GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onMatchInfoChange, this);
         GameDispatcher.addEventListener(BaseEvent.RESIZE_EVENT, this.onResize, this);
-this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
+        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
         TimerManager.instance.doFrameLoop(1, () => {
             dragonBones.WorldClock.clock.advanceTime(this.bdSpeed);
         }, this);
@@ -176,7 +176,7 @@ this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
         }
     }
 
-    private onAdd():void{
+    private onAdd(): void {
         this.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);
         this.onResize();
     }
@@ -349,7 +349,11 @@ this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
                 this.progress.y = this.stage.stageHeight - this.progress.height;
             }
             for (var i = 0; i < 5; i++) {
-                this.client.horseList[i].getDisplayObject().y = this.stage.stageHeight - (4 - i) * 110 - 120;
+                let horse: HorseEntity = this.client.horseList[i];
+                horse.getDisplayObject().y = this.stage.stageHeight - (4 - i) * 110 - (horse.getDataVo<HorseVo>(HorseVo).height - 230) - 120;
+                // horse.getDisplayObject().y = this.stage.stageHeight - (4 - i) * 110 - horse.getDataVo<HorseVo>(HorseVo).height;
+                console.log("y:" + horse.getDisplayObject().y + "\t i:" + i + "\t h:" + horse.getDataVo<HorseVo>(HorseVo).height);
+
             }
         }
     }
