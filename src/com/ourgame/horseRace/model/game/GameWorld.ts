@@ -350,8 +350,8 @@ class GameWorld extends egret.Sprite implements IBase {
             }
             for (var i = 0; i < 5; i++) {
                 let horse: HorseEntity = this.client.horseList[i];
-                horse.getDisplayObject().y = this.stage.stageHeight - (4 - i) * 110 - (horse.getDataVo<HorseVo>(HorseVo).height - 230) - 120;
-                // horse.getDisplayObject().y = this.stage.stageHeight - (4 - i) * 110 - horse.getDataVo<HorseVo>(HorseVo).height;
+                // horse.getDisplayObject().y = this.stage.stageHeight - (4 - i) * 110 - (horse.getDataVo<HorseVo>(HorseVo).height - 230) - 120;
+                horse.getDisplayObject().y = (this.stage.stageHeight - (4 - i) * 110) - horse.getDataVo<HorseVo>(HorseVo).height + 55;
                 console.log("y:" + horse.getDisplayObject().y + "\t i:" + i + "\t h:" + horse.getDataVo<HorseVo>(HorseVo).height);
 
             }

@@ -139,20 +139,16 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			this._vo.width = this.armature.display.width;
 			this.displayObject.anchorOffsetX = this.displayObject.width / 2;
 		} else {
-			var mc: egret.MovieClip;
-			var js: any = RES.getRes("fish" + id + "_json");
-			var tx: any = RES.getRes("fish" + id + "_png");
-			var data: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(js, tx);
-			mc = new egret.MovieClip(data.generateMovieClipData());
-			mc.stop();
-			mc.anchorOffsetX = mc.width;
-			mc.play(-1);
-			mc.touchEnabled = false;
-			this.displayObject = mc;
+			console.error("动画资源加载失败！");
 		}
 		this._content.addChild(this.displayObject);
-		this._selectArrow.x = 50;
+		// this._selectArrow.x = 50;
 		// this._selectArrow.y = this.displayObject.height>>1;
+		if (false) {
+			this._content.graphics.beginFill(0x000000 + this._vo.id * 100, 0.5);
+			this._content.graphics.drawRect(0, 0, this._content.width, this._content.height);
+			this._content.graphics.endFill();
+		}
 	}
 
 	public getDataVo<T>(clazz: any) {
