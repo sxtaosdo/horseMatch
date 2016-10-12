@@ -33,8 +33,8 @@ class MsgSendHelper {
         // ConnectionManager.instance.send("/hrb/bet", str);
     }
 
-    public drawMatch(data?: number): void {
-        ConnectionManager.instance.send("/hrb/draw");
+    public drawMatch(data?: any): void {
+        ConnectionManager.instance.send("/hrb/draw", null);
     }
 
     public history(data?: any): void {

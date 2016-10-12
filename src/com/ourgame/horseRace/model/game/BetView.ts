@@ -85,11 +85,6 @@ class BetView extends BaseComponent implements IBase {
 			ClientModel.instance.openAlert("RMB不足，请充值");
 			return;
 		}
-		//被点击马匹的信息
-		let data: HorseVo = this.horseData.source[this.horseList.selectedIndex];//点击扣钱
-		data.math.bet += this.selectMoney;
-		UserModel.instance.money -= this.selectMoney;
-		this.horseData.itemUpdated(data);
 
 		var bmp: egret.Bitmap;
 		switch (this.selectMoney) {
@@ -112,10 +107,23 @@ class BetView extends BaseComponent implements IBase {
 			this.coinList[this.horseList.selectedIndex] = new Array<egret.Bitmap>();
 		}
 
+		//被点击马匹的信息
+		let data: HorseVo = this.horseData.source[this.horseList.selectedIndex];//点击扣钱
+		data.math.bet += this.selectMoney;
+		UserModel.instance.money -= this.selectMoney;
+		this.horseData.itemUpdated(data);
+
 		//飞金币动画
 		let tx: number = (this.coinList[this.horseList.selectedIndex].length % 2 == 0 ? 60 : 130) + RandomUtil.randNumber(0, 5) + (this.horseList.selectedIndex * 250)
 		let ty: number = (this.stage.stageHeight >> 1) + 35 + Math.floor(this.coinList[this.horseList.selectedIndex].length / 2) * -10;
-		egret.Tween.get(bmp).to({ x: tx, y: ty }, 200);
+		egret.Tween.get(bmp).to({ x: tx, y: ty }, 200).wait(0).call((data: HorseVo, bmp: egret.Bitmap) => {
+			this.horseData.itemUpdated(data);
+			// console.log("send" + TimeUtils.printTime);
+			if (bmp.parent) {
+				bmp.parent.removeChild(bmp);
+			}
+
+		}, this, [data, bmp]);
 		this.coinList[this.horseList.selectedIndex].push(bmp);
 
 		//记录总投注

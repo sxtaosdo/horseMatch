@@ -1,7 +1,7 @@
 {
   "ip": "",
   "showTest": true,
-  "debug": false,
+  "debug": true,
   "version": "20160922:1535",
   "showPathPoint": false,
   "betTime": 30,

@@ -291,21 +291,26 @@ class ClientModel {
         var temp: number;
         this._phaseList = [];
         let str: string = new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId);
-        for (var i: number = 0; i < 5; i++) {
-            if (ClientModel.instance.lastBetInfo.horseInfoList[i].rank == 1) {
-                temp = 9;   //设置第一名的到达为0
-            } else {
-                let key: number = parseInt(str.substr(i, 1));
-                if (key > 5) {
-                    temp += 1;
-                } else {
-                    temp += 2;
+        //名次从1到5循环
+
+        for (var i: number = 1; i <= 5; i++) {
+            //马依次找对应名次状态
+            for (var j: number = 1; j <= 5; j++) {
+                if (ClientModel.instance.lastBetInfo.horseInfoList[j - 1].rank != i) {
+                    continue;
                 }
+                //第一名及第二名的速度必须要在前9个状态中找,保证固定时间，前两名结果展示出来
+                if (i == 1 || i == 2) {
+                    temp = Math.floor(Math.random() * 4.5);
+                }
+                //后面名次只需保证状态比前一个的状态值靠后即可
+                else {
+                    temp = Math.floor(Math.random() * (stateArr.length - 1.5 * (4 - i)));
+                }
+                stateIndexArr.push(stateArr[temp]);
+                this._phaseList.push(RoadMethod.instance.creatRoad(drawid, this.horseList[ClientModel.instance.lastBetInfo.horseInfoList[i - 1].id - 1].getDataVo<HorseVo>(HorseVo), stateArr[temp]));
+                stateArr.splice(0, temp + 1);
             }
-            // temp = Math.floor(Math.random() * stateArr.length);
-            stateIndexArr.push(stateArr[temp]);
-            this._phaseList.push(RoadMethod.instance.creatRoad(drawid, this.horseList[ClientModel.instance.lastBetInfo.horseInfoList[i].id - 1].getDataVo<HorseVo>(HorseVo), stateArr[temp]));
-            // stateArr.splice(temp, 1);
         }
         var index: number = 0;
         ClientModel.instance.horseList.forEach(element => {

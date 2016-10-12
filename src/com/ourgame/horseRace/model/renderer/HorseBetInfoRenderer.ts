@@ -12,10 +12,12 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 
 
 	private point: egret.Point = new egret.Point(0, 0);
+	private lastBetMoney: number = 0;
+	private coinList: Array<egret.Bitmap>;
 
 	public constructor() {
 		super();
-
+		this.coinList = new Array<egret.Bitmap>();
 		this.addEventListener(eui.UIEvent.COMPLETE, this.onSkinComplete, this);
 		this.skinName = "resource/renderer/HorseItenSkin.exml";
 	}
@@ -45,28 +47,25 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 			// this.steteText.text = vo.math.state + "";
 			this.statePb.value = vo.math.state;
 		}
+		console.log("on update" + TimeUtils.printTime);
+		if (vo.math) {
+			this.onTap();
+		}
 	}
 
-	private onTap(addNum: number): void {
-		// var bmp: egret.Bitmap = BitMapUtil.createBitmapByName("coin_png");
-		// switch (addNum) {
-		// 	case 100:
-		// 		this.point = this.globalToLocal(750, 570);
-		// 		bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.red)];
-		// 		break;
-		// 	case 1000:
-		// 		this.point = this.globalToLocal(900, 570);
-		// 		break;
-		// 	case 10000:
-		// 		this.point = this.globalToLocal(1050, 570);
-		// 		bmp.filters = [new egret.ColorMatrixFilter(MatrixUtils.blue)];
-		// 		break;
-		// }
-		// bmp.y = this.point.y;
-		// bmp.x = this.point.x;
-		// this.addChild(bmp);
-		// egret.Tween.get(bmp).to({ x: (this.coinList.length % 2 == 0 ? 50 : 110) + RandomUtil.randNumber(0, 5), y: 270 + Math.floor(this.coinList.length / 2) * -10 }, 200);
-		// this.coinList.push(bmp);
+	private onTap(): void {
+		let addNum: number = this.data.math.bet - this.lastBetMoney;
+		if (addNum > 0) {
+			this.lastBetMoney = this.data.math.bet;
+			let bmp: egret.Bitmap = BitMapUtil.createBitmapByName("coin" + addNum + "_png");
+			bmp.y = this.point.y;
+			bmp.x = this.point.x;
+			this.addChildAt(bmp, this.numChildren - 1);
+			// egret.Tween.get(bmp).to({ x: (this.coinList.length % 2 == 0 ? 50 : 110) + RandomUtil.randNumber(0, 5), y: 270 + Math.floor(this.coinList.length / 2) * -10 }, 200);
+			bmp.x = (this.coinList.length % 2 == 0 ? 50 : 110) + RandomUtil.randNumber(0, 5);
+			bmp.y = 270 + Math.floor(this.coinList.length / 2) * -10;
+			this.coinList.push(bmp);
+		}
 	}
 
 }

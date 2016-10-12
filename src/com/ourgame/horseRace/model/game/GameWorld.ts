@@ -143,7 +143,7 @@ class GameWorld extends egret.Sprite implements IBase {
         }, this);
 
         this.onResize();
-        TimerManager.instance.doLoop(1000, this.gameTimer, this);
+
     }
 
     public exit(data?: any): void {
@@ -216,6 +216,13 @@ class GameWorld extends egret.Sprite implements IBase {
                 }
             } else {
                 console.log("游戏进度错误,TIME:" + this.client.gameTime);
+                if (this.client.gameTime < -1) {
+                    console.log("游戏时间ERROR过大，重置...");
+                    TimerManager.instance.doOnce(1500, () => {
+                        ConnectionManager.instance.sendHelper.drawMatch()
+                        this.parseGameStateData(this.client.lastBetInfo.info);
+                    }, this);
+                }
             }
             this.client.gameTime--;
             // if (this.client.gameTime < 0) {
@@ -363,7 +370,8 @@ class GameWorld extends egret.Sprite implements IBase {
     //请求init后
     private onGameInfo(evt?: any): void {
         //init消息貌似没用
-        this.parseGameStateData(this.client.lastBetInfo.info);
+        // this.parseGameStateData(this.client.lastBetInfo.info);
+        TimerManager.instance.doLoop(1000, this.gameTimer, this);
         ConnectionManager.instance.sendHelper.drawMatch();
     }
 
@@ -410,10 +418,10 @@ class GameWorld extends egret.Sprite implements IBase {
                 console.log("进入：PREPARE");
                 this.changeState(GameState.PREPARE_STAGE);
             } else if (this.client.gameTime <= config.nextTime) {//结果展示阶段
-                if (this._gameState != GameState.RESULT_STAGE) {
-                    console.log("进入：RESULT");
-                    this.changeState(GameState.RESULT_STAGE);
-                }
+                // if (this._gameState != GameState.RESULT_STAGE) {
+                console.log("进入：RESULT");
+                this.changeState(GameState.RESULT_STAGE);
+                // }
             } else {//赛跑阶段
                 console.log("进入：RUN");
                 this.changeState(GameState.RUN_STAGE, config.runTime - (this.client.gameTime - config.nextTime));
