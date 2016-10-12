@@ -73,6 +73,8 @@ class GameWorld extends egret.Sprite implements IBase {
     /**龙骨动画播放速度 */
     private bdSpeed: number = -1;
     private lastX: number = 0;
+    private requestInterval: number = 2000;
+    private lastRequest: number = 0;
 
     public constructor() {
         super();
@@ -218,10 +220,11 @@ class GameWorld extends egret.Sprite implements IBase {
                 console.log("游戏进度错误,TIME:" + this.client.gameTime);
                 if (this.client.gameTime < -1) {
                     console.log("游戏时间ERROR过大，重置...");
-                    TimerManager.instance.doOnce(1500, () => {
+                    if (egret.getTimer() - this.lastRequest > this.requestInterval) {
+                        this.lastRequest = egret.getTimer();
                         ConnectionManager.instance.sendHelper.drawMatch()
                         this.parseGameStateData(this.client.lastBetInfo.info);
-                    }, this);
+                    }
                 }
             }
             this.client.gameTime--;

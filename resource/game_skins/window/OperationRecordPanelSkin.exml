@@ -18,5 +18,8 @@
 				<e:Object/>
 			</e:Array>
 		</e:ArrayCollection>
+		<e:layout>
+			<e:VerticalLayout gap="1.8"/>
+		</e:layout>
 	</e:List>
 </e:Skin>

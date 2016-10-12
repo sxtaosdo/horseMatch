@@ -35,6 +35,7 @@ class OpenationCordPanel extends BaseComponent implements IWindow {
 	public init(): void {
 		this.dataList = new eui.ArrayCollection();
 		this.list.itemRenderer = BetHistoryItemRenderer;
+		this.list.dataProvider = this.dataList;
 	}
 
     public destroy(): void {

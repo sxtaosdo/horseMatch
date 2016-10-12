@@ -95,7 +95,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 				// console.log("this.armature重复");
 				return;
 			}
-			console.log("当前动作：" + name);
+			// console.log("当前动作：" + name);
 
 			dragonBones.WorldClock.clock.remove(this.armature);
 			this._content.removeChild(this.displayObject);

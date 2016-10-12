@@ -14,6 +14,9 @@ class ResultView extends BaseComponent implements IBase {
 	private call: Function;
 	private callThis: any;
 
+	private requestInterval: number = 2000;
+	private lastRequest: number = 0;
+
 	public constructor() {
 		super();
 		this.skinName = "ResultViewSkin";
@@ -32,7 +35,10 @@ class ResultView extends BaseComponent implements IBase {
 		this.timeText.text = String(ClientModel.instance.gameTime);
 		GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
 		GameDispatcher.addEventListener(BaseEvent.DRAW_RESULT, this.onAward, this);
-		ConnectionManager.instance.sendHelper.matchResult();
+		if (egret.getTimer() - this.lastRequest > this.requestInterval) {
+			this.lastRequest = egret.getTimer();
+			ConnectionManager.instance.sendHelper.matchResult();
+		}
 		this.onInfo();
 	}
 

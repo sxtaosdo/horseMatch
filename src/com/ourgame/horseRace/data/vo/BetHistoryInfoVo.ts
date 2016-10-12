@@ -9,10 +9,10 @@ class BetHistoryInfoVo {
 	}
 
 	public setData(data: any): void {
-		this.id = data.id
+		this.id = data.drawId
 		this.date = data.date
-		this.money = data.money
-		this.award = data.award
+		this.money = data.betAmount
+		this.award = data.winAmount
 
 	}
 }
