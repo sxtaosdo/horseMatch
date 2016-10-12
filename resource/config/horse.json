@@ -10,6 +10,7 @@
         "speed": 3.5,
         "endurance": 3,
         "recovery": 8,
+        "height": 135,
         "mcName": 1
     },
     {
@@ -23,6 +24,7 @@
         "speed": 3.5,
         "endurance": 3,
         "recovery": 8,
+        "height": 200,
         "mcName": 2
     },
     {
@@ -36,6 +38,7 @@
         "speed": 3.5,
         "endurance": 3,
         "recovery": 8,
+        "height": 200,
         "mcName": 3
     },
     {
@@ -49,6 +52,7 @@
         "speed": 3.5,
         "endurance": 3,
         "recovery": 8,
+        "height": 180,
         "mcName": 4
     },
     {
@@ -62,6 +66,7 @@
         "speed": 3.7,
         "endurance": 3,
         "recovery": 8,
+        "height": 150,
         "mcName": 5
     }
 ]

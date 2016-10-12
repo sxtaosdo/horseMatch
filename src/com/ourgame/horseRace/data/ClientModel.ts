@@ -292,11 +292,11 @@ class ClientModel {
         this._phaseList = [];
         let str: string = new md5().hex_md5(ClientModel.instance.lastBetInfo.info.drawId);
         for (var i: number = 0; i < 5; i++) {
-            if (i == 0) {
+            if (ClientModel.instance.lastBetInfo.horseInfoList[i].rank == 1) {
                 temp = 9;   //设置第一名的到达为0
             } else {
                 let key: number = parseInt(str.substr(i, 1));
-                if (key > 8) {
+                if (key > 5) {
                     temp += 1;
                 } else {
                     temp += 2;
@@ -304,7 +304,7 @@ class ClientModel {
             }
             // temp = Math.floor(Math.random() * stateArr.length);
             stateIndexArr.push(stateArr[temp]);
-            this._phaseList.push(RoadMethod.instance.creatRoad(drawid, this.horseList[i].getDataVo<HorseVo>(HorseVo), stateArr[temp]));
+            this._phaseList.push(RoadMethod.instance.creatRoad(drawid, this.horseList[ClientModel.instance.lastBetInfo.horseInfoList[i].id - 1].getDataVo<HorseVo>(HorseVo), stateArr[temp]));
             // stateArr.splice(temp, 1);
         }
         var index: number = 0;

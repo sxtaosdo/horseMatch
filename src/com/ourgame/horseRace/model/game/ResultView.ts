@@ -50,6 +50,12 @@ class ResultView extends BaseComponent implements IBase {
 
 	private onInfo(): void {
 		var vo: MatchInfoVo = ClientModel.instance.lastBetInfo;
+		if (vo.horseInfoList.length < 1) {
+			//如果进入游戏后直接是结果页面是没有比赛信息数据的，所以请求一次draw
+			ConnectionManager.instance.sendHelper.drawMatch();
+			console.log("直接是结果页面,horseInfoList为空，请求一次draw");
+			return;
+		}
 		if (vo) {
 			this.nameText.text = ConfigModel.instance.horseList[vo.horseInfoList[0].id - 1].name;
 			this.headImage.source = RES.getRes("betHead" + vo.horseInfoList[0].id + "_png");

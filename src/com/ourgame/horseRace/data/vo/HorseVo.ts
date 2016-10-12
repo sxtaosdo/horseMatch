@@ -44,6 +44,7 @@ class HorseVo extends egret.HashObject {
 		this.endurance = data.endurance;
 		this.recovery = data.recovery;
 		this.mcName = data.mcName;
+		this.height = data.height;
 
 		// var temp: any = new md5().hex_md5(this.mcName)
 		// console.log("this.mcName md5:" + temp);

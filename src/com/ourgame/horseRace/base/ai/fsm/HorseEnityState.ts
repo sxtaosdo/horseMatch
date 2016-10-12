@@ -227,7 +227,7 @@ class HorseEnityStateStuck implements IState {
 		var currentTime = 0;
 		var reachEnd: boolean = true;
 		if (this.self.sTime > 0) {
-			if (egret.getTimer() - this.self.sTime > 1000) {
+			if (egret.getTimer() - this.self.sTime > 2000) {
 				// this.self.changeAnimation(AnimationType.FALL);
 				this.self.sTime = 0;
 			}
@@ -301,7 +301,7 @@ class HorseEnityStatePass implements IState {
 					entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 					this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
 				}
-				//在障碍中，pass要播放动画，x坐标随之变化，待sxt确认
+				//在障碍中，pass要播放动画，x坐标随之变化，待确认
 				else {
 					var target = list[i].throughLength / list[i].throughTime * (nextTime - currentTime);
 					target = Math.min(list[i].throughLength, target);

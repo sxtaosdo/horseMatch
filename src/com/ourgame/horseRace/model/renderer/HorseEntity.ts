@@ -23,8 +23,9 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 	public obstacle: ObstacleVo;
 	/**状态 */
 	public buffList: Array<BufferVo>;
-	/**动作开始时间 */
+	/**动作时间 */
 	public sTime: number = 0;
+	public durationTime: number = 0;
 
 	public constructor() {
 		super();
@@ -94,6 +95,8 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 				// console.log("this.armature重复");
 				return;
 			}
+			console.log("当前动作：" + name);
+
 			dragonBones.WorldClock.clock.remove(this.armature);
 			this._content.removeChild(this.displayObject);
 
@@ -113,10 +116,6 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		var textureData = RES.getRes("texture" + id + "_json");
 		var texture = RES.getRes("texture" + id + "_png");
 		if (!dragonbonesData) {
-			// if (true) {
-			// dragonbonesData = RES.getRes("donghua" + 1 + "_json");
-			// textureData = RES.getRes("texture" + 1 + "_json");
-			// texture = RES.getRes("texture" + 1 + "_png");
 			dragonbonesData = RES.getRes("donghua" + 4 + "_json");
 			textureData = RES.getRes("texture" + 4 + "_json");
 			texture = RES.getRes("texture" + 4 + "_png");
@@ -135,8 +134,9 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 			// this.armature.animation.gotoAndPlay(AnimationType.IDEL);
 
 			this.displayObject = this.armature.display;
-			this._vo.height = this.armature.display.height;
-			this._vo.width = this.armature.display.width;
+			this.durationTime = this.armature.getBones().length;
+			// this._vo.height = this.armature.display.height;
+			// this._vo.width = this.armature.display.width;
 			this.displayObject.anchorOffsetX = this.displayObject.width / 2;
 		} else {
 			console.error("动画资源加载失败！");

@@ -284,7 +284,9 @@ class GameWorld extends egret.Sprite implements IBase {
                 break;
             case GameState.RUN_STAGE:
                 var d: Date = new Date();
-                ClientModel.instance.enterStateTime = d.getTime() - enterStateTime;
+                ClientModel.instance.enterStateTime = d.getTime() - enterStateTime * 1000;
+                // console.log("进入赛跑阶段，进入时间：" + ClientModel.instance.enterStateTime);
+
                 this._runState = RunState.RUN;
                 this.addChild(this.progress);
                 this.isBulletTime = false;
@@ -352,7 +354,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 let horse: HorseEntity = this.client.horseList[i];
                 // horse.getDisplayObject().y = this.stage.stageHeight - (4 - i) * 110 - (horse.getDataVo<HorseVo>(HorseVo).height - 230) - 120;
                 horse.getDisplayObject().y = (this.stage.stageHeight - (4 - i) * 110) - horse.getDataVo<HorseVo>(HorseVo).height + 55;
-                console.log("y:" + horse.getDisplayObject().y + "\t i:" + i + "\t h:" + horse.getDataVo<HorseVo>(HorseVo).height);
+                // console.log("y:" + horse.getDisplayObject().y + "\t i:" + i + "\t h:" + horse.getDataVo<HorseVo>(HorseVo).height);
 
             }
         }
@@ -360,6 +362,7 @@ class GameWorld extends egret.Sprite implements IBase {
 
     //请求init后
     private onGameInfo(evt?: any): void {
+        //init消息貌似没用
         this.parseGameStateData(this.client.lastBetInfo.info);
         ConnectionManager.instance.sendHelper.drawMatch();
     }
@@ -371,7 +374,8 @@ class GameWorld extends egret.Sprite implements IBase {
         switch (this._gameState) {
             case GameState.PREPARE_STAGE://比赛3秒倒计时后服务器才知道比赛结果，所以这里需要请求一次，如果没有名次信息则重试，次数太多弹板提示
                 if (this.client.lastBetInfo.includeRank) {
-                    this.changeState(GameState.RUN_STAGE, config.runTime - (this.client.gameTime - config.nextTime));
+                    this.changeState(GameState.RUN_STAGE);
+                    // this.changeState(GameState.RUN_STAGE, config.runTime - (this.client.gameTime - config.nextTime));
                 } else {
                     ConnectionManager.instance.sendHelper.drawMatch();
                     console.log("获取名次信息失败，重试" + TimeUtils.printTime);
@@ -382,6 +386,9 @@ class GameWorld extends egret.Sprite implements IBase {
                 if (this.client.lastBetInfo.info.isNew) {
                     this.changeState(GameState.BET_STAGE);
                 } else {
+                    if (this.resultBiew) {
+                        this.resultBiew.enter();
+                    }
                     ConnectionManager.instance.sendHelper.drawMatch();
                 }
                 break;
