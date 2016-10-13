@@ -38,6 +38,7 @@ var game_file_list = [
 	"bin-debug/com/ourgame/horseRace/data/UserModel.js",
 	"bin-debug/com/ourgame/horseRace/data/vo/BetHistoryInfoVo.js",
 	"bin-debug/com/ourgame/horseRace/data/vo/BufferVo.js",
+	"bin-debug/com/ourgame/horseRace/data/vo/CoinBitmap.js",
 	"bin-debug/com/ourgame/horseRace/data/vo/GameInfoVo.js",
 	"bin-debug/com/ourgame/horseRace/data/vo/HistoryVo.js",
 	"bin-debug/com/ourgame/horseRace/data/vo/HorseVo.js",

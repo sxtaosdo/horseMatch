@@ -323,7 +323,7 @@ class ClientModel {
     public testIndex(): void {
         var testIndexArr: Array<number> = [4, 1, 5, 2, 3];
         var stateArr: Array<number> = [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-        var stateIndexArr: Array<number> = [0,0,0,0,0];
+        var stateIndexArr: Array<number> = [0, 0, 0, 0, 0];
         var temp: number;
         //名次从1到5循环
         for (var i: number = 1; i <= 5; i++) {
@@ -332,7 +332,7 @@ class ClientModel {
                 if (testIndexArr[j - 1] != i) {
                     continue;
                 }
-                console.log("enter index:"+j);
+                console.log("enter index:" + j);
                 //第一名及第二名的速度必须要在前9个状态中找,保证固定时间，前两名结果展示出来
                 if (i == 1 || i == 2) {
                     temp = Math.floor(Math.random() * 4.5);
@@ -341,18 +341,18 @@ class ClientModel {
                 else {
                     temp = Math.floor(Math.random() * (stateArr.length - 1.5 * (5 - i)));
                 }
-                console.log("      enter value:"+temp);
-                stateIndexArr[j-1]=stateArr[temp];
+                console.log("      enter value:" + temp);
+                stateIndexArr[j - 1] = stateArr[temp];
                 stateArr.splice(0, temp + 1);
                 console.log("stateArr:");
-                for(var mm:number=0;mm<stateArr.length;mm++){
-                    console.log("index:"+mm+"value:"+stateArr[mm]);
+                for (var mm: number = 0; mm < stateArr.length; mm++) {
+                    console.log("index:" + mm + "value:" + stateArr[mm]);
                 }
             }
         }
         console.log(stateIndexArr);
-        for(var i:number=0;i<stateIndexArr.length;i++){
-            console.log("stateIndexArr:"+(i+1).toString()+"value is:"+stateIndexArr[i]);
+        for (var i: number = 0; i < stateIndexArr.length; i++) {
+            console.log("stateIndexArr:" + (i + 1).toString() + "value is:" + stateIndexArr[i]);
         }
     }
 

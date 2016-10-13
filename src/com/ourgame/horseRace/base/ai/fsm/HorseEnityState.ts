@@ -173,7 +173,7 @@ class HorseEnityStateEnd implements IState {
 
 		if (this.self.sTime > 0) {
 			this.self.stopAnimation();
-			if (egret.getTimer() - this.self.sTime > 1500) {
+			if (egret.getTimer() - this.self.sTime > 1800) {
 				this.self.sTime = 0;
 				this.self.stopAnimation(false);
 				// this.self.getFSM().ChangeState(HorseEnityStateSeek.instance);
