@@ -57,7 +57,7 @@ class ClientModel {
     /**我的投注记录 */
     private _betHistory: Array<BetHistoryInfoVo>;
     /**奖励金额 */
-    private _awardMoney: number = 0;
+    private _resultInfo: any;
 
     // /**下注时间 */
     // public betTime: number;
@@ -67,8 +67,6 @@ class ClientModel {
     // public nextTime: number;
     /**游戏当前时间 */
     private _gameTime: number = 0;
-    /**奖励金额 */
-    // private _awardMoney: number = 0;
 
     /**下注结果 */
     public _betOperation: string;
@@ -87,6 +85,7 @@ class ClientModel {
         this._gameInfo = new GameInfoVo();
         this._betHistory = new Array<BetHistoryInfoVo>();
         this._betInfo = new Object();
+        this._resultInfo = new Object();
     }
 
     /**
@@ -292,7 +291,7 @@ class ClientModel {
         this._phaseList = [];
         let str: string = new md5().hex_md5(this.lastBetInfo.info.drawId);
         for (var i: number = 0; i < 5; i++) {
-            console.log("id:" + this.lastBetInfo.horseInfoList[i].id + "\t rank:" + this.lastBetInfo.horseInfoList[i].rank);
+            // console.log("id:" + this.lastBetInfo.horseInfoList[i].id + "\t rank:" + this.lastBetInfo.horseInfoList[i].rank);
 
             if (this.lastBetInfo.horseInfoList[i].rank == 1) {
                 temp = 9;   //设置第一名的到达为0
@@ -309,7 +308,7 @@ class ClientModel {
             this._phaseList.push(arr);
             // stateArr.splice(temp, 1);
             this.horseList[this.lastBetInfo.horseInfoList[i].id - 1].roadList = arr;
-            console.log("id:" + this.horseList[this.lastBetInfo.horseInfoList[i].id - 1].getDataVo<HorseVo>(HorseVo).id + "\t rank:" + stateArr[temp]);
+            // console.log("id:" + this.horseList[this.lastBetInfo.horseInfoList[i].id - 1].getDataVo<HorseVo>(HorseVo).id + "\t rank:" + stateArr[temp]);
         }
         return this._phaseList;
     }
@@ -393,9 +392,11 @@ class ClientModel {
     }
 
     public setBetReslut(data: any): void {
-        this.user.money = data.acctAmount;
+        if (data.acctAmount) {
+            this.user.money = data.acctAmount;
+        }
         if (data.rtnCode == 0) {
-            console.log("下注成功");
+            // console.log("下注成功");
         }
         this._betOperation = data;
         GameDispatcher.send(BaseEvent.BET_OPERATION_RESULT);
@@ -453,11 +454,7 @@ class ClientModel {
     }
 
     public setResult(data: any): void {
-        if (data.betAmount) {
-            this._awardMoney = data.betAmount;
-        } else {
-            this._awardMoney = 0;
-        }
+        this._resultInfo = data;
         GameDispatcher.send(BaseEvent.DRAW_RESULT)
     }
 
@@ -465,7 +462,7 @@ class ClientModel {
         return this._betHistory;
     }
 
-    public get awardMoneoy(): number {
-        return this._awardMoney;
+    public get resultInfo(): any {
+        return this._resultInfo;
     }
 }

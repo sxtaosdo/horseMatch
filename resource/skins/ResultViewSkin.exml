@@ -10,6 +10,10 @@
 	<e:Image source="result_topTime_png" y="0" horizontalCenter="0"/>
 	<e:Label text="1" x="107" y="338" width="40" verticalAlign="middle" textAlign="center" textColor="0x000000"/>
 	<e:Label id="nameText" text="标签" x="151" y="348" width="122" textAlign="center" verticalAlign="middle" fontFamily="黑体" bold="true" size="28"/>
-	<e:List id="itemList" width="383" height="242" x="558" y="141"/>
+	<e:List id="itemList" width="383" height="242" x="558" y="141">
+		<e:layout>
+			<e:VerticalLayout gap="0"/>
+		</e:layout>
+	</e:List>
 	<e:Label id="timeText" text=" " x="444" y="43" width="137" verticalAlign="middle" textAlign="center"/>
 </e:Skin>

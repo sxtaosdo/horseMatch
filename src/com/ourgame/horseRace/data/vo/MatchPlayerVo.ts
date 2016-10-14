@@ -11,6 +11,8 @@ class MatchPlayerVo {
 	private _bet: number = 0;
 	/**排名 */
 	public rank: number;
+	/**中奖金额 */
+	public award: number;
 
 	public constructor(data?: any) {
 		if (data) {
@@ -36,9 +38,6 @@ class MatchPlayerVo {
 
 	public set bet(v: number) {
 		this._bet = v;
-		console.log();
-
 	}
-
 
 }

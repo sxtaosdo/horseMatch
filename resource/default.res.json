@@ -41,7 +41,7 @@
 			"name":"betView"
 		},
 		{
-			"keys":"texture4_png,donghua4_json,texture4_json,donghua1_json,texture1_json,texture1_png,donghua5_json,texture5_json,texture5_png,donghua3_json,texture3_json,texture3_png",
+			"keys":"texture4_png,donghua4_json,texture4_json,donghua1_json,texture1_json,texture1_png,donghua5_json,texture5_json,texture5_png,donghua3_json,texture3_json,texture3_png,texture2_png,donghua2_json,texture2_json",
 			"name":"db"
 		},
 		{
@@ -841,6 +841,21 @@
 			"name":"texture3_png",
 			"type":"image",
 			"url":"db/texture3.png"
+		},
+		{
+			"name":"texture2_png",
+			"type":"image",
+			"url":"db/texture2.png"
+		},
+		{
+			"name":"donghua2_json",
+			"type":"json",
+			"url":"db/donghua2.json"
+		},
+		{
+			"name":"texture2_json",
+			"type":"json",
+			"url":"db/texture2.json"
 		}
 	]
 }

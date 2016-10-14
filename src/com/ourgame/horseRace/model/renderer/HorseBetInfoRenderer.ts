@@ -50,12 +50,8 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 		console.log("on update" + TimeUtils.printTime);
 		if (vo.math) {
 			if (this.data.math.bet < 1) {
-				while (this.coinList.length > 0) {
-					let bmp: egret.Bitmap = this.coinList.pop();
-					if (bmp.parent) {
-						bmp.parent.removeChild(bmp);
-					}
-				}
+				this.deleteCoin();
+				this.lastBetMoney = 0;
 			} else {
 				this.onTap();
 			}
@@ -79,9 +75,9 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 		}
 	}
 
-	private deleteCoin(num: number) {	//废弃
-		for (var i: number = 0; i < num; i++) {
-			let coin: egret.Bitmap = this.coinList[this.coinList.length - i];
+	private deleteCoin() {
+		while (this.coinList.length > 0) {
+			let coin: egret.Bitmap = this.coinList.pop()
 			if (coin.parent) {
 				coin.parent.removeChild(coin);
 			}

@@ -337,6 +337,7 @@ class GameWorld extends egret.Sprite implements IBase {
         this.client.horseList.forEach(element => {
             MessageDispatcher.instance.DispatchSimpleMessage(this.client.first, element, "onReachEndLine");
         });
+        ConnectionManager.instance.sendHelper.matchResult();//请求结果
         // this.bdSpeed = 0.001;
         // egret.Tween.get(this).wait(100).to({ bdSpeed: 0.03 }, 2000);
     }
@@ -424,7 +425,9 @@ class GameWorld extends egret.Sprite implements IBase {
             } else if (this.client.gameTime <= config.nextTime) {//结果展示阶段
                 // if (this._gameState != GameState.RESULT_STAGE) {
                 console.log("进入：RESULT");
-                this.changeState(GameState.RESULT_STAGE);
+                if (this._gameState != GameState.RESULT_STAGE) {
+                    this.changeState(GameState.RESULT_STAGE);
+                }
                 // }
             } else {//赛跑阶段
                 console.log("进入：RUN");

@@ -9,10 +9,13 @@ class MsgSendHelper {
     private _message: any;
     private _sender: any;
     private static instance: MsgSendHelper;
+    private sendTime: any;
+    private requestInterval: number = 0;
 
     public constructor(message: any) {
         MsgSendHelper.instance = this;
         this._message = message;
+        this.sendTime = {};
     }
 
     public sender(value: any): void {
@@ -29,12 +32,21 @@ class MsgSendHelper {
 
     public gameInfo(): void {//这个消息感觉有点不合理，仅作请求用户金币消息，待该消息返回再请求一次/hrb/draw
         ConnectionManager.instance.send("/hrb/init");
-        // var str: string = JSON.stringify({ "\"drawId\"": "20160926", "\"betInfo\"": "1x100", "\"playId\"": "1" })
-        // ConnectionManager.instance.send("/hrb/bet", str);
+    }
+
+    private isCanSend(key: string): boolean {
+        if (this.sendTime[key]) {
+            if (egret.getTimer() - this.sendTime[key] > this.requestInterval) {
+                ConnectionManager.instance.send(key, null);
+            }
+        }
+        return true;
     }
 
     public drawMatch(data?: any): void {
-        ConnectionManager.instance.send("/hrb/draw", null);
+        if (this.isCanSend("/hrb/draw")) {
+            ConnectionManager.instance.send("/hrb/draw");
+        }
     }
 
     public history(data?: any): void {

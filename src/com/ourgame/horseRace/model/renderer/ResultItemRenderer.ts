@@ -9,9 +9,17 @@ class ResultItemRenderer extends eui.ItemRenderer {
 	}
 
 	public dataChanged(): void {
-		var vo: MatchPlayerVo = this.data;
-		this.nameText.text = ConfigModel.instance.horseList[vo.id-1].name;
-		this.muText.text = String(vo.rate);
-		this.awardText.text = "0"
+		var vo: ResultVo = this.data;
+		if (vo) {
+			this.nameText.text = vo.name;
+			this.muText.text = String(vo.double);
+			console.log("renderer收到award：" + vo.award);
+
+			if (vo.award) {
+				this.awardText.text = String(vo.award);
+			} else {
+				this.awardText.text = "0";
+			}
+		}
 	}
 }

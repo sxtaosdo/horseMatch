@@ -18,6 +18,7 @@ class HttpHandler implements ISocket {
         this.request.withCredentials = true;
         var url: string = ConfigModel.instance.url + "/login/" + UserModel.instance.token;
         this.request.open(url, egret.HttpMethod.POST);
+        this.request.setRequestHeader("Content-Type", "application/json");
         this.request.addEventListener(egret.Event.COMPLETE, this.onLogin, this);
         this.request.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onLoadError, this);
         this.request.addEventListener(egret.ProgressEvent.PROGRESS, this.onGetProgress, this);
@@ -35,8 +36,8 @@ class HttpHandler implements ISocket {
     public send(type: any, byts?: any): void {
         this.request.open(ConfigModel.instance.url + type, egret.HttpMethod.POST);
         // if (byts) {
-            this.request.setRequestHeader("Content-Type", "application/json");
-            this.request.send(byts);
+        this.request.setRequestHeader("Content-Type", "application/json");
+        this.request.send(byts);
         // }
         console.log("发送了：" + ConfigModel.instance.url + type);
     }
@@ -61,7 +62,7 @@ class HttpHandler implements ISocket {
         } else {
             type = temp;
         }
-        console.log("type:" + type + "\ntemp" + temp);
+        // console.log("type:" + type + "\ntemp" + temp);
 
         this.callback(type, data);
         if (ConfigModel.instance.debug) {

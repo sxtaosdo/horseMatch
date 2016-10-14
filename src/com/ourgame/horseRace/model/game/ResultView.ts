@@ -14,15 +14,17 @@ class ResultView extends BaseComponent implements IBase {
 	private call: Function;
 	private callThis: any;
 
-	private requestInterval: number = 20000;
+	private requestInterval: number = 2500;
 	private lastRequest: number = 0;
+	// private resultList: Array<ResultVo>;
 
 	public constructor() {
 		super();
 		this.skinName = "ResultViewSkin";
 		this.dataList = new eui.ArrayCollection();
+		// this.resultList = new Array<ResultVo>();
 		this.itemList.itemRenderer = ResultItemRenderer;
-		this.itemList.dataProvider = this.dataList;
+
 	}
 
 	protected onSkinComplete(e: any): void {
@@ -33,22 +35,16 @@ class ResultView extends BaseComponent implements IBase {
 	public enter(data?: any): void {
 		this.moneyText.text = "";
 		this.execute(ClientModel.instance.gameTime)
-		GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
-		GameDispatcher.addEventListener(BaseEvent.DRAW_RESULT, this.onAward, this);
-		if (egret.getTimer() - this.lastRequest > this.requestInterval) {
-			this.lastRequest = egret.getTimer();
-			ConnectionManager.instance.sendHelper.matchResult();
-			console.log("请求比赛收益" + TimeUtils.printTime);
-		}
+		GameDispatcher.addEventListener(BaseEvent.DRAW_RESULT, this.onInfo, this);
 		this.onInfo();
 	}
 
 	public exit(): void {
-		this.removeEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
-		GameDispatcher.removeEventListener(BaseEvent.DRAW_RESULT, this.onAward, this);
+		GameDispatcher.removeEventListener(BaseEvent.DRAW_RESULT, this.onInfo, this);
 		if (this.parent) {
 			this.parent.removeChild(this);
 		}
+		// this.headImage.texture = null;
 	}
 
 	public execute(data?: any): void {
@@ -59,32 +55,55 @@ class ResultView extends BaseComponent implements IBase {
 		}
 	}
 
+	private requst(): void {
+		if (egret.getTimer() - this.lastRequest > this.requestInterval) {
+			this.lastRequest = egret.getTimer();
+			ConnectionManager.instance.sendHelper.matchResult();
+			console.log("请求比赛收益" + TimeUtils.printTime);
+		}
+	}
+
 	private onInfo(): void {
-		var vo: MatchInfoVo = ClientModel.instance.lastBetInfo;
-		if (vo.horseInfoList.length < 1) {
+		if (!ClientModel.instance.resultInfo.matchInfo) {
 			//如果进入游戏后直接是结果页面是没有比赛信息数据的，所以请求一次draw
-			ConnectionManager.instance.sendHelper.drawMatch();
+			this.requst();
 			console.log("直接是结果页面,horseInfoList为空，请求一次draw");
 			return;
-		}
-		if (vo) {
-			this.nameText.text = ConfigModel.instance.horseList[vo.horseInfoList[0].id - 1].name;
-			this.headImage.source = RES.getRes("betHead" + vo.horseInfoList[0].id + "_png");
-			vo.horseInfoList.forEach(element => {
-				this.dataList.addItem(element);
-			});
-			this.dataList.refresh();
-			if (ConfigModel.instance.debug) {
-				this.timer = ConfigModel.instance.nextTime - 2;
-			} else {
-				this.timer = vo.info.leftTime;
+		} else {
+			this.dataList.removeAll();
+			var winInfo: any = {};
+			if (ClientModel.instance.resultInfo.winInfo) {
+				var temp: Array<string> = ClientModel.instance.resultInfo.winInfo.split("#");
+				temp.forEach(element => {
+					var temp2 = element.split("x");
+					winInfo[temp2[0]] = temp2[1];
+				});
 			}
+			ClientModel.instance.resultInfo.matchInfo.forEach(element => {
+				var vo = new ResultVo();
+				vo.setDate(element)
+				vo.setBetData(winInfo[vo.id]);
+				this.dataList.addItem(vo);
+				// console.log("id:" + vo.id + "\t award:" + vo.award);
+
+			});
+			// this.dataList.refresh();
+			this.itemList.dataProvider = this.dataList;
+
+			this.nameText.text = this.dataList.source[0].name;
+			this.headImage.source = RES.getRes("betHead" + this.dataList.source[0].id + "_png");
 		}
+		this.onAward();
 	}
 
 	private onAward(): void {
 		if (this.moneyText) {
-			this.moneyText.text = String(ClientModel.instance.awardMoneoy);
+			if (ClientModel.instance.resultInfo.winAmount) {
+				this.moneyText.text = String(ClientModel.instance.resultInfo.winAmount);
+			} else {
+				this.moneyText.text = "0";
+			}
 		}
+		this.onInfo();
 	}
 }
