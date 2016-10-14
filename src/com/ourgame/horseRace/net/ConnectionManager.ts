@@ -50,6 +50,7 @@ class ConnectionManager {
         console.log("conn type:" + this.CONN_TYPE);
 
         switch (this.CONN_TYPE) {
+        // switch (5) {
             case 1://本地调试
                 // this.socket = new LocalHandler(this._receiveHelper.onMessage);
                 this.socket = new HttpService(this._receiveHelper.onMessage, this);
@@ -93,7 +94,7 @@ class ConnectionManager {
         ConnectionManager._instance.socket.conn(ConnectionManager._instance.ip, ConnectionManager._instance.port);
     }
     public onClose(data?: any): void {
-        InterfaceManager.instance.onSocketClose(data);
+        InterfaceManager.instance.native.onSocketClose(data);
     }
 
     public close(data?: any): void {

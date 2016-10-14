@@ -73,7 +73,7 @@ class GameWorld extends egret.Sprite implements IBase {
     /**龙骨动画播放速度 */
     private bdSpeed: number = -1;
     private lastX: number = 0;
-    private requestInterval: number = 2000;
+    private requestInterval: number = 3000;
     private lastRequest: number = 0;
 
     public constructor() {
@@ -197,7 +197,7 @@ class GameWorld extends egret.Sprite implements IBase {
                         }
                         break;
                     case GameState.PREPARE_STAGE:
-                        time = this.client.gameTime - (config.runTime + config.nextTime);
+                        time = this.client.gameTime - (config.runTime + config.nextTime) + 1;
                         this.topBar.execute(time);
                         if (time < 1) {
                             ConnectionManager.instance.sendHelper.drawMatch();  //准备倒计时结束后，请求名次信息,否则无法生成动画脚本
@@ -208,7 +208,7 @@ class GameWorld extends egret.Sprite implements IBase {
                         //不处理，等待第一名撞线的事件改变游戏状态
                         break;
                     case GameState.RESULT_STAGE:
-                        time = this.client.gameTime;
+                        time = this.client.gameTime + 1;
                         this.resultBiew.execute(time);
                         if (time < 1) {
                             // this.changeState(GameState.BET_STAGE);
@@ -281,6 +281,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.addChild(this.progress);
                 this.lastX = 0;
                 this.progress.enter();
+                this.racetrack.enter();
                 break;
             case GameState.RESULT_STAGE:
                 this._runState = RunState.END;
@@ -294,15 +295,15 @@ class GameWorld extends egret.Sprite implements IBase {
                 break;
             case GameState.RUN_STAGE:
                 var d: Date = new Date();
-                ClientModel.instance.enterStateTime = d.getTime() - enterStateTime * 1000;
+                this.client.enterStateTime = d.getTime() - enterStateTime * 1000;
                 // console.log("进入赛跑阶段，进入时间：" + ClientModel.instance.enterStateTime);
 
                 this._runState = RunState.RUN;
                 this.addChild(this.progress);
                 this.isBulletTime = false;
                 this.tempSpeed = 0;
-                ClientModel.instance.roadPastLength = 0;
-                ClientModel.instance.initGameSprite(this.client.lastBetInfo.info.drawId);
+                this.client.roadPastLength = 0;
+                this.client.initGameSprite(this.client.lastBetInfo.info.drawId);
 
                 this.racetrack.enter();
                 TimerManager.instance.doLoop(1 / 30 * 1000, this.execute, this);
@@ -385,7 +386,7 @@ class GameWorld extends egret.Sprite implements IBase {
         switch (this._gameState) {
             case GameState.PREPARE_STAGE://比赛3秒倒计时后服务器才知道比赛结果，所以这里需要请求一次，如果没有名次信息则重试，次数太多弹板提示
                 if (this.client.lastBetInfo.includeRank) {
-                    this.changeState(GameState.RUN_STAGE);
+                    this.changeState(GameState.RUN_STAGE, config.runTime - (this.client.gameTime - config.nextTime));
                     // this.changeState(GameState.RUN_STAGE, config.runTime - (this.client.gameTime - config.nextTime));
                 } else {
                     ConnectionManager.instance.sendHelper.drawMatch();

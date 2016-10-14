@@ -59,9 +59,9 @@
 					<e:Image x="78" y="272" source="result_star_png"/>
 					<e:Label id="idText" text="1" x="87" y="288" width="40" verticalAlign="middle" textAlign="center" textColor="0x000000"/>
 					<e:Label id="nameText" text="标签" x="131" y="298" width="122" textAlign="center" verticalAlign="middle" fontFamily="黑体" bold="true" size="28"/>
-					<e:Rect width="349" height="4" x="394" y="177"/>
+					<e:Rect width="349" height="4" x="404" y="177"/>
 					<e:Label text="栖息地：" x="406" y="91" textColor="0x070000" bold="true"/>
-					<e:Label id="qxdText" text=" " x="556" y="89" textColor="0x070000" bold="true"/>
+					<e:Label id="qxdText" text=" " x="556" y="89" textColor="0x070000" bold="true" width="198"/>
 					<e:Label text="年龄：" x="406" y="129" textColor="0x070000" bold="true"/>
 					<e:Label id="nlText" text=" " x="556" y="129" textColor="0x070000" bold="true"/>
 					<e:Label text="本期赔率：" x="406" y="199" textColor="0x070000" bold="true"/>

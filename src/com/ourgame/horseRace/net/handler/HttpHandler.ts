@@ -17,7 +17,6 @@ class HttpHandler implements ISocket {
         this.request.responseType = egret.HttpResponseType.TEXT;
         this.request.withCredentials = true;
         var url: string = ConfigModel.instance.url + "/login/" + UserModel.instance.token;
-        // var url: string = ConfigModel.instance.url + "/hrb/init";
         this.request.open(url, egret.HttpMethod.POST);
         this.request.addEventListener(egret.Event.COMPLETE, this.onLogin, this);
         this.request.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onLoadError, this);

@@ -11,30 +11,31 @@ class InterfaceManager {
             this.currentNative = new WebInterface();
             return;
         }
-        switch (egret.Capabilities.os) {
-            case "iOS":
-                this.currentNative = new IosInterface();
-                // ClientModel.instance.clientType = 1;
-                break;
-            case "Android":
-                this.currentNative = new AndroidInterface();
-                // ClientModel.instance.clientType = 2;
-                break;
-            case "Windows PC":
-            case "Mac OS":
-                this.currentNative = new WebInterface();
-                // ClientModel.instance.clientType = 0;
-                break;
-            case "Windows Phone":
-                this.currentNative = new WebInterface();
-                // ClientModel.instance.clientType = 3;
-                break;
-            default:
-                if (this.isWeiXin) {
-                    this.currentNative = new WebInterface();
-                }
-                break;
-        }
+        // switch (egret.Capabilities.os) {
+        //     case "iOS":
+        //         this.currentNative = new IosInterface();
+        //         // ClientModel.instance.clientType = 1;
+        //         break;
+        //     case "Android":
+        //         this.currentNative = new AndroidInterface();
+        //         // ClientModel.instance.clientType = 2;
+        //         break;
+        //     case "Windows PC":
+        //     case "Mac OS":
+        //         this.currentNative = new WebInterface();
+        //         // ClientModel.instance.clientType = 0;
+        //         break;
+        //     case "Windows Phone":
+        //         this.currentNative = new WebInterface();
+        //         // ClientModel.instance.clientType = 3;
+        //         break;
+        //     default:
+        //         if (this.isWeiXin) {
+        //             this.currentNative = new WebInterface();
+        //         }
+        //         break;
+        // }
+        this.currentNative = new AliInterface();    //暂时写死成阿里渠道
     }
 
     public get isWeiXin(): boolean {
@@ -66,43 +67,43 @@ class InterfaceManager {
         return this._instance;
     }
 
-    public native(): INative {
-        return this.currentNative;
+    public get native(): IPlatform {
+        return <any>this.currentNative;
     }
 
-    public closeApp(data?: any): void {
-        InterfaceManager.instance.currentNative.closeApp(data);
-    }
+    // public closeApp(data?: any): void {
+    //     InterfaceManager.instance.currentNative.closeApp(data);
+    // }
 
-    public recharge(data?: any): void {
-        InterfaceManager.instance.currentNative.recharge(data);
-    }
+    // public recharge(data?: any): void {
+    //     InterfaceManager.instance.currentNative.recharge(data);
+    // }
 
-    public scan(data?: any): void {
-        InterfaceManager.instance.currentNative.scan(data);
-    }
+    // public scan(data?: any): void {
+    //     InterfaceManager.instance.currentNative.scan(data);
+    // }
 
-    public onSocketClose(data?: any): void {
-        InterfaceManager.instance.currentNative.onSocketClose(data);
-    }
+    // public onSocketClose(data?: any): void {
+    //     InterfaceManager.instance.currentNative.onSocketClose(data);
+    // }
 
-    public onLoadeBegin(data?: any): void {
-        InterfaceManager.instance.currentNative.onLoadeBegin(data);
-    }
+    // public onLoadeBegin(data?: any): void {
+    //     InterfaceManager.instance.currentNative.onLoadeBegin(data);
+    // }
 
-    public onLoadeComplete(data?: any): void {
-        InterfaceManager.instance.currentNative.onLoadeComplete(data);
-    }
+    // public onLoadeComplete(data?: any): void {
+    //     InterfaceManager.instance.currentNative.onLoadeComplete(data);
+    // }
 
-    public onLoadeError(data?: any): void {
-        InterfaceManager.instance.currentNative.onLoadeError(data);
-    }
+    // public onLoadeError(data?: any): void {
+    //     InterfaceManager.instance.currentNative.onLoadeError(data);
+    // }
 
-    public callfunction(data?: any): void {
-        InterfaceManager.instance.currentNative.callfunction(data);
-    }
+    // public callfunction(data?: any): void {
+    //     InterfaceManager.instance.currentNative.callfunction(data);
+    // }
 
-    public onInitComplete(data?: any): void {
-        InterfaceManager.instance.currentNative.onInitComplete(data);
-    }
+    // public onInitComplete(data?: any): void {
+    //     InterfaceManager.instance.currentNative.onInitComplete(data);
+    // }
 }

@@ -47,22 +47,26 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 			this.racetrackArr[i].addChild(bmp)
 
 			bmp = BitMapUtil.createBitmapByName("bg_end_png");
-			bmp.x = GameWorld.DEADLINE_LENGTH - bmp.width/4;
+			bmp.x = GameWorld.DEADLINE_LENGTH - bmp.width / 4;
 			this.racetrackArr[i].addChild(bmp);
 
-			var arr = ClientModel.instance.phaseList[i];
-			arr.forEach(element => {
-				if (element.obstacleType != 0) {
-					bmp = BitMapUtil.createBitmapByName("bg_obstacle_" + element.obstacleType + "_png");
-					bmp.y = -90;
-					bmp.x = element.startX;
-					if (element.obstacleType == 2) {
-						bmp.y = -10;
-						bmp.x = element.startX - 120;
+			// var arr = ClientModel.instance.phaseList[i];
+			let arr = ClientModel.instance.horseList[i].roadList;
+			if (arr) {
+
+				arr.forEach(element => {
+					if (element.obstacleType != 0) {
+						bmp = BitMapUtil.createBitmapByName("bg_obstacle_" + element.obstacleType + "_png");
+						bmp.y = -90;
+						bmp.x = element.startX;
+						if (element.obstacleType == 2) {
+							bmp.y = -10;
+							bmp.x = element.startX - 120;
+						}
+						this.racetrackArr[i].addChild(bmp);
 					}
-					this.racetrackArr[i].addChild(bmp);
-				}
-			});
+				});
+			}
 		}
 		this.image4Group.enter();
 	}

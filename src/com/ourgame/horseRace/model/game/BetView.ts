@@ -22,6 +22,8 @@ class BetView extends BaseComponent implements IBase {
 
 	/**每次的操作，发送给服务器前的操作，发送后清空 */
 	public operationTemp: any;
+	/**是否正在发送投注消息中 */
+	public isSending: boolean = false;
 
 
 	public constructor() {

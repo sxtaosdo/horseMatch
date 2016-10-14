@@ -46,10 +46,20 @@ class InfoPanel extends BaseComponent implements IWindow {
 			this.headBtn5.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onLeftTap, this);
 		}
 		GameDispatcher.addEventListener(BaseEvent.WINDOW_HISTORY, this.onData, this);
+		GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onUpdate, this);
 	}
 
 	public exit(): void {
 		ClientModel.instance.openWindow(null);
+		this.dataList.itemRenderer = InfoItemRenderer;
+		this.leftTab.removeEventListener(eui.ItemTapEvent.ITEM_TAP, this.onTabTap, this);
+		this.headBtn1.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onLeftTap, this);
+		this.headBtn2.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onLeftTap, this);
+		this.headBtn3.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onLeftTap, this);
+		this.headBtn4.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onLeftTap, this);
+		this.headBtn5.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onLeftTap, this);
+		GameDispatcher.removeEventListener(BaseEvent.WINDOW_HISTORY, this.onData, this);
+		GameDispatcher.removeEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onUpdate, this);
 	}
 
 	public execute(data?: any): void {
@@ -114,5 +124,9 @@ class InfoPanel extends BaseComponent implements IWindow {
 		this.headImage.texture = RES.getRes("betHead" + index + "_png");
 		this.nameText.text = data.name;
 		this.idText.text = String(data.id);
+	}
+
+	private onUpdate(): void {
+		this.onInfoData(this.leftTab.selectedIndex);
 	}
 }

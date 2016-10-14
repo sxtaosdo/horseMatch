@@ -9,10 +9,6 @@ interface INative {
      */ 
     closeApp(data?:any): void;
     /**
-     * 充值
-     */ 
-    recharge(data?:any):void;
-    /**
      * 扫码
      */ 
     scan(data?:any):void;

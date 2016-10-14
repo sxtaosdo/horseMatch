@@ -251,11 +251,11 @@ class ClientModel {
         switch (type) {
             case 1:
                 txt = LanguageConfig.instance.getLanguage("您的余额不足，请前往充值");
-                okFun = InterfaceManager.instance.recharge;
+                okFun = InterfaceManager.instance.native.recharge;
                 break;
             case 2:
                 txt = LanguageConfig.instance.getLanguage("您已断开连接，请刷新");
-                okFun = InterfaceManager.instance.closeApp;
+                okFun = InterfaceManager.instance.native.closeApp;
                 break;
             case 3:
                 txt = LanguageConfig.instance.getLanguage("您的游戏卷不足");
@@ -311,17 +311,6 @@ class ClientModel {
             this.horseList[this.lastBetInfo.horseInfoList[i].id - 1].roadList = arr;
             console.log("id:" + this.horseList[this.lastBetInfo.horseInfoList[i].id - 1].getDataVo<HorseVo>(HorseVo).id + "\t rank:" + stateArr[temp]);
         }
-        // var index: number = 0;
-
-        // this.horseList.forEach(element => {
-        //     element.roadList = this.phaseList[index++];
-        // });
-
-        // this.lastBetInfo.horseInfoList.forEach(element => {
-        //     this.horseList[element.rank - 1].roadList = this.phaseList[index++];
-        //     console.log("id:" + this.horseList[element.rank - 1].getDataVo<HorseVo>(HorseVo).id + "\t rank:" + element.rank);
-
-        // });
         return this._phaseList;
     }
 

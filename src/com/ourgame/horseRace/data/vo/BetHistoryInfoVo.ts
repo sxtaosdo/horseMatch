@@ -10,7 +10,9 @@ class BetHistoryInfoVo {
 
 	public setData(data: any): void {
 		this.id = data.drawId
-		this.date = data.date
+		//2016-10-13 11:29:06.0
+		let str: string = data.betTime
+		this.date = str.substring(str.indexOf("-") + 1, str.lastIndexOf(":"));
 		this.money = data.betAmount
 		this.award = data.winAmount
 

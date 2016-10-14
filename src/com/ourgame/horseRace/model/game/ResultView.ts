@@ -14,7 +14,7 @@ class ResultView extends BaseComponent implements IBase {
 	private call: Function;
 	private callThis: any;
 
-	private requestInterval: number = 2000;
+	private requestInterval: number = 20000;
 	private lastRequest: number = 0;
 
 	public constructor() {
@@ -32,12 +32,13 @@ class ResultView extends BaseComponent implements IBase {
 
 	public enter(data?: any): void {
 		this.moneyText.text = "";
-		this.timeText.text = String(ClientModel.instance.gameTime);
+		this.execute(ClientModel.instance.gameTime)
 		GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onInfo, this);
 		GameDispatcher.addEventListener(BaseEvent.DRAW_RESULT, this.onAward, this);
 		if (egret.getTimer() - this.lastRequest > this.requestInterval) {
 			this.lastRequest = egret.getTimer();
 			ConnectionManager.instance.sendHelper.matchResult();
+			console.log("请求比赛收益" + TimeUtils.printTime);
 		}
 		this.onInfo();
 	}
@@ -51,7 +52,11 @@ class ResultView extends BaseComponent implements IBase {
 	}
 
 	public execute(data?: any): void {
-		this.timeText.text = String(data);
+		if (data > -1) {
+			this.timeText.text = String(data);
+		} else {
+			this.timeText.text = "";
+		}
 	}
 
 	private onInfo(): void {
