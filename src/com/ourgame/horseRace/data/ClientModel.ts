@@ -373,6 +373,10 @@ class ClientModel {
         // egret.log("此处需进行跑道画面移动的处理");
     }
 
+    public resetRoadPastLenth(): void {
+        this._roadPastLength = 0;
+    }
+
     public get roadPastLength(): number {
         return this._roadPastLength;
     }

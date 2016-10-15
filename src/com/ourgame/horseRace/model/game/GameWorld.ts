@@ -176,6 +176,9 @@ class GameWorld extends egret.Sprite implements IBase {
         if (this.progress.parent) {
             this.progress.execute();
         }
+        this.client.horseList.forEach(element => {
+            element.getDisplayObject().x = element.currentX - this.client.roadPastLength;
+        });
     }
 
     private onAdd(): void {
@@ -302,7 +305,8 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.addChild(this.progress);
                 this.isBulletTime = false;
                 this.tempSpeed = 0;
-                this.client.roadPastLength = 0;
+                // this.client.roadPastLength = 0;
+                this.client.resetRoadPastLenth();
                 this.client.initGameSprite(this.client.lastBetInfo.info.drawId);
 
                 this.racetrack.enter();

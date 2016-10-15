@@ -16,11 +16,15 @@ class ImageGroup implements IBase {
 	/**y */
 	private startY: number = 0;
 
-	public constructor(parent: egret.DisplayObjectContainer, imageName: string, startY: number = 0) {
+	public constructor(parent: egret.DisplayObjectContainer, imageName: string, startY: number = 0, width: number = 0) {
 		this.parent = parent;
 		this.imageName = imageName;
 		this.startY = startY;
-		this.imageWidth = BitMapUtil.createBitmapByName(this.imageName).width;
+		if (width == 0) {
+			this.imageWidth = BitMapUtil.createBitmapByName(this.imageName).width;
+		} else {
+			this.imageWidth = width;
+		}
 		this.totalImageNum = Math.floor(Main.STAGE_WIDTH / this.imageWidth) + 2;
 		this.imageList = new Array<egret.Bitmap>();
 

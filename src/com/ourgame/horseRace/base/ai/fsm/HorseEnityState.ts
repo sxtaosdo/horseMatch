@@ -125,7 +125,10 @@ class HorseEnityStateSeek implements IState {
 			}
 		}
 		// console.log("sid is: "+this.self.sid+"\n nextTime is: "+nextTime +"\n currentX is "+this.self.currentX);
-		entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
+		// entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
+		// if (this.self.getDataVo<HorseVo>(HorseVo).id == 1) {
+		// 	console.log("dis X:" + entity.getDisplayObject().x + "\t currentX:" + this.self.currentX + "\t pastLength:" + ClientModel.instance.roadPastLength);
+		// }
 	}
 
     public exit(entity: IBaseGameEntity): void {
@@ -180,7 +183,7 @@ class HorseEnityStateEnd implements IState {
 			}
 		} else {
 			let list: Array<RoadVo> = this.self.roadList;
-			var speed: number = list[list.length-1].throughLength/list[list.length-1].throughTime;
+			var speed: number = list[list.length - 1].throughLength / list[list.length - 1].throughTime;
 			this.self.speed = speed;
 			this.self.currentX += speed;
 			entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;

@@ -93,10 +93,6 @@ class ResultView extends BaseComponent implements IBase {
 			this.nameText.text = this.dataList.source[0].name;
 			this.headImage.source = RES.getRes("betHead" + this.dataList.source[0].id + "_png");
 		}
-		this.onAward();
-	}
-
-	private onAward(): void {
 		if (this.moneyText) {
 			if (ClientModel.instance.resultInfo.winAmount) {
 				this.moneyText.text = String(ClientModel.instance.resultInfo.winAmount);
@@ -104,6 +100,5 @@ class ResultView extends BaseComponent implements IBase {
 				this.moneyText.text = "0";
 			}
 		}
-		this.onInfo();
 	}
 }

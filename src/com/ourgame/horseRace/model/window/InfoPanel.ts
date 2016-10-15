@@ -114,7 +114,12 @@ class InfoPanel extends BaseComponent implements IWindow {
 
 	private onInfoData(index: number): void {
 		let client: ClientModel = ClientModel.instance;
-		let data: HorseVo = ConfigModel.instance.horseList[index - 1];
+		let data: HorseVo;
+		ConfigModel.instance.horseList.forEach(element => {
+			if ((index) == element.id) {
+				data = element;
+			}
+		});
 		this.qxdText.text = data.habitat;
 		this.nlText.text = String(data.age);
 		this.bqpvText.text = String(client.lastBetInfo.horseInfoList[index - 1].rate);

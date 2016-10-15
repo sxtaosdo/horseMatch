@@ -12,7 +12,7 @@ class BackgroundPanel extends egret.Sprite implements IBase {
 		super();
 		this.image2Group = new ImageGroup(this, "bg_image2_png", 70);
 		this.image1Group = new ImageGroup(this, "bg_image1_png", 24);
-		this.trackGroup = new ImageGroup(this, "bg_track_png", 187 - 37);
+		this.trackGroup = new ImageGroup(this, "bg_track_png", 187 - 37, 237);
 	}
 
 	public enter(data?: any): void {
@@ -32,6 +32,5 @@ class BackgroundPanel extends egret.Sprite implements IBase {
 		this.image2Group.execute(data * 0.3);
 		this.trackGroup.execute(data);
 	}
-
 
 }
