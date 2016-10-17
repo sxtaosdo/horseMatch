@@ -289,6 +289,7 @@ class GameWorld extends egret.Sprite implements IBase {
                     this.progress.parent.removeChild(this.progress);
                     this.progress.exit();
                 }
+                this.showSelect(false);
                 this.lastX = 0;
                 break;
             case GameState.RUN_STAGE:
@@ -306,15 +307,16 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.racetrack.enter();
                 TimerManager.instance.doLoop(1 / 30 * 1000, this.execute, this);
                 var that: GameWorld = this;
-                ConfigModel.instance.horseList.forEach(element => {
-                    if (element.id && (that.client.horseList[element.id - 1])) {
-                        if (element.math && element.math.bet > 0) {
-                            that.client.horseList[element.id - 1].showSelect(true);
-                        } else {
-                            that.client.horseList[element.id - 1].showSelect(false);
-                        }
-                    }
-                });
+                // ConfigModel.instance.horseList.forEach(element => {
+                //     if (element.id && (that.client.horseList[element.id - 1])) {
+                //         if (element.math && element.math.bet > 0) {
+                //             that.client.horseList[element.id - 1].showSelect(true);
+                //         } else {
+                //             that.client.horseList[element.id - 1].showSelect(false);
+                //         }
+                //     }
+                // });
+                this.showSelect(true);
                 this.client.horseList.forEach(element => {
                     element.getFSM().ChangeState(HorseEnityStateSeek.instance);
                 });
@@ -323,6 +325,21 @@ class GameWorld extends egret.Sprite implements IBase {
         }
         this.addChild(this.topBar);
         this.onResize();
+    }
+
+    private showSelect(key: boolean = true): void {
+        this.client.horseList.forEach(element => {
+            if (key) {
+                let vo: HorseVo = element.getDataVo<HorseVo>(HorseVo);
+                if (this.client.operationObj[vo.id] && (this.client.operationObj[vo.id] > 0)) {
+                    element.showSelect(true);
+                } else {
+                    element.showSelect(false);
+                }
+            } else {
+                element.showSelect(false);
+            }
+        });
     }
 
     /**已经有马触碰终点线了 */
@@ -410,7 +427,7 @@ class GameWorld extends egret.Sprite implements IBase {
             console.log("进入：BET");
             this.changeState(GameState.BET_STAGE);
         } else {
-            if (this.client.gameTime > (config.runTime + config.nextTime)) {//准备阶段
+            if (this.client.gameTime >= (config.runTime + config.nextTime)) {//准备阶段
                 console.log("进入：PREPARE");
                 this.changeState(GameState.PREPARE_STAGE);
             } else if (this.client.gameTime <= config.nextTime) {//结果展示阶段

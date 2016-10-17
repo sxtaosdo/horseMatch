@@ -120,7 +120,7 @@ class ConfigModel {
     public getState(value: number): StateVo {
         var data: StateVo;
         this._stateList.forEach(element => {
-            if (value > element.min && value <= element.max) {
+            if (value >= element.min && value <= element.max) {
                 data = element
                 return;
             }
@@ -131,7 +131,7 @@ class ConfigModel {
     public getGetVo(value: number): GetVo {
         var data: GetVo;
         this._getList.forEach(element => {
-            if (value > element.min && value <= element.max) {
+            if (value >= element.min && value <= element.max) {
                 data = element
                 return;
             }

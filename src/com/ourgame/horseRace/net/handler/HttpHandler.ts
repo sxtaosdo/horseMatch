@@ -6,6 +6,10 @@
 class HttpHandler implements ISocket {
     private callback: Function;
     private request = new egret.HttpRequest();
+    /**消息队列 */
+    private requestList: Array<any> = new Array<any>();
+    /**是否消息正在发送中 */
+    private isSending: boolean = false;
 
     public constructor(callback: Function, manager?: any) {
         this.callback = callback;
@@ -36,12 +40,15 @@ class HttpHandler implements ISocket {
     }
 
     public send(type: any, byts?: any): void {
-        this.request.open(ConfigModel.instance.url + type, egret.HttpMethod.POST);
-        // if (byts) {
-        this.request.setRequestHeader("Content-Type", "application/json");
-        this.request.send(byts);
-        // }
-        console.log("发送了：" + ConfigModel.instance.url + type);
+        if (this.isSending == false) {
+            this.isSending = true;
+            this.request.open(ConfigModel.instance.url + type, egret.HttpMethod.POST);
+            this.request.setRequestHeader("Content-Type", "application/json");
+            this.request.send(byts);
+            console.log("发送了：" + ConfigModel.instance.url + type);
+        } else {
+            this.requestList.push({ type: type, byts: byts });
+        }
     }
 
     public isConnected(): boolean {
@@ -53,6 +60,7 @@ class HttpHandler implements ISocket {
     }
 
     private onGetComplete(event: egret.Event): void {
+        this.isSending = false;
         var request: egret.HttpRequest = event.currentTarget;
         console.log("request.data:" + request.response);
 
@@ -70,9 +78,14 @@ class HttpHandler implements ISocket {
         if (ConfigModel.instance.debug) {
             console.log(data);
         }
+        if (this.requestList.length > 0) {
+            let obj: any = this.requestList.shift();
+            this.send(obj.type, obj.byts);
+        }
     }
 
     private onLoadError(event: egret.IOErrorEvent): void {
+        this.isSending = false;
         console.log("onLoadError");
         console.log(event.currentTarget);
         ClientModel.instance.openAlert("网络异常");

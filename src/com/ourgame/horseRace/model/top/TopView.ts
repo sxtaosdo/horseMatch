@@ -158,13 +158,18 @@ class TopView extends BaseComponent implements IBase {
 	private onResult(): void {
 		if (ClientModel.instance.resultInfo.winAmount) {
 			var data: GetVo = ConfigModel.instance.getGetVo(ClientModel.instance.resultInfo.winAmount);
+			if (data.num == 0) {
+				data.num = Math.round(ClientModel.instance.resultInfo.winAmount / 100);
+				data.time = (data.time <= (data.num * 30)) ? data.time : (data.num * 30);
+			}
 			var interval: number = data.time / data.num;
 			for (var i: number = 0; i < data.num; i++) {
 				var bmp: egret.Bitmap = BitMapUtil.createBitmapByName("coin100_png");
-				bmp.x = GameWorld.GAME_HEIGHT / 3 * 2;
-				bmp.y = GameWorld.GAME_WIDTH >> 1;
-				this.addChild(bmp);
-				egret.Tween.get(bmp).wait(i * interval).to({ x: 35, y: 15, scaleX: 0.5, scaleY: 0.5, alpha: 0.5 }, 500).call((bmp: egret.Bitmap) => {
+				bmp.x = (GameWorld.GAME_WIDTH >> 1) + (GameWorld.GAME_WIDTH / 4);
+				bmp.y = (GameWorld.GAME_HEIGHT >> 1) + (GameWorld.GAME_HEIGHT / 4);
+				egret.Tween.get(bmp).wait(i * interval).call((bmp) => {
+					this.addChild(bmp);
+				}, this, [bmp]).to({ x: 35, y: 15, scaleX: 0.5, scaleY: 0.5, alpha: 0.5 }, 500).call((bmp: egret.Bitmap) => {
 					if (bmp.parent) {
 						bmp.parent.removeChild(bmp);
 					}

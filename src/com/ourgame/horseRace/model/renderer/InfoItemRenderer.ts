@@ -16,12 +16,11 @@ class InfoItemRenderer extends eui.ItemRenderer {
 		var vo: MatchPlayerVo = this.data.vo;
 		this.dateText.text = this.data.time;
 		for (var i: number = 0; i < 5; i++) {
-			if (vo.rank == i) {
+			if ((vo.rank - 1) == i) {
 				this["icon" + (i + 1)].visible = true;
 			} else {
 				this["icon" + (i + 1)].visible = false;
 			}
 		}
-		console.log(vo);
 	}
 }

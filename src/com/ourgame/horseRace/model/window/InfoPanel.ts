@@ -87,7 +87,6 @@ class InfoPanel extends BaseComponent implements IWindow {
 				ConnectionManager.instance.sendHelper.history();
 				break;
 		}
-
 	}
 
 	private onData(): void {
@@ -133,12 +132,12 @@ class InfoPanel extends BaseComponent implements IWindow {
 			if (data) {
 				this.qxdText.text = data.habitat;
 				this.nlText.text = String(data.age);
-				this.bqpvText.text = String(client.lastBetInfo.horseInfoList[index - 1].rate);
+				this.bqpvText.text = String(data2.rate);
 				this.lsdlText.text = String(data2.winPct);
 
 				// this.bqtzText.text = String(data2.bet);
-				this.bqtzText.text = String(ClientModel.instance.operationObj[index]);
-				this.bqztText.text = String(data2.state);
+				this.bqtzText.text = String(ClientModel.instance.operationObj[index] ? ClientModel.instance.operationObj[index] : 0);
+				this.bqztText.text = ConfigModel.instance.getState(data2.state).name;
 				this.headImage.texture = RES.getRes("betHead" + index + "_png");
 				this.nameText.text = data.name;
 				this.idText.text = String(data.id);

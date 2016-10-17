@@ -62,6 +62,7 @@ class BetView extends BaseComponent implements IBase {
 		GameDispatcher.addEventListener(BaseEvent.BET_CANCEL, this.onBetCancel, this);
 		this.onBetChange();
 		this.operationTemp = {};
+		this.clearnOperation();
 	}
 
 	public exit(): void {
@@ -144,6 +145,12 @@ class BetView extends BaseComponent implements IBase {
 		TimerManager.instance.doOnce(1000, this.sendOperation, this);
 	}
 
+	private clearnOperation(): void {
+		for (var key in ClientModel.instance.operationObj) {
+			ClientModel.instance.operationObj[key] = 0;
+		}
+	}
+
 	private sendOperation(): void {
 		var key: any;
 		var str: string = "";
@@ -179,6 +186,7 @@ class BetView extends BaseComponent implements IBase {
 				}
 			}
 		});
+
 	}
 
 	private onBetChange(): void {
@@ -218,6 +226,7 @@ class BetView extends BaseComponent implements IBase {
 			});
 			this.horseData.refresh();
 			this.onRemove();
+			this.clearnOperation();
 		}
 	}
 
