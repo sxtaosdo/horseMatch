@@ -1,6 +1,6 @@
 class HttpService implements ISocket {
 
-	private static passTime: number = 0;
+	private static passTime: number = 25;
 
 	private call: Function;
 	private callThis: any;

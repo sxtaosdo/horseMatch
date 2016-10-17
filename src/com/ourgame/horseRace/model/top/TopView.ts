@@ -23,9 +23,12 @@ class TopView extends BaseComponent implements IBase {
 	private callThis: any;
 	private isShowTime: boolean = false;
 
+	private coinList: Array<egret.Bitmap>;
+
 	public constructor() {
 		super(false);
 		this.skinName = "resource/skins/TopViewSkin.exml";
+		this.coinList = new Array<egret.Bitmap>();
 	}
 
 	protected onSkinComplete(e: any): void {
@@ -40,6 +43,8 @@ class TopView extends BaseComponent implements IBase {
 		this.addBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAddTap, this);
 		this.soundBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSoundTap, this);
 		this.shareBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onShareTap, this);
+		GameDispatcher.addEventListener(BaseEvent.USER_MOENY_CHANGE, this.onMoneyChange, this);
+		GameDispatcher.addEventListener(BaseEvent.SHOW_RESULT_EFFECT, this.onResult, this);
 	}
 
 	private changeTimerState(key: boolean): void {
@@ -62,6 +67,7 @@ class TopView extends BaseComponent implements IBase {
 			switch (data) {
 				case GameState.BET_STAGE:
 					this.typeText.text = "投注倒计时";
+					this.clearnCoin();
 					this.changeTimerState(true);
 					break;
 				case GameState.PREPARE_STAGE:
@@ -79,11 +85,22 @@ class TopView extends BaseComponent implements IBase {
 			}
 		}
 		this.onMoneyChange();
-		GameDispatcher.addEventListener(BaseEvent.USER_MOENY_CHANGE, this.onMoneyChange, this);
 	}
 
 	public exit(): void {
-
+		this.clearnCoin();
+		this.moneyText.text = String(UserModel.instance.money);
+		this.kjBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onKjTap, this);
+		this.jlBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onJlTap, this);
+		this.smBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onSmTap, this);
+		this.ruleBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleTap, this);
+		this.taskBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTaskTap, this);
+		this.moreBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onMoreTap, this);
+		this.addBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onAddTap, this);
+		this.soundBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onSoundTap, this);
+		this.shareBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onShareTap, this);
+		GameDispatcher.removeEventListener(BaseEvent.USER_MOENY_CHANGE, this.onMoneyChange, this);
+		GameDispatcher.removeEventListener(BaseEvent.SHOW_RESULT_EFFECT, this.onResult, this);
 	}
 
 	public execute(data?: any): void {
@@ -138,4 +155,31 @@ class TopView extends BaseComponent implements IBase {
 		InterfaceManager.instance.native.share();
 	}
 
+	private onResult(): void {
+		if (ClientModel.instance.resultInfo.winAmount) {
+			var data: GetVo = ConfigModel.instance.getGetVo(ClientModel.instance.resultInfo.winAmount);
+			var interval: number = data.time / data.num;
+			for (var i: number = 0; i < data.num; i++) {
+				var bmp: egret.Bitmap = BitMapUtil.createBitmapByName("coin100_png");
+				bmp.x = GameWorld.GAME_HEIGHT / 3 * 2;
+				bmp.y = GameWorld.GAME_WIDTH >> 1;
+				this.addChild(bmp);
+				egret.Tween.get(bmp).wait(i * interval).to({ x: 35, y: 15, scaleX: 0.5, scaleY: 0.5, alpha: 0.5 }, 500).call((bmp: egret.Bitmap) => {
+					if (bmp.parent) {
+						bmp.parent.removeChild(bmp);
+					}
+				}, this, [bmp]);
+				this.coinList.push(bmp);
+			}
+		}
+	}
+
+	private clearnCoin(): void {
+		while (this.coinList.length > 0) {
+			let bmp: egret.Bitmap = this.coinList.pop();
+			if (bmp.parent) {
+				bmp.parent.removeChild(bmp);
+			}
+		}
+	}
 }

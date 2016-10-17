@@ -1,0 +1,55 @@
+{
+  "ip": "",
+  "showTest": true,
+  "debug": false,
+  "version": "20160922:1535",
+  "showPathPoint": false,
+  "betTime": 30,
+  "prepareTime": 3,
+  "nextTime": 7,
+  "runTime": 20,
+  "url": "http://ali.game.com:8080",
+  "url1": "http://ali.game.com:5566",
+  "state": [
+    {
+      "min": 499,
+      "max": 759,
+      "name": "低迷"
+    },
+    {
+      "min": 750,
+      "max": 999,
+      "name": "正常"
+    },
+    {
+      "min": 1000,
+      "max": 1249,
+      "name": "良好"
+    },
+    {
+      "min": 1250,
+      "max": 9999,
+      "name": "兴奋"
+    }
+  ],
+  "get": [
+    {
+      "min": 99,
+      "max": 999,
+      "time": 1500,
+      "num": 0
+    },
+    {
+      "min": 1000,
+      "max": 1999,
+      "time": 25000,
+      "num": 15
+    },
+    {
+      "min": 2000,
+      "max": 9999999999,
+      "time": 4000,
+      "num": 40
+    }
+  ]
+}

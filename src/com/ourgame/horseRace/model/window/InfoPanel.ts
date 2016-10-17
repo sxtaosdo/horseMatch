@@ -120,15 +120,17 @@ class InfoPanel extends BaseComponent implements IWindow {
 				data = element;
 			}
 		});
-		this.qxdText.text = data.habitat;
-		this.nlText.text = String(data.age);
-		this.bqpvText.text = String(client.lastBetInfo.horseInfoList[index - 1].rate);
-		this.lsdlText.text = "";
-		this.bqtzText.text = String(client.lastBetInfo.horseInfoList[index - 1].bet);
-		this.bqztText.text = String(client.lastBetInfo.horseInfoList[index - 1].state);
-		this.headImage.texture = RES.getRes("betHead" + index + "_png");
-		this.nameText.text = data.name;
-		this.idText.text = String(data.id);
+		if (data) {
+			this.qxdText.text = data.habitat;
+			this.nlText.text = String(data.age);
+			this.bqpvText.text = String(client.lastBetInfo.horseInfoList[index - 1].rate);
+			this.lsdlText.text = "";
+			this.bqtzText.text = String(client.lastBetInfo.horseInfoList[index - 1].bet);
+			this.bqztText.text = String(client.lastBetInfo.horseInfoList[index - 1].state);
+			this.headImage.texture = RES.getRes("betHead" + index + "_png");
+			this.nameText.text = data.name;
+			this.idText.text = String(data.id);
+		}
 	}
 
 	private onUpdate(): void {

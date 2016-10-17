@@ -1,15 +1,13 @@
 class HorseBetInfoRenderer extends eui.ItemRenderer {
-
 	public headImgae: eui.Image;
 	public stateText: eui.Label;
 	public numText: eui.Label;
 	public indexText: eui.Label;
 	public statePb: eui.ProgressBar;
-	public stateImage: eui.Image;
+	public stateImage: eui.Label;
 	public nameText: eui.Label;
 	public steteText: eui.Label;
 	public betText: eui.BitmapLabel;
-
 
 	private point: egret.Point = new egret.Point(0, 0);
 	private lastBetMoney: number = 0;
@@ -44,8 +42,8 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 			this.stateText.text = "" + vo.math.state;
 			this.betText.text = "" + vo.math.bet;
 			this.betText.visible = vo.math.bet > 0 ? true : false;
-			// this.steteText.text = vo.math.state + "";
 			this.statePb.value = vo.math.state;
+			this.stateImage.text = ConfigModel.instance.getState(vo.math.state).name;
 		}
 		console.log("on update" + TimeUtils.printTime);
 		if (vo.math) {

@@ -23,9 +23,13 @@ class ConfigModel {
     private _url: string;
 
     private _horseList: Array<HorseVo>;
+    private _stateList: Array<StateVo>;
+    private _getList: Array<GetVo>;
 
     public constructor() {
         this._horseList = new Array<HorseVo>();
+        this._stateList = new Array<StateVo>();
+        this._getList = new Array<GetVo>();
     }
 
     public static get instance(): ConfigModel {
@@ -52,6 +56,14 @@ class ConfigModel {
                 this._isShowLogin = true;
             }
             console.log("debug模式:" + this._debug);
+        }
+        for (var key in data.state) {
+            let vo: StateVo = new StateVo(data.state[key]);
+            this._stateList.push(vo);
+        }
+        for (var key in data.get) {
+            let vo: GetVo = new GetVo(data.get[key]);
+            this._getList.push(vo);
         }
         this.horseData(RES.getRes("horse_json"));
         GameDispatcher.send(GameEvent.CONFIG_INIT_COMPLETE_EVENT);
@@ -103,6 +115,28 @@ class ConfigModel {
 
     public get horseList(): Array<HorseVo> {
         return this._horseList;
+    }
+
+    public getState(value: number): StateVo {
+        var data: StateVo;
+        this._stateList.forEach(element => {
+            if (value > element.min && value <= element.max) {
+                data = element
+                return;
+            }
+        });
+        return data;
+    }
+
+    public getGetVo(value: number): GetVo {
+        var data: GetVo;
+        this._getList.forEach(element => {
+            if (value > element.min && value <= element.max) {
+                data = element
+                return;
+            }
+        });
+        return data;
     }
 
 }

@@ -147,7 +147,7 @@ class LoadingUI extends BaseComponent implements IBase {
     private onComplete(event: RES.ResourceEvent): void {
         LoadingUI.instance.load();
         if (event.groupName == "config") {
-            ConfigModel.instance.parse(RES.getRes("game_json"));
+            ConfigModel.instance.parse(RES.getRes("game_bin"));
         }
     }
 

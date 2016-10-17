@@ -23,6 +23,8 @@ class BaseEvent {
 	public static BET_HISTORY: string = "getHistroy"
 	/**赛事结果-中奖金额 */
 	public static DRAW_RESULT: string = "drawResult"
+	/**暂时收分动画 */
+	public static SHOW_RESULT_EFFECT: string = "showResultEffect";
 
 
 	/**window */

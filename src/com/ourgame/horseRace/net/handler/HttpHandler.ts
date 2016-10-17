@@ -1,5 +1,7 @@
 /**
  * Http短连接请求
+ * 根据flash思路写的，感觉有待优化
+ * 要写一个请求队列，不然连续请求会出错
  */
 class HttpHandler implements ISocket {
     private callback: Function;
@@ -73,6 +75,7 @@ class HttpHandler implements ISocket {
     private onLoadError(event: egret.IOErrorEvent): void {
         console.log("onLoadError");
         console.log(event.currentTarget);
+        ClientModel.instance.openAlert("网络异常");
     }
 
     private onGetProgress(event: egret.ProgressEvent): void {

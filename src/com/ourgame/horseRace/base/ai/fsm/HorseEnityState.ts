@@ -173,7 +173,6 @@ class HorseEnityStateEnd implements IState {
 
     public execute(entity: IBaseGameEntity): void {
 		this.self = <HorseEntity>entity;
-
 		if (this.self.sTime > 0) {
 			this.self.stopAnimation();
 			if (egret.getTimer() - this.self.sTime > 1800) {

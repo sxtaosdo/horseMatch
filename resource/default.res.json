@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"horse_json,game_json",
+			"keys":"horse_json,game_bin",
 			"name":"config"
 		},
 		{
@@ -472,11 +472,6 @@
 			"url":"assets/game/result/result_thing_2.png"
 		},
 		{
-			"name":"game_json",
-			"type":"json",
-			"url":"config/game.json"
-		},
-		{
 			"name":"texture4_png",
 			"type":"image",
 			"url":"db/texture4.png"
@@ -856,6 +851,11 @@
 			"name":"texture2_json",
 			"type":"json",
 			"url":"db/texture2.json"
+		},
+		{
+			"name":"game_bin",
+			"type":"json",
+			"url":"config/game.bin"
 		}
 	]
 }

@@ -234,7 +234,7 @@ class GameWorld extends egret.Sprite implements IBase {
             // if (this.client.gameTime < 0) {
             //     this.client.gameTime = 0;
             // }
-            console.log("\t this.client.gameTime:" + this.client.gameTime);
+            console.log("\t this.client.gameTime:" + this.client.gameTime + "\t" + TimeUtils.printTime);
         }
     }
 

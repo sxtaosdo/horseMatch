@@ -37,6 +37,7 @@ class ResultView extends BaseComponent implements IBase {
 		this.execute(ClientModel.instance.gameTime)
 		GameDispatcher.addEventListener(BaseEvent.DRAW_RESULT, this.onInfo, this);
 		this.onInfo();
+		GameDispatcher.send(BaseEvent.SHOW_RESULT_EFFECT);
 	}
 
 	public exit(): void {
@@ -100,5 +101,6 @@ class ResultView extends BaseComponent implements IBase {
 				this.moneyText.text = "0";
 			}
 		}
+		GameDispatcher.send(BaseEvent.SHOW_RESULT_EFFECT);
 	}
 }
