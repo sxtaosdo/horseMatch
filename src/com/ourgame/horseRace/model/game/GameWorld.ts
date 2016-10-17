@@ -214,7 +214,6 @@ class GameWorld extends egret.Sprite implements IBase {
                         time = this.client.gameTime + 1;
                         this.resultBiew.execute(time);
                         if (time < 1) {
-                            // this.changeState(GameState.BET_STAGE);
                             ConnectionManager.instance.sendHelper.drawMatch();  //结果之后请求下一场比赛的信息
                         }
                         break;
@@ -231,10 +230,7 @@ class GameWorld extends egret.Sprite implements IBase {
                 }
             }
             this.client.gameTime--;
-            // if (this.client.gameTime < 0) {
-            //     this.client.gameTime = 0;
-            // }
-            console.log("\t this.client.gameTime:" + this.client.gameTime + "\t" + TimeUtils.printTime);
+            // console.log("\t this.client.gameTime:" + this.client.gameTime + "\t" + TimeUtils.printTime);
         }
     }
 
@@ -259,7 +255,6 @@ class GameWorld extends egret.Sprite implements IBase {
     }
 
     private changeState(state: any, enterStateTime: number = 0): void {
-        // console.log("GameWord:changeState _gameState:" + this._gameState + "\t" + TimeUtils.printTime);
         this._gameState = state;
         this.topBar.enter(state);
         switch (this._gameState) {
@@ -305,7 +300,6 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.addChild(this.progress);
                 this.isBulletTime = false;
                 this.tempSpeed = 0;
-                // this.client.roadPastLength = 0;
                 this.client.resetRoadPastLenth();
                 this.client.initGameSprite(this.client.lastBetInfo.info.drawId);
 
@@ -337,13 +331,10 @@ class GameWorld extends egret.Sprite implements IBase {
             this.isBulletTime = true;
             this.onBullertTme();
         }
-        // ClientModel.instance.maxSpeed = 0;
         this.client.horseList.forEach(element => {
             MessageDispatcher.instance.DispatchSimpleMessage(this.client.first, element, "onReachEndLine");
         });
         ConnectionManager.instance.sendHelper.matchResult();//请求结果
-        // this.bdSpeed = 0.001;
-        // egret.Tween.get(this).wait(100).to({ bdSpeed: 0.03 }, 2000);
     }
 
     private onResize(evt?: egret.Event): void {
@@ -354,7 +345,6 @@ class GameWorld extends egret.Sprite implements IBase {
                 this.addChild(this.progress);
             }
             if (this.betView && this.betView.parent) {
-                // this.betView.y = this.stage.stageHeight - this.betView.height;
                 this.betView.top = 0;
                 this.betView.bottom = 0;
                 this.betView.height = this.stage.stageHeight;
@@ -368,9 +358,7 @@ class GameWorld extends egret.Sprite implements IBase {
             }
             for (var i = 0; i < 5; i++) {
                 let horse: HorseEntity = this.client.horseList[i];
-                // horse.getDisplayObject().y = this.stage.stageHeight - (4 - i) * 110 - (horse.getDataVo<HorseVo>(HorseVo).height - 230) - 120;
                 horse.getDisplayObject().y = (this.stage.stageHeight - (4 - i) * 110) - horse.getDataVo<HorseVo>(HorseVo).height + 55;
-                // console.log("y:" + horse.getDisplayObject().y + "\t i:" + i + "\t h:" + horse.getDataVo<HorseVo>(HorseVo).height);
 
             }
         }
@@ -392,7 +380,6 @@ class GameWorld extends egret.Sprite implements IBase {
             case GameState.PREPARE_STAGE://比赛3秒倒计时后服务器才知道比赛结果，所以这里需要请求一次，如果没有名次信息则重试，次数太多弹板提示
                 if (this.client.lastBetInfo.includeRank) {
                     this.changeState(GameState.RUN_STAGE, config.runTime - (this.client.gameTime - config.nextTime));
-                    // this.changeState(GameState.RUN_STAGE, config.runTime - (this.client.gameTime - config.nextTime));
                 } else {
                     ConnectionManager.instance.sendHelper.drawMatch();
                     console.log("获取名次信息失败，重试" + TimeUtils.printTime);
@@ -427,12 +414,10 @@ class GameWorld extends egret.Sprite implements IBase {
                 console.log("进入：PREPARE");
                 this.changeState(GameState.PREPARE_STAGE);
             } else if (this.client.gameTime <= config.nextTime) {//结果展示阶段
-                // if (this._gameState != GameState.RESULT_STAGE) {
                 console.log("进入：RESULT");
                 if (this._gameState != GameState.RESULT_STAGE) {
                     this.changeState(GameState.RESULT_STAGE);
                 }
-                // }
             } else {//赛跑阶段
                 console.log("进入：RUN");
                 this.changeState(GameState.RUN_STAGE, config.runTime - (this.client.gameTime - config.nextTime));
