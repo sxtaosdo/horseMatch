@@ -58,13 +58,9 @@ class ClientModel {
     private _betHistory: Array<BetHistoryInfoVo>;
     /**奖励金额 */
     private _resultInfo: any;
+    /**赛马信息 */
+    private _horseInfo: Array<MatchPlayerVo>;
 
-    // /**下注时间 */
-    // public betTime: number;
-    // /**准备时间 */
-    // public prepareTime: number;
-    // /**距下一场比赛 */
-    // public nextTime: number;
     /**游戏当前时间 */
     private _gameTime: number = 0;
 
@@ -81,6 +77,7 @@ class ClientModel {
         this.moneyType = "0";
         this._phaseList = [];
         this._horseList = new Array<HorseEntity>();
+        this._horseInfo = new Array<MatchPlayerVo>();
         this._history = new Array<HistoryVo>();
         this._gameInfo = new GameInfoVo();
         this._betHistory = new Array<BetHistoryInfoVo>();
@@ -460,6 +457,17 @@ class ClientModel {
     public setResult(data: any): void {
         this._resultInfo = data;
         GameDispatcher.send(BaseEvent.DRAW_RESULT)
+    }
+
+    public setHorseInfo(data: any): void {
+        data.matchInfo.forEach(element => {
+            this._horseInfo.push(new MatchPlayerVo(element));
+        });
+        GameDispatcher.send(BaseEvent.HORSE_INFO_EVENT);
+    }
+
+    public get horseInfo(): Array<MatchPlayerVo> {
+        return this._horseInfo;
     }
 
     public get betHistory(): Array<BetHistoryInfoVo> {

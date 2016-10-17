@@ -70,4 +70,8 @@ class MsgSendHelper {
     public matchResult(): void {
         ConnectionManager.instance.send("/hrb/drawResult");
     }
+
+    public horseInfo():void{
+        ConnectionManager.instance.send("/hrb/drawMatch");
+    }
 }

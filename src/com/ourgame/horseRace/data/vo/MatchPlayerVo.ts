@@ -13,6 +13,8 @@ class MatchPlayerVo {
 	public rank: number;
 	/**中奖金额 */
 	public award: number;
+	/**历史胜率 */
+	public winPct: number;
 
 	public constructor(data?: any) {
 		if (data) {
@@ -27,6 +29,9 @@ class MatchPlayerVo {
 		this.rank = data.rank;
 		if (data.bet || (data.bet == 0)) {
 			this.bet = data.bet;
+		}
+		if (data.winPct) {
+			this.winPct = data.winPct;
 		}
 	}
 

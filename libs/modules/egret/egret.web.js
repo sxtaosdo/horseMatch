@@ -3653,7 +3653,7 @@ var egret;
              */
             Html5Capatibility.getIOSVersion = function () {
                 var value = Html5Capatibility.ua.toLowerCase().match(/cpu [^\d]*\d.*like mac os x/)[0];
-                return parseInt(value.match(/\d(_\d)*/)[0]) || 0;
+                return parseInt(value.match(/\d+(_\d)*/)[0]) || 0;
             };
             /**
              * @private
@@ -7986,7 +7986,15 @@ var egret;
                         buffer.context.setGlobalCompositeOperation(compositeOp);
                     }
                     buffer.context.$filter = filters[0];
-                    drawCalls += this.drawDisplayObject(displayObject, buffer, dirtyList, matrix, displayObject.$displayList, clipRegion, root);
+                    if ((displayObject.$mask && (displayObject.$mask.$parentDisplayList || root))) {
+                        drawCalls += this.drawWithClip(displayObject, buffer, dirtyList, matrix, clipRegion, root);
+                    }
+                    else if (displayObject.$scrollRect || displayObject.$maskRect) {
+                        drawCalls += this.drawWithScrollRect(displayObject, buffer, dirtyList, matrix, clipRegion, root);
+                    }
+                    else {
+                        drawCalls += this.drawDisplayObject(displayObject, buffer, dirtyList, matrix, displayObject.$displayList, clipRegion, root);
+                    }
                     buffer.context.$filter = null;
                     if (hasBlendMode) {
                         buffer.context.setGlobalCompositeOperation(defaultCompositeOp);
@@ -8007,7 +8015,16 @@ var egret;
                 displayBuffer.context.pushBuffer(displayBuffer);
                 displayBuffer.setTransform(1, 0, 0, 1, -region.minX, -region.minY);
                 var offsetM = egret.Matrix.create().setTo(1, 0, 0, 1, -region.minX, -region.minY);
-                drawCalls += this.drawDisplayObject(displayObject, displayBuffer, dirtyList, offsetM, displayObject.$displayList, region, root);
+                //todo 可以优化减少draw次数
+                if ((displayObject.$mask && (displayObject.$mask.$parentDisplayList || root))) {
+                    drawCalls += this.drawWithClip(displayObject, displayBuffer, dirtyList, offsetM, region, root);
+                }
+                else if (displayObject.$scrollRect || displayObject.$maskRect) {
+                    drawCalls += this.drawWithScrollRect(displayObject, displayBuffer, dirtyList, offsetM, region, root);
+                }
+                else {
+                    drawCalls += this.drawDisplayObject(displayObject, displayBuffer, dirtyList, offsetM, displayObject.$displayList, region, root);
+                }
                 egret.Matrix.release(offsetM);
                 displayBuffer.context.popBuffer();
                 //绘制结果到屏幕
@@ -8128,21 +8145,11 @@ var egret;
                         buffer.setTransform(m.a, m.b, m.c, m.d, m.tx - region.minX, m.ty - region.minY);
                         buffer.context.pushMask(scrollRect);
                     }
-                    var offsetM = egret.Matrix.create().setTo(1, 0, 0, 1, 0, 0);
                     //绘制显示对象
                     if (hasBlendMode) {
                         buffer.context.setGlobalCompositeOperation(compositeOp);
                     }
-                    if (scrollRect) {
-                        var m = displayMatrix;
-                        buffer.setTransform(m.a, m.b, m.c, m.d, m.tx - region.minX, m.ty - region.minY);
-                        buffer.context.pushMask(scrollRect);
-                    }
-                    drawCalls += this.drawDisplayObject(displayObject, buffer, dirtyList, offsetM, displayObject.$displayList, region, null);
-                    egret.Matrix.release(offsetM);
-                    if (scrollRect) {
-                        buffer.context.popMask();
-                    }
+                    drawCalls += this.drawDisplayObject(displayObject, buffer, dirtyList, matrix, displayObject.$displayList, region, null);
                     if (hasBlendMode) {
                         buffer.context.setGlobalCompositeOperation(defaultCompositeOp);
                     }
@@ -8348,24 +8355,45 @@ var egret;
              */
             p.renderBitmap = function (node, buffer) {
                 var image = node.image;
+                if (!image) {
+                    return;
+                }
                 //buffer.imageSmoothingEnabled = node.smoothing;
                 var data = node.drawData;
                 var length = data.length;
                 var pos = 0;
                 var m = node.matrix;
                 var blendMode = node.blendMode;
+                var alpha = node.alpha;
                 if (m) {
                     buffer.saveTransform();
                     buffer.transform(m.a, m.b, m.c, m.d, m.tx, m.ty);
                 }
+                //这里不考虑嵌套
                 if (blendMode) {
                     buffer.context.setGlobalCompositeOperation(blendModes[blendMode]);
                 }
-                while (pos < length) {
-                    buffer.context.drawImage(image, data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], node.imageWidth, node.imageHeight);
+                if (alpha == alpha) {
+                    var originAlpha = buffer.globalAlpha;
+                    buffer.globalAlpha *= alpha;
+                }
+                if (node.filter) {
+                    buffer.context.$filter = node.filter;
+                    while (pos < length) {
+                        buffer.context.drawImage(image, data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], node.imageWidth, node.imageHeight);
+                    }
+                    buffer.context.$filter = null;
+                }
+                else {
+                    while (pos < length) {
+                        buffer.context.drawImage(image, data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], node.imageWidth, node.imageHeight);
+                    }
                 }
                 if (blendMode) {
                     buffer.context.setGlobalCompositeOperation(defaultCompositeOp);
+                }
+                if (alpha == alpha) {
+                    buffer.globalAlpha = originAlpha;
                 }
                 if (m) {
                     buffer.restoreTransform();

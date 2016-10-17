@@ -47,6 +47,8 @@ class InfoPanel extends BaseComponent implements IWindow {
 		}
 		GameDispatcher.addEventListener(BaseEvent.WINDOW_HISTORY, this.onData, this);
 		GameDispatcher.addEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onUpdate, this);
+		ConnectionManager.instance.sendHelper.horseInfo();
+		GameDispatcher.addEventListener(BaseEvent.HORSE_INFO_EVENT, this.onLeftTap, this);
 	}
 
 	public exit(): void {
@@ -59,6 +61,7 @@ class InfoPanel extends BaseComponent implements IWindow {
 		this.headBtn4.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onLeftTap, this);
 		this.headBtn5.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onLeftTap, this);
 		GameDispatcher.removeEventListener(BaseEvent.WINDOW_HISTORY, this.onData, this);
+		GameDispatcher.removeEventListener(BaseEvent.HORSE_INFO_EVENT, this.onLeftTap, this);
 		GameDispatcher.removeEventListener(BaseEvent.MATCH_INFO_CHANGE, this.onUpdate, this);
 	}
 
@@ -88,7 +91,7 @@ class InfoPanel extends BaseComponent implements IWindow {
 	}
 
 	private onData(): void {
-		let index: number = parseInt(this.headBtn1.group.selection.label)
+		let index: number = parseInt(this.headBtn1.group.selection.label);
 		this.arr.removeAll();
 		ClientModel.instance.history.forEach(element => {
 			element.matchInfoList.forEach(matchVo => {
@@ -113,23 +116,33 @@ class InfoPanel extends BaseComponent implements IWindow {
 	}
 
 	private onInfoData(index: number): void {
-		let client: ClientModel = ClientModel.instance;
-		let data: HorseVo;
-		ConfigModel.instance.horseList.forEach(element => {
-			if ((index) == element.id) {
-				data = element;
+		if (ClientModel.instance.horseInfo.length > 0) {
+			let client: ClientModel = ClientModel.instance;
+			let data: HorseVo;
+			ConfigModel.instance.horseList.forEach(element => {
+				if ((index) == element.id) {
+					data = element;
+				}
+			});
+			let data2: MatchPlayerVo;
+			ClientModel.instance.horseInfo.forEach(element => {
+				if ((index) == element.id) {
+					data2 = element;
+				}
+			});
+			if (data) {
+				this.qxdText.text = data.habitat;
+				this.nlText.text = String(data.age);
+				this.bqpvText.text = String(client.lastBetInfo.horseInfoList[index - 1].rate);
+				this.lsdlText.text = String(data2.winPct);
+
+				// this.bqtzText.text = String(data2.bet);
+				this.bqtzText.text = String(ClientModel.instance.operationObj[index]);
+				this.bqztText.text = String(data2.state);
+				this.headImage.texture = RES.getRes("betHead" + index + "_png");
+				this.nameText.text = data.name;
+				this.idText.text = String(data.id);
 			}
-		});
-		if (data) {
-			this.qxdText.text = data.habitat;
-			this.nlText.text = String(data.age);
-			this.bqpvText.text = String(client.lastBetInfo.horseInfoList[index - 1].rate);
-			this.lsdlText.text = "";
-			this.bqtzText.text = String(client.lastBetInfo.horseInfoList[index - 1].bet);
-			this.bqztText.text = String(client.lastBetInfo.horseInfoList[index - 1].state);
-			this.headImage.texture = RES.getRes("betHead" + index + "_png");
-			this.nameText.text = data.name;
-			this.idText.text = String(data.id);
 		}
 	}
 

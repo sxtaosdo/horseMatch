@@ -66,6 +66,9 @@ class MsgReceiveHelper extends egret.HashObject {
                 case "drawResult":
                     ClientModel.instance.setResult(body);
                     break;
+                case "drawMatch":
+                    ClientModel.instance.setHorseInfo(body);
+                    break;
             }
         } else {    //异常返回
             ClientModel.instance.openAlert(body.rtnMsg + "(ERROR CDOE:" + body.rtnCode + ")");

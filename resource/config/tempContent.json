@@ -423,5 +423,49 @@
         "drawId": "1609260965",
         "playId": 1,
         "betInfo": "4x400100"
+    },
+    "/hrb/drawMatch":{
+        "rtnCode": 0,
+        "rtnMsg": "成功",
+        "drawId": "1610171054",
+        "cdTime": 8905,
+        "leftTime": 38905,
+        "matchInfo": [
+            {
+                "hId": 5,
+                "state": 1500,
+                "odds": 3.06,
+                "rank": 0,
+                "winPct": 19.54
+            },
+            {
+                "hId": 4,
+                "state": 858,
+                "odds": 4.7,
+                "rank": 0,
+                "winPct": 19.9
+            },
+            {
+                "hId": 3,
+                "state": 636,
+                "odds": 6.71,
+                "rank": 0,
+                "winPct": 20.58
+            },
+            {
+                "hId": 2,
+                "state": 749,
+                "odds": 3.62,
+                "rank": 0,
+                "winPct": 19.54
+            },
+            {
+                "hId": 1,
+                "state": 681,
+                "odds": 6.83,
+                "rank": 0,
+                "winPct": 20.41
+            }
+        ]
     }
 }

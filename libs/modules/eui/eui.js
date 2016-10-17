@@ -10175,7 +10175,7 @@ var eui;
                 return false;
             }
             if (values[4 /* dispatchChangeAfterSelection */]) {
-                var result = this.dispatchEventWith(egret.Event.CHANGING, false, true);
+                var result = this.dispatchEventWith(egret.Event.CHANGING, false, true, true);
                 if (!result) {
                     this.itemSelected(values[2 /* proposedSelectedIndex */], false);
                     values[2 /* proposedSelectedIndex */] = ListBase.NO_PROPOSED_SELECTION;
@@ -19471,7 +19471,7 @@ var eui;
                     var length = children.length;
                     for (var i = 0; i < length; i++) {
                         var node = children[i];
-                        if (this.isInnerClass(node)) {
+                        if (node.nodeType !== 1 || this.isInnerClass(node)) {
                             continue;
                         }
                         this.getIds(node, result);

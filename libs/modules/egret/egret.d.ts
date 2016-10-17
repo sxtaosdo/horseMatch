@@ -1,4 +1,28 @@
+/**
+ * @language en_US
+ * Is debug mode.
+ * @version Egret 2.5
+ * @platform Web,Native
+ */
+/**
+ * @language zh_CN
+ * 是否为 debug 模式。
+ * @version Egret 2.5
+ * @platform Web,Native
+ */
 declare var DEBUG: boolean;
+/**
+ * @language en_US
+ * Is release mode.
+ * @version Egret 2.5
+ * @platform Web,Native
+ */
+/**
+ * @language zh_CN
+ * 是否为 release 模式。
+ * @version Egret 2.5
+ * @platform Web,Native
+ */
 declare var RELEASE: boolean;
 declare module egret {
     function $error(code: number, ...params: any[]): void;
@@ -262,6 +286,7 @@ declare module egret {
          * @param bubbles Determines whether the Event object bubbles. Event listeners can access this information through
          * the inherited bubbles property.
          * @param data {any} data
+         * @param cancelable Determines whether the Event object can be canceled. The default values is false.
          * @version Egret 2.4
          * @platform Web,Native
          */
@@ -271,10 +296,11 @@ declare module egret {
          * @param type {string} 事件类型
          * @param bubbles {boolean} 确定 Event 对象是否参与事件流的冒泡阶段。默认值为 false。
          * @param data {any} 事件data
+         * @param cancelable {boolean} 确定是否可以取消 Event 对象。默认值为 false。
          * @version Egret 2.4
          * @platform Web,Native
          */
-        dispatchEventWith(type: string, bubbles?: boolean, data?: any): boolean;
+        dispatchEventWith(type: string, bubbles?: boolean, data?: any, cancelable?: boolean): boolean;
     }
 }
 declare module egret.sys {
@@ -1899,7 +1925,7 @@ declare module egret {
         /**
          * @private
          */
-        $measureFiltersBounds(bounds: Rectangle): Rectangle;
+        $measureFiltersOffset(): any;
         /**
          * @private
          * 获取相对于指定根节点的连接矩阵。
@@ -6808,6 +6834,10 @@ declare module egret {
         $addTarget(target: DisplayObject): void;
         $removeTarget(target: DisplayObject): void;
         protected invalidate(): void;
+        /**
+         * @private
+         */
+        $toJson(): string;
     }
 }
 declare module egret {
@@ -6885,6 +6915,10 @@ declare module egret {
          * @private
          */
         $blurY: number;
+        /**
+         * @private
+         */
+        $toJson(): string;
     }
 }
 declare module egret {
@@ -6947,6 +6981,10 @@ declare module egret {
          * @private
          */
         private setMatrix(value);
+        /**
+         * @private
+         */
+        $toJson(): string;
     }
 }
 declare module egret {
@@ -7138,6 +7176,10 @@ declare module egret {
          * @platform Web
          */
         knockout: boolean;
+        /**
+         * @private
+         */
+        $toJson(): string;
     }
 }
 declare module egret {
@@ -7238,6 +7280,10 @@ declare module egret {
          * @platform Web
          */
         hideObject: boolean;
+        /**
+         * @private
+         */
+        $toJson(): string;
     }
 }
 declare module egret {
@@ -8005,12 +8051,14 @@ declare module egret {
         /**
          * @language en_US
          * Background music
+         * @default "music"
          * @version Egret 2.4
          * @platform Web,Native
          */
         /**
          * @language zh_CN
          * 背景音乐
+         * @default "music"
          * @version Egret 2.4
          * @platform Web,Native
          */
@@ -8018,12 +8066,14 @@ declare module egret {
         /**
          * @language en_US
          * EFFECT
+         * @default "effect"
          * @version Egret 2.4
          * @platform Web,Native
          */
         /**
          * @language zh_CN
          * 音效
+         * @default "effect"
          * @version Egret 2.4
          * @platform Web,Native
          */
@@ -8313,6 +8363,9 @@ declare module egret {
         new (url?: string, cache?: boolean): Video;
     };
 }
+/**
+ * @private
+ */
 declare module egret_native {
     var nativeType: string;
     /**
@@ -9499,9 +9552,14 @@ declare module egret.sys {
 }
 declare module egret.sys {
     /**
+     * @private
      * 共享的用于碰撞检测的渲染缓冲
      */
     var customHitTestBuffer: sys.RenderBuffer;
+    /**
+     * @private
+     * 共享的用于canvas碰撞检测的渲染缓冲
+     */
     var canvasHitTestBuffer: sys.RenderBuffer;
     /**
      * @private
@@ -9576,6 +9634,9 @@ declare module egret.sys {
          */
         setDirtyRegionPolicy(state: string): void;
     }
+    /**
+     * @private
+     */
     var RenderBuffer: {
         /**
          * 创建一个RenderTarget。
@@ -9586,6 +9647,9 @@ declare module egret.sys {
          */
         new (width?: number, height?: number, root?: boolean): RenderBuffer;
     };
+    /**
+     * @private
+     */
     var CanvasRenderBuffer: {
         /**
          * 创建一个CanvasRenderBuffer。
@@ -10140,6 +10204,14 @@ declare module egret.sys {
          */
         blendMode: number;
         /**
+         * 相对透明度
+         */
+        alpha: number;
+        /**
+         * 相对透明度
+         */
+        filter: ColorMatrixFilter;
+        /**
          * 绘制一次位图
          */
         drawImage(sourceX: number, sourceY: number, sourceW: number, sourceH: number, drawX: number, drawY: number, drawW: number, drawH: number): void;
@@ -10424,6 +10496,7 @@ declare module egret.sys {
 }
 declare module egret.sys {
     /**
+     * @private
      * 路径类型
      */
     const enum PathType {
@@ -10680,6 +10753,10 @@ declare module egret {
          * @private
          */
         private renderNode(node, context, forHitTest?);
+        /**
+         * render mesh
+         */
+        private renderMesh(node, context);
         /**
          * @private
          */
@@ -11182,6 +11259,21 @@ declare module egret {
          */
         static supportVersion: string;
         static $supportVersion: string;
+        /***
+         * @language en_US
+         * version of Egret.
+         * @type {string}
+         * @version Egret 3.2.0
+         * @platform Web,Native
+         */
+        /***
+         * @language zh_CN
+         * Egret 的版本号。
+         * @type {string}
+         * @version Egret 3.2.0
+         * @platform Web,Native
+         */
+        static engineVersion: string;
         /**
          * 设置系统信息
          */
@@ -11240,7 +11332,13 @@ declare module egret {
         static $boundingClientHeight: number;
     }
 }
+/**
+ * @private
+ */
 declare var testDeviceType: () => boolean;
+/**
+ * @private
+ */
 declare var testRuntimeType: () => boolean;
 declare module egret {
     /**
@@ -11573,7 +11671,7 @@ declare module egret {
          */
         /**
          * @language zh_CN
-         * 一个整数，表示字符之间的距量。
+         * 一个整数，表示字符之间的距离。
          * @default 0
          * @version Egret 2.4
          * @platform Web,Native
@@ -13364,6 +13462,9 @@ declare module egret {
         static $getScrollNum(textfield: egret.TextField): number;
     }
 }
+/**
+ * @private
+ */
 declare module egret.sys {
     /**
      * 测量文本在指定样式下的宽度。
@@ -14332,8 +14433,17 @@ declare module egret {
         private static cosInt(value);
     }
 }
+/**
+ * @private
+ */
 declare var egret_sin_map: {};
+/**
+ * @private
+ */
 declare var egret_cos_map: {};
+/**
+ * @private
+ */
 declare var DEG_TO_RAD: number;
 declare module egret {
     /**

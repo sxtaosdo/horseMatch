@@ -90,13 +90,11 @@ class HorseEnityStateSeek implements IState {
 						} else if (list[i].obstacleType == 1) {
 							this.self.changeAnimation(AnimationType.FALL);
 						}
-						//this.self.changeAnimation(AnimationType.FALL);
 					}
 					else if (list[i].state == 4) {
 						// console.log("通过障碍");
 						this.self.getFSM().ChangeState(HorseEnityStatePass.instance);
 					}
-					// this.self.sTime = egret.getTimer();
 				}
 				reachEnd = false;
 				break;

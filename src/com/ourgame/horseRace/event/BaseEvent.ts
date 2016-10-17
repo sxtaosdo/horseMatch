@@ -25,6 +25,8 @@ class BaseEvent {
 	public static DRAW_RESULT: string = "drawResult"
 	/**暂时收分动画 */
 	public static SHOW_RESULT_EFFECT: string = "showResultEffect";
+	/**赛马资料 */
+	public static HORSE_INFO_EVENT: string = "horseInfoEvent";
 
 
 	/**window */
