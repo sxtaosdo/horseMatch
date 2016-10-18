@@ -8,8 +8,9 @@
   "prepareTime": 3,
   "nextTime": 7,
   "runTime": 20,
-  "url": "http://ali.game.com:8080",
+  "url2": "http://ali.game.com:8080",
   "url1": "http://ali.game.com:5566",
+  "url": "http://172.28.160.175:8080",
   "state": [
     {
       "min": 499,

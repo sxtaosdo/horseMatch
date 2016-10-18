@@ -80,13 +80,19 @@ class ResultView extends BaseComponent implements IBase {
 					winInfo[temp2[0]] = temp2[1];
 				});
 			}
+			var betInfo: any = {};
+			if (ClientModel.instance.resultInfo.betInfo) {
+				var temp: Array<string> = ClientModel.instance.resultInfo.betInfo.split("#");
+				temp.forEach(element => {
+					var temp2 = element.split("x");
+					betInfo[temp2[0]] = temp2[1];
+				});
+			}
 			ClientModel.instance.resultInfo.matchInfo.forEach(element => {
 				var vo = new ResultVo();
 				vo.setDate(element)
-				vo.setBetData(winInfo[vo.id]);
+				vo.setBetData(winInfo[vo.id], betInfo[vo.id]);
 				this.dataList.addItem(vo);
-				// console.log("id:" + vo.id + "\t award:" + vo.award);
-
 			});
 			// this.dataList.refresh();
 			this.itemList.dataProvider = this.dataList;

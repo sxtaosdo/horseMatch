@@ -13,10 +13,10 @@ class ResultItemRenderer extends eui.ItemRenderer {
 		if (vo) {
 			this.nameText.text = vo.name;
 			this.muText.text = String(vo.double);
-			console.log("renderer收到award：" + vo.award);
+			console.log("renderer收到award|bet：" + vo.award+"|"+vo.bet);
 
-			if (vo.award) {
-				this.awardText.text = String(vo.award);
+			if (vo.bet) {
+				this.awardText.text = String(vo.bet);
 			} else {
 				this.awardText.text = "0";
 			}

@@ -20,13 +20,14 @@ class ResultVo {
     }
 
     /**投注金额 */
-    public setBetData(money: number): void {
-        if (money) {
-            this.award = money;
-            this.bet = money;
-        } else {
-            this.award = 0;
-            this.bet = 0;
+    public setBetData(award: number, bet: number): void {
+        this.award = 0;
+        this.bet = 0;
+        if (award) {
+            this.award = award;
+        }
+        if (bet) {
+            this.bet = bet;
         }
     }
 }
