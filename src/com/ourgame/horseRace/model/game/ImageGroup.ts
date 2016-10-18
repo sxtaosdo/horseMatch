@@ -54,6 +54,9 @@ class ImageGroup implements IBase {
 	}
 
 	public execute(data?: any): void {
+		if (data > this.imageWidth * 2) {
+			return;
+		}
 		this.imageList.forEach(element => {
 			element.x -= data;
 		});
@@ -66,6 +69,9 @@ class ImageGroup implements IBase {
 			if (this.top > (this.totalImageNum - 1)) {
 				this.top = 0;
 			}
+		}
+		if (this.startY == (187 - 37)) {
+			console.log(this.imageList[0].x + "\t" + data);
 		}
 	}
 

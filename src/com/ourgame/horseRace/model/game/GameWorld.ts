@@ -43,7 +43,9 @@ class GameWorld extends egret.Sprite implements IBase {
     /**子弹时间 */
     private isBulletTime: boolean = false;
     /** 快门动画 */
-    private shutter: egret.Bitmap;
+    // private shutter: egret.Bitmap;
+    private armature: dragonBones.Armature;
+
     /**子弹时间的加速度 */
     private tempSpeed: number = 0;
 
@@ -66,8 +68,6 @@ class GameWorld extends egret.Sprite implements IBase {
 
     /**当前游戏状态 */
     private _gameState: number = GameState.BET_STAGE;
-    /**当前进度 */
-    // private _currentProgress: number = 0;
     /**当前赛跑中的状态 */
     private _runState: any = RunState.GEGIN;
     /**龙骨动画播放速度 */
@@ -123,14 +123,20 @@ class GameWorld extends egret.Sprite implements IBase {
             this.addChild(horse.getDisplayObject());
         }
 
-        if (this.shutter == null) {
-            this.shutter = BitMapUtil.createBitmapByName("shutter_png");
-            this.shutter.scaleX = this.shutter.scaleY = 5;
-            this.shutter.x = GameWorld.GAME_WIDTH >> 1
-            this.shutter.y = GameWorld.GAME_HEIGHT >> 1;
-            this.shutter.anchorOffsetX = this.shutter.width >> 1;
-            this.shutter.anchorOffsetY = this.shutter.height >> 1;
-        }
+        var dragonbonesData = RES.getRes("kuaimen_json");
+        var textureData = RES.getRes("texture_json");
+        var texture = RES.getRes("texture_png");
+        var dragonbonesFactory: dragonBones.EgretFactory = new dragonBones.EgretFactory();
+        dragonbonesFactory.addDragonBonesData(dragonBones.DataParser.parseDragonBonesData(dragonbonesData));
+        dragonbonesFactory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
+
+        this.armature = dragonbonesFactory.buildArmature("armatureName");
+        dragonBones.WorldClock.clock.add(this.armature);
+        this.armature.animation.stop();
+        var dis: egret.DisplayObject = (<egret.DisplayObject>this.armature.display);
+        dis.x = 630;
+        dis.y = 357;
+
         this.addChildAt(this.racetrack, 0);
 
         this.image4Group.enter();
@@ -145,7 +151,6 @@ class GameWorld extends egret.Sprite implements IBase {
         }, this);
 
         this.onResize();
-
     }
 
     public exit(data?: any): void {
@@ -237,20 +242,15 @@ class GameWorld extends egret.Sprite implements IBase {
     /**子弹时间的快门动画 */
     private onBullertTme(): void {
         if (this.isBulletTime) {
-            this.addChild(this.shutter);
-            egret.Tween.get(this.shutter).to({ scaleX: 1, scaleY: 1 }, 200).to({ scaleX: 5, scaleY: 5 }, 400).call(() => {
-                if (this.shutter.parent) {
-                    this.shutter.parent.removeChild(this.shutter);
-                }
-            }, this).wait(2000).call(() => {
-                // console.log("GameWorld:onBullertTme:" + this.client.lastBetInfo.info.leftTime);
-
-                // if (this.client.lastBetInfo.info.leftTime > ConfigModel.instance.nextTime) {//如果马跑完，但比赛时间未到，则同步一次时间
-                //     ConnectionManager.instance.sendHelper.drawMatch();
-                // } else {
-                this.changeState(GameState.RESULT_STAGE);
-                // }
+            // this.addChild(this.shutter);
+            this.addChild(this.armature.display);
+            this.armature.addEventListener(dragonBones.EgretEvent.COMPLETE, () => {
+                this.removeChild(this.armature.display);
+                // egret.Tween.get(this).wait(2000).call(() => {
+                //     this.changeState(GameState.RESULT_STAGE);
+                // }, this);
             }, this);
+            this.armature.animation.gotoAndPlay("kuaimen");
         }
     }
 
@@ -351,7 +351,7 @@ class GameWorld extends egret.Sprite implements IBase {
         this.client.horseList.forEach(element => {
             MessageDispatcher.instance.DispatchSimpleMessage(this.client.first, element, "onReachEndLine");
         });
-        ConnectionManager.instance.sendHelper.matchResult();//请求结果
+        // ConnectionManager.instance.sendHelper.matchResult();//请求结果
     }
 
     private onResize(evt?: egret.Event): void {
@@ -376,7 +376,10 @@ class GameWorld extends egret.Sprite implements IBase {
             for (var i = 0; i < 5; i++) {
                 let horse: HorseEntity = this.client.horseList[i];
                 horse.getDisplayObject().y = (this.stage.stageHeight - (4 - i) * 110) - horse.getDataVo<HorseVo>(HorseVo).height + 55;
-
+            }
+            if (this.armature.display) {
+                (<egret.DisplayObject>this.armature.display).scaleX = this.stage.stageWidth / this.armature.display.width;
+                (<egret.DisplayObject>this.armature.display).scaleY = this.stage.stageHeight / this.armature.display.height;
             }
         }
     }

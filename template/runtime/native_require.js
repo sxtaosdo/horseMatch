@@ -117,6 +117,7 @@ var game_file_list = [
 	"bin-debug/com/ourgame/horseRace/utils/TimerManager.js",
 	"bin-debug/com/ourgame/horseRace/utils/TimeUtils.js",
 	"bin-debug/test/HorseAnamiationDemo.js",
+	"bin-debug/test/Shutter.js",
 	"bin-debug/test/TestEvent.js",
 	"bin-debug/test/TestWindow.js",
 	"bin-debug/ThemeAdapter.js",

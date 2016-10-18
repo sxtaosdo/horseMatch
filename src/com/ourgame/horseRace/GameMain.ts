@@ -50,7 +50,7 @@ class GameMain extends egret.Sprite implements IBase {
 		LoadingUI.instance.loadAssets(() => {
 			ClientModel.instance.changeGameState(new GameWorld());
 			ConnectionManager.instance.conn();
-			// this.addChild(new HorseAnamiationDemo());
+			// this.addChild(new Shutter());
 		}, LoadingUI.assets1);
 	}
 

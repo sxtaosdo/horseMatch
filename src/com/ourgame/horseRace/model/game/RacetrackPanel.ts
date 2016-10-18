@@ -82,7 +82,6 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 
 	public execute(data?: any): void {
 		this.racetrackArr.forEach(element => {
-			// element.x -= (data - this.lastX);
 			element.x = -ClientModel.instance.roadPastLength;
 		});
 		this.bgImage.execute(data);
