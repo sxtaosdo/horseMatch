@@ -2,14 +2,13 @@
  * 赛马资料
  */
 class InfoPanel extends BaseComponent implements IWindow {
-
 	public closeBtn: eui.Button;
 	public headBtn1: eui.RadioButton;
 	public headBtn2: eui.RadioButton;
 	public headBtn3: eui.RadioButton;
 	public headBtn4: eui.RadioButton;
 	public headBtn5: eui.RadioButton;
-	public viewStack: eui.ViewStack;
+	public viewStacks: eui.ViewStack;
 	public headImage: eui.Image;
 	public idText: eui.Label;
 	public nameText: eui.Label;
@@ -32,6 +31,7 @@ class InfoPanel extends BaseComponent implements IWindow {
 
 	protected onSkinComplete(e: any): void {
         super.onSkinComplete(e);
+		this.leftTab.dataProvider = this.viewStacks;
 		this.onInfoData(1);
     }
 

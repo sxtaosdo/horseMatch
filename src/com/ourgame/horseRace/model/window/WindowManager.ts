@@ -27,9 +27,6 @@ class WindowManager extends egret.Sprite {
     }
 
     public open(panel: any, data?: any): void {
-        // console.error("进入了WindowManager的open方法，panel：" + panel + "\tdata:" + data);
-        // if ((panel != null) && (panel["name"] == "Alert")) {
-        // console.log(panel == Alert);
         if ((panel != null) && (panel == Alert)) {
             this._alertDataList.push(data);
         } else {
@@ -75,15 +72,18 @@ class WindowManager extends egret.Sprite {
             this.bg.graphics.endFill();
             this.bg.width = this.stage.stageWidth;
             this.bg.height = this.stage.stageHeight;
-            this.addChildAt(this.bg, 0);
             this.bg.touchEnabled = true;
         }
+        this.addChildAt(this.bg, 0);
     }
 
     public exit(data?: any): void {
         //        GameDispatcher.instance.removeEventListener(BaseEvent.WINDOW_EVENT,this.onWindow);
         if (this.parent != null) {
             this.parent.removeChild(this);
+        }
+        if (this.bg && this.bg.parent) {
+            this.bg.parent.removeChild(this.bg);
         }
     }
 

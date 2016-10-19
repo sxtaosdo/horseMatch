@@ -15,21 +15,25 @@
     {
       "min": 499,
       "max": 759,
+      "color":"0xAFAFAF",
       "name": "低迷"
     },
     {
       "min": 750,
       "max": 999,
+      "color":"0xFFFFFF",
       "name": "正常"
     },
     {
       "min": 1000,
       "max": 1249,
+      "color":"0x19DF00",
       "name": "良好"
     },
     {
       "min": 1250,
       "max": 9999,
+      "color":"0xFFEC00",
       "name": "兴奋"
     }
   ],

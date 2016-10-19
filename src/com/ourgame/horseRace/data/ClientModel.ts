@@ -68,11 +68,19 @@ class ClientModel {
     public _betOperation: string;
     /**撤销投注信息 */
     public _betCancel: any;
-    /**每局的操作队列 */
+    /**每局的操作*/
     public operationObj: any;
+    /**每局的操作-正在发送的操作 */
+    public operationSended: any;
+    /**每局的操作-当前的操作 */
+    public operationCurrent: any;
+    /**是否正在等待下注返回 */
+    public isWaitBetResult: boolean = false;
 
     public constructor() {
         this.operationObj = new Object();
+        this.operationSended = new Object();
+        this.operationCurrent = new Object();
         this.user = UserModel.instance;
         this.moneyType = "0";
         this._phaseList = [];
@@ -136,14 +144,6 @@ class ClientModel {
             return;
         }
         this._gameState = state;
-        // switch (this.gameState) {
-        //     case GameStateDef.GAME_STATE_LOTTERY:
-        //         break;
-        //     case GameStateDef.GAME_STATE_LOTTERY_COMMON:
-        //         break;
-        //     case GameStateDef.GAME_STATE_LOTTERY_FREE:
-        //         break;
-        // }
         GameDispatcher.send(GameEvent.GAME_STATE_EVENT);
     }
 
@@ -182,7 +182,7 @@ class ClientModel {
         }
         this._lastBetInfo.setData(data);
         this._gameTime = this._lastBetInfo.info.leftTime;
-        console.log("收到draw返回数据,gameTime:" + this._gameTime + "\t" + TimeUtils.printTime);
+        // console.log("收到draw返回数据,gameTime:" + this._gameTime + "\t" + TimeUtils.printTime);
         GameDispatcher.send(BaseEvent.MATCH_INFO_CHANGE);
     }
 
@@ -193,10 +193,6 @@ class ClientModel {
     public set gameTime(v: number) {
         this._gameTime = v;
     }
-
-    // public get gameInfoVo(): GameInfoVo {
-    //     return this._gameInfo;
-    // }
 
     public set gameInfo(value: Object) {
         // this._gameInfo.setData(value);
@@ -261,6 +257,11 @@ class ClientModel {
                 break;
         }
         this.openWindow(Alert, { text: txt, okFun: okFun, cancelFun: cancelFun, closeFun: closeFun });
+    }
+
+    public closeAlert(key: boolean = false): void {
+        WindowManager.instance.close(Alert);
+        GameDispatcher.send(GameEvent.WINDOW_EVENT);
     }
 
     public onConn(): void {
@@ -404,24 +405,13 @@ class ClientModel {
     }
 
     public setCancelResult(data: any): void {
+        this.user.money = data.acctAmount;
+        GameDispatcher.send(BaseEvent.BET_OPERATION_RESULT);
         this._betCancel = data;
         GameDispatcher.send(BaseEvent.BET_CANCEL);
     }
 
     public get betOperation(): any {
-        /**
-         * {
-            "rtnCode" : 0,
-            "rtnMsg" : "投注成功",
-            "drawId" : "1609280869",
-            "cdTime" : 33884,
-            "leftTime" : 63884,
-            "playId" : 1,
-            "betInfo" : "4x120100",
-            "betAmount" : 120100,
-            "acctAmount" : 999342199
-            }
-         */
         return this._betOperation;
     }
 

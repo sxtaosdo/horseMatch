@@ -81,5 +81,4 @@ class GameMain extends egret.Sprite implements IBase {
 			GameDispatcher.send(BaseEvent.RESIZE_EVENT);
 		}
 	}
-
 }

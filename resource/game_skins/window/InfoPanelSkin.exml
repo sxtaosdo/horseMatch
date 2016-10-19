@@ -61,7 +61,7 @@
 					<e:Label id="nameText" text="标签" x="131" y="298" width="122" textAlign="center" verticalAlign="middle" fontFamily="黑体" bold="true" size="28"/>
 					<e:Rect width="349" height="4" x="404" y="177"/>
 					<e:Label text="栖息地：" x="406" y="91" textColor="0x070000" bold="true"/>
-					<e:Label id="qxdText" text=" " x="556" y="89" textColor="0x070000" bold="true" width="198"/>
+					<e:Label id="qxdText" text=" " x="556" y="89" textColor="0x070000" bold="true" width="251"/>
 					<e:Label text="年龄：" x="406" y="129" textColor="0x070000" bold="true"/>
 					<e:Label id="nlText" text=" " x="556" y="129" textColor="0x070000" bold="true"/>
 					<e:Label text="本期赔率：" x="406" y="199" textColor="0x070000" bold="true"/>
@@ -82,7 +82,7 @@
 					</e:List>
         </e:Group>
     </e:ViewStack>
-    <e:TabBar id="leftTab" width="119" height="281" x="937" y="187" dataProvider="{viewStacks}">
+    <e:TabBar id="leftTab"  width="119" height="281" x="937" y="187">
         <e:itemRendererSkinName>
             <e:Skin states="up,down" height="138" width="75">
                 <e:Image id="btnSkin" width="100%" height="100%" source="window_info_Btn1_png"

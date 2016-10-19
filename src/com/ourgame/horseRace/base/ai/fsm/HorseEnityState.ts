@@ -309,6 +309,9 @@ class HorseEnityStatePass implements IState {
 					entity.getDisplayObject().x = this.self.currentX - ClientModel.instance.roadPastLength;
 					this.self.sTime = egret.getTimer();
 				}
+				if (this.self.currentX < GameWorld.DEADLINE_LENGTH) {
+					ClientModel.instance.roadPastLength = this.self.currentX - GameWorld.RIGHT_LINE;
+				}
 				break;
 			}
 			else {

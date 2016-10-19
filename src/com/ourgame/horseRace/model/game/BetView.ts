@@ -4,6 +4,7 @@
 class BetView extends BaseComponent implements IBase {
 
 	private horseData: eui.ArrayCollection;
+	private client: ClientModel;
 
 	public leftGroup: eui.Group;
 	public rightGroup: eui.Group;
@@ -21,7 +22,7 @@ class BetView extends BaseComponent implements IBase {
 	private betInfoList: Object;
 
 	/**每次的操作，发送给服务器前的操作，发送后清空 */
-	public operationTemp: any;
+	// public operationTemp: any;
 	/**是否正在发送投注消息中 */
 	public isSending: boolean = false;
 
@@ -32,6 +33,7 @@ class BetView extends BaseComponent implements IBase {
 		this.coinList = new Array<any>();
 		this.betInfoList = Object();
 		this.horseData = new eui.ArrayCollection();
+		this.client = ClientModel.instance;
 		ConfigModel.instance.horseList.forEach(element => {
 			this.horseData.addItem(element);
 		});
@@ -61,7 +63,7 @@ class BetView extends BaseComponent implements IBase {
 		GameDispatcher.addEventListener(BaseEvent.BET_OPERATION_RESULT, this.onBetResult, this);
 		GameDispatcher.addEventListener(BaseEvent.BET_CANCEL, this.onBetCancel, this);
 		this.onBetChange();
-		this.operationTemp = {};
+		// this.operationTemp = {};
 		this.clearnOperation();
 	}
 
@@ -85,7 +87,7 @@ class BetView extends BaseComponent implements IBase {
 
 	private onItemTap(evt: eui.ItemTapEvent): void {
 		if (!UserModel.instance.isEnough(this.selectMoney)) {
-			ClientModel.instance.openAlert("RMB不足，请充值");
+			this.client.openAlert("RMB不足，请充值");
 			return;
 		}
 
@@ -130,35 +132,51 @@ class BetView extends BaseComponent implements IBase {
 		this.coinList[this.horseList.selectedIndex].push(bmp);
 
 		//记录总投注
-		if (ClientModel.instance.operationObj[data.id]) {
-			ClientModel.instance.operationObj[data.id] += this.selectMoney;
+		if (this.client.operationObj[data.id]) {
+			this.client.operationObj[data.id] += this.selectMoney;
 		} else {
-			ClientModel.instance.operationObj[data.id] = this.selectMoney;
+			this.client.operationObj[data.id] = this.selectMoney;
 		}
 
 		//记录本次投注
-		if (this.operationTemp[data.id]) {
-			this.operationTemp[data.id] += this.selectMoney;
+		if (this.client.operationCurrent[data.id]) {
+			this.client.operationCurrent[data.id] += this.selectMoney;
 		} else {
-			this.operationTemp[data.id] = this.selectMoney;
+			this.client.operationCurrent[data.id] = this.selectMoney;
 		}
+		// if (this.operationTemp[data.id]) {
+		// 	this.operationTemp[data.id] += this.selectMoney;
+		// } else {
+		// 	this.operationTemp[data.id] = this.selectMoney;
+		// }
 		TimerManager.instance.doOnce(1000, this.sendOperation, this);
 	}
 
 	private clearnOperation(): void {
-		for (var key in ClientModel.instance.operationObj) {
-			ClientModel.instance.operationObj[key] = 0;
+		this.client.isWaitBetResult = false;
+		for (var key in this.client.operationObj) {
+			this.client.operationObj[key] = 0;
 		}
 	}
 
 	private sendOperation(): void {
-		var key: any;
-		var str: string = "";
-		for (key in this.operationTemp) {
-			str += (key + "x" + this.operationTemp[key] + "#");
+		if (this.client.isWaitBetResult == false) {
+			this.client.isWaitBetResult = true;
+			var key: any;
+			var str: string = "";
+			for (key in this.client.operationCurrent) {
+				str += (key + "x" + this.client.operationCurrent[key] + "#");
+				this.client.operationSended[key] = this.client.operationCurrent[key];
+			}
+			str = str.substr(0, str.length - 1);
+			if ((!str) || (str == "")) {
+				console.log(str);
+				this.client.isWaitBetResult = false;
+				return;
+			}
+			this.client.operationCurrent = {};
+			ConnectionManager.instance.sendHelper.bet(str);
 		}
-		str = str.substr(0, str.length - 1);
-		ConnectionManager.instance.sendHelper.bet(str);
 	}
 
 	private onMoneyTap(evt: egret.TouchEvent): void {
@@ -176,7 +194,6 @@ class BetView extends BaseComponent implements IBase {
 		}
 	}
 
-
 	private onRemove(evt?: egret.Event): void {
 		this.coinList.forEach(element => {
 			while (element.length > 0) {
@@ -186,12 +203,11 @@ class BetView extends BaseComponent implements IBase {
 				}
 			}
 		});
-
 	}
 
 	private onBetChange(): void {
-		if (ClientModel.instance.lastBetInfo) {
-			var list: any = ClientModel.instance.lastBetInfo.horseInfoList;
+		if (this.client.lastBetInfo) {
+			var list: any = this.client.lastBetInfo.horseInfoList;
 			list.forEach(element => {
 				this.betInfoList[element.id] = element;
 			});
@@ -199,28 +215,30 @@ class BetView extends BaseComponent implements IBase {
 				element.math = this.betInfoList[element.id];
 			});
 			this.horseData.refresh();
-			this.matchIdText.text = String(ClientModel.instance.lastBetInfo.info.drawId);
+			this.matchIdText.text = String(this.client.lastBetInfo.info.drawId);
 		}
 	}
 
 	/**下注消息结果 */
 	private onBetResult(): void {
-		if (ClientModel.instance.betOperation.rtnCode != 0) {
-			let arr: Array<string> = ClientModel.instance.betOperation.betInfo.split("#");
+		this.client.isWaitBetResult = false;
+		if (this.client.betOperation.rtnCode != 0) {
+			let arr: Array<string> = this.client.betOperation.betInfo.split("#");
 			arr.forEach(element => {
 				let id = element[0];
 				let money: number = parseInt(element[1]);
-				if (ClientModel.instance.operationObj[id]) {
-					ClientModel.instance.operationObj[id] -= money;
+				if (this.client.operationObj[id]) {
+					this.client.operationObj[id] -= money;
 				}
 			});
 		}
-		this.operationTemp = {};
+		this.client.operationSended = {};
+		this.sendOperation();
 	}
 
 	/**撤销消息结果 */
 	private onBetCancel(): void {
-		if (ClientModel.instance.betCancel.rtnCode == 0) {
+		if (this.client.betCancel.rtnCode == 0) {
 			this.horseData.source.forEach(element => {
 				element.math.bet = 0;
 			});

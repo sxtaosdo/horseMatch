@@ -37,7 +37,7 @@
 			"name":"window"
 		},
 		{
-			"keys":"chip1000Btn1.png_png,chip1000Btn2_png,chip10000Btn1_png,chip10000Btn2_png,revokeBtn1_png,revokeBtn2_png,betBg_png,betChipBtnBg_png,betHeadBg_png,betTimes_png,chip100Btn1_png,chip100Btn2_png,betHead5_png,betHead1_png,betHead2_png,betHead3_png,betHead4_png,betIndexBg_png,coin100_png,coin1000_png,coin10000_png,betHeadState1_png,betHeadState2_png,betHeadState3_png,betHeadState4_png,betHeadState5_png,betHeadStateBg1_png,betHeadStateBg2_png,coin1_png",
+			"keys":"chip1000Btn1.png_png,chip1000Btn2_png,chip10000Btn1_png,chip10000Btn2_png,revokeBtn1_png,revokeBtn2_png,betBg_png,betChipBtnBg_png,betHeadBg_png,betTimes_png,chip100Btn1_png,chip100Btn2_png,betHead5_png,betHead1_png,betHead2_png,betHead3_png,betHead4_png,coin100_png,coin1000_png,coin10000_png,coin1_png,betStateBg_png",
 			"name":"betView"
 		},
 		{
@@ -432,11 +432,6 @@
 			"url":"assets/betView/betHead4.png"
 		},
 		{
-			"name":"betIndexBg_png",
-			"type":"image",
-			"url":"assets/betView/betIndexBg.png"
-		},
-		{
 			"name":"result_topTime_png",
 			"type":"image",
 			"url":"assets/game/result/result_topTime.png"
@@ -773,41 +768,6 @@
 			"url":"db/texture5.png"
 		},
 		{
-			"name":"betHeadState1_png",
-			"type":"image",
-			"url":"assets/betView/betHeadState1.png"
-		},
-		{
-			"name":"betHeadState2_png",
-			"type":"image",
-			"url":"assets/betView/betHeadState2.png"
-		},
-		{
-			"name":"betHeadState3_png",
-			"type":"image",
-			"url":"assets/betView/betHeadState3.png"
-		},
-		{
-			"name":"betHeadState4_png",
-			"type":"image",
-			"url":"assets/betView/betHeadState4.png"
-		},
-		{
-			"name":"betHeadState5_png",
-			"type":"image",
-			"url":"assets/betView/betHeadState5.png"
-		},
-		{
-			"name":"betHeadStateBg1_png",
-			"type":"image",
-			"url":"assets/betView/betHeadStateBg1.png"
-		},
-		{
-			"name":"betHeadStateBg2_png",
-			"type":"image",
-			"url":"assets/betView/betHeadStateBg2.png"
-		},
-		{
 			"name":"coin1_png",
 			"type":"image",
 			"url":"assets/betView/coin1.png"
@@ -866,6 +826,11 @@
 			"name":"kuaimen_json",
 			"type":"json",
 			"url":"db/kuaimen.json"
+		},
+		{
+			"name":"betStateBg_png",
+			"type":"image",
+			"url":"assets/betView/betStateBg.png"
 		}
 	]
 }

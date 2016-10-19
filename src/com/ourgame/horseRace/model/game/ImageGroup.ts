@@ -70,9 +70,6 @@ class ImageGroup implements IBase {
 				this.top = 0;
 			}
 		}
-		if (this.startY == (187 - 37)) {
-			console.log(this.imageList[0].x + "\t" + data);
-		}
 	}
 
 }

@@ -1,12 +1,8 @@
 class HorseBetInfoRenderer extends eui.ItemRenderer {
 	public headImgae: eui.Image;
-	public stateText: eui.Label;
 	public numText: eui.Label;
-	public indexText: eui.Label;
-	public statePb: eui.ProgressBar;
-	public stateImage: eui.Label;
-	public nameText: eui.Label;
 	public steteText: eui.Label;
+	public nameText: eui.Label;
 	public betText: eui.BitmapLabel;
 
 	private point: egret.Point = new egret.Point(0, 0);
@@ -24,8 +20,6 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 		// this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTap, this, false, 0);
 		// this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
 		this.betText.visible = false;
-		this.statePb.maximum = 1500;
-		this.statePb.minimum = 0;
 	}
 
 	public dataChanged(): void {
@@ -36,14 +30,14 @@ class HorseBetInfoRenderer extends eui.ItemRenderer {
 		// }
 		this.headImgae.source = RES.getRes("betHead" + vo.mcName + "_png");
 		this.nameText.text = vo.name;
-		this.indexText.text = vo.id.toString();
 		if (vo.math) {
 			this.numText.text = "X" + vo.math.rate;
-			this.stateText.text = "" + vo.math.state;
 			this.betText.text = "" + vo.math.bet;
 			this.betText.visible = vo.math.bet > 0 ? true : false;
-			this.statePb.value = vo.math.state;
-			this.stateImage.text = ConfigModel.instance.getState(vo.math.state).name;
+			// this.statePb.value = vo.math.state;
+			// this.steteText.text=vo.math.state
+			this.steteText.text = "状态:" + ConfigModel.instance.getState(vo.math.state).name;
+			this.steteText.textColor = ConfigModel.instance.getState(vo.math.state).color;
 		}
 		console.log("on update" + TimeUtils.printTime);
 		if (vo.math) {
