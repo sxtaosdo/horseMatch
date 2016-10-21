@@ -35,6 +35,7 @@ class HorseEntity extends BaseMovingEntity implements IMovingEneity {
 		this.showSelect(false)
 
 		this._text = new egret.TextField();
+		this._text.visible = false;
 		this._content.addChild(this._text);
 
 		this.stateMachine = new StateMachine(this);

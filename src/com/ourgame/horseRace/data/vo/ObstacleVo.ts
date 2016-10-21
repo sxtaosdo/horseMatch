@@ -18,6 +18,8 @@ class ObstacleVo {
 	public notPassMove: String;
 	/**位置 */
 	public postion: number;
+	/**是否通过 */
+	public isPass: boolean = false;
 
 	public constructor(data?: any) {
 		if (data) {
@@ -48,6 +50,10 @@ class ObstacleVo {
 		index += step;
 		temp = (parseInt(data.substring(index, index + step), 16) + 60000) / 2;
 		this.postion = Math.floor(temp / 1000 > 30 ? temp / 10000 : temp);
-		this.postion = Math.floor(RoadMethod.roadIntervals * (Math.random() + 1) / 3)
+		this.postion = Math.floor(RoadMethod.roadIntervals * (Math.random() + 1) / 3);
+
+		index += step;
+		temp = parseInt(data.substring(index, index + step), 16);
+		this.isPass = (temp > 30000) ? true : false;
 	}
 }

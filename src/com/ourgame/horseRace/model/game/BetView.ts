@@ -3,6 +3,8 @@
  */
 class BetView extends BaseComponent implements IBase {
 
+	private clickInterval: number = 500;
+	private lastClickTime: number = 0;
 	private horseData: eui.ArrayCollection;
 	private client: ClientModel;
 

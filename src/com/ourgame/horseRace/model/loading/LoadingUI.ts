@@ -7,10 +7,6 @@ class LoadingUI extends BaseComponent implements IBase {
     private static tipList: Array<string> = ["抵制不良游戏，拒绝盗版游戏", "注意自我保护，谨防受骗上当", "适度游戏益脑，沉迷游戏伤身", "合理安排时间，享受健康生活"];
     /**基本资源 */
     public static assets1: Array<any> = ["config", "alert", "top", "betView", "main", "db", "bg", "window", "font"];
-    /**主场景 */
-    // public static assets2: Array<any> = ["fish", "player", "bg", "bgPlant", "fish1", "jpBar", "shell", "path", "main"];
-    /**步步为营 */
-    // public static assets3: Array<any> = ["dice", "diceWindow"];
 
     private versionText: eui.Label;
     private bar: eui.ProgressBar;
@@ -62,8 +58,6 @@ class LoadingUI extends BaseComponent implements IBase {
 
     private headComplete(): void {
         this.headImage = BitMapUtil.createBitmapByName("loaderHead_png");
-        // this.headImage.x = (this.width = this.headImage.width) >> 1;
-        // this.headImage.y = (this.height = this.headImage.height) >> 1;
         this.spBg.addChild(this.headImage);
         this.addChild(this.headImage);
         if (this.spBg) {
@@ -78,8 +72,6 @@ class LoadingUI extends BaseComponent implements IBase {
     }
 
     public onSkinComplete(e): void {
-        // LoadingUI.instance.removeEventListener(eui.UIEvent.COMPLETE, this.onSkinComplete, this);
-        // super.onSkinComplete(e);
         this.skinLoaded = true;
         this.onConfigComplete();
         this.tempText.text = "当前加载进度：\n总进度：";
@@ -140,7 +132,6 @@ class LoadingUI extends BaseComponent implements IBase {
             }
             this.exit();
             ClientModel.instance.onAssetsComplete();
-            // TimerManager.instance.doOnce(500, ClientModel.instance.onAssetsComplete, [this]);
         }
     }
 
@@ -167,10 +158,8 @@ class LoadingUI extends BaseComponent implements IBase {
             LoadingUI.instance.bar.value = current;
             LoadingUI.instance.bar.maximum = total;
         }
-        // this.spMask.y = -(this.spMask.height * (LoadingUI.instance.current / LoadingUI.instance.total));
         egret.Tween.removeTweens(this.spMask);
         egret.Tween.get(this.spMask).to({ y: (this.spBg.y + this.spBg.height) - (this.spMask.height * (LoadingUI.instance.current / LoadingUI.instance.total)) }, 500);
-        // console.log(LoadingUI.instance.current + "/" + LoadingUI.instance.total + "=" + (LoadingUI.instance.current / LoadingUI.instance.total) + "\t" + this.spMask.y);
 
     }
 

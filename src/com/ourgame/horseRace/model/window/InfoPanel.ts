@@ -103,7 +103,13 @@ class InfoPanel extends BaseComponent implements IWindow {
 	}
 
 	private onLeftTap(evt: egret.TouchEvent): void {
-		let index: number = parseInt(this.headBtn1.group.selection.label)
+		let index: number;
+		try {
+			index = parseInt(this.headBtn1.group.selection.label)
+		} catch (e) {
+			console.error(e);
+			index = 0;
+		}
 		switch (this.leftTab.selectedIndex) {
 			case 0:
 				this.onInfoData(index);

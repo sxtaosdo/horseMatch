@@ -42,13 +42,6 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 			while (this.racetrackArr[i].numChildren > 0) {
 				this.racetrackArr[i].removeChild(this.racetrackArr[i].getChildAt(0));
 			}
-			var bmp: egret.Bitmap = BitMapUtil.createBitmapByName("bg_start_png");
-			bmp.x = GameWorld.LEFT_LINE - bmp.width;
-			this.racetrackArr[i].addChild(bmp)
-
-			bmp = BitMapUtil.createBitmapByName("bg_end_png");
-			bmp.x = GameWorld.DEADLINE_LENGTH - bmp.width / 4;
-			this.racetrackArr[i].addChild(bmp);
 
 			// var arr = ClientModel.instance.phaseList[i];
 			let arr = ClientModel.instance.horseList[i].roadList;
@@ -68,6 +61,15 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 				});
 			}
 		}
+		var bmp: egret.Bitmap = BitMapUtil.createBitmapByName("starline_png");
+		bmp.x = GameWorld.LEFT_LINE - bmp.width;
+		bmp.y = -bmp.height + 85;
+		this.racetrackArr[this.racetrackArr.length - 1].addChild(bmp)
+
+		bmp = BitMapUtil.createBitmapByName("endline_png");
+		bmp.x = GameWorld.DEADLINE_LENGTH - bmp.width / 4;
+		bmp.y = -bmp.height + 85;
+		this.racetrackArr[this.racetrackArr.length - 1].addChild(bmp);
 		this.image4Group.enter();
 	}
 
@@ -83,7 +85,12 @@ class RacetrackPanel extends egret.Sprite implements IBase {
 	public execute(data?: any): void {
 		this.racetrackArr.forEach(element => {
 			element.x = -ClientModel.instance.roadPastLength;
+			if (element.x < -ClientModel.instance.roadPastLength) {
+				console.log("x err");
+			}
 		});
+		// console.log("================================" + this.racetrackArr[4].x + "\t" + TimeUtils.printTime);
+
 		this.bgImage.execute(data);
 		this.image4Group.execute(data);
 	}

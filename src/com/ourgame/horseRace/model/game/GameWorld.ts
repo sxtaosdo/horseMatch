@@ -243,12 +243,9 @@ class GameWorld extends egret.Sprite implements IBase {
     private onBullertTme(): void {
         if (this.isBulletTime) {
             this.addChild(this.armature.display);
-            // this.armature.addEventListener(dragonBones.EgretEvent.COMPLETE, () => {
-            // this.removeChild(this.armature.display);
             egret.Tween.get(this).wait(2500).call(() => {
                 this.changeState(GameState.RESULT_STAGE);
             }, this);
-            // }, this);
             this.armature.animation.play("kuaimen", 1);
             // console.log("shutter w h:" + this.armature.display.width * this.armature.display.scaleX + "\t" + this.armature.display.height * this.armature.display.scaleY);
         }

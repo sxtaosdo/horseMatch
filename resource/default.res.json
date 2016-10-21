@@ -9,7 +9,7 @@
 			"name":"config"
 		},
 		{
-			"keys":"bg_png,arrow_png,gameProgress_png,flag_png,arrow5_png,arrow1_png,arrow2_png,arrow3_png,arrow4_png,result_topTime_png,result_bg_png,result_cup_png,result_star_png,result_thing_1_png,result_thing_2_png",
+			"keys":"arrow_png,gameProgress_png,arrow5_png,arrow1_png,arrow2_png,arrow3_png,arrow4_png,result_topTime_png,result_bg_png,result_cup_png,result_star_png,result_thing_1_png,result_thing_2_png,starline_png,endline_png",
 			"name":"main"
 		},
 		{
@@ -19,10 +19,6 @@
 		{
 			"keys":"loaderHead_png",
 			"name":"loading"
-		},
-		{
-			"keys":"",
-			"name":"labby"
 		},
 		{
 			"keys":"alertBg_png,alertCanleBtn1_png,alertCanleBtn2_png,alertOkBtn1_png,alertOkBtn2_png",
@@ -191,46 +187,6 @@
 			"url":"assets/alert/alertOkBtn2.png"
 		},
 		{
-			"name":"fish1_json",
-			"type":"json",
-			"url":"assets/fish1/fish1.json"
-		},
-		{
-			"name":"fish1_png",
-			"type":"image",
-			"url":"assets/fish1/fish1.png"
-		},
-		{
-			"name":"fish2_json",
-			"type":"json",
-			"url":"assets/fish1/fish2.json"
-		},
-		{
-			"name":"fish2_png",
-			"type":"image",
-			"url":"assets/fish1/fish2.png"
-		},
-		{
-			"name":"fish3_json",
-			"type":"json",
-			"url":"assets/fish1/fish3.json"
-		},
-		{
-			"name":"fish3_png",
-			"type":"image",
-			"url":"assets/fish1/fish3.png"
-		},
-		{
-			"name":"fish4_json",
-			"type":"json",
-			"url":"assets/fish1/fish4.json"
-		},
-		{
-			"name":"fish4_png",
-			"type":"image",
-			"url":"assets/fish1/fish4.png"
-		},
-		{
 			"name":"horse_json",
 			"type":"json",
 			"url":"config/horse.json"
@@ -361,11 +317,6 @@
 			"url":"assets/top/addBtn1.png"
 		},
 		{
-			"name":"bg_png",
-			"type":"image",
-			"url":"assets/game/bg.png"
-		},
-		{
 			"name":"arrow_png",
 			"type":"image",
 			"url":"assets/game/arrow.png"
@@ -375,11 +326,6 @@
 			"scale9grid":"21,1,13,28",
 			"type":"image",
 			"url":"assets/game/gameProgress.png"
-		},
-		{
-			"name":"flag_png",
-			"type":"image",
-			"url":"assets/game/flag.png"
 		},
 		{
 			"name":"arrow5_png",
@@ -831,6 +777,16 @@
 			"name":"betStateBg_png",
 			"type":"image",
 			"url":"assets/betView/betStateBg.png"
+		},
+		{
+			"name":"starline_png",
+			"type":"image",
+			"url":"assets/game/starline.png"
+		},
+		{
+			"name":"endline_png",
+			"type":"image",
+			"url":"assets/game/endline.png"
 		}
 	]
 }

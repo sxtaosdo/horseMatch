@@ -33,7 +33,7 @@ class MsgReceiveHelper extends egret.HashObject {
         var msg: any = MsgReceiveHelper.instance.msg;
         var cls: any;
 
-        if ((body.rtnCode == 0) || (body.rtnCode == -301)) {//正常返回
+        if ((body.rtnCode == 0) || (body.rtnCode == -301) || (body.rtnCode == -312)) {//正常返回
             switch (type) {
                 case "login":
                     if (body.rtnCode == 0) {
